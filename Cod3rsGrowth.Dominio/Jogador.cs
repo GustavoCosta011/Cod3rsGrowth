@@ -25,7 +25,7 @@
         public int Id { get; }
         public string? Nome { get; }
         public DateTime Fundacao { get; set; }
-        public string Estadio { get; set; }
+        public string? Estadio { get; set; }
         public EstadosEnum Estado { get; set; }
         public bool CoberturaAntiChuva { get; set; }
         public List<Jogadores>? Elenco {  get; set; }
