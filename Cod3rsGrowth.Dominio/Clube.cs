@@ -14,7 +14,7 @@ namespace Cod3rsGrowth.Dominio
         public string? Estadio { get; set; }
         public EstadosEnum Estado { get; set; }
         public bool CoberturaAntiChuva { get; set; }
-        public List<Jogadores>? Elenco { get; set; }
+        public List<Jogador>? Elenco { get; set; }
 
         
 
