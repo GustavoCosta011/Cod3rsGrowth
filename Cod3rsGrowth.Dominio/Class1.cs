@@ -30,6 +30,11 @@
         public bool CoberturaAntiChuva { get; set; }
         public List<Jogadores>? Elenco {  get; set; }
 
+        public Clubes()
+        {
+
+        }
+
 
     }
 }
