@@ -4,8 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Test
 {
-
-
     public class Teste : IDisposable
     {
         protected ServiceProvider _serviceProvider;
