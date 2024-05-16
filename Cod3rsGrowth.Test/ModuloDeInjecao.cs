@@ -6,8 +6,8 @@ namespace Cod3rsGrowth.Test
     {
         public static void Servicos(IServiceCollection Servico)
         {
-            Servico.AddSingleton(typeof(IRepository<>), typeof(RepositoryMockClube));
-            Servico.AddSingleton(typeof(IRepository<>), typeof(RepositoryMockJogador));
+            Servico.AddScoped(typeof(IRepository<>), typeof(RepositoryMockClube));
+            Servico.AddScoped(typeof(IRepository<>), typeof(RepositoryMockJogador));
             
         }
     }

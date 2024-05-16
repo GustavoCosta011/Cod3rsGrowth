@@ -11,15 +11,13 @@ namespace Cod3rsGrowth.Test
 
         public Teste(ServiceProvider serviceProvider)
         {
-            var serviceCollection =  new ServiceCollection();
-            ModuloDeInjecao.Servicos(serviceCollection);
-            serviceProvider = serviceCollection.BuildServiceProvider();
+            var ServiceCollection = new ServiceCollection();
+            ModuloDeInjecao.Servicos(ServiceCollection);
+            ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
-
-        
         public void Dispose()
         {
-            throw new NotImplementedException();
+            ServiceProvider.Dispose();
         }
     }
 }
