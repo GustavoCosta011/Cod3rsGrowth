@@ -8,7 +8,7 @@ using Cod3rsGrowth.Dominio;
 
 namespace Cod3rsGrowth.Test
 {
-    public class RepositoryMockJogador : IJogadorRepositoryMock
+    public class RepositoryMockJogador : IRepository<Jogador>
     {
 
         public List<Jogador> ObterTodos()

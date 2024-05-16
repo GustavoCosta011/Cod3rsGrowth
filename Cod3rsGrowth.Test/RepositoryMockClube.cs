@@ -7,18 +7,18 @@ using Cod3rsGrowth.Dominio;
 
 namespace Cod3rsGrowth.Test
 {
-    public class RepositoryMockClube : IClubeRepositoryMock
+    public class RepositoryMockClube : IRepository<Clube>
     {
 
-        public List<Clube> IObterTodos()
+        public List<Clube> ObterTodos()
         {
-            new(001, "Flamengo", 15 / 11 / 1895, "Maracanã", EstadosEnum.RJ, false, );
+            var club = new List<Clube>()
+            {
 
+            };
+      
 
-
-
-
-            return new List<Clube>();
+            return club;
         }
     }
 }

@@ -7,9 +7,9 @@ using Cod3rsGrowth.Dominio;
 
 namespace Cod3rsGrowth.Test
 {
-    public interface IClubeRepositoryMock
+    public interface IRepository<T>
     {
-        List<Clube> ObterTodos();
+        List<T> ObterTodos();
 
     }
 }

@@ -6,15 +6,17 @@ namespace Cod3rsGrowth.Test
 {
     public class Teste : IDisposable
     {
-        protected ServiceProvider _serviceProvider;
+        protected ServiceProvider ServiceProvider;
 
 
         public Teste(ServiceProvider serviceProvider)
         {
-            _serviceProvider = serviceProvider;
-
+            var serviceCollection =  new ServiceCollection();
+            ModuloDeInjecao.Servicos(serviceCollection);
+            serviceProvider = serviceCollection.BuildServiceProvider();
         }
 
+        
         public void Dispose()
         {
             throw new NotImplementedException();
