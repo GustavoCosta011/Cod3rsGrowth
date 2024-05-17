@@ -1,4 +1,6 @@
-﻿namespace Cod3rsGrowth.Dominio
+﻿using Cod3rsGrowth.Dominio.Enums;
+
+namespace Cod3rsGrowth.Dominio.Modelos
 {
     public class Clube
     {
@@ -10,7 +12,7 @@
         public bool CoberturaAntiChuva { get; set; }
         public List<Jogador>? Elenco { get; set; }
 
-        public Clube (int id, string nome, DateTime fundacao, string? estadio, EstadosEnum estado, bool coberturaAntiChuva, List<Jogador>? elenco)
+        public Clube(int id, string nome, DateTime fundacao, string? estadio, EstadosEnum estado, bool coberturaAntiChuva, List<Jogador>? elenco)
         {
             Id = id;
             Nome = nome;
@@ -19,6 +21,6 @@
             Estado = estado;
             CoberturaAntiChuva = coberturaAntiChuva;
             Elenco = elenco;
-        } 
+        }
     }
 }

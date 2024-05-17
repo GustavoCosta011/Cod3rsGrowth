@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace Cod3rsGrowth.Test
+namespace Cod3rsGrowth.Test.Testes
 {
     public class Teste : IDisposable
     {

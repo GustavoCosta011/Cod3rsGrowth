@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Test.Repositorios;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Test
 {
@@ -6,9 +8,9 @@ namespace Cod3rsGrowth.Test
     {
         public static void Servicos(IServiceCollection Servico)
         {
-            Servico.AddScoped(typeof(IRepository<>), typeof(RepositoryMockClube));
-            Servico.AddScoped(typeof(IRepository<>), typeof(RepositoryMockJogador));
-            
+            Servico.AddScoped<IRepository<Clube>, RepositoryMockClube>();
+            Servico.AddScoped<IRepository<Jogador>, RepositoryMockJogador>();
+
         }
     }
 }

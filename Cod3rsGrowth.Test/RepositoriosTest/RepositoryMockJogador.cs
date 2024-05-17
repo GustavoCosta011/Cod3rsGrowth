@@ -3,26 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cod3rsGrowth.Dominio.Modelos;
 
-using Cod3rsGrowth.Dominio;
-
-namespace Cod3rsGrowth.Test
+namespace Cod3rsGrowth.Test.Repositorios
 {
     public class RepositoryMockJogador : IRepository<Jogador>
     {
 
+        public List<Jogador> ListaJogador;
         public List<Jogador> ObterTodos()
         {
-            var jog = new List<Jogador>()
+
+
+
+
+            return ListaJogador;
+        }
+
+        public RepositoryMockJogador()
+        {
+            ListaJogador = new List<Jogador>()
             {
-                
 
             };
 
-            return jog;
         }
 
-     
+
     }
 }
 
