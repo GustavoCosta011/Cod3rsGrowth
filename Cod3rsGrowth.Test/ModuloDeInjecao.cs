@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Test.Repositorios;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Test
 {
-    internal class ModuloDeInjecao
+    public static class ModuloDeInjecao
     {
+        public static void Servicos(IServiceCollection Servico)
+        {
+            Servico.AddScoped<IRepository<Clube>, RepositoryMockClube>();
+            Servico.AddScoped<IRepository<Jogador>, RepositoryMockJogador>();
+
+        }
     }
 }
