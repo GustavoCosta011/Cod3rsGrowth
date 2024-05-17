@@ -1,4 +1,5 @@
-﻿using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Test.Repositorios;
 using Microsoft.Extensions.DependencyInjection;
 
