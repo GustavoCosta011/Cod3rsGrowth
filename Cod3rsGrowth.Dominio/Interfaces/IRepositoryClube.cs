@@ -10,9 +10,10 @@ namespace Cod3rsGrowth.Dominio.Interfaces
 {
     public interface IRepositoryClube<T> where T : class
     {
-        List<T> ObterTodos();
+        T Criar(Clube x);
         T ObterPorId(int id);
-        T Criar(int id, string nome, DateTime fundacao, string? estadio, EstadosEnum estado, bool coberturaAntiChuva, List<Jogador>? elenco);
+        
+        
         //T Editar();
         //T Remover();
 

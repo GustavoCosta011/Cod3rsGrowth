@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Test.Testes
 {
     public class UnitTest1 : Teste
     {
-        public IRepositoryClube<Clube> repositoryMockClube;
+        private IRepositoryClube<Clube> repositoryMockClube;
 
         public UnitTest1() : base()
         {

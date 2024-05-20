@@ -19,8 +19,8 @@ public class RepositoryMockJogador : IRepositoryJogador<Jogador>
              new(13, "Halandinho", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
              new(14, "Penaldo", 33, DateTime.Parse("30-09-1991"), 1.77, 89.0),
              new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0),
-             new(16, "HulkBundaGol", 35, DateTime.Parse("22-12-1989"), 1.68, 69.0),
-             new(10, "Emibape", 22, DateTime.Parse("23-08-2002"), 1.80, 80.0),
+             new(16, "HulkBundaGol", 35, DateTime.Parse("22-12-1989"), 1.68, 69.0)
+             
 
         };
 
@@ -44,18 +44,16 @@ public class RepositoryMockJogador : IRepositoryJogador<Jogador>
 
         return jogador;
     }
-    Jogador IRepositoryJogador<Jogador>.Criar(int id, string nome, int idade, DateTime dataDeNascimento, double altura, double peso)
+    public Jogador Criar(Jogador y)
     {
-
-        jogador.Id = id;
-        jogador.Nome = nome;
-        jogador.Idade = idade;
-        jogador.DataDeNascimento = dataDeNascimento;
-        jogador.Altura = altura;
-        jogador.Peso = peso;
-
-
-        return jogador;
+        y.Id = 11;
+        y.Nome = "Zé da Manga";
+        y.Idade = 19;
+        y.DataDeNascimento = DateTime.Parse("22-04-2005");
+        y.Altura = 1.70;
+        y.Peso = 68.0;
+        ListaJogador.Add(y);
+        return y;
     }
 
 

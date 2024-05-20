@@ -13,7 +13,7 @@ namespace Cod3rsGrowth.Test.RepositoriosTest
         {
             ListaDeClubes = new List<Clube>()
             {
-                new (001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã",EstadosEnum.RJ, false, ListaJogadores)
+                new (001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã",EstadosEnum.RJ, false,ListaJogadores)
             };
             
         }
@@ -37,24 +37,24 @@ namespace Cod3rsGrowth.Test.RepositoriosTest
 
             return clube;
         }
-        Clube IRepositoryClube<Clube>.Criar(int id, string nome, DateTime fundacao, string? estadio, EstadosEnum estado, bool coberturaAntiChuva, List<Jogador>? elenco)
+        public Clube Criar(Clube x)
         {
-            clube.Id = id;
-            clube.Nome = nome;
-            clube.Fundacao = fundacao;
-            clube.Estadio = estadio;
-            clube.Estado = estado;
-            clube.CoberturaAntiChuva = coberturaAntiChuva;
-            clube.Elenco = elenco;
+            x.Id = 5;
+            x.Nome = "PimbaFC";
+            x.Fundacao = DateTime.Parse("24-11-2008");
+            x.Estadio = "Arena Pimbador";
+            x.Estado = EstadosEnum.GO;
+            x.CoberturaAntiChuva = false;
+            x.Elenco = new List<Jogador>()
+            {
+                new(10, "Emibape", 22, DateTime.Parse("23-08-2002"), 1.80, 80.0)
+            };
+            ListaDeClubes.Add(x);
 
-            ListaDeClubes.Add(clube);
 
-
-            return clube;
+            return x;
         }
 
-        
 
-       
     }
 }
