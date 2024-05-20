@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Test.Repositorios;
+using Cod3rsGrowth.Test.RepositoriosTest;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Test
@@ -9,8 +9,8 @@ namespace Cod3rsGrowth.Test
     {
         public static void Servicos(IServiceCollection Servico)
         {
-            Servico.AddScoped<IRepository<Clube>, RepositoryMockClube>();
-            Servico.AddScoped<IRepository<Jogador>, RepositoryMockJogador>();
+            Servico.AddSingleton<IRepositoryClube<Clube>, RepositoryMockClube>();
+            
 
         }
     }

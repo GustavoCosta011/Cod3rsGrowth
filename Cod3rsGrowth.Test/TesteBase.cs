@@ -2,14 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace Cod3rsGrowth.Test.Testes
+namespace Cod3rsGrowth.Test
 {
     public class Teste : IDisposable
     {
         protected ServiceProvider ServiceProvider;
 
 
-        public Teste(ServiceProvider serviceProvider)
+        public Teste()
         {
             var ServiceCollection = new ServiceCollection();
             ModuloDeInjecao.Servicos(ServiceCollection);

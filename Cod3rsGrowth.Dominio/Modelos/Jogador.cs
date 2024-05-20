@@ -3,10 +3,10 @@
 
     public class Jogador
     {
-        public int Id { get; }
-        public string Nome { get; }
-        public int Idade { get; }
-        public DateTime DataDeNascimento { get; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public int Idade { get; set; }
+        public DateTime DataDeNascimento { get; set; }
         public double Altura { get; set; }
         public double Peso { get; set; }
 
