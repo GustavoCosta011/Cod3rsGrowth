@@ -4,7 +4,7 @@ using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Test.RepositoriosTest
 {
-    public class RepositoryMockClube : IRepositoryClube<Clube>
+    public class RepositoryMockClube : IRepository<Clube>
     {
         public List<Clube> ListaDeClubes;
         public Clube clube;

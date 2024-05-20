@@ -8,9 +8,9 @@ using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Dominio.Interfaces
 {
-    public interface IRepositoryClube<T> where T : class
+    public interface IRepository<T> where T : class
     {
-        T Criar(Clube x);
+        T Criar(T objeto);
         T ObterPorId(int id);
         
         
