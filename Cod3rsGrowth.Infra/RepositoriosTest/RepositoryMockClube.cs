@@ -1,11 +1,11 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Infra.Interfaces;
-using Cod3rsGrowth.Servicos.Servicos;
 
-namespace Cod3rsGrowth.Test.RepositoriosTest
+
+namespace Cod3rsGrowth.Infra.RepositorioTest
 {
-    public class RepositoryMockClube : IRepositoryData<Clube> , IServicos<Clube>
+    public class RepositoryMockClube : IRepositoryData<Clube> 
     {
         public List<Clube> ListaDeClubes;
         public Clube? clube;

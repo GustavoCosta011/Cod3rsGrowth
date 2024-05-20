@@ -11,6 +11,8 @@ namespace Cod3rsGrowth.Infra.Interfaces
     public interface IRepositoryData<T> where T : class
     {
         List<T> ObterTodos();
+        T Criar(T objeto);
+        T ObterPorId(int id);
 
     }
 
