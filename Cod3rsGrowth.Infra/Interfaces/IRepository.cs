@@ -12,10 +12,13 @@ namespace Cod3rsGrowth.Infra.Interfaces
     {
         T Criar(T objeto);
         T ObterPorId(int id);
-        
-        
+
+
         //T Editar();
         //T Remover();
 
     }
+
 }
+
+

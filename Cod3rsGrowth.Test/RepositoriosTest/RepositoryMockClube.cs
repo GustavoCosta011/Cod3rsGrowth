@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.
+using Cod3rsGrowth.Infra.Interfaces;
+
 namespace Cod3rsGrowth.Test.RepositoriosTest
 {
     public class RepositoryMockClube : IRepository<Clube>
