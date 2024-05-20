@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Dominio.Modelos;
 
-namespace Cod3rsGrowth.Dominio.Interfaces
+namespace Cod3rsGrowth.Infra.Interfaces
 {
     public interface IRepository<T> where T : class
     {
