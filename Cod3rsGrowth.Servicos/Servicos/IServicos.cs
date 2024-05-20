@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Dominio.Modelos;
 
-namespace Cod3rsGrowth.Infra.Interfaces
+namespace Cod3rsGrowth.Servicos.Servicos
 {
-    public interface IRepository<T> where T : class
+    public interface IServicos<T> where T : class
     {
         T Criar(T objeto);
         T ObterPorId(int id);

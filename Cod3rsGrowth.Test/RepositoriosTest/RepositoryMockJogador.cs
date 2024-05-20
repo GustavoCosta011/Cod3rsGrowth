@@ -1,13 +1,15 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Servicos.Servicos;
+
 namespace Cod3rsGrowth.Test.RepositoriosTest;
 
-public class RepositoryMockJogador : IRepository<Jogador>
+public class RepositoryMockJogador : IRepositoryData<Jogador> , IServicos<Jogador>
 {
 
     public List<Jogador> ListaJogador;
-    public Jogador jogador;
+    public Jogador? jogador;
 
     public RepositoryMockJogador()
     {
