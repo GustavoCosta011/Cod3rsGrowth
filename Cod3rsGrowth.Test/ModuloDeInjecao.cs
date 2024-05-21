@@ -11,9 +11,9 @@ namespace Cod3rsGrowth.Test
         public static void Servicos(IServiceCollection Servico)
         {
 
-            Servico.AddSingleton<IRepositoryData<Clube>, RepositoryMockClube>();
-            Servico.AddSingleton<IRepositoryData<Jogador>, RepositoryMockJogador>();
-            Servico.AddSingleton<IServicoClube<Clube>, ServicoClube>();
+            Servico.AddScoped<IRepositoryData<Clube>, RepositoryMockClube>();
+            Servico.AddScoped<IRepositoryData<Jogador>, RepositoryMockJogador>();
+            Servico.AddScoped<IServicoClube<Clube>, ServicoClube>();
             //Servico.AddSingleton<IServicoClube<Jogador>, ServicoJogador>();
         }
     }

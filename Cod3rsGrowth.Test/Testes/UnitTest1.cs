@@ -15,10 +15,18 @@ namespace Cod3rsGrowth.Test.Testes
 
 
         [Fact]
-        public void Test1()
+        public void ResusltadoNaoNulo()
         {
             var Lista = clubeServico.ObterTodos();
             Assert.NotNull(Lista);
+        }
+
+        [Fact]
+        public void TipoDeResultado()
+        {
+            var Lista2 = clubeServico.ObterTodos();
+           
+            Assert.Equal(typeof(List<Clube>), Lista2.GetType());
         }
         
     }
