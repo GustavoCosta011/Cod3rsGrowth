@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Infra.RepositorioTest
             
         }
 
-        public List<Clube> ObterTodos()
+        public List<Clube>? ObterTodos()
         {
             return ListaDeClubes;
         }

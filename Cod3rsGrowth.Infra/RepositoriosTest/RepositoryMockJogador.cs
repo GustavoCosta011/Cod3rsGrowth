@@ -27,7 +27,7 @@ public class RepositoryMockJogador : IRepositoryData<Jogador>
         };
 
     }
-    public List<Jogador> ObterTodos()
+    public List<Jogador>? ObterTodos()
     {
         return ListaJogador;
     }
