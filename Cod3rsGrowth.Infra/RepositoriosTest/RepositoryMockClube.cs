@@ -3,7 +3,7 @@ using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Infra.Interfaces;
 
 
-namespace Cod3rsGrowth.Infra.RepositorioTest
+namespace Cod3rsGrowth.Infra.RepositoriosTest
 {
     public class RepositoryMockClube : IRepositoryData<Clube> 
     {
@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Infra.RepositorioTest
             
         }
 
-        public List<Clube>? ObterTodos()
+        public List<Clube> ObterTodos()
         {
             return ListaDeClubes;
         }
