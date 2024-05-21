@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="Servicos\" />
+=======
+    <ProjectReference Include="..\Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj" />
+    <ProjectReference Include="..\Cod3rsGrowth.Infra\Cod3rsGrowth.Infra.csproj" />
+
+>>>>>>> c73d85fb2518b61199fd627759411736170a93e3
   </ItemGroup>
 
 </Project>
