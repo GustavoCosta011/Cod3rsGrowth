@@ -8,14 +8,14 @@ using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Infra.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepositoryData<T> where T : class
     {
-        T Criar(T objeto);
+        List<T> ObterTodos();
+        T? Criar(T objeto);
         T ObterPorId(int id);
-        
-        
-        //T Editar();
-        //T Remover();
 
     }
+
 }
+
+

@@ -1,13 +1,14 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Dominio.Interfaces;
-namespace Cod3rsGrowth.Test.RepositoriosTest;
+using Cod3rsGrowth.Infra.Interfaces;
 
-public class RepositoryMockJogador : IRepository<Jogador>
+
+namespace Cod3rsGrowth.Infra.RepositoriosTest;
+
+public class RepositoryMockJogador : IRepositoryData<Jogador> 
 {
 
     public List<Jogador> ListaJogador;
-    public Jogador jogador;
+    public Jogador? jogador;
 
     public RepositoryMockJogador()
     {
@@ -25,32 +26,30 @@ public class RepositoryMockJogador : IRepository<Jogador>
         };
 
     }
-    public List<Jogador> ObterTodos()
+    public List<Jogador>? ObterTodos()
     {
         return ListaJogador;
     }
 
     public Jogador ObterPorId(int id)
     {
-
-        foreach (Jogador jogador in ListaJogador)
-        {
-            if (jogador.Id == id) break;
-        }
-
-        return jogador;
+        return ListaJogador.Find(jogador => jogador.Id == id);
     }
+
+       
     public Jogador Criar(Jogador jogador)
     {
-        jogador.Id = 11;
-        jogador.Nome = "Zé da Manga";
-        jogador.Idade = 19;
-        jogador.DataDeNascimento = DateTime.Parse("22-04-2005");
-        jogador.Altura = 1.70;
-        jogador.Peso = 68.0;
-        ListaJogador.Add(jogador);
         return jogador;
     }
+     //   jogador.Id = 11;
+     //   jogador.Nome = "Zé da Manga";
+     //   jogador.Idade = 19;
+     //   jogador.DataDeNascimento = DateTime.Parse("22-04-2005");
+     //   jogador.Altura = 1.70;
+     //   jogador.Peso = 68.0;
+     //   ListaJogador.Add(jogador);
+     //   return jogador;
+   
 
 
 
