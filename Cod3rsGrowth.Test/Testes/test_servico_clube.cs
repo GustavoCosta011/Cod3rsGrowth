@@ -41,5 +41,29 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(Lista,ListaObterTodos);
         }
 
+        [Fact]
+        public void DeveRetornarUmClubeNãoNuloAoObterPorId()
+        {
+            var clubeObterPorId = clubeServico.ObterPorId(1);
+            Assert.NotNull(clubeObterPorId);
+        }
+
+        [Fact]
+        public void DeveRetornarTipoClubeAoObterPorId()
+        {
+            var clubeObterPorId = clubeServico.ObterPorId(1);
+            Assert.Equal(typeof(Clube), clubeObterPorId.GetType());
+        }
+
+        [Fact]
+        public void DeveRetornarClubeCompletoAoObterPorId()
+        {
+            Clube clube  = new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã", EstadosEnum.RJ, false, null);
+
+            var clubeObterPorId = clubeServico.ObterPorId(1);
+            Assert.Equivalent(clube,clubeObterPorId);
+        }
+
+
     }
 }

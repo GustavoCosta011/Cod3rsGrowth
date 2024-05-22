@@ -38,7 +38,6 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
         {  
             return clube; 
         }
-        //{
         //    clube.Id = 5;
         //    clube.Nome = "PimbaFC";
         //    clube.Fundacao = DateTime.Parse("24-11-2008");
