@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Web", "Cod3rsG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Test", "Cod3rsGrowth.Test\Cod3rsGrowth.Test.csproj", "{96A4F732-F84E-4EDE-9AAD-95BD4D6E1219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cod3rsGrowth.Servicos", "Cod3rsGrowth.Servicos\Cod3rsGrowth.Servicos.csproj", "{262B11EB-2CA0-4860-9BAE-7EC9C1223E3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cod3rsGrowth.Servicos", "Cod3rsGrowth.Servicos\Cod3rsGrowth.Servicos.csproj", "{262B11EB-2CA0-4860-9BAE-7EC9C1223E3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{96A4F732-F84E-4EDE-9AAD-95BD4D6E1219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96A4F732-F84E-4EDE-9AAD-95BD4D6E1219}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96A4F732-F84E-4EDE-9AAD-95BD4D6E1219}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C45AFB8-5D2B-4F17-8928-907C257FDACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C45AFB8-5D2B-4F17-8928-907C257FDACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C45AFB8-5D2B-4F17-8928-907C257FDACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C45AFB8-5D2B-4F17-8928-907C257FDACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{262B11EB-2CA0-4860-9BAE-7EC9C1223E3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{262B11EB-2CA0-4860-9BAE-7EC9C1223E3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{262B11EB-2CA0-4860-9BAE-7EC9C1223E3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{262B11EB-2CA0-4860-9BAE-7EC9C1223E3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
