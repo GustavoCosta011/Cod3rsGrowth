@@ -47,5 +47,28 @@ namespace Cod3rsGrowth.Test.Testes
             var ListaObterTodos = jogadorServico.ObterTodos();
             Assert.Equivalent(Lista, ListaObterTodos);
         }
+
+        [Fact]
+        public void DeveRetornarUmJogadorNãoNuloAoObterPorId()
+        {
+            var jogadorObterPorId = jogadorServico.ObterPorId(15);
+            Assert.NotNull(jogadorObterPorId);
+        }
+
+        [Fact]
+        public void DeveRetornarTipoJogadorAoObterPorId()
+        {
+            var jogadorObterPorId = jogadorServico.ObterPorId(15);
+            Assert.Equal(typeof(Jogador), jogadorObterPorId.GetType());
+        }
+
+        [Fact]
+        public void DeveRetornaJogadorCompletoAoObterPorId()
+        {
+            Jogador jogador = new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0);
+
+            var jogadorObterPorId = jogadorServico.ObterPorId(15);
+            Assert.Equivalent(jogador, jogadorObterPorId);
+        }
     }
 }
