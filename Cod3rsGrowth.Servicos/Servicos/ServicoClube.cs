@@ -23,7 +23,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             return repositoryMockClube.ObterPorId(id);
 
         }
-        public Clube CriarClube(Clube clube)
+        public int? CriarClube(Clube clube)
         {
             return repositoryMockClube.Criar(clube);
         }

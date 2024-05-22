@@ -31,13 +31,13 @@ public class RepositoryMockJogador : IRepositoryData<Jogador>
         return ListaJogador;
     }
 
-    public Jogador ObterPorId(int id)
+    public Jogador ObterPorId(int? id)
     {
         return ListaJogador.Find(jogador => jogador.Id == id);
     }
 
        
-    public int Criar(Jogador jogador)
+    public int? Criar(Jogador jogador)
     {
         jogador.Id = ListaJogador.Any() ? ListaJogador.Max(jogador => jogador.Id) +1 : 1;
        

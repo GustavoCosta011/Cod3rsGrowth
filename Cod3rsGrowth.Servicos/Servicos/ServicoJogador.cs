@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
 {
     public class ServicoJogador : IServicoJogador 
     {
-        private readonly IRepositoryData<Jogador> repositoryMockJogador;
+        private readonly IRepositoryData<Jogador>? repositoryMockJogador;
         private readonly ValidadorJogador validadorJogador;
         public ServicoJogador(IRepositoryData<Jogador> repositoryMock, ValidadorJogador validador)
         {
@@ -20,18 +20,19 @@ namespace Cod3rsGrowth.Servicos.Servicos
             return repositoryMockJogador.ObterTodos();
         }
 
-        public Jogador ObterPorId(int id)
+        public Jogador ObterPorId(int? id)
         {
             return repositoryMockJogador.ObterPorId(id);
         }
 
-        public int CriarJogador(Jogador jogador)
+        public int? CriarJogador(Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador);
             if (resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
 
-            int IdNovoJogador = repositoryMockJogador.Criar(jogador);
+            int? IdNovoJogador = repositoryMockJogador.Criar(jogador);
 
+            
             return IdNovoJogador; 
            
             

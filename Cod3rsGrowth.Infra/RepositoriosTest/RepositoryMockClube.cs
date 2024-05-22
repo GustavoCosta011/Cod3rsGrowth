@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
             return ListaDeClubes;
         }
 
-        public Clube ObterPorId(int id)
+        public Clube ObterPorId(int? id)
         {
            return ListaDeClubes.Find(clube => clube.Id == id);
             
@@ -34,25 +34,16 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         }
             
-        public int Criar(Clube clube) 
-        {  
-            return clube.Id; 
+        public int? Criar(Clube clube)
+        {
+            clube.Id = ListaDeClubes.Any() ? ListaDeClubes.Max(clube => clube.Id) + 1 : 1;
+
+            ListaDeClubes.Add(clube);
+
+            return clube.Id;
+
         }
-        //    clube.Id = 5;
-        //    clube.Nome = "PimbaFC";
-        //    clube.Fundacao = DateTime.Parse("24-11-2008");
-        //    clube.Estadio = "Arena Pimbador";
-        //    clube.Estado = EstadosEnum.GO;
-        //    clube.CoberturaAntiChuva = false;
-        //    clube.Elenco = new List<Jogador>()
-        //    {
-        //        new(10, "Emibape", 22, DateTime.Parse("23-08-2002"), 1.80, 80.0)
-        //    };
-        //    ListaDeClubes.Add(clube);
 
-
-        //    return clube;
-        //}
 
 
     }
