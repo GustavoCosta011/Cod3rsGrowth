@@ -33,25 +33,23 @@ public class RepositoryMockJogador : IRepositoryData<Jogador>
 
     public Jogador ObterPorId(int id)
     {
-
-        foreach (Jogador jogador in ListaJogador)
-        {
-            if (jogador.Id == id) break;
-        }
-
-        return jogador;
+        return ListaJogador.Find(jogador => jogador.Id == id);
     }
+
+       
     public Jogador Criar(Jogador jogador)
     {
-        jogador.Id = 11;
-        jogador.Nome = "Zé da Manga";
-        jogador.Idade = 19;
-        jogador.DataDeNascimento = DateTime.Parse("22-04-2005");
-        jogador.Altura = 1.70;
-        jogador.Peso = 68.0;
-        ListaJogador.Add(jogador);
         return jogador;
     }
+     //   jogador.Id = 11;
+     //   jogador.Nome = "Zé da Manga";
+     //   jogador.Idade = 19;
+     //   jogador.DataDeNascimento = DateTime.Parse("22-04-2005");
+     //   jogador.Altura = 1.70;
+     //   jogador.Peso = 68.0;
+     //   ListaJogador.Add(jogador);
+     //   return jogador;
+   
 
 
 

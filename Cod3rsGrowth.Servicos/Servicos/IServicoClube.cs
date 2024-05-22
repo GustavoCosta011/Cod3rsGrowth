@@ -8,7 +8,7 @@ using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Servicos.Servicos
 {
-    public interface IServicoClube<Clube>
+    public interface IServicoClube
     {
         List<Clube> ObterTodos();
 
