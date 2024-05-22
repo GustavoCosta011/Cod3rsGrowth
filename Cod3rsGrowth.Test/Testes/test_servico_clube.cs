@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Test.Testes
     public class Test_servico_clube : Teste
     {
         private readonly IServicoClube clubeServico;
-
+       
         public Test_servico_clube() : base()
         {
             clubeServico = ServiceProvider.GetRequiredService<IServicoClube>();

@@ -34,9 +34,9 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         }
             
-        public Clube Criar(Clube clube) 
+        public int Criar(Clube clube) 
         {  
-            return clube; 
+            return clube.Id; 
         }
         //    clube.Id = 5;
         //    clube.Nome = "PimbaFC";

@@ -2,15 +2,17 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Enums;
+using Cod3rsGrowth.Dominio.Validadores;
 
 namespace Cod3rsGrowth.Test.Testes
 {
-    public class Test_servico_jogador : Teste
+    public class test_servico_jogador : Teste
     {
         private readonly IServicoJogador jogadorServico;
-
-        public Test_servico_jogador() : base()
+       
+        public test_servico_jogador() : base()
         {
+             
             jogadorServico = ServiceProvider.GetRequiredService<IServicoJogador>();
         }
 
@@ -69,6 +71,13 @@ namespace Cod3rsGrowth.Test.Testes
 
             var jogadorObterPorId = jogadorServico.ObterPorId(15);
             Assert.Equivalent(jogador, jogadorObterPorId);
+        }
+
+        [Fact]
+        public void DeveRtornarOIdDoNovoJogador()
+        {
+            var NovoJogador = jogadorServico.CriarJogador(null, "HulkBundaGol", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
+            
         }
     }
 }

@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Dominio.Validadores;
 using Cod3rsGrowth.Infra.Interfaces;
+using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Servicos.Servicos
 {
-    public class ServicoJogador : IServicoJogador
+    public class ServicoJogador : IServicoJogador 
     {
         private readonly IRepositoryData<Jogador> repositoryMockJogador;
-
-        public ServicoJogador(IRepositoryData<Jogador> repositoryMock)
+        private readonly ValidadorJogador validadorJogador;
+        public ServicoJogador(IRepositoryData<Jogador> repositoryMock, ValidadorJogador validador)
         {
-            repositoryMockJogador= repositoryMock;
+            repositoryMockJogador = repositoryMock;
+            validadorJogador = validador;     
         }
         public List<Jogador> ObterTodos()
         {
@@ -26,9 +25,16 @@ namespace Cod3rsGrowth.Servicos.Servicos
             return repositoryMockJogador.ObterPorId(id);
         }
 
-        public Jogador CriarJogador(Jogador jogador)
+        public int CriarJogador(Jogador jogador)
         {
-            return repositoryMockJogador.Criar(jogador);
+            ValidationResult resultado = validadorJogador.Validate(jogador);
+            if (resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
+
+            int IdNovoJogador = repositoryMockJogador.Criar(jogador);
+
+            return IdNovoJogador; 
+           
+            
         }
     }
 }

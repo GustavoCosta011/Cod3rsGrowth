@@ -3,7 +3,7 @@
 
     public class Jogador
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Nome { get; set; }
         public int Idade { get; set; }
         public DateTime DataDeNascimento { get; set; }

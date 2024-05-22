@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Dominio.Validadores;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.RepositoriosTest;
 
@@ -8,7 +9,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
     public class ServicoClube : IServicoClube
     {
         private readonly IRepositoryData<Clube> repositoryMockClube;
-
+       
         public ServicoClube(IRepositoryData<Clube> repositoryMock)
         {
             repositoryMockClube = repositoryMock;
