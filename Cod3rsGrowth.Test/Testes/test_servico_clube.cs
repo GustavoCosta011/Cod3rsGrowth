@@ -4,25 +4,25 @@ using Cod3rsGrowth.Servicos.Servicos;
 
 namespace Cod3rsGrowth.Test.Testes
 {
-    public class UnitTest1 : Teste
+    public class Test_servico_clube : Teste
     {
         private readonly IServicoClube<Clube> clubeServico;
 
-        public UnitTest1() : base()
+        public Test_servico_clube() : base()
         {
             clubeServico = ServiceProvider.GetRequiredService<IServicoClube<Clube>>();
         }
 
 
         [Fact]
-        public void ResusltadoNaoNulo()
+        public void ListaDeClubesObterTodosNaoNula()
         {
             var Lista = clubeServico.ObterTodos();
             Assert.NotNull(Lista);
         }
 
         [Fact]
-        public void TipoDeResultado()
+        public void ResultadoDoObterTodosDoTipoLista()
         {
             var Lista2 = clubeServico.ObterTodos();
            

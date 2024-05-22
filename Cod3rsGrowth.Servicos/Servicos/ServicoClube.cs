@@ -23,17 +23,8 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
         public Clube ObterPorId(int id)
         {
-            foreach (Clube clube in repositoryMockClube.ObterTodos())
-                {
-                    if (clube.Id == id)
-                    {
-                    club = clube;
-                    break;
-                    }
-                }
+            return repositoryMockClube.ObterPorId(id);
 
-            return club;
-            
         }
 
         public List<Clube> ObterTodos()

@@ -14,7 +14,7 @@ namespace Cod3rsGrowth.Test
             Servico.AddSingleton<IRepositoryData<Clube>, RepositoryMockClube>();
             Servico.AddSingleton<IRepositoryData<Jogador>, RepositoryMockJogador>();
             Servico.AddSingleton<IServicoClube<Clube>, ServicoClube>();
-            //Servico.AddSingleton<IServicoClube<Jogador>, ServicoJogador>();
+            Servico.AddSingleton<IServicoClube<Jogador>, ServicoJogador>();
         }
     }
 }

@@ -4,11 +4,11 @@ using Cod3rsGrowth.Servicos.Servicos;
 
 namespace Cod3rsGrowth.Test.Testes
 {
-    public class UnitTest1 : Teste
+    public class Test_servico_jogador : Teste
     {
         private readonly IServicoClube<Clube> clubeServico;
 
-        public UnitTest1() : base()
+        public Test_servico_jogador() : base()
         {
             clubeServico = ServiceProvider.GetRequiredService<IServicoClube<Clube>>();
         }
