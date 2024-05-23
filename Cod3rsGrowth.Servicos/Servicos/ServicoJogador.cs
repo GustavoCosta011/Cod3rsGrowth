@@ -29,16 +29,16 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
         public int? CriarJogador(Jogador jogador)
         {
-            validadorJogador.ValidateAndThrow<Jogador>(jogador);
+            ValidationResult resultado = validadorJogador.Validate(jogador);
 
 
-            //if (!resultado.IsValid)
-            //{
-            //    foreach (var erro in resultado.Errors)
-            //    {
-            //        throw new Exception(erro.ErrorMessage);
-            //    }
-            //}
+            if (!resultado.IsValid)
+            {
+                foreach (var erro in resultado.Errors)
+                {
+                    throw new Exception(erro.ErrorMessage);
+                }
+            }
 
             int? IdNovoJogador = repositoryMockJogador.Criar(jogador);
 
