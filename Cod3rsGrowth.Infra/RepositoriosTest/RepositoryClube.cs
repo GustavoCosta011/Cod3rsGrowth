@@ -1,23 +1,17 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Infra.Singletons.Testes.Singleton;
 
 
 namespace Cod3rsGrowth.Infra.RepositoriosTest
 {
-    public class RepositoryMockClube : IRepositoryData<Clube> 
+    public class RepositoryClube : IRepositoryData<Clube> 
     {
-        public List<Clube> ListaDeClubes;
+        public List<Clube> ListaDeClubes = ClasseSingleton.Instance.Clubes;
         public Clube? clube;
         public List<Jogador>? ListaJogadores;
-        public RepositoryMockClube()
-        {
-            ListaDeClubes = new List<Clube>()
-            {
-                new (001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã",EstadosEnum.RJ, false,ListaJogadores)
-            };
-            
-        }
+      
 
         public List<Clube> ObterTodos()
         {

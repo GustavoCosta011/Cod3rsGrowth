@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using Cod3rsGrowth.Dominio.Modelos;
+using System.ComponentModel;
 
 namespace Cod3rsGrowth.Dominio.Validadores
 {
@@ -18,9 +19,13 @@ namespace Cod3rsGrowth.Dominio.Validadores
             RuleFor(jogador => jogador.DataDeNascimento)
                 .NotEmpty().WithMessage("Campo Obrigatorio!!")
                 .LessThanOrEqualTo(jogador => DateTime.Now).WithMessage("A data deve ser anterior a atual!!");
-         /* RuleFor(jogador => jogador.Idade)
+            RuleFor(jogador => jogador.Idade)
                .NotEmpty().WithMessage("Campo Obrigatorio!!")
-               .LessThanOrEqualTo(jogador => );*/
+               .LessThanOrEqualTo(jogador => jogador.DataDeNascimento.Year - DateTime.Now.Year).WithMessage("Idade incoerente a data de nascimento!!");
+            RuleFor(jogador => jogador.Altura)
+                .NotEmpty().WithMessage("Campo Obrigatorio!!");
+            RuleFor(jogador => jogador.Peso)
+                .NotEmpty().WithMessage("Campo Obrigatorio!!");
 
         }
 

@@ -4,6 +4,7 @@ using Cod3rsGrowth.Dominio.Validadores;
 using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation.Results;
 
+
 namespace Cod3rsGrowth.Servicos.Servicos
 {
     public class ServicoJogador : IServicoJogador 
@@ -28,11 +29,19 @@ namespace Cod3rsGrowth.Servicos.Servicos
         public int? CriarJogador(Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador);
-            if (resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
-
+            if (!resultado.IsValid)
+            {
+                foreach (var erro in resultado.Errors)
+                {
+                    throw new Exception(erro.ErrorMessage);
+                }
+            }
+        
             int? IdNovoJogador = repositoryMockJogador.Criar(jogador);
 
-            
+
+
+
             return IdNovoJogador; 
            
             

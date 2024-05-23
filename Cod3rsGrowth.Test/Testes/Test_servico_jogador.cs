@@ -67,7 +67,7 @@ namespace Cod3rsGrowth.Test.Testes
         [Fact]
         public void DeveRetornaJogadorCompletoAoObterPorId()
         {
-            Jogador jogador = new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0);
+            Jogador jogador = new(15, "Pepss", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0);
 
             var jogadorObterPorId = jogadorServico.ObterPorId(15);
             Assert.Equivalent(jogador, jogadorObterPorId);
@@ -84,6 +84,21 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equal(1, result);
             Assert.Equivalent(result, personagemCriado.Id);
 
+        }
+
+        [Fact]
+        public void DeveRtornarOIdDoNovoJogadorExcecao()
+        {
+            var jogador = new Jogador(null, "Hulk", 40, DateTime.Parse("22-12-1989"), 1.88, 90.0);
+            var result = jogadorServico.CriarJogador(jogador);
+
+            var personagemCriado = jogadorServico.ObterPorId(result);
+
+            Assert.Equal(1, result);
+            Assert.Equivalent(result, personagemCriado.Id);
+            
+            var resultado = Assert.Throws<Exception>(() => jogadorServico.CriarJogador(jogador));
+            Assert.Equal("O nome tem que ter no minimo 3 e no maximo 60 letras!!", resultado.Message);
         }
     }
 }
