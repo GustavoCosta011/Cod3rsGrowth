@@ -19,111 +19,111 @@ namespace Cod3rsGrowth.Test.Testes
         [Fact]
         public void DeveRetornarListaNaoNulaDeClubesAoObterTodos()
         {
-            //Assert
+            //Arrange
             List<Clube> ListaObterTodos;
 
-            //Arrange
+            //Act
             ListaObterTodos = clubeServico.ObterTodos();
 
-            //Act
+            //Assurt
             Assert.NotNull(ListaObterTodos);
         }
 
         [Fact]
         public void DeveRetornarOTipoListaDeClubesAoObterTodos()
         {
-            //Assert
+            //Arrange
             List<Clube> ListaObterTodos;
 
-            //Arrange
+            //Act
             ListaObterTodos = clubeServico.ObterTodos();
 
-            //Act
+            //Assert
             Assert.Equal(typeof(List<Clube>), ListaObterTodos.GetType());
         }
 
         [Fact]
         public void DeveRetornarListaCompletaAoObterTodos()
         {
-            //Assert
+            ////Arrange
             List<Clube> Lista = new()
             {
                 new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã",EstadosEnum.RJ, false,null)
             };
 
-            //Arrange
+            //Act
             var ListaObterTodos = clubeServico.ObterTodos();
 
-            //Act
+            //Assurt
             Assert.Equivalent(Lista,ListaObterTodos);
         }
 
         [Fact]
         public void DeveRetornarUmClubeNãoNuloAoObterPorId()
         {
-            //Assert
+            //Arrange
             Clube clubeObterPorId;
 
-            //Arrange
+            //Act
             clubeObterPorId = clubeServico.ObterPorId(1);
 
-            //Act
+            //Assurt
             Assert.NotNull(clubeObterPorId);
         }
 
         [Fact]
         public void DeveRetornarTipoClubeAoObterPorId()
         {
-            //Assert
+            //Arrange
             Clube clubeObterPorId;
 
-            //Arrange
+            //Act
             clubeObterPorId = clubeServico.ObterPorId(1);
 
-            //Act
+            //Assurt
             Assert.Equal(typeof(Clube), clubeObterPorId.GetType());
         }
 
         [Fact]
         public void DeveRetornarClubeCompletoAoObterPorId()
         {
-            //Assert
+            //Arrange
             Clube clube  = new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã", EstadosEnum.RJ, false, null);
 
-            //Arrange
+            //Act
             var clubeObterPorId = clubeServico.ObterPorId(1);
 
-            //Act
+            //Assurt
             Assert.Equivalent(clube,clubeObterPorId);
         }
 
         [Fact]
         public void DeveRetornarErrorMessageAoCriarComExcecao()
         {
-            //Assert
+            //Arrange
             List<int> elenco = new(){12,13,14};
             var clube = new Clube(null, "FC", DateTime.Parse("22-12-1950"), "Pimba Arena", EstadosEnum.TO, true, elenco );
 
-            //Arrange
+            //Act
             var result = Assert.Throws<Exception>(() => clubeServico.CriarClube(clube));
 
-            //Act
+            //Assurt
             Assert.Equal("O nome tem que ter no minimo 3 e no maximo 60 letras!!", result.Message);
         }
 
         [Fact]
         public void DeveRetornarClubeAoCriarComExcecao()
         {
-            //Assert
+            //Arrange
             List<int> elenco = new() { 18, 20, 13 };
             var clubeesperado = new Clube(003, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
             var clube = new Clube(null, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
 
-            //Arrange
+            //Act
             clubeServico.CriarClube(clube);
             var resultClube =  clubeServico.ObterPorId(003);
 
-            //Act
+            //Assurt
             Assert.Equivalent(clubeesperado,resultClube);
         }
 
