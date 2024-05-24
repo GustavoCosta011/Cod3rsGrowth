@@ -25,7 +25,8 @@ public class RepositoryJogador : IRepositoryData<Jogador>
        
     public int? Criar(Jogador jogador)
     {
-        jogador.Id = ListaJogador.Any() ? ListaJogador.Max(jogador => jogador.Id) +1 : 1;
+        int IncremntoCriar = 1;
+        jogador.Id = ListaJogador.Any() ? ListaJogador.Max(jogador => jogador.Id) + IncremntoCriar : IncremntoCriar;
        
         ListaJogador.Add(jogador);
         

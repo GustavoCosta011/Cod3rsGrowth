@@ -63,9 +63,10 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             Clube clubeObterPorId;
+            int IdEsperado = 001;
 
             //Act
-            clubeObterPorId = clubeServico.ObterPorId(1);
+            clubeObterPorId = clubeServico.ObterPorId(IdEsperado);
 
             //Assurt
             Assert.NotNull(clubeObterPorId);
@@ -76,9 +77,10 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             Clube clubeObterPorId;
+            int IdEsperado = 001;
 
             //Act
-            clubeObterPorId = clubeServico.ObterPorId(1);
+            clubeObterPorId = clubeServico.ObterPorId(IdEsperado);
 
             //Assurt
             Assert.Equal(typeof(Clube), clubeObterPorId.GetType());
@@ -89,9 +91,10 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             Clube clube  = new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã", EstadosEnum.RJ, false, null);
+            int IdEsperado = 001;
 
             //Act
-            var clubeObterPorId = clubeServico.ObterPorId(1);
+            var clubeObterPorId = clubeServico.ObterPorId(IdEsperado);
 
             //Assurt
             Assert.Equivalent(clube,clubeObterPorId);
@@ -118,10 +121,10 @@ namespace Cod3rsGrowth.Test.Testes
             List<int> elenco = new() { 18, 20, 13 };
             var clubeesperado = new Clube(003, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
             var clube = new Clube(null, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
-
+            int IdEsperado = 003;
             //Act
             clubeServico.CriarClube(clube);
-            var resultClube =  clubeServico.ObterPorId(003);
+            var resultClube =  clubeServico.ObterPorId(IdEsperado);
 
             //Assurt
             Assert.Equivalent(clubeesperado,resultClube);

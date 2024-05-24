@@ -25,7 +25,8 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
             
         public int? Criar(Clube clube)
         {
-            clube.Id = ListaDeClubes.Any() ? ListaDeClubes.Max(clube => clube.Id) + 1 : 1;
+            int IncrementoCriar = 1;
+            clube.Id = ListaDeClubes.Any() ? ListaDeClubes.Max(clube => clube.Id) + IncrementoCriar : IncrementoCriar;
 
             ListaDeClubes.Add(clube);
 

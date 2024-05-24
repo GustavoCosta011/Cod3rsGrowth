@@ -70,9 +70,10 @@ namespace Cod3rsGrowth.Test.Testes
         {   
             //arrange
             Jogador jogadorObterPorId;
+            int IdEsperado = 015;
 
             //Act
-            jogadorObterPorId = jogadorServico.ObterPorId(15);
+            jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
 
             //Assert
             Assert.NotNull(jogadorObterPorId);
@@ -83,9 +84,10 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             Jogador jogadorObterPorId;
-            
+            int IdEsperado = 015;
+
             //Act
-            jogadorObterPorId = jogadorServico.ObterPorId(15);
+            jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
             
             //Assurt
             Assert.Equal(typeof(Jogador), jogadorObterPorId.GetType());
@@ -95,9 +97,10 @@ namespace Cod3rsGrowth.Test.Testes
         public void DeveRetornaJogadorCompletoAoObterPorId()
         {   //Arrange
             Jogador jogador = new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0);
+            int IdEsperado = 015;
 
             //Act
-            var jogadorObterPorId = jogadorServico.ObterPorId(15);
+            var jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
 
             //Assurt
             Assert.Equivalent(jogador, jogadorObterPorId);
@@ -109,12 +112,14 @@ namespace Cod3rsGrowth.Test.Testes
             //Arrange
             var jogador = new Jogador(null, "ChicoMoedas", 23, DateTime.Parse("22-12-2001"), 1.70, 70.0);
             var jogadorEsperado = new Jogador(17, "ChicoMoedas", 23, DateTime.Parse("22-12-2001"), 1.70, 70.0);
+            int IdEsperado = 017;
+
             //Act
             var result = jogadorServico.CriarJogador(jogador); 
             var jogadorCriado = jogadorServico.ObterPorId(result);
 
             //Assurt
-            Assert.Equal(17, result);
+            Assert.Equal(IdEsperado, result);
             Assert.Equivalent(jogadorEsperado,jogadorCriado);
 
         }
@@ -139,10 +144,10 @@ namespace Cod3rsGrowth.Test.Testes
             //Arrange
             var jogadorEsperado = new Jogador(16, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
             var jogador = new Jogador(null, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
-
+            int IdEsperado = 016;
             //Act
             jogadorServico.CriarJogador(jogador);
-            var result =  jogadorServico.ObterPorId(16);
+            var result =  jogadorServico.ObterPorId(IdEsperado);
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);
