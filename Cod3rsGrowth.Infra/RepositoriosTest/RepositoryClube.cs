@@ -8,9 +8,9 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 {
     public class RepositoryClube : IRepositoryData<Clube> 
     {
-        public List<Clube> ListaDeClubes = ClasseSingleton.Instance.Clubes;
+        public List<Clube>? ListaDeClubes = ClasseSingleton.Instance.Clubes;
         public Clube? clube;
-        public List<Jogador>? ListaJogadores;
+        
       
 
         public List<Clube> ObterTodos()
@@ -21,11 +21,6 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
         public Clube ObterPorId(int? id)
         {
            return ListaDeClubes.Find(clube => clube.Id == id);
-            
-
-
-
-
         }
             
         public int? Criar(Clube clube)

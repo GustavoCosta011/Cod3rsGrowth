@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Infra.Singletons
@@ -17,7 +18,7 @@ namespace Cod3rsGrowth.Infra.Singletons
 
             public List<Clube> Clubes { get; set; }
             public List<Jogador> Jogadores { get; set; }
-
+            public List<int>? ListaElenco = null;
             private ClasseSingleton()
             {
                 Jogadores = new List<Jogador>()
@@ -31,7 +32,8 @@ namespace Cod3rsGrowth.Infra.Singletons
                 };
                 Clubes = new List<Clube>()
                 {
-
+                    new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã", EstadosEnum.RJ, false, null),
+                    new(002, "FC Rondonia", DateTime.Parse("22-12-1970"), "Arena RO", EstadosEnum.RO, true, null)
                 };
             }
 

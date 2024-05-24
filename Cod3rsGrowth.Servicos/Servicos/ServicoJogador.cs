@@ -10,21 +10,21 @@ namespace Cod3rsGrowth.Servicos.Servicos
 {
     public class ServicoJogador : IServicoJogador 
     {
-        private readonly IRepositoryData<Jogador>? repositoryMockJogador;
+        private readonly IRepositoryData<Jogador> repositoryJogador;
         private readonly ValidadorJogador validadorJogador;
         public ServicoJogador(IRepositoryData<Jogador> repositoryMock, ValidadorJogador validador)
         {
-            repositoryMockJogador = repositoryMock;
+            repositoryJogador = repositoryMock;
             validadorJogador = validador;     
         }
         public List<Jogador> ObterTodos()
         {
-            return repositoryMockJogador.ObterTodos();
+            return repositoryJogador.ObterTodos();
         }
 
         public Jogador ObterPorId(int? id)
         {
-            return repositoryMockJogador.ObterPorId(id);
+            return repositoryJogador.ObterPorId(id);
         }
 
         public int? CriarJogador(Jogador jogador)
@@ -34,20 +34,24 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
             if (!resultado.IsValid)
             {
+                string mensagem = null;
+
                 foreach (var erro in resultado.Errors)
                 {
-                    throw new Exception(erro.ErrorMessage);
+                    mensagem += erro.ErrorMessage;
+
                 }
+
+                throw new Exception(mensagem);
             }
 
-            int? IdNovoJogador = repositoryMockJogador.Criar(jogador);
+            int? IdNovoJogador = repositoryJogador.Criar(jogador);
 
 
 
 
-            return IdNovoJogador; 
-           
-            
+            return IdNovoJogador;
+
         }
     }
 }

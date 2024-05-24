@@ -17,6 +17,7 @@ namespace Cod3rsGrowth.Test
             Servico.AddSingleton<IServicoClube, ServicoClube>();
             Servico.AddSingleton<IServicoJogador, ServicoJogador>();
             Servico.AddSingleton<ValidadorJogador>();
+            Servico.AddSingleton<ValidadorClube>();
         }
     }
 }
