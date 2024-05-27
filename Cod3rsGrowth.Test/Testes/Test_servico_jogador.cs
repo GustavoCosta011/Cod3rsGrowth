@@ -155,14 +155,37 @@ namespace Cod3rsGrowth.Test.Testes
         }
 
         [Fact]
-        public void DeveREtornarJogadorOCmpletoAoEditar()
+        public void DeveRetornarJogadorOCmpletoAoEditar()
         {
             //Arrange
-            var jogadorEsperado = new Jogador(11, "PedroQuexudo", 25, DateTime.Parse("17-01-1998"), 1.85, 78.0);
+            var jogadorEsperado = new Jogador(11, "Pedro", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0);
+            var mudancas = new Jogador(null, "Pedro", null, DateTime.Parse("17-01-1998"),null,null);
             var IdDoJogadorASerEditado = 11;
 
             //Act
-            var result = jogadorServico.EditarJogador(IdDoJogadorASerEditado, jogadorEsperado);
+            var IdJogadorJaEditado = jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas);
+            var result = jogadorServico.ObterPorId(IdJogadorJaEditado);
+
+            //Assert
+            Assert.Equivalent(jogadorEsperado, result);
+        }
+
+        [Fact]
+        public void DeveRetornarExceptionAoEditar()
+        {
+            //Arrange
+            var jogadorEsperado = new Jogador(11, "Pedro", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0);
+            var mudancas = new Jogador(null, "Pe", 33, DateTime.Parse("17-01-1998"), null, null);
+            var IdDoJogadorASerEditado = 11;
+            var mensagemErro = "O nome tem que ter no minimo 3 e no maximo 60 letras!!" +
+                "Idade incoerente a data de nascimento!!";
+            
+            //Act
+            var result = Assert.Throws<Exception>(() => jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas));
+
+            //Assert
+            Assert.Equal(mensagemErro, result.Message);
+
         }
     }
 }

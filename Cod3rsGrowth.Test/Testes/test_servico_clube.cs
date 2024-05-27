@@ -130,6 +130,38 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(clubeesperado,resultClube);
         }
 
+        [Fact]
+        public void DeveRetornarClubeCompletoAoEditar()
+        {
+            //Arrange
+            var clubeEsperado = new Clube(001, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO, true, null);
+            var mudancas = new Clube(null, "Mengao", DateTime.Parse("17-01-2004"), null, EstadosEnum.GO,true,null);
+            var IdDoClubeASerEditado = 1;
 
+            //Act
+            var IdClubeJaEditado = clubeServico.EditarClube(IdDoClubeASerEditado, mudancas);
+            var result = clubeServico.ObterPorId(IdClubeJaEditado);
+
+            //Assert
+            Assert.Equivalent(clubeEsperado, result);
+        }
+
+        [Fact]
+        public void DeveRetornarExceptionAoEditar()
+        {
+            //Arrange
+            var clubeEsperado = new Clube(001, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO, true, null);
+            var mudancas = new Clube(001, "Fl", DateTime.Parse("17-01-2025"), "Maracanã", EstadosEnum.GO, true, null);
+            var IdDoClubeASerEditado = 1;
+            var mensagemErro = "O nome tem que ter no minimo 3 e no maximo 60 letras!!" +
+                "A data deve ser anterior a atual!!";
+
+            //Act
+            var result = Assert.Throws<Exception>(() => clubeServico.EditarClube(IdDoClubeASerEditado, mudancas));
+
+            //Assert
+            Assert.Equal(mensagemErro, result.Message);
+
+        }
     }
 }

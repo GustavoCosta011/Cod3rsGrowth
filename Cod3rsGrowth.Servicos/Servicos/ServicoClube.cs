@@ -22,7 +22,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
         {
             return repositoryClube.ObterTodos();
         }
-        public Clube ObterPorId(int id)
+        public Clube ObterPorId(int? id)
         {
             return repositoryClube.ObterPorId(id);
 
@@ -51,7 +51,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             
         }
 
-        public int? EditarClube( int id ,Clube clube)
+        public int? EditarClube( int? id ,Clube clube)
         {
             var resultado = validadorClube.Validate(clube, opitons => opitons.IncludeRuleSets("Editar"));
 

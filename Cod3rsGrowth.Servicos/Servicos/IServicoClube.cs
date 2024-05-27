@@ -13,7 +13,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
         List<Clube> ObterTodos();
 
         int? CriarClube(Clube clube);
-        Clube ObterPorId(int id);
+        Clube ObterPorId(int? id);
         int? EditarClube(int? id, Clube clube);
     }
 }

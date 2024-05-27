@@ -40,17 +40,21 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
             
             var Editado = ObterPorId(idDoEdit);
            
-            if (clube.Nome != null )
+            if (clube.Nome != Editado.Nome )
             {
                 Editado.Nome = clube.Nome;
             }
-            if (clube.Fundacao != null);
+            if (clube.Fundacao != Editado.Fundacao);
             {
                 Editado.Fundacao = clube.Fundacao;
             }
             if (clube.Estadio != null)
             {
                 Editado.Estadio = clube.Estadio;
+            }
+            if (clube.Estado != Editado.Estado)
+            {
+                Editado.Estado = clube.Estado;
             }
             if (clube.CoberturaAntiChuva == false)
             {

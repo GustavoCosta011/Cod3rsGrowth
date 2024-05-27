@@ -10,7 +10,7 @@
         public double? Altura { get; set; }
         public double? Peso { get; set; }
 
-        public Jogador(int? id, string nome, int idade, DateTime dataDeNascimento, double? altura, double? peso)
+        public Jogador(int? id, string nome, int? idade, DateTime dataDeNascimento, double? altura, double? peso)
         {
             Id = id;
             Nome = nome;
