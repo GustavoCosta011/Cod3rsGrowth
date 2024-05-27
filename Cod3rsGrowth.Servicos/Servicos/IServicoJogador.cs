@@ -12,6 +12,6 @@ namespace Cod3rsGrowth.Servicos.Servicos
         List<Jogador> ObterTodos();
         int? CriarJogador(Jogador objeto);
         Jogador ObterPorId(int? id);
-        int? EditarJogador(int? id, Jogador jogador);
+        void EditarJogador(int? id, Jogador jogador);
     }   
 }

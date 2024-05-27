@@ -51,7 +51,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             
         }
 
-        public int? EditarClube( int? id ,Clube clube)
+        public void EditarClube( int? id ,Clube clube)
         {
             var resultado = validadorClube.Validate(clube, opitons => opitons.IncludeRuleSets("Editar"));
 
@@ -65,14 +65,10 @@ namespace Cod3rsGrowth.Servicos.Servicos
                     mensagem += erro.ErrorMessage;
 
                 }
-
+                
                 throw new Exception(mensagem);
             }
-
-            int? IdClubeEditado = repositoryClube.Editar( id, clube);
-
-            return IdClubeEditado;
+            repositoryClube.Editar(id, clube);
         }
-
     }
 }

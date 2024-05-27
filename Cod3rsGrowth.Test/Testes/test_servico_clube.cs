@@ -135,12 +135,12 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             var clubeEsperado = new Clube(001, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO, true, null);
-            var mudancas = new Clube(null, "Mengao", DateTime.Parse("17-01-2004"), null, EstadosEnum.GO,true,null);
+            var mudancas = new Clube(null, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO,true,null);
             var IdDoClubeASerEditado = 1;
 
             //Act
-            var IdClubeJaEditado = clubeServico.EditarClube(IdDoClubeASerEditado, mudancas);
-            var result = clubeServico.ObterPorId(IdClubeJaEditado);
+            clubeServico.EditarClube(IdDoClubeASerEditado, mudancas);
+            var result = clubeServico.ObterPorId(IdDoClubeASerEditado);
 
             //Assert
             Assert.Equivalent(clubeEsperado, result);

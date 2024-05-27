@@ -159,12 +159,12 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             var jogadorEsperado = new Jogador(11, "Pedro", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0);
-            var mudancas = new Jogador(null, "Pedro", null, DateTime.Parse("17-01-1998"),null,null);
+            var mudancas = new Jogador(null, "Pedro", 25, DateTime.Parse("17-01-1998"),1.88,78.0);
             var IdDoJogadorASerEditado = 11;
 
             //Act
-            var IdJogadorJaEditado = jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas);
-            var result = jogadorServico.ObterPorId(IdJogadorJaEditado);
+            jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas);
+            var result = jogadorServico.ObterPorId(IdDoJogadorASerEditado);
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);

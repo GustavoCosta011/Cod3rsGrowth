@@ -54,7 +54,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
         }
 
-        public int? EditarJogador(int? id,Jogador jogador)
+        public void EditarJogador(int? id, Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador, options => options.IncludeRuleSets("Editar"));
 
@@ -71,12 +71,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
                 throw new Exception(mensagem);
             }
-
-            int? IdJogadorEditado = repositoryJogador.Editar(id, jogador);
-
-            return IdJogadorEditado;
+            repositoryJogador.Editar(id, jogador);
         }
-
-       
     }
 }

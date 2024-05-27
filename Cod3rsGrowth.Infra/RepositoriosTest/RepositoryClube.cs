@@ -48,21 +48,18 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
             ClubeAEditar.Estado = clube.Estado;
 
-            ClubeAEditar.CoberturaAntiChuva = false;
-
-            ClubeAEditar.CoberturaAntiChuva = true;
+            ClubeAEditar.CoberturaAntiChuva = clube.CoberturaAntiChuva;
 
             ClubeAEditar.Elenco = clube.Elenco;
 
         }
 
-        public int? Remover(int? id)
+        public void Remover(int? id)
         {
 
             var clubeRemover = ObterPorId(id);
             ListaDeClubes.Remove(clubeRemover);
 
-            return
         }
     }
 }

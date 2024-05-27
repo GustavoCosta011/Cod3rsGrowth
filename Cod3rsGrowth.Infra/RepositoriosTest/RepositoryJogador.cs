@@ -48,6 +48,11 @@ public class RepositoryJogador : IRepositoryData<Jogador>
             Editado.Peso = jogador.Peso;
 
     }
+
+    public void Remover(int? id)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
