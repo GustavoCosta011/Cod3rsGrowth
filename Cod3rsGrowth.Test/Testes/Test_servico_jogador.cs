@@ -51,7 +51,6 @@ namespace Cod3rsGrowth.Test.Testes
             //Arrage
             List<Jogador> Lista = new()
             {
-                new(10, "Gabi", 27, DateTime.Parse("30-08-1996"), 1.78, 68.0),
                 new(11, "PedroQuexada", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0),
                 new(12, "Sabino", 19, DateTime.Parse("03-03-2005"), 1.70, 73.0),
                 new(13, "Halandinho", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
@@ -182,6 +181,21 @@ namespace Cod3rsGrowth.Test.Testes
             
             //Act
             var result = Assert.Throws<Exception>(() => jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas));
+
+            //Assert
+            Assert.Equal(mensagemErro, result.Message);
+
+        }
+
+        [Fact]
+        public void DeveRetornarExceptionAoObterIdAposRemover()
+        {
+            //Arrange
+            var idDoJogadorAserRemovido = 10 ;
+            var mensagemErro = "Jogador inexistente!";
+            //Act
+            jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
+            var result = Assert.Throws<Exception>(() => jogadorServico.ObterPorId(idDoJogadorAserRemovido));
 
             //Assert
             Assert.Equal(mensagemErro, result.Message);

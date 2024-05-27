@@ -13,5 +13,6 @@ namespace Cod3rsGrowth.Servicos.Servicos
         int? CriarJogador(Jogador objeto);
         Jogador ObterPorId(int? id);
         void EditarJogador(int? id, Jogador jogador);
+        void RemoverJogador(int? id);
     }   
 }

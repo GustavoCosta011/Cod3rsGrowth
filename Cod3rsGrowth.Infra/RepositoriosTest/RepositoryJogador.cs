@@ -51,7 +51,8 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     public void Remover(int? id)
     {
-        throw new NotImplementedException();
+        var jogadorARemover = ObterPorId(id);
+        ListaJogador.Remove(jogadorARemover);
     }
 }
 

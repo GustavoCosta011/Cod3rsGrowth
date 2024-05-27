@@ -119,9 +119,9 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             List<int> elenco = new() { 18, 20, 13 };
-            var clubeesperado = new Clube(003, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
+            var clubeesperado = new Clube(002, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
             var clube = new Clube(null, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
-            int IdEsperado = 003;
+            int IdEsperado = 002;
             //Act
             clubeServico.CriarClube(clube);
             var resultClube =  clubeServico.ObterPorId(IdEsperado);
@@ -158,6 +158,22 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             var result = Assert.Throws<Exception>(() => clubeServico.EditarClube(IdDoClubeASerEditado, mudancas));
+
+            //Assert
+            Assert.Equal(mensagemErro, result.Message);
+
+        }
+
+        [Fact]
+        public void DeveRetornarExceptionAoObterIdAposRemover()
+        {
+            //Arrange
+            var idDoClubeAserRemovido = 2;
+            var mensagemErro = "Clube inexistente!";
+
+            //Act
+            clubeServico.RemoverClube(idDoClubeAserRemovido);
+            var result = Assert.Throws<Exception>(() => clubeServico.ObterPorId(idDoClubeAserRemovido));
 
             //Assert
             Assert.Equal(mensagemErro, result.Message);

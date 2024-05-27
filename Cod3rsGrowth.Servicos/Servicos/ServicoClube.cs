@@ -70,5 +70,10 @@ namespace Cod3rsGrowth.Servicos.Servicos
             }
             repositoryClube.Editar(id, clube);
         }
+
+        public void RemoverClube(int? id)
+        {
+           repositoryClube.Remover(id);
+        }   
     }
 }

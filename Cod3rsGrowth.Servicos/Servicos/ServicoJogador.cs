@@ -73,5 +73,10 @@ namespace Cod3rsGrowth.Servicos.Servicos
             }
             repositoryJogador.Editar(id, jogador);
         }
+
+        public void RemoverJogador(int? id )
+        {
+            repositoryJogador.Remover(id);
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         public Clube ObterPorId(int? id)
         {
-           return ListaDeClubes.Find(clube => clube.Id == id) ??throw new Exception("Clube inexistente!");
+           return ListaDeClubes.Find(clube => clube.Id == id) ?? throw new Exception("Clube inexistente!");
         }
             
         public int? Criar(Clube clube)
@@ -56,10 +56,8 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         public void Remover(int? id)
         {
-
-            var clubeRemover = ObterPorId(id);
-            ListaDeClubes.Remove(clubeRemover);
-
+            var clubeARemover = ObterPorId(id);
+            ListaDeClubes.Remove(clubeARemover);
         }
     }
 }
