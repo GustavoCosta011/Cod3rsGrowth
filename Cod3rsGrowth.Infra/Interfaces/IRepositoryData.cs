@@ -12,9 +12,9 @@ namespace Cod3rsGrowth.Infra.Interfaces
     {
         List<T> ObterTodos();
         int?  Criar(T objeto);
-        T ObterPorId(int? id);
-        void Editar(int? id,T objeto);
-        void Remover(int? id);
+        T ObterPorId(int id);
+        void Editar(int id,T objeto);
+        void Remover(int id);
         
     }
 

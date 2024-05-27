@@ -22,7 +22,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             return repositoryJogador.ObterTodos();
         }
 
-        public Jogador ObterPorId(int? id)
+        public Jogador ObterPorId(int id)
         {
             return repositoryJogador.ObterPorId(id);
         }
@@ -54,7 +54,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
         }
 
-        public void EditarJogador(int? id, Jogador jogador)
+        public void EditarJogador(int id, Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador, options => options.IncludeRuleSets("Editar"));
 
@@ -74,7 +74,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             repositoryJogador.Editar(id, jogador);
         }
 
-        public void RemoverJogador(int? id )
+        public void RemoverJogador(int id )
         {
             repositoryJogador.Remover(id);
         }
