@@ -33,35 +33,19 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     }
 
-    public int? Editar(int? idDoEdit, Jogador jogador)
+    public void Editar(int? idDoEdit, Jogador jogador)
     {
         var Editado = ObterPorId(idDoEdit);
-        if (jogador.Nome != null && jogador.Nome != Editado.Nome)
-        {
+       
             Editado.Nome = jogador.Nome;
-        }    
-        if (jogador.Idade != null && jogador.Idade != Editado.Idade) 
-        {
+
             Editado.Idade = jogador.Idade;
-        }
-        if(jogador.DataDeNascimento != Editado.DataDeNascimento)
-        {
+        
             Editado.DataDeNascimento = jogador.DataDeNascimento;
-        }
-        if (jogador.Altura != null && jogador.Altura != Editado.Altura )
-        {
+
             Editado.Altura = jogador.Altura;
-        }
-        if (jogador.Peso != null && jogador.Peso != Editado.Peso )
-        {
+
             Editado.Peso = jogador.Peso;
-        }
-
-        return Editado.Id;
-
-
-
-
 
     }
 }

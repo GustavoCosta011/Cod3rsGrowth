@@ -13,7 +13,8 @@ namespace Cod3rsGrowth.Infra.Interfaces
         List<T> ObterTodos();
         int?  Criar(T objeto);
         T ObterPorId(int? id);
-        int? Editar(int? id,T objeto);
+        void Editar(int? id,T objeto);
+        void Remover(int? id);
         
     }
 

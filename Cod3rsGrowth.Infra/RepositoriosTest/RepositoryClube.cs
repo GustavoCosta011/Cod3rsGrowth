@@ -35,43 +35,34 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         }
 
-        public int? Editar(int? idDoEdit, Clube clube)
+        public void Editar(int? idDoEdit, Clube clube)
         {
             
-            var Editado = ObterPorId(idDoEdit);
-           
-            if (clube.Nome != Editado.Nome )
-            {
-                Editado.Nome = clube.Nome;
-            }
-            if (clube.Fundacao != Editado.Fundacao);
-            {
-                Editado.Fundacao = clube.Fundacao;
-            }
-            if (clube.Estadio != null)
-            {
-                Editado.Estadio = clube.Estadio;
-            }
-            if (clube.Estado != Editado.Estado)
-            {
-                Editado.Estado = clube.Estado;
-            }
-            if (clube.CoberturaAntiChuva == false)
-            {
-                Editado.CoberturaAntiChuva = false;
-            }
-            if (clube.CoberturaAntiChuva == true)
-            {
-                Editado.CoberturaAntiChuva = true;
-            }
-            if (clube.Elenco != null)
-            {
-                Editado.Elenco = clube.Elenco;
-            }
+            var ClubeAEditar = ObterPorId(idDoEdit);
 
-            return Editado.Id;
+            ClubeAEditar.Nome = clube.Nome;
+            
+            ClubeAEditar.Fundacao = clube.Fundacao;
 
+            ClubeAEditar.Estadio = clube.Estadio;
 
+            ClubeAEditar.Estado = clube.Estado;
+
+            ClubeAEditar.CoberturaAntiChuva = false;
+
+            ClubeAEditar.CoberturaAntiChuva = true;
+
+            ClubeAEditar.Elenco = clube.Elenco;
+
+        }
+
+        public int? Remover(int? id)
+        {
+
+            var clubeRemover = ObterPorId(id);
+            ListaDeClubes.Remove(clubeRemover);
+
+            return
         }
     }
 }
