@@ -1,34 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Dominio.Validadores;
 using Cod3rsGrowth.Infra.Interfaces;
+using FluentValidation;
+using FluentValidation.Results;
+
 
 namespace Cod3rsGrowth.Servicos.Servicos
 {
-    public class ServicoJogador : IServicoJogador
+    public class ServicoJogador : IServicoJogador 
     {
-        private readonly IRepositoryData<Jogador> repositoryMockJogador;
-
-        public ServicoJogador(IRepositoryData<Jogador> repositoryMock)
+        private readonly IRepositoryData<Jogador> repositoryJogador;
+        private readonly ValidadorJogador validadorJogador;
+        public ServicoJogador(IRepositoryData<Jogador> repositoryMock, ValidadorJogador validador)
         {
-            repositoryMockJogador= repositoryMock;
+            repositoryJogador = repositoryMock;
+            validadorJogador = validador;     
         }
         public List<Jogador> ObterTodos()
         {
-            return repositoryMockJogador.ObterTodos();
+            return repositoryJogador.ObterTodos();
         }
 
-        public Jogador ObterPorId(int id)
+        public Jogador ObterPorId(int? id)
         {
-            return repositoryMockJogador.ObterPorId(id);
+            return repositoryJogador.ObterPorId(id);
         }
 
-        public Jogador CriarJogador(Jogador jogador)
+        public int? CriarJogador(Jogador jogador)
         {
-            return repositoryMockJogador.Criar(jogador);
+            ValidationResult resultado = validadorJogador.Validate(jogador);
+
+
+            if (!resultado.IsValid)
+            {
+                string mensagem = null;
+
+                foreach (var erro in resultado.Errors)
+                {
+                    mensagem += erro.ErrorMessage;
+
+                }
+
+                throw new Exception(mensagem);
+            }
+
+            int? IdNovoJogador = repositoryJogador.Criar(jogador);
+
+
+
+
+            return IdNovoJogador;
+
         }
     }
 }
