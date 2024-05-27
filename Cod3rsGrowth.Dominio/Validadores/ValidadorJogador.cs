@@ -15,25 +15,30 @@ namespace Cod3rsGrowth.Dominio.Validadores
         {
             RuleFor(jogador => jogador.Nome)
                 .NotNull()
-                .NotEmpty().WithMessage("Campo Obrigatorio!!")
+                .NotEmpty().WithMessage("Campo não pode ser vazio!!")
                 .Length(3, 60).WithMessage("O nome tem que ter no minimo 3 e no maximo 60 letras!!");
             RuleFor(jogador => jogador.DataDeNascimento)
                 .NotNull()
-                .NotEmpty().WithMessage("Campo Obrigatorio!!")
+                .NotEmpty().WithMessage("Campo não pode ser vazio!!")
                 .LessThanOrEqualTo(jogador => DateTime.Now).WithMessage("A data deve ser anterior a atual!!");
             RuleFor(jogador => jogador.Idade)
-               .NotNull()
-               .NotEmpty().WithMessage("Campo Obrigatorio!!")
-               .NotNull().WithMessage("O campo nao pode ser nulo!!")
+               .NotEmpty().WithMessage("Campo não pode ser vazio!!")
                .LessThanOrEqualTo(jogador => DateTime.Now.Year - jogador.DataDeNascimento.Year).WithMessage("Idade incoerente a data de nascimento!!");
             RuleFor(jogador => jogador.Altura)
-                .NotNull()
-                .NotEmpty().WithMessage("Campo Obrigatorio!!");
+                .NotEmpty().WithMessage("Campo não pode ser vazio!!");
             RuleFor(jogador => jogador.Peso)
-                .NotNull()
-                .NotEmpty().WithMessage("Campo Obrigatorio!!");
-
+                .NotEmpty().WithMessage("Campo não pode ser vazio!!");
+            
+            RuleSet("Editar", () =>
+            {
+                RuleFor(jogador => jogador.Nome)
+                    .Length(3, 60).WithMessage("O nome tem que ter no minimo 3 e no maximo 60 letras!!");
+                RuleFor(jogador => jogador.DataDeNascimento)
+                    .NotNull().WithMessage("Campo obrigatorio!!")
+                    .LessThanOrEqualTo(jogador => DateTime.Now).WithMessage("A data deve ser anterior a atual!!");
+                RuleFor(jogador => jogador.Idade)
+                    .LessThanOrEqualTo(jogador => DateTime.Now.Year - jogador.DataDeNascimento.Year).WithMessage("Idade incoerente a data de nascimento!!");
+            });
         }
-
     }
 }
