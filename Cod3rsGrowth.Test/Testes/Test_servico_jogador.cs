@@ -61,7 +61,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             var ListaObterTodos = jogadorServico.ObterTodos();
 
-            //ASsurt
+            //Assert
             Assert.Equivalent(Lista, ListaObterTodos);
         }
 
@@ -89,7 +89,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
             
-            //Assurt
+            //Assert
             Assert.Equal(typeof(Jogador), jogadorObterPorId.GetType());
         }
 
@@ -102,7 +102,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             var jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
 
-            //Assurt
+            //Assert
             Assert.Equivalent(jogador, jogadorObterPorId);
         }
 
@@ -118,7 +118,7 @@ namespace Cod3rsGrowth.Test.Testes
             var result = jogadorServico.CriarJogador(jogador); 
             var jogadorCriado = jogadorServico.ObterPorId(result);
 
-            //Assurt
+            //Assert
             Assert.Equal(IdEsperado, result);
             Assert.Equivalent(jogadorEsperado,jogadorCriado);
 
@@ -133,7 +133,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             var result = Assert.Throws<Exception>(() => jogadorServico.CriarJogador(jogador));
             
-            //Assurt
+            //Assert
             Assert.Equal("O nome tem que ter no minimo 3 e no maximo 60 letras!!",result.Message);
         }
 
@@ -145,12 +145,24 @@ namespace Cod3rsGrowth.Test.Testes
             var jogadorEsperado = new Jogador(16, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
             var jogador = new Jogador(null, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
             int IdEsperado = 016;
+
             //Act
             jogadorServico.CriarJogador(jogador);
             var result =  jogadorServico.ObterPorId(IdEsperado);
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);
+        }
+
+        [Fact]
+        public void DeveREtornarJogadorOCmpletoAoEditar()
+        {
+            //Arrange
+            var jogadorEsperado = new Jogador(11, "PedroQuexudo", 25, DateTime.Parse("17-01-1998"), 1.85, 78.0);
+            var IdDoJogadorASerEditado = 11;
+
+            //Act
+            var result = jogadorServico.EditarJogador(IdDoJogadorASerEditado, jogadorEsperado);
         }
     }
 }

@@ -19,10 +19,9 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     public Jogador ObterPorId(int? id)
     {
-        return ListaJogador.Find(jogador => jogador.Id == id);
+        return ListaJogador.Find(jogador => jogador.Id == id) ?? throw new Exception("Jogador inexistente!");
     }
-
-       
+ 
     public int? Criar(Jogador jogador)
     {
         int IncremntoCriar = 1;
@@ -33,12 +32,35 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         return jogador.Id;
         
     }
+
+    public int? Editar(int? idDoEdit, Jogador jogador)
+    {
+        var Editado = ObterPorId(idDoEdit);
+
+        Editado.Nome = jogador.Nome;
         
-   
+        if (jogador.Idade != null) ;
+        {
+            Editado.Idade = jogador.Idade;
+        }
+
+        Editado.DataDeNascimento = jogador.DataDeNascimento;
+        if (jogador.Altura != null)
+        {
+            Editado.Altura = jogador.Altura;
+        }
+       
+        if (jogador.Peso != null)
+        {
+            Editado.Peso = jogador.Peso;
+        }
+
+        return Editado.Id;
 
 
 
 
-}
+
+    }
 
 

@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singletons.Testes.Singleton;
+using System.Reflection.Metadata.Ecma335;
 
 
 namespace Cod3rsGrowth.Infra.RepositoriosTest
@@ -20,7 +21,7 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         public Clube ObterPorId(int? id)
         {
-           return ListaDeClubes.Find(clube => clube.Id == id);
+           return ListaDeClubes.Find(clube => clube.Id == id) ??throw new Exception("Clube inexistente!");
         }
             
         public int? Criar(Clube clube)
@@ -34,7 +35,39 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         }
 
+        public int? Editar(int? idDoEdit, Clube clube)
+        {
+            
+            var Editado = ObterPorId(idDoEdit);
+           
+            if (clube.Nome != null )
+            {
+                Editado.Nome = clube.Nome;
+            }
+            if (clube.Fundacao != null);
+            {
+                Editado.Fundacao = clube.Fundacao;
+            }
+            if (clube.Estadio != null)
+            {
+                Editado.Estadio = clube.Estadio;
+            }
+            if (clube.CoberturaAntiChuva == false)
+            {
+                Editado.CoberturaAntiChuva = false;
+            }
+            if (clube.CoberturaAntiChuva == true)
+            {
+                Editado.CoberturaAntiChuva = true;
+            }
+            if (clube.Elenco != null)
+            {
+                Editado.Elenco = clube.Elenco;
+            }
+
+            return Editado.Id;
 
 
+        }
     }
 }

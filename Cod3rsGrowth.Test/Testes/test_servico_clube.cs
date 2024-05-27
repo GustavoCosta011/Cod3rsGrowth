@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             ListaObterTodos = clubeServico.ObterTodos();
 
-            //Assurt
+            //Assert
             Assert.NotNull(ListaObterTodos);
         }
 
@@ -54,7 +54,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             var ListaObterTodos = clubeServico.ObterTodos();
 
-            //Assurt
+            //Assert
             Assert.Equivalent(Lista,ListaObterTodos);
         }
 
@@ -68,7 +68,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             clubeObterPorId = clubeServico.ObterPorId(IdEsperado);
 
-            //Assurt
+            //Assert
             Assert.NotNull(clubeObterPorId);
         }
 
@@ -82,7 +82,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             clubeObterPorId = clubeServico.ObterPorId(IdEsperado);
 
-            //Assurt
+            //Assert
             Assert.Equal(typeof(Clube), clubeObterPorId.GetType());
         }
 
@@ -96,7 +96,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             var clubeObterPorId = clubeServico.ObterPorId(IdEsperado);
 
-            //Assurt
+            //Assert
             Assert.Equivalent(clube,clubeObterPorId);
         }
 
@@ -110,7 +110,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Act
             var result = Assert.Throws<Exception>(() => clubeServico.CriarClube(clube));
 
-            //Assurt
+            //Assert
             Assert.Equal("O nome tem que ter no minimo 3 e no maximo 60 letras!!", result.Message);
         }
 
@@ -126,7 +126,7 @@ namespace Cod3rsGrowth.Test.Testes
             clubeServico.CriarClube(clube);
             var resultClube =  clubeServico.ObterPorId(IdEsperado);
 
-            //Assurt
+            //Assert
             Assert.Equivalent(clubeesperado,resultClube);
         }
 
