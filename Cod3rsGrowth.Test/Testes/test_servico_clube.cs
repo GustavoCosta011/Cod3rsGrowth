@@ -15,6 +15,7 @@ namespace Cod3rsGrowth.Test.Testes
             clubeServico = ServiceProvider.GetRequiredService<IServicoClube>();
         }
 
+//OBTER TODOS
 
         [Fact]
         public void DeveRetornarListaNaoNulaDeClubesAoObterTodos()
@@ -58,6 +59,8 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(Lista,ListaObterTodos);
         }
 
+//OBTER POR ID
+
         [Fact]
         public void DeveRetornarUmClubeNãoNuloAoObterPorId()
         {
@@ -100,6 +103,8 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(clube,clubeObterPorId);
         }
 
+//CRIAR
+
         [Fact]
         public void DeveRetornarErrorMessageAoCriarComExcecao()
         {
@@ -129,6 +134,8 @@ namespace Cod3rsGrowth.Test.Testes
             //Assert
             Assert.Equivalent(clubeesperado,resultClube);
         }
+
+//EDITAR
 
         [Fact]
         public void DeveRetornarClubeCompletoAoEditar()
@@ -163,6 +170,8 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equal(mensagemErro, result.Message);
 
         }
+
+//REMOVER
 
         [Fact]
         public void DeveRetornarExceptionAoObterIdAposRemover()

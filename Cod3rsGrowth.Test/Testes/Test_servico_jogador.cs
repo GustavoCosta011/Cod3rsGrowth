@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Test.Testes
              jogadorServico = ServiceProvider.GetRequiredService<IServicoJogador>();
         }
 
-
+//OBTER TODOS
 
         [Fact]
         public void DeveRetornarListaNaoNulaDeJogadorAoObterTodos()
@@ -64,6 +64,8 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(Lista, ListaObterTodos);
         }
 
+//OBTER POR ID
+
         [Fact]
         public void DeveRetornarUmJogadorNãoNuloAoObterPorId()
         {   
@@ -104,6 +106,8 @@ namespace Cod3rsGrowth.Test.Testes
             //Assert
             Assert.Equivalent(jogador, jogadorObterPorId);
         }
+
+//CRIAR
 
         [Fact]
         public void DeveRtornarOIdDoNovoJogador()
@@ -153,6 +157,8 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(jogadorEsperado, result);
         }
 
+//EDITAR
+
         [Fact]
         public void DeveRetornarJogadorOCmpletoAoEditar()
         {
@@ -186,6 +192,8 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equal(mensagemErro, result.Message);
 
         }
+
+//REMOVER
 
         [Fact]
         public void DeveRetornarExceptionAoObterIdAposRemover()
