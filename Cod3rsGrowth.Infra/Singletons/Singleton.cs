@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cod3rsGrowth.Dominio.Enums;
+﻿using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Dominio.Modelos;
-
-namespace Cod3rsGrowth.Infra.Singletons
-{
     
-
-    namespace Testes.Singleton
+    namespace Cod3rsGrowth.Infra.Singletons.Singleton
     {
         public sealed class ClasseSingleton
         {
@@ -47,4 +38,4 @@ namespace Cod3rsGrowth.Infra.Singletons
             public void Initialize() { }
         }
     }
-}
+

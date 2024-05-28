@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Infra.Singletons.Testes.Singleton;
+using Cod3rsGrowth.Infra.Singletons.Singleton;
 
 
 
@@ -10,8 +10,6 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
     {
         public List<Clube>? ListaDeClubes = ClasseSingleton.Instance.Clubes;
         public Clube? clube;
-        
-      
 
         public List<Clube> ObterTodos()
         {
