@@ -10,9 +10,9 @@ namespace Cod3rsGrowth.Servicos.Servicos
     public interface IServicoJogador
     {
         List<Jogador> ObterTodos();
-        int? CriarJogador(Jogador objeto);
+        int CriarJogador(Jogador objeto);
         Jogador ObterPorId(int id);
         void EditarJogador(int id, Jogador jogador);
-        void RemoverJogador(int id);
+       /* void RemoverJogador(int id);*/
     }   
 }

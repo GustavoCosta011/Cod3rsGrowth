@@ -19,12 +19,12 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
             return ListaDeClubes;
         }
 
-        public Clube ObterPorId(int? id)
+        public Clube ObterPorId(int id)
         {
            return ListaDeClubes.Find(clube => clube.Id == id) ?? throw new Exception("Clube inexistente!");
         }
             
-        public int? Criar(Clube clube)
+        public int Criar(Clube clube)
         {
             int IncrementoCriar = 1;
             clube.Id = ListaDeClubes.Any() ? ListaDeClubes.Max(clube => clube.Id) + IncrementoCriar : IncrementoCriar;
@@ -35,7 +35,7 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         }
 
-        public void Editar(int? idDoEdit, Clube clube)
+        public void Editar(int idDoEdit, Clube clube)
         {
             
             var ClubeAEditar = ObterPorId(idDoEdit);
@@ -54,10 +54,10 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         }
 
-        public void Remover(int? id)
+      /*  public void Remover(int id)
         {
             var clubeARemover = ObterPorId(id);
             ListaDeClubes.Remove(clubeARemover);
         }
-    }
+    }*/
 }

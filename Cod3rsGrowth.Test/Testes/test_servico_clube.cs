@@ -110,7 +110,7 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             List<int> elenco = new(){12,13,14};
-            var clube = new Clube(null, "FC", DateTime.Parse("22-12-1950"), "Pimba Arena", EstadosEnum.TO, true, elenco );
+            var clube = new Clube(0, "FC", DateTime.Parse("22-12-1950"), "Pimba Arena", EstadosEnum.TO, true, elenco );
 
             //Act
             var result = Assert.Throws<Exception>(() => clubeServico.CriarClube(clube));
@@ -125,7 +125,7 @@ namespace Cod3rsGrowth.Test.Testes
             //Arrange
             List<int> elenco = new() { 18, 20, 13 };
             var clubeesperado = new Clube(002, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
-            var clube = new Clube(null, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
+            var clube = new Clube(0, "FC Pimba", DateTime.Parse("22-12-1938"), "Pimba Arena", EstadosEnum.TO, true, elenco);
             int IdEsperado = 002;
             //Act
             clubeServico.CriarClube(clube);
@@ -142,7 +142,7 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             var clubeEsperado = new Clube(001, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO, true, null);
-            var mudancas = new Clube(null, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO,true,null);
+            var mudancas = new Clube(0, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO,true,null);
             var IdDoClubeASerEditado = 1;
 
             //Act
@@ -173,7 +173,7 @@ namespace Cod3rsGrowth.Test.Testes
 
 //REMOVER
 
-        [Fact]
+/*        [Fact]
         public void DeveRetornarExceptionAoObterIdAposRemover()
         {
             //Arrange
@@ -187,6 +187,6 @@ namespace Cod3rsGrowth.Test.Testes
             //Assert
             Assert.Equal(mensagemErro, result.Message);
 
-        }
+        }*/
     }
 }

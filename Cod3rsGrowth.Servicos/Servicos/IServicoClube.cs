@@ -12,9 +12,9 @@ namespace Cod3rsGrowth.Servicos.Servicos
     {
         List<Clube> ObterTodos();
 
-        int? CriarClube(Clube clube);
+        int CriarClube(Clube clube);
         Clube ObterPorId(int id);
         void EditarClube(int id, Clube clube);
-        void RemoverClube(int id);
+      /*  void RemoverClube(int id);*/
     }
 }
