@@ -190,10 +190,12 @@ namespace Cod3rsGrowth.Test.Testes
 
         }
 
+
 //REMOVER
 
         [Fact]
         public void DeveRetornarJogadorExistenteAoRemoverComExito()
+
         {
             //Arrange
             var idDoJogadorAserRemovido = 10 ;

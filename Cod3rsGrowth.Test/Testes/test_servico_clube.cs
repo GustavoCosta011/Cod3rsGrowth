@@ -173,7 +173,8 @@ namespace Cod3rsGrowth.Test.Testes
 //REMOVER
 
         [Fact]
-        public void DeveRetornarClubeInexistemteAoObterIdAoRemoverComExito()
+        public void DeveRetornarQueOClubeFoiRemovido()
+
         {
             //Arrange
             var idDoClubeAserRemovido = 2;
