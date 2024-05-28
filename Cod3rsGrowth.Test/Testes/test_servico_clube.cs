@@ -173,7 +173,7 @@ namespace Cod3rsGrowth.Test.Testes
 
 //REMOVER
 
-/*        [Fact]
+        [Fact]
         public void DeveRetornarExceptionAoObterIdAposRemover()
         {
             //Arrange
@@ -187,6 +187,6 @@ namespace Cod3rsGrowth.Test.Testes
             //Assert
             Assert.Equal(mensagemErro, result.Message);
 
-        }*/
+        }
     }
 }

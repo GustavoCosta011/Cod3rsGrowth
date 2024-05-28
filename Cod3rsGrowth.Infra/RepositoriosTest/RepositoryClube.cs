@@ -54,10 +54,10 @@ namespace Cod3rsGrowth.Infra.RepositoriosTest
 
         }
 
-      /*  public void Remover(int id)
+        public void Remover(int id)
         {
             var clubeARemover = ObterPorId(id);
             ListaDeClubes.Remove(clubeARemover);
         }
-    }*/
+    }
 }
