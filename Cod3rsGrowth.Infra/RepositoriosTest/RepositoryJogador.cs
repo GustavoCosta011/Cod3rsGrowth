@@ -49,11 +49,11 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     }
 
-    public void Remover(int? id)
+  /*  public void Remover(int? id)
     {
         var jogadorARemover = ObterPorId(id);
         ListaJogador.Remove(jogadorARemover);
     }
-}
+}*/
 
 
