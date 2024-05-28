@@ -1,8 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra.Singletons.Testes.Singleton;
-using System.Reflection.Metadata.Ecma335;
+
 
 
 namespace Cod3rsGrowth.Infra.RepositoriosTest

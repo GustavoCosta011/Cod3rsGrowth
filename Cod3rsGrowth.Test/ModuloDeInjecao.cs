@@ -1,9 +1,10 @@
-﻿using Cod3rsGrowth.Infra.Interfaces;
+﻿using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Infra.RepositoriosTest;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Validadores;
+using Cod3rsGrowth.Dominio.InterfacesServicos;
 
 namespace Cod3rsGrowth.Test
 {

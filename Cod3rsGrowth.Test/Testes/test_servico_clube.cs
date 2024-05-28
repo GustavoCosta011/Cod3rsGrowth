@@ -1,8 +1,7 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Dominio.InterfacesServicos;
 using Cod3rsGrowth.Dominio.Enums;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Cod3rsGrowth.Test.Testes
 {
@@ -174,18 +173,18 @@ namespace Cod3rsGrowth.Test.Testes
 //REMOVER
 
         [Fact]
-        public void DeveRetornarExceptionAoObterIdAposRemover()
+        public void DeveRetornarClubeInexistemteAoObterIdAoRemoverComExito()
         {
             //Arrange
             var idDoClubeAserRemovido = 2;
-            var mensagemErro = "Clube inexistente!";
+            var mensagemDeBusca = "Clube inexistente!";
 
             //Act
             clubeServico.RemoverClube(idDoClubeAserRemovido);
             var result = Assert.Throws<Exception>(() => clubeServico.ObterPorId(idDoClubeAserRemovido));
 
             //Assert
-            Assert.Equal(mensagemErro, result.Message);
+            Assert.Equal(mensagemDeBusca, result.Message);
 
         }
     }

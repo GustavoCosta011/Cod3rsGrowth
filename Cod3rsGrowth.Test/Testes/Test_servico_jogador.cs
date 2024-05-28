@@ -1,10 +1,7 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Dominio.Validadores;
-using System.Runtime.ConstrainedExecution;
-using FluentValidation;
+using Cod3rsGrowth.Dominio.InterfacesServicos;
+
 
 namespace Cod3rsGrowth.Test.Testes
 {
@@ -196,11 +193,12 @@ namespace Cod3rsGrowth.Test.Testes
 //REMOVER
 
         [Fact]
-        public void DeveRetornarExceptionAoObterIdAposRemover()
+        public void DeveRetornarJogadorExistenteAoRemoverComExito()
         {
             //Arrange
             var idDoJogadorAserRemovido = 10 ;
             var mensagemErro = "Jogador inexistente!";
+
             //Act
             jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
             var result = Assert.Throws<Exception>(() => jogadorServico.ObterPorId(idDoJogadorAserRemovido));

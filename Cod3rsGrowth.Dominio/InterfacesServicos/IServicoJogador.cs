@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Modelos;
 
-namespace Cod3rsGrowth.Servicos.Servicos
+namespace Cod3rsGrowth.Dominio.InterfacesServicos
 {
     public interface IServicoJogador
     {
