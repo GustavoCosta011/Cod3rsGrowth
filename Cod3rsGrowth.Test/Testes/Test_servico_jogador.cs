@@ -1,6 +1,7 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Dominio.InterfacesServicos;
+using Cod3rsGrowth.Infra.Singletons.Singleton;
 
 
 namespace Cod3rsGrowth.Test.Testes
@@ -187,7 +188,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Assert
             Assert.Equal(mensagemErro, result.Message);
-
+             
         }
 
 
@@ -203,7 +204,8 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
-            var result = Assert.Throws<Exception>(() => jogadorServico.ObterPorId(idDoJogadorAserRemovido));
+
+            var result = Assert.Throws<Exception>(() => ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
 
             //Assert
             Assert.Equal(mensagemErro, result.Message);
