@@ -194,7 +194,7 @@ namespace Cod3rsGrowth.Test.Testes
 //REMOVER
 
         [Fact]
-        public void DeveRetornarJogadorExistenteAoRemoverComExito()
+        public void DeveRetornarJogadorFoiRemovido()
 
         {
             //Arrange
