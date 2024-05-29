@@ -1,14 +1,13 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Infra.Singletons.Singleton;
 
 
 
-namespace Cod3rsGrowth.Infra.RepositoriosTest
+namespace Cod3rsGrowth.Test.Repositorios
 {
     public class RepositoryClube : IRepositoryData<Clube> 
     {
-        public List<Clube>? ListaDeClubes = ClasseSingleton.Instance.Clubes;
+        public List<Clube>? ListaDeClubes;
         public Clube? clube;
 
         public List<Clube> ObterTodos()

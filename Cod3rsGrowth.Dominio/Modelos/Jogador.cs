@@ -19,6 +19,7 @@
             Altura = altura;
             Peso = peso;
         }
+        public Jogador() { }
     }
 
 }

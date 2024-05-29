@@ -22,5 +22,6 @@ namespace Cod3rsGrowth.Dominio.Modelos
             CoberturaAntiChuva = coberturaAntiChuva;
             Elenco = elenco;
         }
+        public Clube(){ }
     }
 }
