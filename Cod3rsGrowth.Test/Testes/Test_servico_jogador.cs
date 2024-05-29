@@ -200,14 +200,13 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             var idDoJogadorAserRemovido = 12;
-            var mensagemErro = "Jogador inexistente!";
 
             //Act
             jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
-            var result = Assert.Throws<Exception>(() => ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
+            var result = ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == idDoJogadorAserRemovido);
 
             //Assert
-            Assert.Equal(mensagemErro, result.Message);
+            Assert.Null(result);
 
         }
 
