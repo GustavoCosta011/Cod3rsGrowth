@@ -9,6 +9,7 @@ namespace Cod3rsGrowth.Test.Testes
     public class Test_servico_clube : Teste
     {
         private readonly ServicoClube clubeServico;
+        private readonly List<Clube> clubeList = ClasseSingleton.Instance.Clubes;
        
         public Test_servico_clube() : base()
         {
@@ -129,7 +130,7 @@ namespace Cod3rsGrowth.Test.Testes
             int IdEsperado = 002;
             //Act
             clubeServico.CriarClube(clube);
-            var resultClube = ClasseSingleton.Instance.Clubes.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Clube inexistente!");
+            var resultClube = clubeList.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Clube inexistente!");
 
             //Assert
             Assert.Equivalent(clubeesperado,resultClube);
@@ -147,7 +148,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             clubeServico.EditarClube(IdDoClubeASerEditado, mudancas);
-            var result = ClasseSingleton.Instance.Clubes.Find(clube => clube.Id == IdDoClubeASerEditado) ?? throw new Exception("Clube inexistente!");
+            var result = clubeList.Find(clube => clube.Id == IdDoClubeASerEditado) ?? throw new Exception("Clube inexistente!");
 
             //Assert
             Assert.Equivalent(clubeEsperado, result);
@@ -183,7 +184,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             clubeServico.RemoverClube(idDoClubeAserRemovido);
-            var result = Assert.Throws<Exception>(() => ClasseSingleton.Instance.Clubes.Find(clube => clube.Id == idDoClubeAserRemovido) ?? throw new Exception("Clube inexistente!"));
+            var result = Assert.Throws<Exception>(() => clubeList.Find(clube => clube.Id == idDoClubeAserRemovido) ?? throw new Exception("Clube inexistente!"));
 
             //Assert
             Assert.Equal(mensagemDeBusca, result.Message);

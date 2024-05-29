@@ -9,6 +9,7 @@ namespace Cod3rsGrowth.Test.Testes
     public class Test_servico_jogador : Teste
     {
         private readonly ServicoJogador jogadorServico;
+        private readonly List<Jogador> jogadorList = ClasseSingleton.Instance.Jogadores;
        
         public Test_servico_jogador() : base()
         {
@@ -117,7 +118,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             int result = jogadorServico.CriarJogador(jogador); 
-            var jogadorCriado = ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
+            var jogadorCriado = jogadorList.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equal(IdEsperado, result);
@@ -149,7 +150,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             jogadorServico.CriarJogador(jogador);
-            var result = ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
+            var result = jogadorList.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);
@@ -167,7 +168,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas);
-            var result = ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == IdDoJogadorASerEditado) ?? throw new Exception("Jogador inexistente!");
+            var result = jogadorList.Find(clube => clube.Id == IdDoJogadorASerEditado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);
@@ -200,13 +201,14 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             var idDoJogadorAserRemovido = 12;
+            var menssagemErro = "Jogador inexistente!";
 
             //Act
             jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
-            var result = ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == idDoJogadorAserRemovido);
+            var result =  Assert.Throws<Exception>(() => jogadorList.Find(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
 
             //Assert
-            Assert.Null(result);
+            Assert.Equal(menssagemErro,result.Message);
 
         }
 
