@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using FluentValidation;
 
-namespace Cod3rsGrowth.Dominio.Validadores
+namespace Cod3rsGrowth.Servicos.Validadores
 {
         public class ValidadorClube : AbstractValidator<Clube>
         {

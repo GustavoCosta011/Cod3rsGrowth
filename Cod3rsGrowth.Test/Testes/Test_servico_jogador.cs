@@ -1,18 +1,19 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Dominio.InterfacesServicos;
-using Cod3rsGrowth.Infra.Singletons.Singleton;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Test.Singletons.Singleton;
 
 
 namespace Cod3rsGrowth.Test.Testes
 {
     public class Test_servico_jogador : Teste
     {
-        private readonly IServicoJogador jogadorServico;
+        private readonly ServicoJogador jogadorServico;
+        private readonly List<Jogador> jogadorList = ClasseSingleton.Instance.Jogadores;
        
         public Test_servico_jogador() : base()
         {
-             jogadorServico = ServiceProvider.GetRequiredService<IServicoJogador>();
+             jogadorServico = ServiceProvider.GetRequiredService<ServicoJogador>();
         }
 
 //OBTER TODOS
@@ -49,11 +50,11 @@ namespace Cod3rsGrowth.Test.Testes
             //Arrage
             List<Jogador> Lista = new()
             {
-                new(11, "PedroQuexada", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0),
-                new(12, "Sabino", 19, DateTime.Parse("03-03-2005"), 1.70, 73.0),
-                new(13, "Halandinho", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
-                new(14, "Penaldo", 33, DateTime.Parse("30-09-1991"), 1.77, 89.0),
-                new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0)
+                     new(10, "Gabi", 27, DateTime.Parse("30-08-1996"), 1.78, 68.0),
+                     new(11, "PedroQuexada", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0),
+                     new(13, "Halandinho", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
+                     new(14, "Penaldo", 33, DateTime.Parse("30-09-1991"), 1.77, 89.0),
+                     new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0),
             };
             //Act
             var ListaObterTodos = jogadorServico.ObterTodos();
@@ -117,7 +118,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             int result = jogadorServico.CriarJogador(jogador); 
-            var jogadorCriado = jogadorServico.ObterPorId(result);
+            var jogadorCriado = jogadorList.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equal(IdEsperado, result);
@@ -149,7 +150,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             jogadorServico.CriarJogador(jogador);
-            var result =  jogadorServico.ObterPorId(IdEsperado);
+            var result = jogadorList.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);
@@ -167,7 +168,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas);
-            var result = jogadorServico.ObterPorId(IdDoJogadorASerEditado);
+            var result = jogadorList.Find(clube => clube.Id == IdDoJogadorASerEditado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);
@@ -199,24 +200,24 @@ namespace Cod3rsGrowth.Test.Testes
 
         {
             //Arrange
-            var idDoJogadorAserRemovido = 10 ;
-            var mensagemErro = "Jogador inexistente!";
+            var idDoJogadorAserRemovido = 12;
+            var menssagemErro = "Jogador inexistente!";
 
             //Act
             jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
-
-            var result = Assert.Throws<Exception>(() => ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
+            var result =  Assert.Throws<Exception>(() => jogadorList.Find(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
 
             //Assert
-            Assert.Equal(mensagemErro, result.Message);
+            Assert.Equal(menssagemErro,result.Message);
 
         }
 
+        [Fact]
         public void DeveRetornarExceptionAoRemoverJogador()
 
         {
             //Arrange
-            var idDoJogadorAserRemovido = 22S;
+            var idDoJogadorAserRemovido = 22;
             var mensagemErro = "Jogador inexistente!";
 
             //Act

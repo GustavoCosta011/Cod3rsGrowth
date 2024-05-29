@@ -1,7 +1,6 @@
 ﻿
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Dominio.Validadores;
-using Cod3rsGrowth.Dominio.InterfacesServicos;
+using Cod3rsGrowth.Servicos.Validadores;
 using Cod3rsGrowth.Dominio.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
@@ -9,7 +8,7 @@ using FluentValidation.Results;
 
 namespace Cod3rsGrowth.Servicos.Servicos
 {
-    public class ServicoJogador : IServicoJogador 
+    public class ServicoJogador
     {
         private readonly IRepositoryData<Jogador> repositoryJogador;
         private readonly ValidadorJogador validadorJogador;

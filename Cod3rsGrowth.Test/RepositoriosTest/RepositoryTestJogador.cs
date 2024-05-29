@@ -1,11 +1,11 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Infra.Singletons.Singleton;
+using Cod3rsGrowth.Test.Singletons.Singleton;
 
 
-namespace Cod3rsGrowth.Infra.RepositoriosTest;
+namespace Cod3rsGrowth.Test.RepositoriosTest;
 
-public class RepositoryJogador : IRepositoryData<Jogador>
+public class RepositoryTestJogador : IRepositoryData<Jogador>
 {
 
     public List<Jogador> ListaJogador = ClasseSingleton.Instance.Jogadores;

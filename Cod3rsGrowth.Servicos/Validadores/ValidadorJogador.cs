@@ -2,7 +2,7 @@
 using Cod3rsGrowth.Dominio.Modelos;
 
 
-namespace Cod3rsGrowth.Dominio.Validadores
+namespace Cod3rsGrowth.Servicos.Validadores
 {
     public class ValidadorJogador : AbstractValidator<Jogador>
     {
