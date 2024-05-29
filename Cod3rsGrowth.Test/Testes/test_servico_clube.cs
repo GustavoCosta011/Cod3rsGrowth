@@ -189,5 +189,20 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equal(mensagemDeBusca, result.Message);
 
         }
+        [Fact]
+        public void DeveRetornarExceptionaoRemoverClube()
+
+        {
+            //Arrange
+            var idDoClubeAserRemovido = 5;
+            var mensagemDeBusca = "Clube inexistente!";
+
+            //Act
+            var result = Assert.Throws<Exception>(() => clubeServico.RemoverClube(idDoClubeAserRemovido);
+
+            //Assert
+            Assert.Equal(mensagemDeBusca, result.Message);
+
+        }
     }
-}S
+}

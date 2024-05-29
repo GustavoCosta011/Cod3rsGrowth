@@ -211,5 +211,20 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equal(mensagemErro, result.Message);
 
         }
+
+        public void DeveRetornarExceptionAoRemoverJogador()
+
+        {
+            //Arrange
+            var idDoJogadorAserRemovido = 10;
+            var mensagemErro = "Jogador inexistente!";
+
+            //Act
+            var result = Assert.Throws<Exception>(() => jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
+
+            //Assert
+            Assert.Equal(mensagemErro, result.Message);
+
+        }
     }
 }
