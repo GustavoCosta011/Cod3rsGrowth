@@ -1,7 +1,10 @@
 ﻿using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Test.RepositoriosTest;
+using Cod3rsGrowth.Infra.RepositoriosTest;
 using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Dominio.Validadores;
+using Cod3rsGrowth.Dominio.InterfacesServicos;
 
 namespace Cod3rsGrowth.Test
 {
@@ -9,9 +12,13 @@ namespace Cod3rsGrowth.Test
     {
         public static void Servicos(IServiceCollection Servico)
         {
-            Servico.AddSingleton<IRepositoryClube<Clube>, RepositoryMockClube>();
-            
 
+            Servico.AddSingleton<IRepositoryData<Clube>, RepositoryClube>();
+            Servico.AddSingleton<IRepositoryData<Jogador>, RepositoryJogador>();
+            Servico.AddSingleton<IServicoClube, ServicoClube>();
+            Servico.AddSingleton<IServicoJogador, ServicoJogador>();
+            Servico.AddSingleton<ValidadorJogador>();
+            Servico.AddSingleton<ValidadorClube>();
         }
     }
 }
