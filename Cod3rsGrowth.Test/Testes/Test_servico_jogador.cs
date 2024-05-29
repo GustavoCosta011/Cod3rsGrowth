@@ -216,11 +216,11 @@ namespace Cod3rsGrowth.Test.Testes
 
         {
             //Arrange
-            var idDoJogadorAserRemovido = 10;
+            var idDoJogadorAserRemovido = 22S;
             var mensagemErro = "Jogador inexistente!";
 
             //Act
-            var result = Assert.Throws<Exception>(() => jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
+            var result = Assert.Throws<Exception>(() => jogadorServico.RemoverJogador(idDoJogadorAserRemovido));
 
             //Assert
             Assert.Equal(mensagemErro, result.Message);
