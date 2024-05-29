@@ -1,0 +1,21 @@
+Time 
+-----
+
+id (int obrigatorio)
+nome (string obrigatoria)
+fundacao (datetime obrigatorio)
+estadio (string obrigatoria)
+estado (enum obrigatorio)
+coberturaAntiChuva (bool obrigatorio)
+elenco: List<Jogadores>
+
+
+Jogadores
+---------
+
+id (int obrigatorio)
+nome (string obrigatoria)
+idade (int)
+dataDeNacimento (datetime obrigatorio)
+altura (double )
+peso (double )
