@@ -1,10 +1,8 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Dominio.Validadores;
-using System.Runtime.ConstrainedExecution;
-using FluentValidation;
+using Cod3rsGrowth.Dominio.InterfacesServicos;
+using Cod3rsGrowth.Infra.Singletons.Singleton;
+
 
 namespace Cod3rsGrowth.Test.Testes
 {
@@ -17,7 +15,7 @@ namespace Cod3rsGrowth.Test.Testes
              jogadorServico = ServiceProvider.GetRequiredService<IServicoJogador>();
         }
 
-
+//OBTER TODOS
 
         [Fact]
         public void DeveRetornarListaNaoNulaDeJogadorAoObterTodos()
@@ -64,6 +62,8 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(Lista, ListaObterTodos);
         }
 
+//OBTER POR ID
+
         [Fact]
         public void DeveRetornarUmJogadorNãoNuloAoObterPorId()
         {   
@@ -105,16 +105,18 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(jogador, jogadorObterPorId);
         }
 
+//CRIAR
+
         [Fact]
         public void DeveRtornarOIdDoNovoJogador()
         {   
             //Arrange
-            var jogador = new Jogador(null, "ChicoMoedas", 23, DateTime.Parse("22-12-2001"), 1.70, 70.0);
+            var jogador = new Jogador(0, "ChicoMoedas", 23, DateTime.Parse("22-12-2001"), 1.70, 70.0);
             var jogadorEsperado = new Jogador(17, "ChicoMoedas", 23, DateTime.Parse("22-12-2001"), 1.70, 70.0);
             int IdEsperado = 017;
 
             //Act
-            var result = jogadorServico.CriarJogador(jogador); 
+            int result = jogadorServico.CriarJogador(jogador); 
             var jogadorCriado = jogadorServico.ObterPorId(result);
 
             //Assert
@@ -127,7 +129,7 @@ namespace Cod3rsGrowth.Test.Testes
         public void DeveRetornarErrorMessageAoCriarComExcecao()
         {
             //Arrange
-            var jogador = new Jogador(null, "Hk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
+            var jogador = new Jogador(0, "Hk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
             
             //Act
             var result = Assert.Throws<Exception>(() => jogadorServico.CriarJogador(jogador));
@@ -142,7 +144,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Arrange
             var jogadorEsperado = new Jogador(16, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
-            var jogador = new Jogador(null, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
+            var jogador = new Jogador(0, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
             int IdEsperado = 016;
 
             //Act
@@ -153,12 +155,14 @@ namespace Cod3rsGrowth.Test.Testes
             Assert.Equivalent(jogadorEsperado, result);
         }
 
+//EDITAR
+
         [Fact]
         public void DeveRetornarJogadorOCmpletoAoEditar()
         {
             //Arrange
             var jogadorEsperado = new Jogador(11, "Pedro", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0);
-            var mudancas = new Jogador(null, "Pedro", 25, DateTime.Parse("17-01-1998"),1.88,78.0);
+            var mudancas = new Jogador(0, "Pedro", 25, DateTime.Parse("17-01-1998"),1.88,78.0);
             var IdDoJogadorASerEditado = 11;
 
             //Act
@@ -174,7 +178,7 @@ namespace Cod3rsGrowth.Test.Testes
         {
             //Arrange
             var jogadorEsperado = new Jogador(11, "Pedro", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0);
-            var mudancas = new Jogador(null, "Pe", 33, DateTime.Parse("17-01-1998"), null, null);
+            var mudancas = new Jogador(0, "Pe", 33, DateTime.Parse("17-01-1998"), null, null);
             var IdDoJogadorASerEditado = 11;
             var mensagemErro = "O nome tem que ter no minimo 3 e no maximo 60 letras!!" +
                 "Idade incoerente a data de nascimento!!";
@@ -184,22 +188,43 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Assert
             Assert.Equal(mensagemErro, result.Message);
-
+             
         }
 
-/*        [Fact]
-        public void DeveRetornarExceptionAoObterIdAposRemover()
+
+//REMOVER
+
+        [Fact]
+        public void DeveRetornarJogadorFoiRemovido()
+
         {
             //Arrange
             var idDoJogadorAserRemovido = 10 ;
             var mensagemErro = "Jogador inexistente!";
+
             //Act
             jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
-            var result = Assert.Throws<Exception>(() => jogadorServico.ObterPorId(idDoJogadorAserRemovido));
+
+            var result = Assert.Throws<Exception>(() => ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
 
             //Assert
             Assert.Equal(mensagemErro, result.Message);
 
-        }*/
+        }
+
+        public void DeveRetornarExceptionAoRemoverJogador()
+
+        {
+            //Arrange
+            var idDoJogadorAserRemovido = 22S;
+            var mensagemErro = "Jogador inexistente!";
+
+            //Act
+            var result = Assert.Throws<Exception>(() => jogadorServico.RemoverJogador(idDoJogadorAserRemovido));
+
+            //Assert
+            Assert.Equal(mensagemErro, result.Message);
+
+        }
     }
 }

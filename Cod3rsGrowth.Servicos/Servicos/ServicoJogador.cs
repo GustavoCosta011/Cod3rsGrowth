@@ -1,7 +1,8 @@
 ﻿
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Validadores;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.InterfacesServicos;
+using Cod3rsGrowth.Dominio.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -27,7 +28,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             return repositoryJogador.ObterPorId(id);
         }
 
-        public int? CriarJogador(Jogador jogador)
+        public int CriarJogador(Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador);
 
@@ -45,7 +46,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
                 throw new Exception(mensagem);
             }
 
-            int? IdNovoJogador = repositoryJogador.Criar(jogador);
+            int IdNovoJogador = repositoryJogador.Criar(jogador);
 
 
 
@@ -74,9 +75,9 @@ namespace Cod3rsGrowth.Servicos.Servicos
             repositoryJogador.Editar(id, jogador);
         }
 
-        /*public void RemoverJogador(int id )
+        public void RemoverJogador(int id )
         {
             repositoryJogador.Remover(id);
-        }*/
+        }
     }
 }

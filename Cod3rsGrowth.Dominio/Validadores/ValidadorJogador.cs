@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using Cod3rsGrowth.Dominio.Modelos;
-using System.ComponentModel;
+
 
 namespace Cod3rsGrowth.Dominio.Validadores
 {

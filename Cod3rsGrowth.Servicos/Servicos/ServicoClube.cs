@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Validadores;
-using Cod3rsGrowth.Infra.Interfaces;
-using Cod3rsGrowth.Infra.RepositoriosTest;
+using Cod3rsGrowth.Dominio.InterfacesServicos;
+using Cod3rsGrowth.Dominio.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -27,7 +27,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             return repositoryClube.ObterPorId(id);
 
         }
-        public int? CriarClube(Clube clube)
+        public int CriarClube(Clube clube)
         {
             ValidationResult resultado = validadorClube.Validate(clube);
 
@@ -45,7 +45,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
                 throw new Exception(mensagem);
             }
 
-            int? IdNovoClube = repositoryClube.Criar(clube);
+            int IdNovoClube = repositoryClube.Criar(clube);
 
             return IdNovoClube;
             
@@ -71,9 +71,9 @@ namespace Cod3rsGrowth.Servicos.Servicos
             repositoryClube.Editar(id, clube);
         }
 
-        /*public void RemoverClube(int id)
+        public void RemoverClube(int id)
         {
            repositoryClube.Remover(id);
-        }   */
+        } 
     }
 }

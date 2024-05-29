@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
-using Cod3rsGrowth.Infra.Interfaces;
-using Cod3rsGrowth.Infra.Singletons.Testes.Singleton;
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra.Singletons.Singleton;
 
 
 namespace Cod3rsGrowth.Infra.RepositoriosTest;
@@ -17,12 +17,12 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         return ListaJogador;
     }
 
-    public Jogador ObterPorId(int? id)
+    public Jogador ObterPorId(int id)
     {
         return ListaJogador.Find(jogador => jogador.Id == id) ?? throw new Exception("Jogador inexistente!");
     }
 
-    public int? Criar(Jogador jogador)
+    public int Criar(Jogador jogador)
     {
         int IncremntoCriar = 1;
         jogador.Id = ListaJogador.Any() ? ListaJogador.Max(jogador => jogador.Id) + IncremntoCriar : IncremntoCriar;
@@ -33,7 +33,7 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     }
 
-    public void Editar(int? idDoEdit, Jogador jogador)
+    public void Editar(int idDoEdit, Jogador jogador)
     {
         var Editado = ObterPorId(idDoEdit);
        
@@ -49,11 +49,12 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     }
 
-  /*  public void Remover(int? id)
+    public void Remover(int id)
+
     {
         var jogadorARemover = ObterPorId(id);
         ListaJogador.Remove(jogadorARemover);
     }
-}*/
+}
 
 
