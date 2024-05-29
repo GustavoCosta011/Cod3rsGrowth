@@ -1,18 +1,18 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Dominio.InterfacesServicos;
+using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Infra.Singletons.Singleton;
+using Cod3rsGrowth.Test.Singletons.Singleton;
 
 namespace Cod3rsGrowth.Test.Testes
 {
     public class Test_servico_clube : Teste
     {
-        private readonly IServicoClube clubeServico;
+        private readonly ServicoClube clubeServico;
        
         public Test_servico_clube() : base()
         {
-            clubeServico = ServiceProvider.GetRequiredService<IServicoClube>();
+            clubeServico = ServiceProvider.GetRequiredService<ServicoClube>();
         }
 
 //OBTER TODOS
@@ -120,7 +120,7 @@ namespace Cod3rsGrowth.Test.Testes
         }
 
         [Fact]
-        public void DeveRetornarClubeAoCriarComExcecao()
+        public void DeveRetornarClubeAoCriar()
         {
             //Arrange
             List<int> elenco = new() { 18, 20, 13 };
@@ -129,7 +129,7 @@ namespace Cod3rsGrowth.Test.Testes
             int IdEsperado = 002;
             //Act
             clubeServico.CriarClube(clube);
-            var resultClube =  clubeServico.ObterPorId(IdEsperado);
+            var resultClube = ClasseSingleton.Instance.Clubes.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Clube inexistente!");
 
             //Assert
             Assert.Equivalent(clubeesperado,resultClube);
@@ -147,7 +147,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             clubeServico.EditarClube(IdDoClubeASerEditado, mudancas);
-            var result = clubeServico.ObterPorId(IdDoClubeASerEditado);
+            var result = ClasseSingleton.Instance.Clubes.Find(clube => clube.Id == IdDoClubeASerEditado) ?? throw new Exception("Clube inexistente!");
 
             //Assert
             Assert.Equivalent(clubeEsperado, result);
@@ -183,7 +183,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             clubeServico.RemoverClube(idDoClubeAserRemovido);
-            var result = Assert.Throws<Exception>(() => ClasseSingleton.Instance.Jogadores.Find(clube => clube.Id == idDoClubeAserRemovido) ?? throw new Exception("Clube inexistente!"));
+            var result = Assert.Throws<Exception>(() => ClasseSingleton.Instance.Clubes.Find(clube => clube.Id == idDoClubeAserRemovido) ?? throw new Exception("Clube inexistente!"));
 
             //Assert
             Assert.Equal(mensagemDeBusca, result.Message);
@@ -198,7 +198,7 @@ namespace Cod3rsGrowth.Test.Testes
             var mensagemDeBusca = "Clube inexistente!";
 
             //Act
-            var result = Assert.Throws<Exception>(() => clubeServico.RemoverClube(idDoClubeAserRemovido);
+            var result = Assert.Throws<Exception>(() => clubeServico.RemoverClube(idDoClubeAserRemovido));
 
             //Assert
             Assert.Equal(mensagemDeBusca, result.Message);
