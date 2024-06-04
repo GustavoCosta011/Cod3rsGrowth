@@ -1,15 +1,14 @@
-﻿using LinqToDB;
-using LinqToDB.Configuration;
-using LinqToDB.Data;
-using LinqToDB.SchemaProvider;
+﻿using LinqToDB.Data;
+using Cod3rsGrowth.Dominio.Modelos;
+using LinqToDB;
+using static LinqToDB.Reflection.Methods.LinqToDB;
+
 
 namespace Cod3rsGrowth.Infra
 {
-    public class ProjetoDataConnection : DataConnection
+    public class Cod3rsGrowthDb : DataConnection
     {
-        public ProjetoDataConnection(DataOptions<ProjetoDataConnection> options) : base(options.Options)
-        {
+        public Cod3rsGrowthDb() : base("Cod3rsGrowth") { }
 
-        }
     }
 }

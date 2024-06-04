@@ -4,6 +4,7 @@ using Cod3rsGrowth.Test.RepositoriosTest;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Servicos.Validadores;
+using Cod3rsGrowth.Servicos;
 
 namespace Cod3rsGrowth.Test
 {
@@ -18,6 +19,7 @@ namespace Cod3rsGrowth.Test
             Servico.AddSingleton<ServicoJogador>();
             Servico.AddSingleton<ValidadorJogador>();
             Servico.AddSingleton<ValidadorClube>();
+            Servico.AddSingleton<Tabelas>();
         }
     }
 }

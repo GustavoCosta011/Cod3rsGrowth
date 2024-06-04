@@ -5,12 +5,7 @@ namespace Cod3rsGrowth.Test.Repositorios
 {
     public class RepositoryClube : IRepositoryData<Clube>
     {
-        public int Criar(Clube objeto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Editar(int id, Clube objeto)
+        public List<Clube> ObterTodos()
         {
             throw new NotImplementedException();
         }
@@ -20,7 +15,12 @@ namespace Cod3rsGrowth.Test.Repositorios
             throw new NotImplementedException();
         }
 
-        public List<Clube> ObterTodos()
+        public int Criar(Clube objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Editar(int id, Clube objeto)
         {
             throw new NotImplementedException();
         }

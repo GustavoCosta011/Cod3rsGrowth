@@ -5,12 +5,7 @@ namespace Cod3rsGrowth.Test.Repositorios;
 
 public class RepositoryJogador : IRepositoryData<Jogador>
 {
-    public int Criar(Jogador objeto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Editar(int id, Jogador objeto)
+    public List<Jogador> ObterTodos()
     {
         throw new NotImplementedException();
     }
@@ -20,7 +15,12 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         throw new NotImplementedException();
     }
 
-    public List<Jogador> ObterTodos()
+    public int Criar(Jogador objeto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Editar(int id, Jogador objeto)
     {
         throw new NotImplementedException();
     }
