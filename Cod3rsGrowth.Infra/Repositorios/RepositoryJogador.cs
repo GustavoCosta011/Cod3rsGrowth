@@ -3,9 +3,9 @@ using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Test.Repositorios;
 
-public class RepositoryJogador : IRepositoryData<Jogador>
+public class RepositoryJogador : IRepositoryBancoDeDados<Jogador>
 {
-    public List<Jogador> ObterTodos()
+    public List<Jogador> ObterTodos(string searchName)
     {
         throw new NotImplementedException();
     }

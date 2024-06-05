@@ -1,13 +1,26 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra;
+using System.Linq;
 
 namespace Cod3rsGrowth.Test.Repositorios
 {
-    public class RepositoryClube : IRepositoryData<Clube>
+    public class RepositoryClube : IRepositoryBancoDeDados<Clube>
     {
-        public List<Clube> ObterTodos()
+        private readonly Cod3rsGrowthConnect database;
+
+        public RepositoryClube(Cod3rsGrowthConnect Database)
         {
-            throw new NotImplementedException();
+            database = Database;
+        }
+
+        public List<Clube> ObterTodos(string searchName)
+        {
+            if (searchName == null)
+            {
+                return database.Clubes.ToList();
+            }
+                return database.Clubes.Where(clube => clube.Nome.Contains(searchName)).ToList();
         }
 
         public Clube ObterPorId(int id)
