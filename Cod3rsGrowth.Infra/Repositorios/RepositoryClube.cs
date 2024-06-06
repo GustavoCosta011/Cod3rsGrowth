@@ -20,7 +20,7 @@ namespace Cod3rsGrowth.Test.Repositorios
             {
                 return database.Clubes.ToList();
             }
-                return database.Clubes.Where(clube => clube.Nome.Contains(searchName)).ToList();
+                return database.Clubes.Where(clube => clube.Nome.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public Clube ObterPorId(int id)

@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Infra
             return new Cod3rsGrowthConnect(strConnect);
         }
 
-        public ITable<Clube>? Clubes = null;
-        public ITable<Jogador>? Jogadores = null;
-    } 
+        public ITable<Clube> Clubes =>  this.GetTable<Clube>();
+        public ITable<Jogador> Jogadores => this.GetTable<Jogador>();
+    }
 }
