@@ -33,11 +33,7 @@ public class RepositoryJogador : IRepositoryData<Jogador>
     {
         database.Jogadores
             .Where(jogador => jogador.Id == id)
-            .Set(jogador => jogador.Nome, objeto.Nome)
-            .Set(jogador => jogador.Idade, objeto.Idade)
-            .Set(jogador => jogador.DataDeNascimento, objeto.DataDeNascimento)
-            .Set(jogador => jogador.Altura, objeto.Altura)
-            .Set(jogador => jogador.Peso, objeto.Peso)
+            .Set(jogador => jogador, objeto)
             .Update();
     }
 
