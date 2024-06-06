@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra;
 using System.Linq;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Test.Repositorios
 {
@@ -23,24 +24,29 @@ namespace Cod3rsGrowth.Test.Repositorios
                 return database.Clubes.Where(clube => clube.Nome.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
-        public Clube ObterPorId(int id)
+        public Clube? ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            return database.Clubes.FirstOrDefault(clube => clube.Id == id);
         }
 
         public int Criar(Clube objeto)
         {
-            throw new NotImplementedException();
+            return database.Insert(objeto);
         }
 
         public void Editar(int id, Clube objeto)
         {
-            throw new NotImplementedException();
+            database.Clubes
+                .Where(clube => clube.Id == id)
+                .Set(clube => clube, objeto)
+                .Update();
         }
 
         public void Remover(int id)
         {
-            throw new NotImplementedException();
+            database.Clubes
+                .Where(clube => clube.Id == id)
+                .Delete();
         }
     }
 }

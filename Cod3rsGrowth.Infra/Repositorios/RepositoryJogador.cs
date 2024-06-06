@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Test.Repositorios;
 
@@ -18,24 +19,29 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         return database.Jogadores.ToList();       
     }
 
-    public Jogador ObterPorId(int id)
+    public Jogador? ObterPorId(int id)
     {
-        throw new NotImplementedException();
+        return database.Jogadores.FirstOrDefault(jogador => jogador.Id == id);
     }
 
     public int Criar(Jogador objeto)
     {
-        throw new NotImplementedException();
+        return database.Insert(objeto);
     }
 
     public void Editar(int id, Jogador objeto)
     {
-        throw new NotImplementedException();
+        database.Jogadores
+            .Where(jogador => jogador.Id == id)
+            .Set(jogador => jogador, objeto)
+            .Update();
     }
 
     public void Remover(int id)
     {
-        throw new NotImplementedException();
+        database.Jogadores
+            .Where(jogador => jogador.Id == id)
+            .Delete();
     }
 }
 
