@@ -19,9 +19,9 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         return database.Jogadores.ToList();       
     }
 
-    public Jogador ObterPorId(int id)
+    public Jogador? ObterPorId(int id)
     {
-        throw new NotImplementedException();
+        return database.Jogadores.FirstOrDefault(jogador => jogador.Id == id);
     }
 
     public int Criar(Jogador objeto)
