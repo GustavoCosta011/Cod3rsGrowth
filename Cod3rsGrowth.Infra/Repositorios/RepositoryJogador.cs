@@ -31,7 +31,14 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     public void Editar(int id, Jogador objeto)
     {
-        throw new NotImplementedException();
+        database.Jogadores
+            .Where(jogador => jogador.Id == id)
+            .Set(jogador => jogador.Nome, objeto.Nome)
+            .Set(jogador => jogador.Idade, objeto.Idade)
+            .Set(jogador => jogador.DataDeNascimento, objeto.DataDeNascimento)
+            .Set(jogador => jogador.Altura, objeto.Altura)
+            .Set(jogador => jogador.Peso, objeto.Peso)
+            .Update();
     }
 
     public void Remover(int id)

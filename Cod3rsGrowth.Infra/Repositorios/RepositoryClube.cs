@@ -36,7 +36,15 @@ namespace Cod3rsGrowth.Test.Repositorios
 
         public void Editar(int id, Clube objeto)
         {
-            throw new NotImplementedException();
+            database.Clubes
+                .Where(clube => clube.Id == id)
+                .Set(clube => clube.Nome, objeto.Nome)
+                .Set(clube => clube.Fundacao, objeto.Fundacao)
+                .Set(clube => clube.Estadio, objeto.Estadio)
+                .Set(clube => clube.Estado, objeto.Estado)
+                .Set(clube => clube.CoberturaAntiChuva, objeto.CoberturaAntiChuva)
+                .Set(clube => clube.Elenco, objeto.Elenco)
+                .Update();
         }
 
         public void Remover(int id)
