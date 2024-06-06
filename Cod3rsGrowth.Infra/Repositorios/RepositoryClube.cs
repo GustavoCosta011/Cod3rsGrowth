@@ -1,18 +1,26 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra;
+using System.Linq;
 
 namespace Cod3rsGrowth.Test.Repositorios
 {
     public class RepositoryClube : IRepositoryData<Clube>
     {
-        public int Criar(Clube objeto)
+        private readonly Cod3rsGrowthConnect database;
+
+        public RepositoryClube(Cod3rsGrowthConnect Database)
         {
-            throw new NotImplementedException();
+            database = Database;
         }
 
-        public void Editar(int id, Clube objeto)
+        public List<Clube> ObterTodos(string searchName)
         {
-            throw new NotImplementedException();
+            if (searchName == null)
+            {
+                return database.Clubes.ToList();
+            }
+                return database.Clubes.Where(clube => clube.Nome.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public Clube ObterPorId(int id)
@@ -20,7 +28,12 @@ namespace Cod3rsGrowth.Test.Repositorios
             throw new NotImplementedException();
         }
 
-        public List<Clube> ObterTodos()
+        public int Criar(Clube objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Editar(int id, Clube objeto)
         {
             throw new NotImplementedException();
         }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Servicos.Validadores;
 
+
 namespace Cod3rsGrowth.Test
 {
     public static class ModuloDeInjecao
@@ -18,6 +19,7 @@ namespace Cod3rsGrowth.Test
             Servico.AddSingleton<ServicoJogador>();
             Servico.AddSingleton<ValidadorJogador>();
             Servico.AddSingleton<ValidadorClube>();
+
         }
     }
 }
