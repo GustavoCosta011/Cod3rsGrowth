@@ -26,8 +26,7 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     public int Criar(Jogador objeto)
     {
-        database.Insert(objeto);
-        return objeto.Id;
+        return database.Insert(objeto);
     }
 
     public void Editar(int id, Jogador objeto)
