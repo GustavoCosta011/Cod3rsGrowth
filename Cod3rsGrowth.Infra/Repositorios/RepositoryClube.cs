@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra;
 using System.Linq;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Test.Repositorios
 {
@@ -30,7 +31,7 @@ namespace Cod3rsGrowth.Test.Repositorios
 
         public int Criar(Clube objeto)
         {
-            throw new NotImplementedException();
+            return database.Insert(objeto);
         }
 
         public void Editar(int id, Clube objeto)
