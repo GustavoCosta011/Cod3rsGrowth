@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Infra;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Test.Repositorios;
 
@@ -25,7 +26,8 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     public int Criar(Jogador objeto)
     {
-        throw new NotImplementedException();
+        database.Insert(objeto);
+        return objeto.Id;
     }
 
     public void Editar(int id, Jogador objeto)
