@@ -39,7 +39,9 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     public void Remover(int id)
     {
-        throw new NotImplementedException();
+        database.Jogadores
+            .Where(jogador => jogador.Id == id)
+            .Delete();
     }
 }
 

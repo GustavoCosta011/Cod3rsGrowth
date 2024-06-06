@@ -44,7 +44,9 @@ namespace Cod3rsGrowth.Test.Repositorios
 
         public void Remover(int id)
         {
-            throw new NotImplementedException();
+            database.Clubes
+                .Where(clube => clube.Id == id)
+                .Delete();
         }
     }
 }
