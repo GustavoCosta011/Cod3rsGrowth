@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cod3rsGrowth.Test.Repositorios
 {
-    public class RepositoryClube : IRepositoryBancoDeDados<Clube>
+    public class RepositoryClube : IRepositoryData<Clube>
     {
         private readonly Cod3rsGrowthConnect database;
 

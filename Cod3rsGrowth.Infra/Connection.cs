@@ -8,7 +8,6 @@ namespace Cod3rsGrowth.Infra
 {
     public class Cod3rsGrowthConnect : DataConnection
     {
-        public Cod3rsGrowthConnect(DataOptions<Cod3rsGrowthConnect> opcao) : base(opcao.Options) { }
         public Cod3rsGrowthConnect(string connection) : base(connection) { }
 
         public static Cod3rsGrowthConnect Connect(string connection)
