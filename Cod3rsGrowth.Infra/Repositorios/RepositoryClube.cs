@@ -24,9 +24,9 @@ namespace Cod3rsGrowth.Test.Repositorios
                 return database.Clubes.Where(clube => clube.Nome.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
-        public Clube ObterPorId(int id)
+        public Clube? ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            return database.Clubes.FirstOrDefault(clube => clube.Id == id);
         }
 
         public int Criar(Clube objeto)
