@@ -12,7 +12,7 @@ namespace Cod3rsGrowth.Test
         public Teste()
         {
             var ServiceCollection = new ServiceCollection();
-            ModuloDeInjecao.Servicos(ServiceCollection);
+            ModuloDeInjecaoInfra.Servicos(ServiceCollection);
             ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
         public void Dispose()
