@@ -6,10 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
+   <ItemGroup>
+	   <None Include=".env" CopyToOutputDirectory="PreserveNewest" />   
+   </ItemGroup>
+   
+   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.0.0" />
     <PackageReference Include="FluentMigrator" Version="5.2.0" />
     <PackageReference Include="FluentMigrator.Runner.MySql" Version="5.2.0" />
     <PackageReference Include="linq2db" Version="5.4.1" />
+    <PackageReference Include="linq2db.AspNet" Version="5.4.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>

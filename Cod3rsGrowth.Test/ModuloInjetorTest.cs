@@ -7,7 +7,7 @@ using Cod3rsGrowth.Servicos.Validadores;
 
 namespace Cod3rsGrowth.Test
 {
-    public static class ModuloDeInjecaoTest
+    public static class ModuloInjetorTest
     {
         public static void Servicos(IServiceCollection ServicosTest)
         {
