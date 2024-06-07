@@ -1,60 +1,52 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
-
-
+using Cod3rsGrowth.Infra;
+using System.Linq;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Test.Repositorios
 {
-    public class RepositoryClube : IRepositoryData<Clube> 
+    public class RepositoryClube : IRepositoryData<Clube>
     {
-        public List<Clube>? ListaDeClubes;
-        public Clube? clube;
+        private readonly Cod3rsGrowthConnect database;
 
-        public List<Clube> ObterTodos()
+        public RepositoryClube(Cod3rsGrowthConnect Database)
         {
-            return ListaDeClubes;
+            database = Database;
         }
 
-        public Clube ObterPorId(int id)
+        public List<Clube> ObterTodos(string searchName)
         {
-           return ListaDeClubes.Find(clube => clube.Id == id) ?? throw new Exception("Clube inexistente!");
-        }
-            
-        public int Criar(Clube clube)
-        {
-            int IncrementoCriar = 1;
-            clube.Id = ListaDeClubes.Any() ? ListaDeClubes.Max(clube => clube.Id) + IncrementoCriar : IncrementoCriar;
-
-            ListaDeClubes.Add(clube);
-
-            return clube.Id;
-
+            if (searchName == null)
+            {
+                return database.Clubes.ToList();
+            }
+                return database.Clubes.Where(clube => clube.Nome.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
-        public void Editar(int idDoEdit, Clube clube)
+        public Clube? ObterPorId(int id)
         {
-            
-            var ClubeAEditar = ObterPorId(idDoEdit);
+            return database.Clubes.FirstOrDefault(clube => clube.Id == id);
+        }
 
-            ClubeAEditar.Nome = clube.Nome;
-            
-            ClubeAEditar.Fundacao = clube.Fundacao;
+        public int Criar(Clube objeto)
+        {
+            return database.Insert(objeto);
+        }
 
-            ClubeAEditar.Estadio = clube.Estadio;
-
-            ClubeAEditar.Estado = clube.Estado;
-
-            ClubeAEditar.CoberturaAntiChuva = clube.CoberturaAntiChuva;
-
-            ClubeAEditar.Elenco = clube.Elenco;
-
+        public void Editar(int id, Clube objeto)
+        {
+            database.Clubes
+                .Where(clube => clube.Id == id)
+                .Set(clube => clube, objeto)
+                .Update();
         }
 
         public void Remover(int id)
-
         {
-            var clubeARemover = ObterPorId(id);
-            ListaDeClubes.Remove(clubeARemover);
+            database.Clubes
+                .Where(clube => clube.Id == id)
+                .Delete();
         }
     }
 }

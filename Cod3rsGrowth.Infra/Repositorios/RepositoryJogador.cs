@@ -1,59 +1,47 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
-
-
+using Cod3rsGrowth.Infra;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Test.Repositorios;
 
 public class RepositoryJogador : IRepositoryData<Jogador>
 {
+    private readonly Cod3rsGrowthConnect database;
 
-    public List<Jogador> ListaJogador;
-    public Jogador? jogador;
-
-
-    public List<Jogador>? ObterTodos()
+    public RepositoryJogador(Cod3rsGrowthConnect Database)
     {
-        return ListaJogador;
+       database = Database;
     }
 
-    public Jogador ObterPorId(int id)
+    public List<Jogador> ObterTodos(string searchName)
     {
-        return ListaJogador.Find(jogador => jogador.Id == id) ?? throw new Exception("Jogador inexistente!");
+        return database.Jogadores.ToList();       
     }
 
-    public int Criar(Jogador jogador)
+    public Jogador? ObterPorId(int id)
     {
-        int IncremntoCriar = 1;
-        jogador.Id = ListaJogador.Any() ? ListaJogador.Max(jogador => jogador.Id) + IncremntoCriar : IncremntoCriar;
-
-        ListaJogador.Add(jogador);
-
-        return jogador.Id;
-
+        return database.Jogadores.FirstOrDefault(jogador => jogador.Id == id);
     }
 
-    public void Editar(int idDoEdit, Jogador jogador)
+    public int Criar(Jogador objeto)
     {
-        var Editado = ObterPorId(idDoEdit);
-       
-            Editado.Nome = jogador.Nome;
+        return database.Insert(objeto);
+    }
 
-            Editado.Idade = jogador.Idade;
-        
-            Editado.DataDeNascimento = jogador.DataDeNascimento;
-
-            Editado.Altura = jogador.Altura;
-
-            Editado.Peso = jogador.Peso;
-
+    public void Editar(int id, Jogador objeto)
+    {
+        database.Jogadores
+            .Where(jogador => jogador.Id == id)
+            .Set(jogador => jogador, objeto)
+            .Update();
     }
 
     public void Remover(int id)
-
     {
-        var jogadorARemover = ObterPorId(id);
-        ListaJogador.Remove(jogadorARemover);
+        database.Jogadores
+            .Where(jogador => jogador.Id == id)
+            .Delete();
     }
 }
 

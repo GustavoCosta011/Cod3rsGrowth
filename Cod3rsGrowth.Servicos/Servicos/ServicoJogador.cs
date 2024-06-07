@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
         }
         public List<Jogador> ObterTodos()
         {
-            return repositoryJogador.ObterTodos();
+            return repositoryJogador.ObterTodos(" ");
         }
 
         public Jogador ObterPorId(int id)

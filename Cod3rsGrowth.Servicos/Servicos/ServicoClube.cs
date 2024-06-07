@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
         }
         public List<Clube> ObterTodos()
         {
-            return repositoryClube.ObterTodos();
+            return repositoryClube.ObterTodos(" ");
         }
         public Clube ObterPorId(int id)
         {

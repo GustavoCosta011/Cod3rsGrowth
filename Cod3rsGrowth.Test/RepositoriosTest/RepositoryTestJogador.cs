@@ -55,6 +55,11 @@ public class RepositoryTestJogador : IRepositoryData<Jogador>
         var jogadorARemover = ObterPorId(id);
         ListaJogador.Remove(jogadorARemover);
     }
+
+    public List<Jogador> ObterTodos(string serch)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
