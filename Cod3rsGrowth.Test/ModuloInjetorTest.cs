@@ -2,8 +2,7 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Test.RepositoriosTest;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Servicos.Validadores;
+
 
 namespace Cod3rsGrowth.Test
 {

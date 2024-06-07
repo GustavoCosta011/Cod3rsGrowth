@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Infra;
 using Microsoft.Extensions.DependencyInjection;
-
+using System.Data.SqlClient;
 
 namespace Cod3rsGrowth.Test.Testes
 {
