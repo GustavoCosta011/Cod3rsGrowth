@@ -16,7 +16,6 @@ namespace Cod3rsGrowth.Test
         public static void Servicos(IServiceCollection ServicosInfra)
         {
             Env.Load();
-            Environment.GetEnvironmentVariable(connectionString);
             var strConnection = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
             ServicosInfra.AddSingleton<IRepositoryData<Clube>, RepositoryClube>();
             ServicosInfra.AddSingleton<IRepositoryData<Jogador>, RepositoryJogador>();
