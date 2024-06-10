@@ -13,6 +13,7 @@ namespace Cod3rsGrowth.Infra
                 Create.Table("Jogador")
                     .WithColumn("Id").AsInt64().PrimaryKey().Identity()
                     .WithColumn("Name").AsString()
+                    .WithColumn("IdClube").AsInt64()
                     .WithColumn("Idade").AsInt64()
                     .WithColumn("DataDeNascimento").AsDateTime()
                     .WithColumn("Altura").AsDouble()
@@ -24,8 +25,7 @@ namespace Cod3rsGrowth.Infra
                     .WithColumn("Fundacao").AsDateTime()
                     .WithColumn("Estadio").AsString()
                     .WithColumn("Estado").AsInt64()
-                    .WithColumn("CoberturaAntiChuva").AsBoolean()
-                    .WithColumn("Elenco").AsInt32();
+                    .WithColumn("CoberturaAntiChuva").AsBoolean();
             }
 
             public override void Down()
