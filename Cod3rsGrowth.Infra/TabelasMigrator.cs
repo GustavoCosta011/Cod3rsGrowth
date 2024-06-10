@@ -1,11 +1,13 @@
-﻿using FluentMigrator;
+﻿using System.Numerics;
+using FluentMigrator;
+using LinqToDB.Mapping;
 
 
 namespace Cod3rsGrowth.Infra
 {
     public class TabelasMigrator
     {
-        [Migration(20240604100200)]
+        [Migration(20240610123600)]
         public class TabelasMigration : Migration
         {
             public override void Up()
@@ -26,7 +28,11 @@ namespace Cod3rsGrowth.Infra
                     .WithColumn("Estadio").AsString()
                     .WithColumn("Estado").AsInt64()
                     .WithColumn("CoberturaAntiChuva").AsBoolean();
-            }
+
+                Create.ForeignKey()
+                    .FromTable("Jogador").ForeignColumn("Id")
+                    .ToTable("Jogador").PrimaryColumn("Id");  
+               }
 
             public override void Down()
             {
