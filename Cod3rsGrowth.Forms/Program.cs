@@ -1,7 +1,6 @@
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Infra;
-using FluentMigrator.Runner.Initialization;
 using DotNetEnv;
 using Cod3rsGrowth.Forms;
 

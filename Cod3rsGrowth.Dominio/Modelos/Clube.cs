@@ -26,6 +26,8 @@ namespace Cod3rsGrowth.Dominio.Modelos
         [Column("CoberturaAntiChuva"), NotNull]
         public bool CoberturaAntiChuva { get; set; }
 
+        public List<int>? Elenco { get; set; }
+
         public Clube(int id, string nome, DateTime fundacao, string? estadio, EstadosEnum estado, bool coberturaAntiChuva, List<int>? elenco)
         {
             Id = id;
