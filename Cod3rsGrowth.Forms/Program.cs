@@ -1,6 +1,9 @@
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Infra;
+using FluentMigrator.Runner.Initialization;
+using DotNetEnv;
+using Cod3rsGrowth.Forms;
 
 namespace test
 {
@@ -8,6 +11,8 @@ namespace test
     {
         static void Main(string[] args)
         {
+            ApplicationConfiguration.Initialize();
+            Application.Run(new Form1());
             using (var serviceProvider = CreateServices())
             using (var scope = serviceProvider.CreateScope())
             {
@@ -22,7 +27,8 @@ namespace test
         /// </summary>
         private static ServiceProvider CreateServices()
         {
-            var connectionString = Environment.GetEnvironmentVariable("cntString");
+            Env.Load();
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
             return new ServiceCollection()
                 // Add common FluentMigrator services
                 .AddFluentMigratorCore()
