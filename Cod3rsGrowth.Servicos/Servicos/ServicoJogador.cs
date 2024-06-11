@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             repositoryJogador = repositoryMock;
             validadorJogador = validador;     
         }
-        public List<Jogador> ObterTodos(IFiltro filtro)
+        public List<Jogador> ObterTodos(Filtro? filtro)
         {
             return repositoryJogador.ObterTodos(filtro);
         }

@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Infra;
 using DotNetEnv;
 using Cod3rsGrowth.Forms;
+using Microsoft.Extensions.Hosting;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Test;
 
 namespace test
 {
@@ -10,38 +13,43 @@ namespace test
     {
         static void Main(string[] args)
         {
+            var host = CreateHostBuilder().Build();
+
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
-            using (var serviceProvider = CreateServices())
-            using (var scope = serviceProvider.CreateScope())
+
+            // Update the database before running the application
+            using (var scope = host.Services.CreateScope())
             {
-                // Put the database update into a scope to ensure
-                // that all resources will be disposed.
                 UpdateDatabase(scope.ServiceProvider);
             }
+
+            Application.Run(host.Services.GetRequiredService<Form1>());
         }
 
-        /// <summary>
-        /// Configure the dependency injection services
-        /// </summary>
-        private static ServiceProvider CreateServices()
+        private static IHostBuilder CreateHostBuilder()
         {
-            Env.Load();
-            var connectionString = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
-            return new ServiceCollection()
-                // Add common FluentMigrator services
-                .AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb
-                    // Add SQLite support to FluentMigrator
-                    .AddSqlServer()
-                    // Set the connection string
-                    .WithGlobalConnectionString(connectionString)
-                    // Define the assembly containing the migrations
-                    .ScanIn(typeof(TabelasMigrator).Assembly).For.Migrations())
-                // Enable logging to console in the FluentMigrator way
-                .AddLogging(lb => lb.AddFluentMigratorConsole())
-                // Build the service provider
-                .BuildServiceProvider(false);
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) => {
+                    Env.Load();
+                    var connectionString = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
+
+                    services.AddTransient<Form1>();
+
+                    // Add common FluentMigrator services
+                    services.AddFluentMigratorCore()
+                        .ConfigureRunner(rb => rb
+                            // Add SQL Server support to FluentMigrator
+                            .AddSqlServer()
+                            // Set the connection string
+                            .WithGlobalConnectionString(connectionString)
+                            // Define the assembly containing the migrations
+                            .ScanIn(typeof(TabelasMigrator).Assembly).For.Migrations())
+                        // Enable logging to console in the FluentMigrator way
+                        .AddLogging(lb => lb.AddFluentMigratorConsole());
+
+                    ModuloInjetorInfra.Servicos(services);
+                    ModuloInjetorServico.Servicos(services);
+                });
         }
 
         /// <summary>
