@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using LinqToDB;
 using LinqToDB.Data;
-using Microsoft.Extensions.DependencyInjection;
+
 
 
 namespace Cod3rsGrowth.Infra

@@ -17,9 +17,9 @@ namespace Cod3rsGrowth.Servicos.Servicos
             repositoryClube = repositoryMock;
             validadorClube = validador; 
         }
-        public List<Clube> ObterTodos()
+        public List<Clube> ObterTodos(IFiltro filtro)
         {
-            return repositoryClube.ObterTodos(" ");
+            return repositoryClube.ObterTodos(filtro);
         }
         public Clube ObterPorId(int id)
         {
