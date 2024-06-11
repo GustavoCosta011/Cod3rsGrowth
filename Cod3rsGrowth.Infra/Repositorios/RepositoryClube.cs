@@ -15,13 +15,11 @@ namespace Cod3rsGrowth.Test.Repositorios
             database = Database;
         }
 
-        public List<Clube> ObterTodos(string searchName)
+        public List<Clube> ObterTodos(IFiltro filtro)
         {
-            if (searchName == null)
-            {
-                return database.Clubes.ToList();
-            }
-                return database.Clubes.Where(clube => clube.Nome.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
+            var clubes = database.Clubes.AsQueryable();
+
+            if (filtro.No) { }
         }
 
         public Clube? ObterPorId(int id)
