@@ -14,9 +14,17 @@ public class RepositoryJogador : IRepositoryData<Jogador>
        database = Database;
     }
 
-    public List<Jogador> ObterTodos(string searchName)
+    public List<Jogador> ObterTodos(Filtro filtro)
     {
-        return database.Jogadores.ToList();       
+        if (filtro == null) return database.Jogadores.ToList();
+        var jogadores = database.Jogadores.AsQueryable();
+
+        if (!string.IsNullOrEmpty(filtro.Nome)) jogadores = jogadores.Where(jogador => jogador.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+        if (filtro.Estado.HasValue) jogadores = jogadores.Where(jogador => jogador.IdClube == filtro.IdClube);
+        if (filtro.DataPiso.HasValue) jogadores = jogadores.Where(jogador => jogador.DataDeNascimento >= filtro.DataPiso);
+        if (filtro.DataTeto.HasValue) jogadores = jogadores.Where(jogador => jogador.DataDeNascimento <= filtro.DataTeto);
+
+        return jogadores.ToList();
     }
 
     public Jogador? ObterPorId(int id)
