@@ -14,7 +14,7 @@ public class RepositoryJogador : IRepositoryData<Jogador>
        database = Database;
     }
 
-    public List<Jogador> ObterTodos(IFiltro filtro)
+    public List<Jogador> ObterTodos(Filtro filtro)
     {
         if (filtro == null) return database.Jogadores.ToList();
         var jogadores = database.Jogadores.AsQueryable();

@@ -15,7 +15,7 @@ namespace Cod3rsGrowth.Test.Repositorios
             database = Database;
         }
 
-        public List<Clube> ObterTodos(IFiltro? filtro)
+        public List<Clube> ObterTodos(Filtro? filtro)
         {
             if (filtro == null) return database.Clubes.ToList();
             var clubes = database.Clubes.AsQueryable();
