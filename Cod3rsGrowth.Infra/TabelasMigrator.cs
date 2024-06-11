@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Infra
 {
     public class TabelasMigrator
     {
-        [Migration(202406111102700)]
+        [Migration(202406111102800)]
         public class TabelasMigration : Migration
         {
             public override void Up()
