@@ -15,11 +15,17 @@ namespace Cod3rsGrowth.Test.Repositorios
             database = Database;
         }
 
-        public List<Clube> ObterTodos(IFiltro filtro)
+        public List<Clube> ObterTodos(IFiltro? filtro)
         {
+            if (filtro == null) return database.Clubes.ToList();
             var clubes = database.Clubes.AsQueryable();
 
-            if (filtro.No) { }
+            if (!string.IsNullOrEmpty(filtro.Nome)) clubes = clubes.Where(clube => clube.Nome == filtro.Nome);
+            if (filtro.Estado.HasValue) clubes = clubes.Where(clube => clube.Estado == filtro.Estado);
+            if (filtro.DataPiso.HasValue) clubes = clubes.Where(clube => clube.Fundacao >= filtro.DataPiso);
+            if (filtro.DataTeto.HasValue) clubes = clubes.Where(clube => clube.Fundacao <= filtro.DataTeto);
+
+            return clubes.ToList();
         }
 
         public Clube? ObterPorId(int id)

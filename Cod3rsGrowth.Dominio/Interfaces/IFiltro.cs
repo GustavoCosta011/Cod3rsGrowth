@@ -9,10 +9,10 @@ namespace Cod3rsGrowth.Dominio.Interfaces
 {
     public interface IFiltro
     {
-        string? Name { get; set; }
+        string? Nome { get; set; }
         int? IdClube { get; set; }
         DateTime? DataPiso { get; set; }
-        DateTime? DataTEto { get; set; }
+        DateTime? DataTeto { get; set; }
         EstadosEnum? Estado { get; set; }
     }
 }
