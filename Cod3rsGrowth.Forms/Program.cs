@@ -11,19 +11,22 @@ namespace test
 {
     class Program
     {
+
+        public static IServiceProvider serviceProvider { get; private set; }
         static void Main(string[] args)
         {
             var host = CreateHostBuilder().Build();
+            serviceProvider = host.Services;
 
             ApplicationConfiguration.Initialize();
 
             // Update the database before running the application
-            using (var scope = host.Services.CreateScope())
+            using (var scope = serviceProvider.CreateScope())
             {
                 UpdateDatabase(scope.ServiceProvider);
             }
 
-            Application.Run(host.Services.GetRequiredService<Form1>());
+            Application.Run(new Form1(serviceProvider.GetRequiredService<ServicoClube>()));
         }
 
         private static IHostBuilder CreateHostBuilder()
@@ -32,8 +35,6 @@ namespace test
                 .ConfigureServices((context, services) => {
                     Env.Load();
                     var connectionString = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
-
-                    services.AddTransient<Form1>();
 
                     // Add common FluentMigrator services
                     services.AddFluentMigratorCore()
@@ -52,9 +53,6 @@ namespace test
                 });
         }
 
-        /// <summary>
-        /// Update the database
-        /// </summary>
         private static void UpdateDatabase(IServiceProvider serviceProvider)
         {
             // Instantiate the runner
