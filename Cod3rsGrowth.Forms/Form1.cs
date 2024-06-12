@@ -6,16 +6,17 @@ namespace Cod3rsGrowth.Forms
 {
     public partial class Form1 : Form
     {
-        public static ServicoClube? ServicoClube { get; set; }
-        public Form1(ServicoClube ServicoClube)
+        private readonly ServicoClube _servicoClube;
+        public Form1(ServicoClube servicoClube)
         {
-            Form1.ServicoClube = ServicoClube;
+            _servicoClube = servicoClube;
             InitializeComponent();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }
