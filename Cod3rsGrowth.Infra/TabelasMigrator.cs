@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Infra
 {
     public class TabelasMigrator
     {
-        [Migration(20240611103200)]
+        [Migration(20240611103220)]
         public class TabelasMigration : Migration
         {
             public override void Up()
@@ -30,9 +30,9 @@ namespace Cod3rsGrowth.Infra
                     .WithColumn("CoberturaAntiChuva").AsBoolean();
 
                 Create.ForeignKey()
-                    .FromTable("Jogador").ForeignColumn("Id")
-                    .ToTable("Jogador").PrimaryColumn("Id");  
-               }
+                    .FromTable("Jogador").ForeignColumn("IdClube")
+                    .ToTable("Clube").PrimaryColumn("Id");  
+            }
 
             public override void Down()
             {
