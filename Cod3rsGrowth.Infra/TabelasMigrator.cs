@@ -7,14 +7,14 @@ namespace Cod3rsGrowth.Infra
 {
     public class TabelasMigrator
     {
-        [Migration(20240611103220)]
+        [Migration(20240612103220)]
         public class TabelasMigration : Migration
         {
             public override void Up()
             {
                 Create.Table("Jogador")
                     .WithColumn("Id").AsInt64().PrimaryKey().Identity()
-                    .WithColumn("Name").AsString()
+                    .WithColumn("Nome").AsString()
                     .WithColumn("IdClube").AsInt64()
                     .WithColumn("Idade").AsInt64()
                     .WithColumn("DataDeNascimento").AsDateTime()
@@ -23,7 +23,7 @@ namespace Cod3rsGrowth.Infra
 
                 Create.Table("Clube")
                     .WithColumn("Id").AsInt64().PrimaryKey().Identity()
-                    .WithColumn("Name").AsString()
+                    .WithColumn("Nome").AsString()
                     .WithColumn("Fundacao").AsDateTime()
                     .WithColumn("Estadio").AsString()
                     .WithColumn("Estado").AsInt64()

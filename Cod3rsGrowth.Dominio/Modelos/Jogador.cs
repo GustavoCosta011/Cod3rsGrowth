@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Dominio.Modelos
         [PrimaryKey, Identity]
         public int Id { get; set; }
         
-        [Column("NomeDoJogador"), NotNull]
+        [Column("Nome"), NotNull]
         public string Nome { get; set; }
             
         [Column("IdClube")]
