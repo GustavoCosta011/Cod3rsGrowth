@@ -27,7 +27,7 @@ namespace test
                 UpdateDatabase(scope.ServiceProvider);
             }
 
-            Application.Run(new Form1(serviceProvider.GetRequiredService<ServicoClube>()));
+            Application.Run(new Form1(serviceProvider.GetRequiredService<ServicoClube>(),serviceProvider.GetRequiredService<ServicoJogador>()));
         }
 
         private static IHostBuilder CreateHostBuilder()
