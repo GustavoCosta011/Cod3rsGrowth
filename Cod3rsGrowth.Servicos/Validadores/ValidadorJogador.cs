@@ -9,16 +9,19 @@ namespace Cod3rsGrowth.Servicos.Validadores
         public ValidadorJogador()
         {
             RuleFor(jogador => jogador.Nome)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()
                 .NotEmpty().WithMessage("Campo não pode ser vazio!!")
                 .Length(3, 60).WithMessage("O nome tem que ter no minimo 3 e no maximo 60 letras!!");
             RuleFor(jogador => jogador.DataDeNascimento)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()
                 .NotEmpty().WithMessage("Campo não pode ser vazio!!")
                 .LessThanOrEqualTo(jogador => DateTime.Now).WithMessage("A data deve ser anterior a atual!!");
             RuleFor(jogador => jogador.Idade)
-               .NotEmpty().WithMessage("Campo não pode ser vazio!!")
-               .LessThanOrEqualTo(jogador => DateTime.Now.Year - jogador.DataDeNascimento.Year).WithMessage("Idade incoerente a data de nascimento!!");
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty().WithMessage("Campo não pode ser vazio!!")
+                .LessThanOrEqualTo(jogador => DateTime.Now.Year - jogador.DataDeNascimento.Year).WithMessage("Idade incoerente a data de nascimento!!");
             RuleFor(jogador => jogador.Altura)
                 .NotEmpty().WithMessage("Campo não pode ser vazio!!");
             RuleFor(jogador => jogador.Peso)
@@ -29,6 +32,7 @@ namespace Cod3rsGrowth.Servicos.Validadores
                 RuleFor(jogador => jogador.Nome)
                     .Length(3, 60).WithMessage("O nome tem que ter no minimo 3 e no maximo 60 letras!!");
                 RuleFor(jogador => jogador.DataDeNascimento)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotNull().WithMessage("Campo obrigatorio!!")
                     .LessThanOrEqualTo(jogador => DateTime.Now).WithMessage("A data deve ser anterior a atual!!");
                 RuleFor(jogador => jogador.Idade)

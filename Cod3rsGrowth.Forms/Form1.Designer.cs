@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabelaClube = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -38,18 +38,20 @@
             estadoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             coberturaAntiChuvaDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             clubeBindingSource = new BindingSource(components);
-            textBox1 = new TextBox();
+            BoxNomeClube = new TextBox();
             Clubes = new TabControl();
             tabPage1 = new TabPage();
             button6 = new Button();
             button5 = new Button();
             button2 = new Button();
             BoxBuscar = new GroupBox();
-            dateTimePicker2 = new DateTimePicker();
+            BoxEstado = new TextBox();
+            label8 = new Label();
+            DataFinalClube = new DateTimePicker();
             label2 = new Label();
             label1 = new Label();
             label3 = new Label();
-            dateTimePicker1 = new DateTimePicker();
+            DataInicialClube = new DateTimePicker();
             Pesquisar = new Button();
             tabPage2 = new TabPage();
             button4 = new Button();
@@ -65,17 +67,15 @@
             pesoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             jogadorBindingSource = new BindingSource(components);
             groupBox1 = new GroupBox();
-            textBox3 = new TextBox();
+            BoxIdClube = new TextBox();
             label7 = new Label();
-            dateTimePicker3 = new DateTimePicker();
+            DataFinalJogador = new DateTimePicker();
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
-            dateTimePicker4 = new DateTimePicker();
+            DataInicialJogador = new DateTimePicker();
             PesquisarJgador = new Button();
-            textBox2 = new TextBox();
-            label8 = new Label();
-            textBox4 = new TextBox();
+            BoxNomeJogador = new TextBox();
             ((System.ComponentModel.ISupportInitialize)tabelaClube).BeginInit();
             ((System.ComponentModel.ISupportInitialize)clubeBindingSource).BeginInit();
             Clubes.SuspendLayout();
@@ -95,15 +95,15 @@
             tabelaClube.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabelaClube.BackgroundColor = Color.SlateGray;
             tabelaClube.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.LightSteelBlue;
-            dataGridViewCellStyle3.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.InactiveCaptionText;
-            dataGridViewCellStyle3.NullValue = null;
-            dataGridViewCellStyle3.SelectionBackColor = Color.RoyalBlue;
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            tabelaClube.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.LightSteelBlue;
+            dataGridViewCellStyle2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.InactiveCaptionText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = Color.RoyalBlue;
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            tabelaClube.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             tabelaClube.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaClube.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, fundacaoDataGridViewTextBoxColumn, estadioDataGridViewTextBoxColumn, estadoDataGridViewTextBoxColumn, coberturaAntiChuvaDataGridViewCheckBoxColumn });
             tabelaClube.DataSource = clubeBindingSource;
@@ -111,7 +111,7 @@
             tabelaClube.Name = "tabelaClube";
             tabelaClube.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             tabelaClube.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            tabelaClube.Size = new Size(439, 256);
+            tabelaClube.Size = new Size(571, 262);
             tabelaClube.TabIndex = 0;
             tabelaClube.VirtualMode = true;
             tabelaClube.CellContentClick += tabelaClube_CellContentClick;
@@ -168,23 +168,23 @@
             // 
             clubeBindingSource.DataSource = typeof(Dominio.Modelos.Clube);
             // 
-            // textBox1
+            // BoxNomeClube
             // 
-            textBox1.Location = new Point(88, 15);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(108, 22);
-            textBox1.TabIndex = 1;
-            textBox1.TextChanged += textBox1_TextChanged;
+            BoxNomeClube.Location = new Point(88, 15);
+            BoxNomeClube.Name = "BoxNomeClube";
+            BoxNomeClube.Size = new Size(108, 22);
+            BoxNomeClube.TabIndex = 1;
+            BoxNomeClube.TextChanged += textBox1_TextChanged;
             // 
             // Clubes
             // 
             Clubes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Clubes.Controls.Add(tabPage1);
             Clubes.Controls.Add(tabPage2);
-            Clubes.Location = new Point(124, 30);
+            Clubes.Location = new Point(59, 30);
             Clubes.Name = "Clubes";
             Clubes.SelectedIndex = 0;
-            Clubes.Size = new Size(586, 369);
+            Clubes.Size = new Size(718, 375);
             Clubes.TabIndex = 3;
             // 
             // tabPage1
@@ -199,7 +199,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(578, 341);
+            tabPage1.Size = new Size(710, 347);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Clubes";
             tabPage1.Click += tabPage1_Click;
@@ -210,7 +210,7 @@
             button6.BackColor = SystemColors.AppWorkspace;
             button6.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             button6.ForeColor = Color.Black;
-            button6.Location = new Point(461, 197);
+            button6.Location = new Point(593, 197);
             button6.Name = "button6";
             button6.Size = new Size(102, 53);
             button6.TabIndex = 14;
@@ -223,7 +223,7 @@
             button5.BackColor = SystemColors.AppWorkspace;
             button5.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             button5.ForeColor = Color.Black;
-            button5.Location = new Point(461, 138);
+            button5.Location = new Point(593, 138);
             button5.Name = "button5";
             button5.Size = new Size(102, 53);
             button5.TabIndex = 13;
@@ -236,7 +236,7 @@
             button2.BackColor = SystemColors.AppWorkspace;
             button2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             button2.ForeColor = Color.Black;
-            button2.Location = new Point(461, 79);
+            button2.Location = new Point(593, 79);
             button2.Name = "button2";
             button2.Size = new Size(102, 53);
             button2.TabIndex = 9;
@@ -248,33 +248,49 @@
             BoxBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BoxBuscar.BackColor = Color.LightGray;
             BoxBuscar.BackgroundImageLayout = ImageLayout.None;
-            BoxBuscar.Controls.Add(textBox4);
+            BoxBuscar.Controls.Add(BoxEstado);
             BoxBuscar.Controls.Add(label8);
-            BoxBuscar.Controls.Add(dateTimePicker2);
+            BoxBuscar.Controls.Add(DataFinalClube);
             BoxBuscar.Controls.Add(label2);
             BoxBuscar.Controls.Add(label1);
             BoxBuscar.Controls.Add(label3);
-            BoxBuscar.Controls.Add(dateTimePicker1);
+            BoxBuscar.Controls.Add(DataInicialClube);
             BoxBuscar.Controls.Add(Pesquisar);
-            BoxBuscar.Controls.Add(textBox1);
+            BoxBuscar.Controls.Add(BoxNomeClube);
             BoxBuscar.FlatStyle = FlatStyle.Popup;
             BoxBuscar.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             BoxBuscar.Location = new Point(6, 6);
             BoxBuscar.Name = "BoxBuscar";
-            BoxBuscar.Size = new Size(566, 67);
+            BoxBuscar.Size = new Size(698, 67);
             BoxBuscar.TabIndex = 8;
             BoxBuscar.TabStop = false;
             BoxBuscar.Enter += groupBox1_Enter;
             // 
-            // dateTimePicker2
+            // BoxEstado
             // 
-            dateTimePicker2.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePicker2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(300, 39);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(99, 22);
-            dateTimePicker2.TabIndex = 5;
+            BoxEstado.Location = new Point(88, 39);
+            BoxEstado.Name = "BoxEstado";
+            BoxEstado.Size = new Size(108, 22);
+            BoxEstado.TabIndex = 9;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(18, 36);
+            label8.Name = "label8";
+            label8.Size = new Size(64, 16);
+            label8.TabIndex = 8;
+            label8.Text = "Estado (UF):";
+            // 
+            // DataFinalClube
+            // 
+            DataFinalClube.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            DataFinalClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            DataFinalClube.Format = DateTimePickerFormat.Short;
+            DataFinalClube.Location = new Point(300, 39);
+            DataFinalClube.Name = "DataFinalClube";
+            DataFinalClube.Size = new Size(99, 22);
+            DataFinalClube.TabIndex = 5;
             // 
             // label2
             // 
@@ -304,22 +320,22 @@
             label3.TabIndex = 7;
             label3.Text = "Nome:";
             // 
-            // dateTimePicker1
+            // DataInicialClube
             // 
-            dateTimePicker1.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePicker1.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(300, 13);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(99, 22);
-            dateTimePicker1.TabIndex = 3;
+            DataInicialClube.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            DataInicialClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            DataInicialClube.Format = DateTimePickerFormat.Short;
+            DataInicialClube.Location = new Point(300, 13);
+            DataInicialClube.Name = "DataInicialClube";
+            DataInicialClube.Size = new Size(99, 22);
+            DataInicialClube.TabIndex = 3;
             // 
             // Pesquisar
             // 
             Pesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Pesquisar.BackColor = SystemColors.AppWorkspace;
             Pesquisar.ForeColor = Color.Black;
-            Pesquisar.Location = new Point(455, 8);
+            Pesquisar.Location = new Point(587, 8);
             Pesquisar.Name = "Pesquisar";
             Pesquisar.Size = new Size(102, 53);
             Pesquisar.TabIndex = 2;
@@ -338,7 +354,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(578, 341);
+            tabPage2.Size = new Size(710, 347);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Jogadores";
             // 
@@ -348,7 +364,7 @@
             button4.BackColor = SystemColors.AppWorkspace;
             button4.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             button4.ForeColor = Color.Black;
-            button4.Location = new Point(459, 197);
+            button4.Location = new Point(591, 197);
             button4.Name = "button4";
             button4.Size = new Size(102, 53);
             button4.TabIndex = 13;
@@ -361,7 +377,7 @@
             button3.BackColor = SystemColors.AppWorkspace;
             button3.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             button3.ForeColor = Color.Black;
-            button3.Location = new Point(459, 138);
+            button3.Location = new Point(591, 138);
             button3.Name = "button3";
             button3.Size = new Size(102, 53);
             button3.TabIndex = 12;
@@ -374,7 +390,7 @@
             button1.BackColor = SystemColors.AppWorkspace;
             button1.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             button1.ForeColor = Color.Black;
-            button1.Location = new Point(459, 79);
+            button1.Location = new Point(591, 79);
             button1.Name = "button1";
             button1.Size = new Size(102, 53);
             button1.TabIndex = 11;
@@ -394,7 +410,7 @@
             tabelaJogadores.Location = new Point(6, 79);
             tabelaJogadores.Name = "tabelaJogadores";
             tabelaJogadores.RowTemplate.Height = 25;
-            tabelaJogadores.Size = new Size(436, 256);
+            tabelaJogadores.Size = new Size(568, 262);
             tabelaJogadores.TabIndex = 10;
             tabelaJogadores.CellContentClick += tabelaJogadores_CellContentClick;
             // 
@@ -456,29 +472,29 @@
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = Color.LightGray;
             groupBox1.BackgroundImageLayout = ImageLayout.None;
-            groupBox1.Controls.Add(textBox3);
+            groupBox1.Controls.Add(BoxIdClube);
             groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(dateTimePicker3);
+            groupBox1.Controls.Add(DataFinalJogador);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(dateTimePicker4);
+            groupBox1.Controls.Add(DataInicialJogador);
             groupBox1.Controls.Add(PesquisarJgador);
-            groupBox1.Controls.Add(textBox2);
+            groupBox1.Controls.Add(BoxNomeJogador);
             groupBox1.FlatStyle = FlatStyle.Popup;
             groupBox1.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.Location = new Point(6, 6);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(566, 67);
+            groupBox1.Size = new Size(698, 67);
             groupBox1.TabIndex = 9;
             groupBox1.TabStop = false;
             // 
-            // textBox3
+            // BoxIdClube
             // 
-            textBox3.Location = new Point(86, 39);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(105, 22);
-            textBox3.TabIndex = 9;
+            BoxIdClube.Location = new Point(86, 39);
+            BoxIdClube.Name = "BoxIdClube";
+            BoxIdClube.Size = new Size(105, 22);
+            BoxIdClube.TabIndex = 9;
             // 
             // label7
             // 
@@ -489,15 +505,15 @@
             label7.TabIndex = 8;
             label7.Text = "Id do Clube:";
             // 
-            // dateTimePicker3
+            // DataFinalJogador
             // 
-            dateTimePicker3.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePicker3.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePicker3.Format = DateTimePickerFormat.Short;
-            dateTimePicker3.Location = new Point(300, 39);
-            dateTimePicker3.Name = "dateTimePicker3";
-            dateTimePicker3.Size = new Size(99, 22);
-            dateTimePicker3.TabIndex = 5;
+            DataFinalJogador.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            DataFinalJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            DataFinalJogador.Format = DateTimePickerFormat.Short;
+            DataFinalJogador.Location = new Point(300, 39);
+            DataFinalJogador.Name = "DataFinalJogador";
+            DataFinalJogador.Size = new Size(99, 22);
+            DataFinalJogador.TabIndex = 5;
             // 
             // label4
             // 
@@ -526,50 +542,35 @@
             label6.TabIndex = 7;
             label6.Text = "Nome:";
             // 
-            // dateTimePicker4
+            // DataInicialJogador
             // 
-            dateTimePicker4.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePicker4.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dateTimePicker4.Format = DateTimePickerFormat.Short;
-            dateTimePicker4.Location = new Point(300, 13);
-            dateTimePicker4.Name = "dateTimePicker4";
-            dateTimePicker4.Size = new Size(99, 22);
-            dateTimePicker4.TabIndex = 3;
+            DataInicialJogador.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            DataInicialJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            DataInicialJogador.Format = DateTimePickerFormat.Short;
+            DataInicialJogador.Location = new Point(300, 13);
+            DataInicialJogador.Name = "DataInicialJogador";
+            DataInicialJogador.Size = new Size(99, 22);
+            DataInicialJogador.TabIndex = 3;
             // 
             // PesquisarJgador
             // 
             PesquisarJgador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PesquisarJgador.BackColor = SystemColors.AppWorkspace;
             PesquisarJgador.ForeColor = Color.Black;
-            PesquisarJgador.Location = new Point(453, 8);
+            PesquisarJgador.Location = new Point(585, 8);
             PesquisarJgador.Name = "PesquisarJgador";
             PesquisarJgador.Size = new Size(102, 53);
             PesquisarJgador.TabIndex = 2;
             PesquisarJgador.Text = "Pesquisar";
             PesquisarJgador.UseVisualStyleBackColor = false;
             // 
-            // textBox2
+            // BoxNomeJogador
             // 
-            textBox2.Location = new Point(86, 13);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(105, 22);
-            textBox2.TabIndex = 1;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(18, 36);
-            label8.Name = "label8";
-            label8.Size = new Size(64, 16);
-            label8.TabIndex = 8;
-            label8.Text = "Estado (UF):";
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(88, 39);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(108, 22);
-            textBox4.TabIndex = 9;
+            BoxNomeJogador.Location = new Point(86, 13);
+            BoxNomeJogador.Name = "BoxNomeJogador";
+            BoxNomeJogador.Size = new Size(105, 22);
+            BoxNomeJogador.TabIndex = 1;
+            BoxNomeJogador.TextChanged += textBox2_TextChanged;
             // 
             // Form1
             // 
@@ -606,7 +607,7 @@
 
         private DataGridView tabelaClube;
         private BindingSource clubeBindingSource;
-        private TextBox textBox1;
+        private TextBox BoxNomeClube;
         private TabControl Clubes;
         private TabPage tabPage1;
         private TabPage tabPage2;
@@ -617,22 +618,22 @@
         private DataGridViewTextBoxColumn estadoDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn coberturaAntiChuvaDataGridViewCheckBoxColumn;
         private Button Pesquisar;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker DataInicialClube;
         private Label label2;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker DataFinalClube;
         private Label label1;
         private Label label3;
         private GroupBox BoxBuscar;
         private DataGridView tabelaJogadores;
         private GroupBox groupBox1;
-        private DateTimePicker dateTimePicker3;
+        private DateTimePicker DataFinalJogador;
         private Label label4;
         private Label label5;
         private Label label6;
-        private DateTimePicker dateTimePicker4;
+        private DateTimePicker DataInicialJogador;
         private Button PesquisarJgador;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox BoxNomeJogador;
+        private TextBox BoxIdClube;
         private Label label7;
         private Button button2;
         private Button button3;
@@ -648,7 +649,7 @@
         private DataGridViewTextBoxColumn dataDeNascimentoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn alturaDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn pesoDataGridViewTextBoxColumn;
-        private TextBox textBox4;
+        private TextBox BoxEstado;
         private Label label8;
     }
 }
