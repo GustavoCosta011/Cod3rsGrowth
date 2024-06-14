@@ -6,6 +6,7 @@ using Cod3rsGrowth.Forms;
 using Microsoft.Extensions.Hosting;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Test;
+using Cod3rsGrowth.Test.Repositorios;
 
 namespace test
 {
@@ -50,6 +51,7 @@ namespace test
 
                     ModuloInjetorInfra.Servicos(services);
                     ModuloInjetorServico.Servicos(services);
+                    
                 });
         }
 
