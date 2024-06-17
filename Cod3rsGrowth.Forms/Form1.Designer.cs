@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tabelaClube = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -41,22 +41,24 @@
             BoxNomeClube = new TextBox();
             Clubes = new TabControl();
             tabPage1 = new TabPage();
-            button6 = new Button();
-            button5 = new Button();
-            button2 = new Button();
+            PesquisarClube = new Button();
+            RemoverClube = new Button();
+            EditarClube = new Button();
+            CriarClube = new Button();
             BoxBuscar = new GroupBox();
-            BoxEstado = new TextBox();
+            LimparCamposClube = new Button();
+            EnumEstado = new ComboBox();
             label8 = new Label();
             DataFinalClube = new DateTimePicker();
             label2 = new Label();
             label1 = new Label();
             label3 = new Label();
             DataInicialClube = new DateTimePicker();
-            Pesquisar = new Button();
             tabPage2 = new TabPage();
-            button4 = new Button();
-            button3 = new Button();
-            button1 = new Button();
+            PesquisarJogador = new Button();
+            RemoverJogador = new Button();
+            EditarJogador = new Button();
+            CriarJogador = new Button();
             tabelaJogadores = new DataGridView();
             idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
@@ -67,6 +69,7 @@
             pesoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             jogadorBindingSource = new BindingSource(components);
             groupBox1 = new GroupBox();
+            LimparCamposJogador = new Button();
             BoxIdClube = new TextBox();
             label7 = new Label();
             DataFinalJogador = new DateTimePicker();
@@ -74,7 +77,6 @@
             label5 = new Label();
             label6 = new Label();
             DataInicialJogador = new DateTimePicker();
-            PesquisarJgador = new Button();
             BoxNomeJogador = new TextBox();
             ((System.ComponentModel.ISupportInitialize)tabelaClube).BeginInit();
             ((System.ComponentModel.ISupportInitialize)clubeBindingSource).BeginInit();
@@ -95,15 +97,15 @@
             tabelaClube.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabelaClube.BackgroundColor = Color.SlateGray;
             tabelaClube.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.LightSteelBlue;
-            dataGridViewCellStyle2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.InactiveCaptionText;
-            dataGridViewCellStyle2.NullValue = null;
-            dataGridViewCellStyle2.SelectionBackColor = Color.RoyalBlue;
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            tabelaClube.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.LightSteelBlue;
+            dataGridViewCellStyle1.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.InactiveCaptionText;
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.SelectionBackColor = Color.RoyalBlue;
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            tabelaClube.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             tabelaClube.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaClube.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, fundacaoDataGridViewTextBoxColumn, estadioDataGridViewTextBoxColumn, estadoDataGridViewTextBoxColumn, coberturaAntiChuvaDataGridViewCheckBoxColumn });
             tabelaClube.DataSource = clubeBindingSource;
@@ -111,7 +113,7 @@
             tabelaClube.Name = "tabelaClube";
             tabelaClube.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             tabelaClube.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            tabelaClube.Size = new Size(571, 262);
+            tabelaClube.Size = new Size(571, 261);
             tabelaClube.TabIndex = 0;
             tabelaClube.VirtualMode = true;
             tabelaClube.CellContentClick += tabelaClube_CellContentClick;
@@ -174,13 +176,14 @@
             BoxNomeClube.Name = "BoxNomeClube";
             BoxNomeClube.Size = new Size(108, 22);
             BoxNomeClube.TabIndex = 1;
-            BoxNomeClube.TextChanged += textBox1_TextChanged;
+            BoxNomeClube.TextChanged += BoxNomeClube_TextChanged;
             // 
             // Clubes
             // 
             Clubes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Clubes.Controls.Add(tabPage1);
             Clubes.Controls.Add(tabPage2);
+            Clubes.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Clubes.Location = new Point(59, 30);
             Clubes.Name = "Clubes";
             Clubes.SelectedIndex = 0;
@@ -191,87 +194,126 @@
             // 
             tabPage1.BackColor = Color.DimGray;
             tabPage1.BackgroundImageLayout = ImageLayout.Stretch;
-            tabPage1.Controls.Add(button6);
-            tabPage1.Controls.Add(button5);
-            tabPage1.Controls.Add(button2);
+            tabPage1.Controls.Add(PesquisarClube);
+            tabPage1.Controls.Add(RemoverClube);
+            tabPage1.Controls.Add(EditarClube);
+            tabPage1.Controls.Add(CriarClube);
             tabPage1.Controls.Add(tabelaClube);
             tabPage1.Controls.Add(BoxBuscar);
-            tabPage1.Location = new Point(4, 24);
+            tabPage1.Location = new Point(4, 25);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(710, 347);
+            tabPage1.Size = new Size(710, 346);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Clubes";
-            tabPage1.Click += tabPage1_Click;
+            tabPage1.Click += Clubes_Click;
             // 
-            // button6
+            // PesquisarClube
             // 
-            button6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button6.BackColor = SystemColors.AppWorkspace;
-            button6.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            button6.ForeColor = Color.Black;
-            button6.Location = new Point(593, 197);
-            button6.Name = "button6";
-            button6.Size = new Size(102, 53);
-            button6.TabIndex = 14;
-            button6.Text = "Remover";
-            button6.UseVisualStyleBackColor = false;
+            PesquisarClube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PesquisarClube.BackColor = SystemColors.AppWorkspace;
+            PesquisarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            PesquisarClube.ForeColor = Color.Black;
+            PesquisarClube.Location = new Point(593, 16);
+            PesquisarClube.Name = "PesquisarClube";
+            PesquisarClube.Size = new Size(102, 53);
+            PesquisarClube.TabIndex = 15;
+            PesquisarClube.Text = "Pesquisar";
+            PesquisarClube.UseVisualStyleBackColor = false;
+            PesquisarClube.Click += PesquisarClube_Click_1;
             // 
-            // button5
+            // RemoverClube
             // 
-            button5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button5.BackColor = SystemColors.AppWorkspace;
-            button5.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            button5.ForeColor = Color.Black;
-            button5.Location = new Point(593, 138);
-            button5.Name = "button5";
-            button5.Size = new Size(102, 53);
-            button5.TabIndex = 13;
-            button5.Text = "Editar";
-            button5.UseVisualStyleBackColor = false;
+            RemoverClube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            RemoverClube.BackColor = SystemColors.AppWorkspace;
+            RemoverClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            RemoverClube.ForeColor = Color.Black;
+            RemoverClube.Location = new Point(593, 192);
+            RemoverClube.Name = "RemoverClube";
+            RemoverClube.Size = new Size(102, 53);
+            RemoverClube.TabIndex = 14;
+            RemoverClube.Text = "Remover";
+            RemoverClube.UseVisualStyleBackColor = false;
+            RemoverClube.Click += RemoverClube_Click;
             // 
-            // button2
+            // EditarClube
             // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.BackColor = SystemColors.AppWorkspace;
-            button2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            button2.ForeColor = Color.Black;
-            button2.Location = new Point(593, 79);
-            button2.Name = "button2";
-            button2.Size = new Size(102, 53);
-            button2.TabIndex = 9;
-            button2.Text = "Criar";
-            button2.UseVisualStyleBackColor = false;
+            EditarClube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            EditarClube.BackColor = SystemColors.AppWorkspace;
+            EditarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            EditarClube.ForeColor = Color.Black;
+            EditarClube.Location = new Point(593, 133);
+            EditarClube.Name = "EditarClube";
+            EditarClube.Size = new Size(102, 53);
+            EditarClube.TabIndex = 13;
+            EditarClube.Text = "Editar";
+            EditarClube.UseVisualStyleBackColor = false;
+            EditarClube.Click += EditarClube_Click;
+            // 
+            // CriarClube
+            // 
+            CriarClube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CriarClube.BackColor = SystemColors.AppWorkspace;
+            CriarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            CriarClube.ForeColor = Color.Black;
+            CriarClube.Location = new Point(593, 74);
+            CriarClube.Name = "CriarClube";
+            CriarClube.Size = new Size(102, 53);
+            CriarClube.TabIndex = 9;
+            CriarClube.Text = "Criar";
+            CriarClube.UseVisualStyleBackColor = false;
+            CriarClube.Click += CriarClube_Click;
             // 
             // BoxBuscar
             // 
             BoxBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BoxBuscar.BackColor = Color.LightGray;
             BoxBuscar.BackgroundImageLayout = ImageLayout.None;
-            BoxBuscar.Controls.Add(BoxEstado);
+            BoxBuscar.Controls.Add(LimparCamposClube);
+            BoxBuscar.Controls.Add(EnumEstado);
             BoxBuscar.Controls.Add(label8);
             BoxBuscar.Controls.Add(DataFinalClube);
             BoxBuscar.Controls.Add(label2);
             BoxBuscar.Controls.Add(label1);
             BoxBuscar.Controls.Add(label3);
             BoxBuscar.Controls.Add(DataInicialClube);
-            BoxBuscar.Controls.Add(Pesquisar);
             BoxBuscar.Controls.Add(BoxNomeClube);
             BoxBuscar.FlatStyle = FlatStyle.Popup;
             BoxBuscar.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             BoxBuscar.Location = new Point(6, 6);
             BoxBuscar.Name = "BoxBuscar";
-            BoxBuscar.Size = new Size(698, 67);
+            BoxBuscar.Size = new Size(571, 67);
             BoxBuscar.TabIndex = 8;
             BoxBuscar.TabStop = false;
             BoxBuscar.Enter += groupBox1_Enter;
             // 
-            // BoxEstado
+            // LimparCamposClube
             // 
-            BoxEstado.Location = new Point(88, 39);
-            BoxEstado.Name = "BoxEstado";
-            BoxEstado.Size = new Size(108, 22);
-            BoxEstado.TabIndex = 9;
+            LimparCamposClube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LimparCamposClube.BackColor = SystemColors.AppWorkspace;
+            LimparCamposClube.ForeColor = Color.Black;
+            LimparCamposClube.Location = new Point(489, 10);
+            LimparCamposClube.Name = "LimparCamposClube";
+            LimparCamposClube.Size = new Size(65, 52);
+            LimparCamposClube.TabIndex = 10;
+            LimparCamposClube.Text = "Limpar Campos";
+            LimparCamposClube.UseVisualStyleBackColor = false;
+            LimparCamposClube.Click += LimparCamposClube_Click;
+            // 
+            // EnumEstado
+            // 
+            EnumEstado.DropDownHeight = 110;
+            EnumEstado.DropDownStyle = ComboBoxStyle.DropDownList;
+            EnumEstado.FlatStyle = FlatStyle.Flat;
+            EnumEstado.FormattingEnabled = true;
+            EnumEstado.IntegralHeight = false;
+            EnumEstado.Items.AddRange(new object[] { "        AC", "        AL", "        AP", "        AM", "        BA", "        CE", "        ES", "        GO", "        MA", "        MT", "        MS", "        MG", "        PA", "        PB", "        PR", "        PE", "        PI", "        RJ", "        RN", "        RS", "        RO", "        RR", "        SC", "        SP", "        SE", "        TO" });
+            EnumEstado.Location = new Point(88, 39);
+            EnumEstado.Name = "EnumEstado";
+            EnumEstado.Size = new Size(57, 24);
+            EnumEstado.TabIndex = 9;
+            EnumEstado.Tag = "";
+            EnumEstado.SelectedIndexChanged += EnumEstado_SelectedIndexChanged;
             // 
             // label8
             // 
@@ -291,6 +333,7 @@
             DataFinalClube.Name = "DataFinalClube";
             DataFinalClube.Size = new Size(99, 22);
             DataFinalClube.TabIndex = 5;
+            DataFinalClube.ValueChanged += DataFinalClube_ValueChanged;
             // 
             // label2
             // 
@@ -329,73 +372,80 @@
             DataInicialClube.Name = "DataInicialClube";
             DataInicialClube.Size = new Size(99, 22);
             DataInicialClube.TabIndex = 3;
-            // 
-            // Pesquisar
-            // 
-            Pesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Pesquisar.BackColor = SystemColors.AppWorkspace;
-            Pesquisar.ForeColor = Color.Black;
-            Pesquisar.Location = new Point(587, 8);
-            Pesquisar.Name = "Pesquisar";
-            Pesquisar.Size = new Size(102, 53);
-            Pesquisar.TabIndex = 2;
-            Pesquisar.Text = "Pesquisar";
-            Pesquisar.UseVisualStyleBackColor = false;
-            Pesquisar.Click += Pesquisar_Click;
+            DataInicialClube.Value = new DateTime(1800, 1, 1, 0, 0, 0, 0);
+            DataInicialClube.ValueChanged += DataInicialClube_ValueChanged;
             // 
             // tabPage2
             // 
             tabPage2.BackColor = Color.DimGray;
-            tabPage2.Controls.Add(button4);
-            tabPage2.Controls.Add(button3);
-            tabPage2.Controls.Add(button1);
+            tabPage2.Controls.Add(PesquisarJogador);
+            tabPage2.Controls.Add(RemoverJogador);
+            tabPage2.Controls.Add(EditarJogador);
+            tabPage2.Controls.Add(CriarJogador);
             tabPage2.Controls.Add(tabelaJogadores);
             tabPage2.Controls.Add(groupBox1);
-            tabPage2.Location = new Point(4, 24);
+            tabPage2.Location = new Point(4, 25);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(710, 347);
+            tabPage2.Size = new Size(710, 346);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Jogadores";
             // 
-            // button4
+            // PesquisarJogador
             // 
-            button4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button4.BackColor = SystemColors.AppWorkspace;
-            button4.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            button4.ForeColor = Color.Black;
-            button4.Location = new Point(591, 197);
-            button4.Name = "button4";
-            button4.Size = new Size(102, 53);
-            button4.TabIndex = 13;
-            button4.Text = "Remover";
-            button4.UseVisualStyleBackColor = false;
+            PesquisarJogador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PesquisarJogador.BackColor = SystemColors.AppWorkspace;
+            PesquisarJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            PesquisarJogador.ForeColor = Color.Black;
+            PesquisarJogador.Location = new Point(593, 15);
+            PesquisarJogador.Name = "PesquisarJogador";
+            PesquisarJogador.Size = new Size(102, 53);
+            PesquisarJogador.TabIndex = 14;
+            PesquisarJogador.Text = "Pesquisar";
+            PesquisarJogador.UseVisualStyleBackColor = false;
+            PesquisarJogador.Click += PesquisarJogador_Click_1;
             // 
-            // button3
+            // RemoverJogador
             // 
-            button3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button3.BackColor = SystemColors.AppWorkspace;
-            button3.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            button3.ForeColor = Color.Black;
-            button3.Location = new Point(591, 138);
-            button3.Name = "button3";
-            button3.Size = new Size(102, 53);
-            button3.TabIndex = 12;
-            button3.Text = "Editar";
-            button3.UseVisualStyleBackColor = false;
+            RemoverJogador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            RemoverJogador.BackColor = SystemColors.AppWorkspace;
+            RemoverJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            RemoverJogador.ForeColor = Color.Black;
+            RemoverJogador.Location = new Point(593, 192);
+            RemoverJogador.Name = "RemoverJogador";
+            RemoverJogador.Size = new Size(102, 53);
+            RemoverJogador.TabIndex = 13;
+            RemoverJogador.Text = "Remover";
+            RemoverJogador.UseVisualStyleBackColor = false;
+            RemoverJogador.Click += RemoverJogador_Click;
             // 
-            // button1
+            // EditarJogador
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.BackColor = SystemColors.AppWorkspace;
-            button1.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.ForeColor = Color.Black;
-            button1.Location = new Point(591, 79);
-            button1.Name = "button1";
-            button1.Size = new Size(102, 53);
-            button1.TabIndex = 11;
-            button1.Text = "Criar";
-            button1.UseVisualStyleBackColor = false;
+            EditarJogador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            EditarJogador.BackColor = SystemColors.AppWorkspace;
+            EditarJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            EditarJogador.ForeColor = Color.Black;
+            EditarJogador.Location = new Point(593, 133);
+            EditarJogador.Name = "EditarJogador";
+            EditarJogador.Size = new Size(102, 53);
+            EditarJogador.TabIndex = 12;
+            EditarJogador.Text = "Editar";
+            EditarJogador.UseVisualStyleBackColor = false;
+            EditarJogador.Click += EditarJogador_Click;
+            // 
+            // CriarJogador
+            // 
+            CriarJogador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CriarJogador.BackColor = SystemColors.AppWorkspace;
+            CriarJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            CriarJogador.ForeColor = Color.Black;
+            CriarJogador.Location = new Point(593, 74);
+            CriarJogador.Name = "CriarJogador";
+            CriarJogador.Size = new Size(102, 53);
+            CriarJogador.TabIndex = 11;
+            CriarJogador.Text = "Criar";
+            CriarJogador.UseVisualStyleBackColor = false;
+            CriarJogador.Click += CriarJogador_Click;
             // 
             // tabelaJogadores
             // 
@@ -410,7 +460,7 @@
             tabelaJogadores.Location = new Point(6, 79);
             tabelaJogadores.Name = "tabelaJogadores";
             tabelaJogadores.RowTemplate.Height = 25;
-            tabelaJogadores.Size = new Size(568, 262);
+            tabelaJogadores.Size = new Size(568, 261);
             tabelaJogadores.TabIndex = 10;
             tabelaJogadores.CellContentClick += tabelaJogadores_CellContentClick;
             // 
@@ -472,6 +522,7 @@
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = Color.LightGray;
             groupBox1.BackgroundImageLayout = ImageLayout.None;
+            groupBox1.Controls.Add(LimparCamposJogador);
             groupBox1.Controls.Add(BoxIdClube);
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(DataFinalJogador);
@@ -479,15 +530,27 @@
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(DataInicialJogador);
-            groupBox1.Controls.Add(PesquisarJgador);
             groupBox1.Controls.Add(BoxNomeJogador);
             groupBox1.FlatStyle = FlatStyle.Popup;
             groupBox1.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.Location = new Point(6, 6);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(698, 67);
+            groupBox1.Size = new Size(568, 67);
             groupBox1.TabIndex = 9;
             groupBox1.TabStop = false;
+            // 
+            // LimparCamposJogador
+            // 
+            LimparCamposJogador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LimparCamposJogador.BackColor = SystemColors.AppWorkspace;
+            LimparCamposJogador.ForeColor = Color.Black;
+            LimparCamposJogador.Location = new Point(489, 10);
+            LimparCamposJogador.Name = "LimparCamposJogador";
+            LimparCamposJogador.Size = new Size(65, 52);
+            LimparCamposJogador.TabIndex = 11;
+            LimparCamposJogador.Text = "Limpar Campos";
+            LimparCamposJogador.UseVisualStyleBackColor = false;
+            LimparCamposJogador.Click += LimparCamposJogador_Click;
             // 
             // BoxIdClube
             // 
@@ -495,6 +558,7 @@
             BoxIdClube.Name = "BoxIdClube";
             BoxIdClube.Size = new Size(105, 22);
             BoxIdClube.TabIndex = 9;
+            BoxIdClube.TextChanged += BoxIdClube_TextChanged;
             // 
             // label7
             // 
@@ -514,6 +578,7 @@
             DataFinalJogador.Name = "DataFinalJogador";
             DataFinalJogador.Size = new Size(99, 22);
             DataFinalJogador.TabIndex = 5;
+            DataFinalJogador.ValueChanged += DataFinalJogador_ValueChanged;
             // 
             // label4
             // 
@@ -551,18 +616,7 @@
             DataInicialJogador.Name = "DataInicialJogador";
             DataInicialJogador.Size = new Size(99, 22);
             DataInicialJogador.TabIndex = 3;
-            // 
-            // PesquisarJgador
-            // 
-            PesquisarJgador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            PesquisarJgador.BackColor = SystemColors.AppWorkspace;
-            PesquisarJgador.ForeColor = Color.Black;
-            PesquisarJgador.Location = new Point(585, 8);
-            PesquisarJgador.Name = "PesquisarJgador";
-            PesquisarJgador.Size = new Size(102, 53);
-            PesquisarJgador.TabIndex = 2;
-            PesquisarJgador.Text = "Pesquisar";
-            PesquisarJgador.UseVisualStyleBackColor = false;
+            DataInicialJogador.ValueChanged += DataInicialJogador_ValueChanged;
             // 
             // BoxNomeJogador
             // 
@@ -570,13 +624,12 @@
             BoxNomeJogador.Name = "BoxNomeJogador";
             BoxNomeJogador.Size = new Size(105, 22);
             BoxNomeJogador.TabIndex = 1;
-            BoxNomeJogador.TextChanged += textBox2_TextChanged;
+            BoxNomeJogador.TextChanged += BoxNomeJogador_TextChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             AutoValidate = AutoValidate.EnableAllowFocusChange;
             BackColor = SystemColors.AppWorkspace;
             BackgroundImageLayout = ImageLayout.Stretch;
@@ -617,7 +670,6 @@
         private DataGridViewTextBoxColumn estadioDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn estadoDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn coberturaAntiChuvaDataGridViewCheckBoxColumn;
-        private Button Pesquisar;
         private DateTimePicker DataInicialClube;
         private Label label2;
         private DateTimePicker DataFinalClube;
@@ -631,16 +683,15 @@
         private Label label5;
         private Label label6;
         private DateTimePicker DataInicialJogador;
-        private Button PesquisarJgador;
         private TextBox BoxNomeJogador;
         private TextBox BoxIdClube;
         private Label label7;
-        private Button button2;
-        private Button button3;
-        private Button button1;
-        private Button button4;
-        private Button button5;
-        private Button button6;
+        private Button CriarClube;
+        private Button EditarJogador;
+        private Button CriarJogador;
+        private Button RemoverJogador;
+        private Button EditarClube;
+        private Button RemoverClube;
         private BindingSource jogadorBindingSource;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn1;
@@ -649,7 +700,11 @@
         private DataGridViewTextBoxColumn dataDeNascimentoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn alturaDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn pesoDataGridViewTextBoxColumn;
-        private TextBox BoxEstado;
         private Label label8;
+        private ComboBox EnumEstado;
+        private Button LimparCamposClube;
+        private Button LimparCamposJogador;
+        private Button PesquisarJogador;
+        private Button PesquisarClube;
     }
 }
