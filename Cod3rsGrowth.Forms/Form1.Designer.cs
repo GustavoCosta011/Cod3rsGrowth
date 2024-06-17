@@ -214,7 +214,7 @@
             PesquisarClube.BackColor = SystemColors.AppWorkspace;
             PesquisarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             PesquisarClube.ForeColor = Color.Black;
-            PesquisarClube.Location = new Point(593, 16);
+            PesquisarClube.Location = new Point(593, 15);
             PesquisarClube.Name = "PesquisarClube";
             PesquisarClube.Size = new Size(102, 53);
             PesquisarClube.TabIndex = 15;
