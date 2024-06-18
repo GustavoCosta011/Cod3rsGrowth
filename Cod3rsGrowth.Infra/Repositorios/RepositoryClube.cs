@@ -20,7 +20,7 @@ namespace Cod3rsGrowth.Test.Repositorios
             if (filtro == null) return database.Clubes.ToList();
             var clubes = database.Clubes.AsQueryable();
 
-            if (!string.IsNullOrEmpty(filtro.Nome)) clubes = clubes.Where(clube => clube.Nome == filtro.Nome);
+            if (!string.IsNullOrEmpty(filtro.Nome)) clubes = clubes.Where(clube => clube.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
             if (filtro.Estado.HasValue) clubes = clubes.Where(clube => clube.Estado == filtro.Estado);
             if (filtro.DataPiso.HasValue) clubes = clubes.Where(clube => clube.Fundacao >= filtro.DataPiso);
             if (filtro.DataTeto.HasValue) clubes = clubes.Where(clube => clube.Fundacao <= filtro.DataTeto);

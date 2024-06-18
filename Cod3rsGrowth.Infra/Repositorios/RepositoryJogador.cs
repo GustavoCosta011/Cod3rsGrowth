@@ -20,7 +20,7 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         var jogadores = database.Jogadores.AsQueryable();
 
         if (!string.IsNullOrEmpty(filtro.Nome)) jogadores = jogadores.Where(jogador => jogador.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
-        if (filtro.Estado.HasValue) jogadores = jogadores.Where(jogador => jogador.IdClube == filtro.IdClube);
+        if (filtro.IdClube.HasValue) jogadores = jogadores.Where(jogador => jogador.IdClube == filtro.IdClube);
         if (filtro.DataPiso.HasValue) jogadores = jogadores.Where(jogador => jogador.DataDeNascimento >= filtro.DataPiso);
         if (filtro.DataTeto.HasValue) jogadores = jogadores.Where(jogador => jogador.DataDeNascimento <= filtro.DataTeto);
 
