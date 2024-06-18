@@ -112,6 +112,7 @@
             tabelaClube.Location = new Point(6, 79);
             tabelaClube.Name = "tabelaClube";
             tabelaClube.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            tabelaClube.RowHeadersVisible = false;
             tabelaClube.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             tabelaClube.Size = new Size(571, 261);
             tabelaClube.TabIndex = 0;
@@ -459,6 +460,7 @@
             tabelaJogadores.DataSource = jogadorBindingSource;
             tabelaJogadores.Location = new Point(6, 79);
             tabelaJogadores.Name = "tabelaJogadores";
+            tabelaJogadores.RowHeadersVisible = false;
             tabelaJogadores.RowTemplate.Height = 25;
             tabelaJogadores.Size = new Size(568, 261);
             tabelaJogadores.TabIndex = 10;
