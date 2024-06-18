@@ -5,6 +5,7 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using System;
 using System.Windows.Forms;
 using Cod3rsGrowth.Dominio.Enums;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -29,7 +30,9 @@ namespace Cod3rsGrowth.Forms
 
         private void ObterListasAtualizadas()
         {
+            tabelaClube.DataSource = null;
             tabelaClube.DataSource = _servicoClube.ObterTodos(filtroClube);
+            tabelaJogadores.DataSource = null;
             tabelaJogadores.DataSource = _servicoJogador.ObterTodos(filtroJogador);
         }
 
@@ -98,8 +101,17 @@ namespace Cod3rsGrowth.Forms
 
         private void BoxIdClube_TextChanged(object sender, EventArgs e)
         {
-            filtroJogador.IdClube = int.Parse(BoxIdClube.Text);
-            ObterListasAtualizadas();
+            if(!BoxIdClube.Text.IsNullOrEmpty())
+            {
+                filtroJogador.IdClube = int.Parse(BoxIdClube.Text);
+                ObterListasAtualizadas();
+            }
+            else
+            {
+                filtroJogador.IdClube = null;
+                ObterListasAtualizadas();
+            }
+
         }
 
         private void DataInicialJogador_ValueChanged(object sender, EventArgs e)
@@ -176,7 +188,7 @@ namespace Cod3rsGrowth.Forms
             BoxNomeJogador.Text = null;
             DataInicialJogador.Value = DateTime.Parse("01/01/1800");
             DataFinalJogador.Value = DateTime.Now;
-            BoxIdClube.Text = null;
+            BoxIdClube.Text = "";
             ObterListasAtualizadas();
         }
 

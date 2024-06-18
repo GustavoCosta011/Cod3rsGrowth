@@ -616,6 +616,7 @@
             DataInicialJogador.Name = "DataInicialJogador";
             DataInicialJogador.Size = new Size(99, 22);
             DataInicialJogador.TabIndex = 3;
+            DataInicialJogador.Value = new DateTime(1800, 1, 1, 0, 0, 0, 0);
             DataInicialJogador.ValueChanged += DataInicialJogador_ValueChanged;
             // 
             // BoxNomeJogador
