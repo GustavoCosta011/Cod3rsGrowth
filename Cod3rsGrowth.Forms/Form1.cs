@@ -61,7 +61,8 @@ namespace Cod3rsGrowth.Forms
 
         private void AoSelecionarOEstadoDoClube(object sender, EventArgs e)
         {
-            if (EnumEstado.SelectedIndex != -1)
+            var EnumVazio = -1;
+            if (EnumEstado.SelectedIndex != EnumVazio)
             {
                 filtroClube.Estado = (EstadosEnum?)EnumEstado.SelectedIndex;
                 CarregarListaAtualizadas();
