@@ -163,6 +163,7 @@ namespace Cod3rsGrowth.Forms
             DataInicialClube.Value = DateTime.Parse("01/01/1800");
             DataFinalClube.Value = DateTime.Now;
             BoxNomeClube.Text = null;
+            ObterListasAtualizadas();
         }
 
         private void PesquisarJogador_Click_1(object sender, EventArgs e)
@@ -176,6 +177,7 @@ namespace Cod3rsGrowth.Forms
             DataInicialJogador.Value = DateTime.Parse("01/01/1800");
             DataFinalJogador.Value = DateTime.Now;
             BoxIdClube.Text = null;
+            ObterListasAtualizadas();
         }
 
         private void PesquisarClube_Click_1(object sender, EventArgs e)
