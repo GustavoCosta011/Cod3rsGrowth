@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tabelaClube = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -97,15 +97,15 @@
             tabelaClube.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabelaClube.BackgroundColor = Color.SlateGray;
             tabelaClube.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.LightSteelBlue;
-            dataGridViewCellStyle1.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.InactiveCaptionText;
-            dataGridViewCellStyle1.NullValue = null;
-            dataGridViewCellStyle1.SelectionBackColor = Color.RoyalBlue;
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            tabelaClube.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.LightSteelBlue;
+            dataGridViewCellStyle2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.InactiveCaptionText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = Color.RoyalBlue;
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            tabelaClube.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             tabelaClube.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaClube.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, fundacaoDataGridViewTextBoxColumn, estadioDataGridViewTextBoxColumn, estadoDataGridViewTextBoxColumn, coberturaAntiChuvaDataGridViewCheckBoxColumn });
             tabelaClube.DataSource = clubeBindingSource;
@@ -117,7 +117,6 @@
             tabelaClube.Size = new Size(571, 261);
             tabelaClube.TabIndex = 0;
             tabelaClube.VirtualMode = true;
-            tabelaClube.CellContentClick += tabelaClube_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -177,7 +176,7 @@
             BoxNomeClube.Name = "BoxNomeClube";
             BoxNomeClube.Size = new Size(108, 22);
             BoxNomeClube.TabIndex = 1;
-            BoxNomeClube.TextChanged += BoxNomeClube_TextChanged;
+            BoxNomeClube.TextChanged += AoDigitarONomeDoClube;
             // 
             // Clubes
             // 
@@ -207,7 +206,6 @@
             tabPage1.Size = new Size(710, 346);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Clubes";
-            tabPage1.Click += Clubes_Click;
             // 
             // PesquisarClube
             // 
@@ -221,7 +219,7 @@
             PesquisarClube.TabIndex = 15;
             PesquisarClube.Text = "Pesquisar";
             PesquisarClube.UseVisualStyleBackColor = false;
-            PesquisarClube.Click += PesquisarClube_Click_1;
+            PesquisarClube.Click += AoClicarPesquisarNaAbaClubes;
             // 
             // RemoverClube
             // 
@@ -235,7 +233,6 @@
             RemoverClube.TabIndex = 14;
             RemoverClube.Text = "Remover";
             RemoverClube.UseVisualStyleBackColor = false;
-            RemoverClube.Click += RemoverClube_Click;
             // 
             // EditarClube
             // 
@@ -249,7 +246,6 @@
             EditarClube.TabIndex = 13;
             EditarClube.Text = "Editar";
             EditarClube.UseVisualStyleBackColor = false;
-            EditarClube.Click += EditarClube_Click;
             // 
             // CriarClube
             // 
@@ -263,7 +259,6 @@
             CriarClube.TabIndex = 9;
             CriarClube.Text = "Criar";
             CriarClube.UseVisualStyleBackColor = false;
-            CriarClube.Click += CriarClube_Click;
             // 
             // BoxBuscar
             // 
@@ -286,7 +281,6 @@
             BoxBuscar.Size = new Size(571, 67);
             BoxBuscar.TabIndex = 8;
             BoxBuscar.TabStop = false;
-            BoxBuscar.Enter += groupBox1_Enter;
             // 
             // LimparCamposClube
             // 
@@ -299,7 +293,7 @@
             LimparCamposClube.TabIndex = 10;
             LimparCamposClube.Text = "Limpar Campos";
             LimparCamposClube.UseVisualStyleBackColor = false;
-            LimparCamposClube.Click += LimparCamposClube_Click;
+            LimparCamposClube.Click += AoClicarLimparCamposNaAbaClubes;
             // 
             // EnumEstado
             // 
@@ -314,7 +308,7 @@
             EnumEstado.Size = new Size(57, 24);
             EnumEstado.TabIndex = 9;
             EnumEstado.Tag = "";
-            EnumEstado.SelectedIndexChanged += EnumEstado_SelectedIndexChanged;
+            EnumEstado.SelectedIndexChanged += AoSelecionarOEstadoDoClube;
             // 
             // label8
             // 
@@ -334,7 +328,7 @@
             DataFinalClube.Name = "DataFinalClube";
             DataFinalClube.Size = new Size(99, 22);
             DataFinalClube.TabIndex = 5;
-            DataFinalClube.ValueChanged += DataFinalClube_ValueChanged;
+            DataFinalClube.ValueChanged += AoSelecionarADataFinalNaAbaClubes;
             // 
             // label2
             // 
@@ -344,7 +338,6 @@
             label2.Size = new Size(57, 16);
             label2.TabIndex = 6;
             label2.Text = "Data Final:";
-            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -374,7 +367,7 @@
             DataInicialClube.Size = new Size(99, 22);
             DataInicialClube.TabIndex = 3;
             DataInicialClube.Value = new DateTime(1800, 1, 1, 0, 0, 0, 0);
-            DataInicialClube.ValueChanged += DataInicialClube_ValueChanged;
+            DataInicialClube.ValueChanged += AoSelecionarADataInicialNaAbaClubes;
             // 
             // tabPage2
             // 
@@ -404,7 +397,7 @@
             PesquisarJogador.TabIndex = 14;
             PesquisarJogador.Text = "Pesquisar";
             PesquisarJogador.UseVisualStyleBackColor = false;
-            PesquisarJogador.Click += PesquisarJogador_Click_1;
+            PesquisarJogador.Click += AoClicarPesquisarNaAbaJogador;
             // 
             // RemoverJogador
             // 
@@ -418,7 +411,6 @@
             RemoverJogador.TabIndex = 13;
             RemoverJogador.Text = "Remover";
             RemoverJogador.UseVisualStyleBackColor = false;
-            RemoverJogador.Click += RemoverJogador_Click;
             // 
             // EditarJogador
             // 
@@ -432,7 +424,6 @@
             EditarJogador.TabIndex = 12;
             EditarJogador.Text = "Editar";
             EditarJogador.UseVisualStyleBackColor = false;
-            EditarJogador.Click += EditarJogador_Click;
             // 
             // CriarJogador
             // 
@@ -446,7 +437,6 @@
             CriarJogador.TabIndex = 11;
             CriarJogador.Text = "Criar";
             CriarJogador.UseVisualStyleBackColor = false;
-            CriarJogador.Click += CriarJogador_Click;
             // 
             // tabelaJogadores
             // 
@@ -464,7 +454,6 @@
             tabelaJogadores.RowTemplate.Height = 25;
             tabelaJogadores.Size = new Size(568, 261);
             tabelaJogadores.TabIndex = 10;
-            tabelaJogadores.CellContentClick += tabelaJogadores_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -552,7 +541,7 @@
             LimparCamposJogador.TabIndex = 11;
             LimparCamposJogador.Text = "Limpar Campos";
             LimparCamposJogador.UseVisualStyleBackColor = false;
-            LimparCamposJogador.Click += LimparCamposJogador_Click;
+            LimparCamposJogador.Click += AoClicarLimparCamposNaAbaJogador;
             // 
             // BoxIdClube
             // 
@@ -560,7 +549,7 @@
             BoxIdClube.Name = "BoxIdClube";
             BoxIdClube.Size = new Size(105, 22);
             BoxIdClube.TabIndex = 9;
-            BoxIdClube.TextChanged += BoxIdClube_TextChanged;
+            BoxIdClube.TextChanged += AoDigitarOIdDoClubeDoJogador;
             // 
             // label7
             // 
@@ -580,7 +569,7 @@
             DataFinalJogador.Name = "DataFinalJogador";
             DataFinalJogador.Size = new Size(99, 22);
             DataFinalJogador.TabIndex = 5;
-            DataFinalJogador.ValueChanged += DataFinalJogador_ValueChanged;
+            DataFinalJogador.ValueChanged += AoSelecionarADataFinalNaAbaJogadores;
             // 
             // label4
             // 
@@ -619,7 +608,7 @@
             DataInicialJogador.Size = new Size(99, 22);
             DataInicialJogador.TabIndex = 3;
             DataInicialJogador.Value = new DateTime(1800, 1, 1, 0, 0, 0, 0);
-            DataInicialJogador.ValueChanged += DataInicialJogador_ValueChanged;
+            DataInicialJogador.ValueChanged += AoSelecionarADataInicialNaAbaJogadores;
             // 
             // BoxNomeJogador
             // 
@@ -627,7 +616,7 @@
             BoxNomeJogador.Name = "BoxNomeJogador";
             BoxNomeJogador.Size = new Size(105, 22);
             BoxNomeJogador.TabIndex = 1;
-            BoxNomeJogador.TextChanged += BoxNomeJogador_TextChanged;
+            BoxNomeJogador.TextChanged += AoDigitaroNomeDoJogador;
             // 
             // Form1
             // 
@@ -644,7 +633,7 @@
             Name = "Form1";
             Text = "Form1";
             WindowState = FormWindowState.Minimized;
-            Load += Form1_Load;
+            Load += CarregarListasDoForm1;
             ((System.ComponentModel.ISupportInitialize)tabelaClube).EndInit();
             ((System.ComponentModel.ISupportInitialize)clubeBindingSource).EndInit();
             Clubes.ResumeLayout(false);

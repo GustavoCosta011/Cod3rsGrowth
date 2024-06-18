@@ -23,12 +23,12 @@ namespace Cod3rsGrowth.Forms
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void CarregarListasDoForm1(object sender, EventArgs e)
         {
-            ObterListasAtualizadas();
+            CarregarListaAtualizadas();
         }
 
-        private void ObterListasAtualizadas()
+        private void CarregarListaAtualizadas()
         {
             tabelaClube.DataSource = null;
             tabelaClube.DataSource = _servicoClube.ObterTodos(filtroClube);
@@ -36,165 +36,98 @@ namespace Cod3rsGrowth.Forms
             tabelaJogadores.DataSource = _servicoJogador.ObterTodos(filtroJogador);
         }
 
-        private void tabelaClube_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void AoClicarPesquisarNaAbaClubes(object sender, EventArgs e)
         {
-
+            CarregarListaAtualizadas();
         }
 
-        private void tabelaJogadores_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void AoClicarPesquisarNaAbaJogador(object sender, EventArgs e)
         {
-
+            CarregarListaAtualizadas();
         }
 
-        private void PesquisarClube_Click(object sender, EventArgs e)
-        {
-            ObterListasAtualizadas();
-        }
 
-        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BoxNomeClube_TextChanged(object sender, EventArgs e)
+        private void AoDigitarONomeDoClube(object sender, EventArgs e)
         {
             filtroClube.Nome = BoxNomeClube.Text;
-            ObterListasAtualizadas();
+            CarregarListaAtualizadas();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Clubes_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BoxNomeJogador_TextChanged(object sender, EventArgs e)
+        private void AoDigitaroNomeDoJogador(object sender, EventArgs e)
         {
             filtroJogador.Nome = BoxNomeJogador.Text;
-            ObterListasAtualizadas();
+            CarregarListaAtualizadas();
         }
 
-        private void EnumEstado_SelectedIndexChanged(object sender, EventArgs e)
+        private void AoSelecionarOEstadoDoClube(object sender, EventArgs e)
         {
             if (EnumEstado.SelectedIndex != -1)
             {
                 filtroClube.Estado = (EstadosEnum?)EnumEstado.SelectedIndex;
-                ObterListasAtualizadas();
+                CarregarListaAtualizadas();
             }
             else
             {
                 filtroClube.Estado = null;
-                ObterListasAtualizadas();
+                CarregarListaAtualizadas();
             }
 
         }
 
 
-        private void BoxIdClube_TextChanged(object sender, EventArgs e)
+        private void AoDigitarOIdDoClubeDoJogador(object sender, EventArgs e)
         {
-            if(!BoxIdClube.Text.IsNullOrEmpty())
+            if (!BoxIdClube.Text.IsNullOrEmpty())
             {
                 filtroJogador.IdClube = int.Parse(BoxIdClube.Text);
-                ObterListasAtualizadas();
+                CarregarListaAtualizadas();
             }
             else
             {
                 filtroJogador.IdClube = null;
-                ObterListasAtualizadas();
+                CarregarListaAtualizadas();
             }
-
         }
 
-        private void DataInicialJogador_ValueChanged(object sender, EventArgs e)
+        private void AoSelecionarADataInicialNaAbaJogadores(object sender, EventArgs e)
         {
             filtroJogador.DataPiso = DataInicialJogador.Value;
         }
 
-        private void DataFinalJogador_ValueChanged(object sender, EventArgs e)
+        private void AoSelecionarADataFinalNaAbaJogadores(object sender, EventArgs e)
         {
             filtroJogador.DataTeto = DataFinalJogador.Value;
         }
 
-        private void DataInicialClube_ValueChanged(object sender, EventArgs e)
+        private void AoSelecionarADataInicialNaAbaClubes(object sender, EventArgs e)
         {
             filtroClube.DataPiso = DataInicialClube.Value;
         }
 
-        private void DataFinalClube_ValueChanged(object sender, EventArgs e)
+        private void AoSelecionarADataFinalNaAbaClubes(object sender, EventArgs e)
         {
             filtroClube.DataTeto = DataFinalClube.Value;
         }
 
-        private void CriarClube_Click(object sender, EventArgs e)
+        private void AoClicarLimparCamposNaAbaClubes(object sender, EventArgs e)
         {
-
-        }
-
-        private void EditarClube_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RemoverClube_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CriarJogador_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditarJogador_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RemoverJogador_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PesquisarJogador_Click(object sender, EventArgs e)
-        {
-            ObterListasAtualizadas();
-        }
-
-        private void LimparCamposClube_Click(object sender, EventArgs e)
-        {
-            EnumEstado.SelectedIndex = -1;
-            DataInicialClube.Value = DateTime.Parse("01/01/1800");
+            var DataInicial = "01/01/1800";
+            var EnumVazio = -1;
+            EnumEstado.SelectedIndex = EnumVazio;
+            DataInicialClube.Value = DateTime.Parse(DataInicial);
             DataFinalClube.Value = DateTime.Now;
             BoxNomeClube.Text = null;
-            ObterListasAtualizadas();
+            CarregarListaAtualizadas();
         }
 
-        private void PesquisarJogador_Click_1(object sender, EventArgs e)
+        private void AoClicarLimparCamposNaAbaJogador(object sender, EventArgs e)
         {
-            ObterListasAtualizadas();
-        }
-
-        private void LimparCamposJogador_Click(object sender, EventArgs e)
-        {
+            var DataInicial = "01/01/1800";
             BoxNomeJogador.Text = null;
-            DataInicialJogador.Value = DateTime.Parse("01/01/1800");
+            DataInicialJogador.Value = DateTime.Parse(DataInicial);
             DataFinalJogador.Value = DateTime.Now;
             BoxIdClube.Text = "";
-            ObterListasAtualizadas();
-        }
-
-        private void PesquisarClube_Click_1(object sender, EventArgs e)
-        {
-            ObterListasAtualizadas();
+            CarregarListaAtualizadas();
         }
     }
 }
