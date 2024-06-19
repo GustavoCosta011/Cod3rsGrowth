@@ -41,7 +41,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
                 }
 
-                throw new Exception(mensagem);
+                throw new ValidationException(mensagem);
             }
 
             int IdNovoClube = repositoryClube.Criar(clube);
@@ -61,7 +61,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
                 foreach (var erro in resultado.Errors)
                 {
-                    mensagem += erro.ErrorMessage;
+                    mensagem += erro.ErrorMessage + "\n";
 
                 }
                 

@@ -9,21 +9,21 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Cod3rsGrowth.Forms
 {
-    public partial class Form1 : Form
+    public partial class FormPrincipal : Form
     {
         private readonly ServicoClube _servicoClube;
         private readonly ServicoJogador _servicoJogador;
         Filtro filtroClube = new();
         Filtro filtroJogador = new();
 
-        public Form1(ServicoClube servicoClube, ServicoJogador servicoJogador)
+        public FormPrincipal(ServicoClube servicoClube, ServicoJogador servicoJogador)
         {
             _servicoClube = servicoClube;
             _servicoJogador = servicoJogador;
             InitializeComponent();
         }
 
-        private void CarregarListasDoForm1(object sender, EventArgs e)
+        private void CarregarListasDoFormPrincipal(object sender, EventArgs e)
         {
             CarregarListaAtualizadas();
         }
@@ -80,12 +80,12 @@ namespace Cod3rsGrowth.Forms
         {
             if (!BoxIdClube.Text.IsNullOrEmpty())
             {
-                filtroJogador.IdClube = int.Parse(BoxIdClube.Text);
+                filtroJogador.Clube = BoxIdClube.Text;
                 CarregarListaAtualizadas();
             }
             else
             {
-                filtroJogador.IdClube = null;
+                filtroJogador.Clube = null;
                 CarregarListaAtualizadas();
             }
         }
@@ -128,6 +128,18 @@ namespace Cod3rsGrowth.Forms
             DataInicialJogador.Value = DateTime.Parse(DataInicial);
             DataFinalJogador.Value = DateTime.Now;
             BoxIdClube.Text = "";
+            CarregarListaAtualizadas();
+        }
+
+        private void AoClicarBotaocriarNaAbaclube(object sender, EventArgs e)
+        {
+            new FormCriarClube(_servicoClube).ShowDialog();
+            CarregarListaAtualizadas();
+        }
+
+        private void CriarJogador_Click(object sender, EventArgs e)
+        {
+            new FormCriarJogador(_servicoJogador).ShowDialog();
             CarregarListaAtualizadas();
         }
     }

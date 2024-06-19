@@ -11,8 +11,8 @@ namespace Cod3rsGrowth.Dominio.Modelos
         [Column("Nome"), NotNull]
         public string Nome { get; set; }
             
-        [Column("IdClube")]
-        public int? IdClube { get; set; }
+        [Column("Clube")]
+        public string? Clube { get; set; }
 
         [Column("Idade")]
         public int? Idade { get; set; }
@@ -27,11 +27,11 @@ namespace Cod3rsGrowth.Dominio.Modelos
         public double? Peso { get; set; }
 
 
-        public Jogador(int id, string nome,int? idClube, int? idade, DateTime dataDeNascimento, double? altura, double? peso)
+        public Jogador(int id, string nome,string? clube, int? idade, DateTime dataDeNascimento, double? altura, double? peso)
         {
             Id = id;
             Nome = nome;
-            IdClube = idClube;
+            Clube = clube;
             Idade = idade;
             DataDeNascimento = dataDeNascimento;
             Altura = altura;

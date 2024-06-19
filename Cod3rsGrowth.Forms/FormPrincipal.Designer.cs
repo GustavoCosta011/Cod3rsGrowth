@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms
 {
-    partial class Form1
+    partial class FormPrincipal
     {
         /// <summary>
         ///  Required designer variable.
@@ -60,14 +60,7 @@
             EditarJogador = new Button();
             CriarJogador = new Button();
             tabelaJogadores = new DataGridView();
-            idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            nomeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            idClubeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            idadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dataDeNascimentoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            alturaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            pesoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            jogadorBindingSource = new BindingSource(components);
+            jogadorBindingSource1 = new BindingSource(components);
             groupBox1 = new GroupBox();
             LimparCamposJogador = new Button();
             BoxIdClube = new TextBox();
@@ -78,6 +71,15 @@
             label6 = new Label();
             DataInicialJogador = new DateTimePicker();
             BoxNomeJogador = new TextBox();
+            jogadorBindingSource = new BindingSource(components);
+            jogadorBindingSource2 = new BindingSource(components);
+            idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            nomeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            Clube = new DataGridViewTextBoxColumn();
+            idadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataDeNascimentoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            alturaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            pesoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)tabelaClube).BeginInit();
             ((System.ComponentModel.ISupportInitialize)clubeBindingSource).BeginInit();
             Clubes.SuspendLayout();
@@ -85,8 +87,10 @@
             BoxBuscar.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabelaJogadores).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)jogadorBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)jogadorBindingSource1).BeginInit();
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)jogadorBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)jogadorBindingSource2).BeginInit();
             SuspendLayout();
             // 
             // tabelaClube
@@ -259,6 +263,7 @@
             CriarClube.TabIndex = 9;
             CriarClube.Text = "Criar";
             CriarClube.UseVisualStyleBackColor = false;
+            CriarClube.Click += AoClicarBotaocriarNaAbaclube;
             // 
             // BoxBuscar
             // 
@@ -437,17 +442,17 @@
             CriarJogador.TabIndex = 11;
             CriarJogador.Text = "Criar";
             CriarJogador.UseVisualStyleBackColor = false;
+            CriarJogador.Click += CriarJogador_Click;
             // 
             // tabelaJogadores
             // 
             tabelaJogadores.AllowUserToOrderColumns = true;
-            tabelaJogadores.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaJogadores.AutoGenerateColumns = false;
             tabelaJogadores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabelaJogadores.BackgroundColor = Color.LightSlateGray;
             tabelaJogadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabelaJogadores.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, idClubeDataGridViewTextBoxColumn, idadeDataGridViewTextBoxColumn, dataDeNascimentoDataGridViewTextBoxColumn, alturaDataGridViewTextBoxColumn, pesoDataGridViewTextBoxColumn });
-            tabelaJogadores.DataSource = jogadorBindingSource;
+            tabelaJogadores.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, Clube, idadeDataGridViewTextBoxColumn, dataDeNascimentoDataGridViewTextBoxColumn, alturaDataGridViewTextBoxColumn, pesoDataGridViewTextBoxColumn });
+            tabelaJogadores.DataSource = jogadorBindingSource2;
             tabelaJogadores.Location = new Point(6, 79);
             tabelaJogadores.Name = "tabelaJogadores";
             tabelaJogadores.RowHeadersVisible = false;
@@ -455,58 +460,9 @@
             tabelaJogadores.Size = new Size(568, 261);
             tabelaJogadores.TabIndex = 10;
             // 
-            // idDataGridViewTextBoxColumn1
+            // jogadorBindingSource1
             // 
-            idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn1.FillWeight = 60F;
-            idDataGridViewTextBoxColumn1.HeaderText = "Id";
-            idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
-            // 
-            // nomeDataGridViewTextBoxColumn1
-            // 
-            nomeDataGridViewTextBoxColumn1.DataPropertyName = "Nome";
-            nomeDataGridViewTextBoxColumn1.FillWeight = 120F;
-            nomeDataGridViewTextBoxColumn1.HeaderText = "Nome";
-            nomeDataGridViewTextBoxColumn1.Name = "nomeDataGridViewTextBoxColumn1";
-            // 
-            // idClubeDataGridViewTextBoxColumn
-            // 
-            idClubeDataGridViewTextBoxColumn.DataPropertyName = "IdClube";
-            idClubeDataGridViewTextBoxColumn.FillWeight = 65F;
-            idClubeDataGridViewTextBoxColumn.HeaderText = "Clube";
-            idClubeDataGridViewTextBoxColumn.Name = "idClubeDataGridViewTextBoxColumn";
-            // 
-            // idadeDataGridViewTextBoxColumn
-            // 
-            idadeDataGridViewTextBoxColumn.DataPropertyName = "Idade";
-            idadeDataGridViewTextBoxColumn.FillWeight = 60F;
-            idadeDataGridViewTextBoxColumn.HeaderText = "Idade";
-            idadeDataGridViewTextBoxColumn.Name = "idadeDataGridViewTextBoxColumn";
-            // 
-            // dataDeNascimentoDataGridViewTextBoxColumn
-            // 
-            dataDeNascimentoDataGridViewTextBoxColumn.DataPropertyName = "DataDeNascimento";
-            dataDeNascimentoDataGridViewTextBoxColumn.FillWeight = 130F;
-            dataDeNascimentoDataGridViewTextBoxColumn.HeaderText = "Nascimento";
-            dataDeNascimentoDataGridViewTextBoxColumn.Name = "dataDeNascimentoDataGridViewTextBoxColumn";
-            // 
-            // alturaDataGridViewTextBoxColumn
-            // 
-            alturaDataGridViewTextBoxColumn.DataPropertyName = "Altura";
-            alturaDataGridViewTextBoxColumn.FillWeight = 70F;
-            alturaDataGridViewTextBoxColumn.HeaderText = "Altura";
-            alturaDataGridViewTextBoxColumn.Name = "alturaDataGridViewTextBoxColumn";
-            // 
-            // pesoDataGridViewTextBoxColumn
-            // 
-            pesoDataGridViewTextBoxColumn.DataPropertyName = "Peso";
-            pesoDataGridViewTextBoxColumn.FillWeight = 70F;
-            pesoDataGridViewTextBoxColumn.HeaderText = "Peso";
-            pesoDataGridViewTextBoxColumn.Name = "pesoDataGridViewTextBoxColumn";
-            // 
-            // jogadorBindingSource
-            // 
-            jogadorBindingSource.DataSource = typeof(Dominio.Modelos.Jogador);
+            jogadorBindingSource1.DataSource = typeof(Dominio.Modelos.Jogador);
             // 
             // groupBox1
             // 
@@ -545,7 +501,7 @@
             // 
             // BoxIdClube
             // 
-            BoxIdClube.Location = new Point(86, 39);
+            BoxIdClube.Location = new Point(61, 39);
             BoxIdClube.Name = "BoxIdClube";
             BoxIdClube.Size = new Size(105, 22);
             BoxIdClube.TabIndex = 9;
@@ -556,9 +512,9 @@
             label7.AutoSize = true;
             label7.Location = new Point(18, 36);
             label7.Name = "label7";
-            label7.Size = new Size(62, 16);
+            label7.Size = new Size(37, 16);
             label7.TabIndex = 8;
-            label7.Text = "Id do Clube:";
+            label7.Text = "Clube:";
             // 
             // DataFinalJogador
             // 
@@ -612,13 +568,69 @@
             // 
             // BoxNomeJogador
             // 
-            BoxNomeJogador.Location = new Point(86, 13);
+            BoxNomeJogador.Location = new Point(61, 13);
             BoxNomeJogador.Name = "BoxNomeJogador";
             BoxNomeJogador.Size = new Size(105, 22);
             BoxNomeJogador.TabIndex = 1;
             BoxNomeJogador.TextChanged += AoDigitaroNomeDoJogador;
             // 
-            // Form1
+            // jogadorBindingSource
+            // 
+            jogadorBindingSource.DataSource = typeof(Dominio.Modelos.Jogador);
+            // 
+            // jogadorBindingSource2
+            // 
+            jogadorBindingSource2.DataSource = typeof(Dominio.Modelos.Jogador);
+            // 
+            // idDataGridViewTextBoxColumn1
+            // 
+            idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn1.FillWeight = 60F;
+            idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            // 
+            // nomeDataGridViewTextBoxColumn1
+            // 
+            nomeDataGridViewTextBoxColumn1.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn1.FillWeight = 120F;
+            nomeDataGridViewTextBoxColumn1.HeaderText = "Nome";
+            nomeDataGridViewTextBoxColumn1.Name = "nomeDataGridViewTextBoxColumn1";
+            // 
+            // Clube
+            // 
+            Clube.DataPropertyName = "Clube";
+            Clube.HeaderText = "Clube";
+            Clube.Name = "Clube";
+            // 
+            // idadeDataGridViewTextBoxColumn
+            // 
+            idadeDataGridViewTextBoxColumn.DataPropertyName = "Idade";
+            idadeDataGridViewTextBoxColumn.FillWeight = 60F;
+            idadeDataGridViewTextBoxColumn.HeaderText = "Idade";
+            idadeDataGridViewTextBoxColumn.Name = "idadeDataGridViewTextBoxColumn";
+            // 
+            // dataDeNascimentoDataGridViewTextBoxColumn
+            // 
+            dataDeNascimentoDataGridViewTextBoxColumn.DataPropertyName = "DataDeNascimento";
+            dataDeNascimentoDataGridViewTextBoxColumn.FillWeight = 130F;
+            dataDeNascimentoDataGridViewTextBoxColumn.HeaderText = "Nascimento";
+            dataDeNascimentoDataGridViewTextBoxColumn.Name = "dataDeNascimentoDataGridViewTextBoxColumn";
+            // 
+            // alturaDataGridViewTextBoxColumn
+            // 
+            alturaDataGridViewTextBoxColumn.DataPropertyName = "Altura";
+            alturaDataGridViewTextBoxColumn.FillWeight = 70F;
+            alturaDataGridViewTextBoxColumn.HeaderText = "Altura";
+            alturaDataGridViewTextBoxColumn.Name = "alturaDataGridViewTextBoxColumn";
+            // 
+            // pesoDataGridViewTextBoxColumn
+            // 
+            pesoDataGridViewTextBoxColumn.DataPropertyName = "Peso";
+            pesoDataGridViewTextBoxColumn.FillWeight = 70F;
+            pesoDataGridViewTextBoxColumn.HeaderText = "Peso";
+            pesoDataGridViewTextBoxColumn.Name = "pesoDataGridViewTextBoxColumn";
+            // 
+            // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -630,10 +642,10 @@
             DoubleBuffered = true;
             ForeColor = SystemColors.ActiveCaptionText;
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            Name = "Form1";
-            Text = "Form1";
+            Name = "FormPrincipal";
+            Text = "FormPrincipal";
             WindowState = FormWindowState.Minimized;
-            Load += CarregarListasDoForm1;
+            Load += CarregarListasDoFormPrincipal;
             ((System.ComponentModel.ISupportInitialize)tabelaClube).EndInit();
             ((System.ComponentModel.ISupportInitialize)clubeBindingSource).EndInit();
             Clubes.ResumeLayout(false);
@@ -642,9 +654,11 @@
             BoxBuscar.PerformLayout();
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)tabelaJogadores).EndInit();
-            ((System.ComponentModel.ISupportInitialize)jogadorBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)jogadorBindingSource1).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)jogadorBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)jogadorBindingSource2).EndInit();
             ResumeLayout(false);
         }
 
@@ -685,18 +699,21 @@
         private Button EditarClube;
         private Button RemoverClube;
         private BindingSource jogadorBindingSource;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn idClubeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn idadeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataDeNascimentoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn alturaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn pesoDataGridViewTextBoxColumn;
         private Label label8;
         private ComboBox EnumEstado;
         private Button LimparCamposClube;
         private Button LimparCamposJogador;
         private Button PesquisarJogador;
         private Button PesquisarClube;
+        private BindingSource jogadorBindingSource1;
+        private BindingSource jogadorBindingSource2;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn Clube;
+        private DataGridViewTextBoxColumn idadeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataDeNascimentoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn alturaDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn pesoDataGridViewTextBoxColumn;
     }
 }
