@@ -38,7 +38,10 @@ namespace Cod3rsGrowth.Forms
             }
             catch (ValidationException ex)
             {
-                MessageBox.Show($"Erro encontrado: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var StringDialogo = $"Erro encontrado: {ex.Message}";
+                var NomeDaTela = "Erro";
+
+                MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
             }
 
         }

@@ -62,32 +62,15 @@ namespace Cod3rsGrowth.Forms
         private void AoSelecionarOEstadoDoClube(object sender, EventArgs e)
         {
             var EnumVazio = -1;
-            if (EnumEstado.SelectedIndex != EnumVazio)
-            {
-                filtroClube.Estado = (EstadosEnum?)EnumEstado.SelectedIndex;
-                CarregarListaAtualizadas();
-            }
-            else
-            {
-                filtroClube.Estado = null;
-                CarregarListaAtualizadas();
-            }
-
+            filtroClube.Estado = EnumEstado.SelectedIndex != EnumVazio ? (EstadosEnum?)EnumEstado.SelectedIndex : null;
+            CarregarListaAtualizadas();
         }
 
 
-        private void AoDigitarOIdDoClubeDoJogador(object sender, EventArgs e)
+        private void AoDigitarONomeDoClubeDoJogador(object sender, EventArgs e)
         {
-            if (!BoxIdClube.Text.IsNullOrEmpty())
-            {
-                filtroJogador.Clube = BoxIdClube.Text;
-                CarregarListaAtualizadas();
-            }
-            else
-            {
-                filtroJogador.Clube = null;
-                CarregarListaAtualizadas();
-            }
+            filtroJogador.Clube = !BoxIdClube.Text.IsNullOrEmpty() ? BoxIdClube.Text : null;
+            CarregarListaAtualizadas();
         }
 
         private void AoSelecionarADataInicialNaAbaJogadores(object sender, EventArgs e)

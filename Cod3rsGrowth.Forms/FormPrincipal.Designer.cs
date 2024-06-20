@@ -557,7 +557,7 @@
             BoxIdClube.Name = "BoxIdClube";
             BoxIdClube.Size = new Size(105, 22);
             BoxIdClube.TabIndex = 9;
-            BoxIdClube.TextChanged += AoDigitarOIdDoClubeDoJogador;
+            BoxIdClube.TextChanged += AoDigitarONomeDoClubeDoJogador;
             // 
             // label7
             // 

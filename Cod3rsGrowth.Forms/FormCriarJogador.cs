@@ -35,42 +35,20 @@ namespace Cod3rsGrowth.Forms
                 jogador.Nome = BoxNomeCriarJogador.Text;
                 jogador.IdClube = (int)ComboBoxClubeCriarJogador.SelectedValue;
                 jogador.Clube = ComboBoxClubeCriarJogador.Text;
-                
-                if (!BoxIdadeCriarJogador.Text.IsNullOrEmpty())
-                {
-                    jogador.Idade = int.Parse(BoxIdadeCriarJogador.Text);
-                }
-                else
-                {
-                    jogador.Idade = null;
-                }
-
+                jogador.Idade = !BoxIdadeCriarJogador.Text.IsNullOrEmpty() ? int.Parse(BoxIdadeCriarJogador.Text) : null;
                 jogador.DataDeNascimento = NascimentoCriarJogador.Value;
+                jogador.Altura = BoxAlturaCriarJogador.Text != "" ? double.Parse(BoxAlturaCriarJogador.Text) : null;
+                jogador.Peso = BoxPesoCriarJogador.Text != "" ? double.Parse(BoxPesoCriarJogador.Text) : null;
 
-                if (BoxAlturaCriarJogador.Text != "")
-                {
-                    jogador.Altura = double.Parse(BoxAlturaCriarJogador.Text);
-                }
-                else
-                {
-                    jogador.Altura = null;
-                }
-                
-                if(BoxPesoCriarJogador.Text != "")
-                {
-                    jogador.Peso = double.Parse(BoxPesoCriarJogador.Text);
-                }
-                else
-                {
-                    jogador.Peso = null;
-                }
-                
                 _servicoJogador.CriarJogador(jogador);
                 Close();
             }
             catch (ValidationException ex)
             {
-                MessageBox.Show($"Erro encontrado: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var StringDialogo = $"Erro encontrado: {ex.Message}";
+                var NomeDaTela = "Erro";
+
+                MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
