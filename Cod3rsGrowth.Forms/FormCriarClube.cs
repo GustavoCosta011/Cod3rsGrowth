@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
 using FluentValidation;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace Cod3rsGrowth.Forms
 {
