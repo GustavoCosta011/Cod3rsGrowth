@@ -37,8 +37,8 @@ namespace Cod3rsGrowth.Forms
                 jogador.Clube = ComboBoxClubeCriarJogador.Text;
                 jogador.Idade = !BoxIdadeCriarJogador.Text.IsNullOrEmpty() ? int.Parse(BoxIdadeCriarJogador.Text) : null;
                 jogador.DataDeNascimento = NascimentoCriarJogador.Value;
-                jogador.Altura = BoxAlturaCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxAlturaCriarJogador.Text) : null;
-                jogador.Peso = BoxPesoCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxPesoCriarJogador.Text) : null;
+                jogador.Altura = !BoxAlturaCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxAlturaCriarJogador.Text) : null;
+                jogador.Peso = !BoxPesoCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxPesoCriarJogador.Text) : null;
 
                 _servicoJogador.CriarJogador(jogador);
                 Close();
