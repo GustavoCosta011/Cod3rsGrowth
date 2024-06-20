@@ -29,8 +29,9 @@ namespace Cod3rsGrowth.Servicos.Validadores
                 .IsInEnum().WithMessage("O valor deve ser a sigla da unidade federativa!");
 
             RuleFor(clube => clube.CoberturaAntiChuva)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotNull().WithMessage("Campo 'Cobertura Antichuva' deve ser preenchido!");
+                .NotEmpty().WithMessage("Campo 'Cobertura Antichuva' deve ser preenchido!")
+                .Must(value => value == true || value == false)
+                .WithMessage("Campo 'Cobertura Antichuva' deve ser verdadeiro ou falso.");
 
             RuleSet("Editar", () =>
             {

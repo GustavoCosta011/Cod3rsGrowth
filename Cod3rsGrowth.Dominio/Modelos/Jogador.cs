@@ -10,7 +10,10 @@ namespace Cod3rsGrowth.Dominio.Modelos
         
         [Column("Nome"), NotNull]
         public string Nome { get; set; }
-            
+
+        [Column("IdClube")]
+        public int? IdClube { get; set; }
+
         [Column("Clube")]
         public string? Clube { get; set; }
 

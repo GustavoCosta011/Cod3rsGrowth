@@ -18,10 +18,13 @@ namespace Cod3rsGrowth.Forms
     public partial class FormCriarJogador : Form
     {
         private readonly ServicoJogador _servicoJogador;
+        private readonly ServicoClube _servicoClube;
         Jogador jogador = new();
-        public FormCriarJogador(ServicoJogador servicoJogador)
+        
+        public FormCriarJogador(ServicoJogador servicoJogador,ServicoClube servicoClube)
         {
             _servicoJogador = servicoJogador;
+            _servicoClube = servicoClube;
             InitializeComponent();
         }
 
@@ -30,7 +33,9 @@ namespace Cod3rsGrowth.Forms
             try
             {
                 jogador.Nome = BoxNomeCriarJogador.Text;
-                jogador.Clube = BoxClubeCriarJogador.Text;
+                jogador.IdClube = (int)ComboBoxClubeCriarJogador.SelectedValue;
+                jogador.Clube = ComboBoxClubeCriarJogador.Text;
+                
                 if (!BoxIdadeCriarJogador.Text.IsNullOrEmpty())
                 {
                     jogador.Idade = int.Parse(BoxIdadeCriarJogador.Text);
@@ -39,9 +44,27 @@ namespace Cod3rsGrowth.Forms
                 {
                     jogador.Idade = null;
                 }
+
                 jogador.DataDeNascimento = NascimentoCriarJogador.Value;
-                jogador.Altura = double.Parse(BoxAlturaCriarJogador.Text);
-                jogador.Peso = double.Parse(BoxPesoCriarJogador.Text);
+
+                if (BoxAlturaCriarJogador.Text != "")
+                {
+                    jogador.Altura = double.Parse(BoxAlturaCriarJogador.Text);
+                }
+                else
+                {
+                    jogador.Altura = null;
+                }
+                
+                if(BoxPesoCriarJogador.Text != "")
+                {
+                    jogador.Peso = double.Parse(BoxPesoCriarJogador.Text);
+                }
+                else
+                {
+                    jogador.Peso = null;
+                }
+                
                 _servicoJogador.CriarJogador(jogador);
                 Close();
             }
@@ -54,6 +77,11 @@ namespace Cod3rsGrowth.Forms
         private void AoClicarCancelarNaAbaCriarJogador(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FormCriarJogador_Load(object sender, EventArgs e)
+        {
+            ComboBoxClubeCriarJogador.DataSource = _servicoClube.ObterTodos(null);
         }
     }
 }

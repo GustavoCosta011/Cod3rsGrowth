@@ -27,23 +27,30 @@ namespace Cod3rsGrowth.Forms
                 {
                     clube.CoberturaAntiChuva = true;
                 }
-                else
+                else if(BotaoNaoCriarClube.Checked)
                 {
                     clube.CoberturaAntiChuva = false;
                 }
+                
+
                 _servicoClube.CriarClube(clube);
                 Close();
             }
-            catch(ValidationException ex)
+            catch (ValidationException ex)
             {
-                MessageBox.Show($"Erro encontrado: {ex.Message}\n", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Erro encontrado: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
         }
-        
+
         private void CancelarClube_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FormCriarClube_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

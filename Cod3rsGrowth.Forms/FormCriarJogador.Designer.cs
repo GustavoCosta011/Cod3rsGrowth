@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             BoxCriar = new GroupBox();
+            ComboBoxClubeCriarJogador = new ComboBox();
+            clubeBindingSource1 = new BindingSource(components);
             NascimentoCriarJogador = new DateTimePicker();
             BoxPesoCriarJogador = new TextBox();
             label7 = new Label();
             BoxAlturaCriarJogador = new TextBox();
             label6 = new Label();
             label5 = new Label();
-            BoxClubeCriarJogador = new TextBox();
             CancelarJogador = new Button();
             SalvarJogador = new Button();
             BoxIdadeCriarJogador = new TextBox();
@@ -44,19 +46,22 @@
             label2 = new Label();
             label1 = new Label();
             BoxNomeCriarJogador = new TextBox();
+            clubeBindingSource = new BindingSource(components);
             BoxCriar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)clubeBindingSource1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)clubeBindingSource).BeginInit();
             SuspendLayout();
             // 
             // BoxCriar
             // 
             BoxCriar.BackColor = Color.LightGray;
+            BoxCriar.Controls.Add(ComboBoxClubeCriarJogador);
             BoxCriar.Controls.Add(NascimentoCriarJogador);
             BoxCriar.Controls.Add(BoxPesoCriarJogador);
             BoxCriar.Controls.Add(label7);
             BoxCriar.Controls.Add(BoxAlturaCriarJogador);
             BoxCriar.Controls.Add(label6);
             BoxCriar.Controls.Add(label5);
-            BoxCriar.Controls.Add(BoxClubeCriarJogador);
             BoxCriar.Controls.Add(CancelarJogador);
             BoxCriar.Controls.Add(SalvarJogador);
             BoxCriar.Controls.Add(BoxIdadeCriarJogador);
@@ -70,6 +75,24 @@
             BoxCriar.Size = new Size(304, 383);
             BoxCriar.TabIndex = 3;
             BoxCriar.TabStop = false;
+            // 
+            // ComboBoxClubeCriarJogador
+            // 
+            ComboBoxClubeCriarJogador.DataSource = clubeBindingSource1;
+            ComboBoxClubeCriarJogador.DisplayMember = "Nome";
+            ComboBoxClubeCriarJogador.DropDownHeight = 80;
+            ComboBoxClubeCriarJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            ComboBoxClubeCriarJogador.FormattingEnabled = true;
+            ComboBoxClubeCriarJogador.IntegralHeight = false;
+            ComboBoxClubeCriarJogador.Location = new Point(7, 88);
+            ComboBoxClubeCriarJogador.Name = "ComboBoxClubeCriarJogador";
+            ComboBoxClubeCriarJogador.Size = new Size(283, 24);
+            ComboBoxClubeCriarJogador.TabIndex = 26;
+            ComboBoxClubeCriarJogador.ValueMember = "Id";
+            // 
+            // clubeBindingSource1
+            // 
+            clubeBindingSource1.DataSource = typeof(Dominio.Modelos.Clube);
             // 
             // NascimentoCriarJogador
             // 
@@ -124,13 +147,6 @@
             label5.Size = new Size(107, 16);
             label5.TabIndex = 19;
             label5.Text = "Data de Nascimento:";
-            // 
-            // BoxClubeCriarJogador
-            // 
-            BoxClubeCriarJogador.Location = new Point(6, 88);
-            BoxClubeCriarJogador.Name = "BoxClubeCriarJogador";
-            BoxClubeCriarJogador.Size = new Size(285, 23);
-            BoxClubeCriarJogador.TabIndex = 18;
             // 
             // CancelarJogador
             // 
@@ -213,6 +229,10 @@
             BoxNomeCriarJogador.Size = new Size(285, 23);
             BoxNomeCriarJogador.TabIndex = 1;
             // 
+            // clubeBindingSource
+            // 
+            clubeBindingSource.DataSource = typeof(Dominio.Modelos.Clube);
+            // 
             // FormCriarJogador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -224,8 +244,11 @@
             MinimizeBox = false;
             Name = "FormCriarJogador";
             Text = "FormCriarJogador";
+            Load += FormCriarJogador_Load;
             BoxCriar.ResumeLayout(false);
             BoxCriar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)clubeBindingSource1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)clubeBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -240,12 +263,14 @@
         private Label label2;
         private Label label1;
         private TextBox BoxNomeCriarJogador;
-        private TextBox BoxClubeCriarJogador;
         private Label label5;
         private TextBox BoxPesoCriarJogador;
         private Label label7;
         private TextBox BoxAlturaCriarJogador;
         private Label label6;
         private DateTimePicker NascimentoCriarJogador;
+        private ComboBox ComboBoxClubeCriarJogador;
+        private BindingSource clubeBindingSource;
+        private BindingSource clubeBindingSource1;
     }
 }

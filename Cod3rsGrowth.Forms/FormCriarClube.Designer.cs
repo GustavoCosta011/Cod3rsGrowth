@@ -219,6 +219,7 @@ namespace Cod3rsGrowth.Forms
             MinimizeBox = false;
             Name = "FormCriarClube";
             Text = "Cadastro de Clube";
+            Load += FormCriarClube_Load;
             BoxCriar.ResumeLayout(false);
             BoxCriar.PerformLayout();
             ResumeLayout(false);

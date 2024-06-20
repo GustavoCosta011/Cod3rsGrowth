@@ -139,7 +139,7 @@ namespace Cod3rsGrowth.Forms
 
         private void CriarJogador_Click(object sender, EventArgs e)
         {
-            new FormCriarJogador(_servicoJogador).ShowDialog();
+            new FormCriarJogador(_servicoJogador,_servicoClube).ShowDialog();
             CarregarListaAtualizadas();
         }
     }
