@@ -254,6 +254,7 @@
             EditarClube.TabIndex = 13;
             EditarClube.Text = "Editar";
             EditarClube.UseVisualStyleBackColor = false;
+            EditarClube.Click += AoclicarEditarNaAbaClube;
             // 
             // CriarClube
             // 
@@ -434,6 +435,7 @@
             EditarJogador.TabIndex = 12;
             EditarJogador.Text = "Editar";
             EditarJogador.UseVisualStyleBackColor = false;
+            EditarJogador.Click += EditarJogador_Click;
             // 
             // CriarJogador
             // 
