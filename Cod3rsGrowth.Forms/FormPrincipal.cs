@@ -6,6 +6,7 @@ using System;
 using System.Windows.Forms;
 using Cod3rsGrowth.Dominio.Enums;
 using Microsoft.IdentityModel.Tokens;
+using Cod3rsGrowth.Dominio.Modelos;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -34,6 +35,10 @@ namespace Cod3rsGrowth.Forms
             tabelaClube.DataSource = _servicoClube.ObterTodos(filtroClube);
             tabelaJogadores.DataSource = null;
             tabelaJogadores.DataSource = _servicoJogador.ObterTodos(filtroJogador);
+            tabelaClube.ClearSelection();
+            tabelaClube.CurrentCell = null;
+            tabelaJogadores.ClearSelection();
+            tabelaJogadores.CurrentCell = null;
         }
 
         private void AoClicarPesquisarNaAbaClubes(object sender, EventArgs e)
@@ -122,8 +127,73 @@ namespace Cod3rsGrowth.Forms
 
         private void CriarJogador_Click(object sender, EventArgs e)
         {
-            new FormCriarJogador(_servicoJogador,_servicoClube).ShowDialog();
+            new FormCriarJogador(_servicoJogador, _servicoClube).ShowDialog();
             CarregarListaAtualizadas();
+        }
+
+        private string MsgNenhumClubeNãoSelecionado = "Nenhum Clube foi selecionado!!";
+        private string MsgNenhumJogadoresNãoSelecionado = "Nenhuma Jogador foi selecionada!!";
+        private string Aviso = "Aviso!!";
+        private void AoClicarRemoverNaAbaClubes(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tabelaClube.CurrentCell == null) throw new Exception();
+                string? clubeSelecionado = tabelaClube.Rows[tabelaClube.CurrentRow.Index].Cells[idClube.Index].Value.ToString();
+
+                if (clubeSelecionado != null)
+                {
+                    int idClubeSelecionado = int.Parse(clubeSelecionado);
+                    string MsgConfirmacaoRemoverClube = $"Deseja excluir o Clube {tabelaClube.Rows[tabelaClube.CurrentRow.Index].Cells[NomeClube.Index].Value}?";
+
+                    DialogResult ConfirmacaoRemoverClube = MessageBox.Show(MsgConfirmacaoRemoverClube, Aviso, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (ConfirmacaoRemoverClube == DialogResult.Yes)
+                    {
+                        _servicoClube.RemoverClube(idClubeSelecionado);
+                        CarregarListaAtualizadas();
+                    }
+                    else
+                    {
+                        tabelaClube.ClearSelection();
+                        tabelaClube.CurrentCell = null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MsgNenhumClubeNãoSelecionado, Aviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AoCliclarRemoverNaAbaJogadores(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tabelaJogadores.CurrentCell == null) throw new Exception();
+                string? jogadorSelecionado = tabelaJogadores.Rows[tabelaJogadores.CurrentRow.Index].Cells[IdJogador.Index].Value.ToString();
+
+                if (jogadorSelecionado != null)
+                {
+                    int idJogadorSelecionado = int.Parse(jogadorSelecionado);
+                    string MsgConfirmacaoRemoverJogador = $"Deseja excluir o Jogador {tabelaJogadores.Rows[tabelaJogadores.CurrentRow.Index].Cells[NomeJogador.Index].Value}?";
+
+                    DialogResult ConfirmacaoRemoverClube = MessageBox.Show(MsgConfirmacaoRemoverJogador, Aviso, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (ConfirmacaoRemoverClube == DialogResult.Yes)
+                    {
+                        _servicoJogador.RemoverJogador(idJogadorSelecionado);
+                        CarregarListaAtualizadas();
+                    }
+                    else
+                    {
+                        tabelaJogadores.ClearSelection();
+                        tabelaJogadores.CurrentCell = null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MsgNenhumJogadoresNãoSelecionado, Aviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
