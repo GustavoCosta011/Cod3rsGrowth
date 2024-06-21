@@ -27,6 +27,8 @@ namespace Cod3rsGrowth.Forms
         private void CarregarListasDoFormPrincipal(object sender, EventArgs e)
         {
             CarregarListaAtualizadas();
+            LimparSelecaoNaGrid(tabelaJogadores);
+            LimparSelecaoNaGrid(tabelaClube);
         }
 
         private void CarregarListaAtualizadas()
@@ -35,12 +37,13 @@ namespace Cod3rsGrowth.Forms
             tabelaClube.DataSource = _servicoClube.ObterTodos(filtroClube);
             tabelaJogadores.DataSource = null;
             tabelaJogadores.DataSource = _servicoJogador.ObterTodos(filtroJogador);
-            tabelaClube.ClearSelection();
-            tabelaClube.CurrentCell = null;
-            tabelaJogadores.ClearSelection();
-            tabelaJogadores.CurrentCell = null;
         }
 
+        private void LimparSelecaoNaGrid(DataGridView tabela)
+        {
+            tabela.ClearSelection();
+            tabela.CurrentCell = null;
+        }
         private void AoClicarPesquisarNaAbaClubes(object sender, EventArgs e)
         {
             CarregarListaAtualizadas();
@@ -131,11 +134,10 @@ namespace Cod3rsGrowth.Forms
             CarregarListaAtualizadas();
         }
 
-        private string MsgNenhumClubeNãoSelecionado = "Nenhum Clube foi selecionado!!";
-        private string MsgNenhumJogadoresNãoSelecionado = "Nenhuma Jogador foi selecionada!!";
-        private string Aviso = "Aviso!!";
+        private readonly string Aviso = "Aviso!!";
         private void AoClicarRemoverNaAbaClubes(object sender, EventArgs e)
         {
+            string MsgNenhumClubeNãoSelecionado = "Nenhum Clube foi selecionado!!";
             try
             {
                 if (tabelaClube.CurrentCell == null) throw new Exception();
@@ -154,8 +156,7 @@ namespace Cod3rsGrowth.Forms
                     }
                     else
                     {
-                        tabelaClube.ClearSelection();
-                        tabelaClube.CurrentCell = null;
+                        LimparSelecaoNaGrid(tabelaClube);
                     }
                 }
             }
@@ -167,6 +168,8 @@ namespace Cod3rsGrowth.Forms
 
         private void AoCliclarRemoverNaAbaJogadores(object sender, EventArgs e)
         {
+            string MsgNenhumJogadoresNãoSelecionado = "Nenhuma Jogador foi selecionada!!";
+
             try
             {
                 if (tabelaJogadores.CurrentCell == null) throw new Exception();
@@ -185,8 +188,7 @@ namespace Cod3rsGrowth.Forms
                     }
                     else
                     {
-                        tabelaJogadores.ClearSelection();
-                        tabelaJogadores.CurrentCell = null;
+                        LimparSelecaoNaGrid(tabelaJogadores);
                     }
                 }
             }
