@@ -31,8 +31,8 @@
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tabelaClube = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            idClube = new DataGridViewTextBoxColumn();
+            NomeClube = new DataGridViewTextBoxColumn();
             fundacaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             estadioDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             estadoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -60,8 +60,8 @@
             EditarJogador = new Button();
             CriarJogador = new Button();
             tabelaJogadores = new DataGridView();
-            idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            nomeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            IdJogador = new DataGridViewTextBoxColumn();
+            NomeJogador = new DataGridViewTextBoxColumn();
             Clube = new DataGridViewTextBoxColumn();
             idadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dataDeNascimentoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -111,32 +111,33 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             tabelaClube.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             tabelaClube.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabelaClube.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, fundacaoDataGridViewTextBoxColumn, estadioDataGridViewTextBoxColumn, estadoDataGridViewTextBoxColumn, coberturaAntiChuvaDataGridViewCheckBoxColumn });
+            tabelaClube.Columns.AddRange(new DataGridViewColumn[] { idClube, NomeClube, fundacaoDataGridViewTextBoxColumn, estadioDataGridViewTextBoxColumn, estadoDataGridViewTextBoxColumn, coberturaAntiChuvaDataGridViewCheckBoxColumn });
             tabelaClube.DataSource = clubeBindingSource;
             tabelaClube.Location = new Point(6, 79);
             tabelaClube.Name = "tabelaClube";
             tabelaClube.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             tabelaClube.RowHeadersVisible = false;
             tabelaClube.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            tabelaClube.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabelaClube.Size = new Size(571, 261);
             tabelaClube.TabIndex = 0;
             tabelaClube.VirtualMode = true;
             // 
-            // idDataGridViewTextBoxColumn
+            // idClube
             // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.FillWeight = 20F;
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idClube.DataPropertyName = "Id";
+            idClube.FillWeight = 20F;
+            idClube.HeaderText = "Id";
+            idClube.Name = "idClube";
+            idClube.ReadOnly = true;
             // 
-            // nomeDataGridViewTextBoxColumn
+            // NomeClube
             // 
-            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            nomeDataGridViewTextBoxColumn.FillWeight = 30F;
-            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
-            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            nomeDataGridViewTextBoxColumn.ReadOnly = true;
+            NomeClube.DataPropertyName = "Nome";
+            NomeClube.FillWeight = 30F;
+            NomeClube.HeaderText = "Nome";
+            NomeClube.Name = "NomeClube";
+            NomeClube.ReadOnly = true;
             // 
             // fundacaoDataGridViewTextBoxColumn
             // 
@@ -193,6 +194,8 @@
             Clubes.SelectedIndex = 0;
             Clubes.Size = new Size(718, 375);
             Clubes.TabIndex = 3;
+            Clubes.SelectedIndexChanged += CarregarListasDoFormPrincipal;
+            Clubes.TabIndexChanged += CarregarListasDoFormPrincipal;
             // 
             // tabPage1
             // 
@@ -237,6 +240,7 @@
             RemoverClube.TabIndex = 14;
             RemoverClube.Text = "Remover";
             RemoverClube.UseVisualStyleBackColor = false;
+            RemoverClube.Click += AoClicarRemoverNaAbaClubes;
             // 
             // EditarClube
             // 
@@ -416,6 +420,7 @@
             RemoverJogador.TabIndex = 13;
             RemoverJogador.Text = "Remover";
             RemoverJogador.UseVisualStyleBackColor = false;
+            RemoverJogador.Click += AoCliclarRemoverNaAbaJogadores;
             // 
             // EditarJogador
             // 
@@ -455,28 +460,29 @@
             tabelaJogadores.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             tabelaJogadores.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             tabelaJogadores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabelaJogadores.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, Clube, idadeDataGridViewTextBoxColumn, dataDeNascimentoDataGridViewTextBoxColumn, alturaDataGridViewTextBoxColumn, pesoDataGridViewTextBoxColumn });
+            tabelaJogadores.Columns.AddRange(new DataGridViewColumn[] { IdJogador, NomeJogador, Clube, idadeDataGridViewTextBoxColumn, dataDeNascimentoDataGridViewTextBoxColumn, alturaDataGridViewTextBoxColumn, pesoDataGridViewTextBoxColumn });
             tabelaJogadores.DataSource = jogadorBindingSource2;
             tabelaJogadores.Location = new Point(6, 79);
             tabelaJogadores.Name = "tabelaJogadores";
             tabelaJogadores.RowHeadersVisible = false;
             tabelaJogadores.RowTemplate.Height = 25;
+            tabelaJogadores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabelaJogadores.Size = new Size(568, 261);
             tabelaJogadores.TabIndex = 10;
             // 
-            // idDataGridViewTextBoxColumn1
+            // IdJogador
             // 
-            idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn1.FillWeight = 60F;
-            idDataGridViewTextBoxColumn1.HeaderText = "Id";
-            idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            IdJogador.DataPropertyName = "Id";
+            IdJogador.FillWeight = 60F;
+            IdJogador.HeaderText = "Id";
+            IdJogador.Name = "IdJogador";
             // 
-            // nomeDataGridViewTextBoxColumn1
+            // NomeJogador
             // 
-            nomeDataGridViewTextBoxColumn1.DataPropertyName = "Nome";
-            nomeDataGridViewTextBoxColumn1.FillWeight = 120F;
-            nomeDataGridViewTextBoxColumn1.HeaderText = "Nome";
-            nomeDataGridViewTextBoxColumn1.Name = "nomeDataGridViewTextBoxColumn1";
+            NomeJogador.DataPropertyName = "Nome";
+            NomeJogador.FillWeight = 120F;
+            NomeJogador.HeaderText = "Nome";
+            NomeJogador.Name = "NomeJogador";
             // 
             // Clube
             // 
@@ -674,12 +680,6 @@
         private TabControl Clubes;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn fundacaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn estadioDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn estadoDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn coberturaAntiChuvaDataGridViewCheckBoxColumn;
         private DateTimePicker DataInicialClube;
         private Label label2;
         private DateTimePicker DataFinalClube;
@@ -712,8 +712,14 @@
         private Button PesquisarClube;
         private BindingSource jogadorBindingSource1;
         private BindingSource jogadorBindingSource2;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn idClube;
+        private DataGridViewTextBoxColumn NomeClube;
+        private DataGridViewTextBoxColumn fundacaoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn estadioDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn estadoDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn coberturaAntiChuvaDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn IdJogador;
+        private DataGridViewTextBoxColumn NomeJogador;
         private DataGridViewTextBoxColumn Clube;
         private DataGridViewTextBoxColumn idadeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataDeNascimentoDataGridViewTextBoxColumn;
