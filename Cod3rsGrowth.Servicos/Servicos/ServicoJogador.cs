@@ -30,28 +30,16 @@ namespace Cod3rsGrowth.Servicos.Servicos
         public int CriarJogador(Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador);
-
-
+            string mensagem = null;
+            string separador = "\n";
             if (!resultado.IsValid)
             {
-                string mensagem = null;
-
-                foreach (var erro in resultado.Errors)
-                {
-                    mensagem += erro.ErrorMessage;
-
-                }
-
-                throw new Exception(mensagem);
+                mensagem = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new ValidationException(mensagem);
             }
-
             int IdNovoJogador = repositoryJogador.Criar(jogador);
 
-
-
-
             return IdNovoJogador;
-
         }
 
         public void EditarJogador(int id, Jogador jogador)
@@ -59,16 +47,11 @@ namespace Cod3rsGrowth.Servicos.Servicos
             ValidationResult resultado = validadorJogador.Validate(jogador, options => options.IncludeRuleSets("Editar"));
 
 
+            string mensagem = null;
+            string separador = "\n";
             if (!resultado.IsValid)
             {
-                string mensagem = null;
-
-                foreach (var erro in resultado.Errors)
-                {
-                    mensagem += erro.ErrorMessage;
-
-                }
-
+                mensagem = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new Exception(mensagem);
             }
             repositoryJogador.Editar(id, jogador);

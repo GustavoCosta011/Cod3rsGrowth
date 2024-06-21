@@ -9,21 +9,21 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Cod3rsGrowth.Forms
 {
-    public partial class Form1 : Form
+    public partial class FormPrincipal : Form
     {
         private readonly ServicoClube _servicoClube;
         private readonly ServicoJogador _servicoJogador;
         Filtro filtroClube = new();
         Filtro filtroJogador = new();
 
-        public Form1(ServicoClube servicoClube, ServicoJogador servicoJogador)
+        public FormPrincipal(ServicoClube servicoClube, ServicoJogador servicoJogador)
         {
             _servicoClube = servicoClube;
             _servicoJogador = servicoJogador;
             InitializeComponent();
         }
 
-        private void CarregarListasDoForm1(object sender, EventArgs e)
+        private void CarregarListasDoFormPrincipal(object sender, EventArgs e)
         {
             CarregarListaAtualizadas();
         }
@@ -62,32 +62,15 @@ namespace Cod3rsGrowth.Forms
         private void AoSelecionarOEstadoDoClube(object sender, EventArgs e)
         {
             var EnumVazio = -1;
-            if (EnumEstado.SelectedIndex != EnumVazio)
-            {
-                filtroClube.Estado = (EstadosEnum?)EnumEstado.SelectedIndex;
-                CarregarListaAtualizadas();
-            }
-            else
-            {
-                filtroClube.Estado = null;
-                CarregarListaAtualizadas();
-            }
-
+            filtroClube.Estado = EnumEstado.SelectedIndex != EnumVazio ? (EstadosEnum?)EnumEstado.SelectedIndex : null;
+            CarregarListaAtualizadas();
         }
 
 
-        private void AoDigitarOIdDoClubeDoJogador(object sender, EventArgs e)
+        private void AoDigitarONomeDoClubeDoJogador(object sender, EventArgs e)
         {
-            if (!BoxIdClube.Text.IsNullOrEmpty())
-            {
-                filtroJogador.IdClube = int.Parse(BoxIdClube.Text);
-                CarregarListaAtualizadas();
-            }
-            else
-            {
-                filtroJogador.IdClube = null;
-                CarregarListaAtualizadas();
-            }
+            filtroJogador.Clube = !BoxIdClube.Text.IsNullOrEmpty() ? BoxIdClube.Text : null;
+            CarregarListaAtualizadas();
         }
 
         private void AoSelecionarADataInicialNaAbaJogadores(object sender, EventArgs e)
@@ -128,6 +111,18 @@ namespace Cod3rsGrowth.Forms
             DataInicialJogador.Value = DateTime.Parse(DataInicial);
             DataFinalJogador.Value = DateTime.Now;
             BoxIdClube.Text = "";
+            CarregarListaAtualizadas();
+        }
+
+        private void AoClicarBotaocriarNaAbaclube(object sender, EventArgs e)
+        {
+            new FormCriarClube(_servicoClube).ShowDialog();
+            CarregarListaAtualizadas();
+        }
+
+        private void CriarJogador_Click(object sender, EventArgs e)
+        {
+            new FormCriarJogador(_servicoJogador,_servicoClube).ShowDialog();
             CarregarListaAtualizadas();
         }
     }
