@@ -87,9 +87,11 @@ namespace Cod3rsGrowth.Forms
 
         private void FormCriarJogador_Load(object sender, EventArgs e)
         {
+
             ComboBoxClubeCriarJogador.DataSource = _servicoClube.ObterTodos(null);
             if (_id != null)
             {
+                this.Text = "Editar Jogador";
                 jogador = _servicoJogador.ObterPorId((int)_id);
                 BoxNomeCriarJogador.Text = jogador.Nome;
                 ComboBoxClubeCriarJogador.SelectedValue = jogador.IdClube.ToString();

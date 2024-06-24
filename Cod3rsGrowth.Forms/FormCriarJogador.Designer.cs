@@ -243,7 +243,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormCriarJogador";
-            Text = "FormCriarJogador";
+            Text = "Cadastro de Jogador";
             Load += FormCriarJogador_Load;
             BoxCriar.ResumeLayout(false);
             BoxCriar.PerformLayout();

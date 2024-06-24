@@ -88,6 +88,7 @@ namespace Cod3rsGrowth.Forms
         {
             if (_id != null)
             {
+                this.Text = "Editar Clube";
                 clube = _servicoClube.ObterPorId((int)_id);
                 BoxNomeCriarClube.Text = clube.Nome;
                 FundacaoCriarClube.Value = clube.Fundacao;
