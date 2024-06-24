@@ -37,20 +37,9 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         return database.Insert(objeto);
     }
 
-    public void Editar(int id, Jogador objeto)
+    public void Editar(Jogador objeto)
     {
-        database.Jogadores
-            .Where(jogador => jogador.Id == id)
-            .Update(jogador => new Jogador
-            {
-                Nome = objeto.Nome,
-                IdClube = objeto.IdClube,
-                Clube = objeto.Clube,
-                Idade = objeto.Idade,
-                DataDeNascimento = objeto.DataDeNascimento,
-                Altura = objeto.Altura,
-                Peso = objeto.Peso
-            });
+        database.Update(objeto);
     }
 
     public void Remover(int id)
