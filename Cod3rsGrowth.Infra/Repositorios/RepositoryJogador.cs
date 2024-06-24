@@ -41,8 +41,16 @@ public class RepositoryJogador : IRepositoryData<Jogador>
     {
         database.Jogadores
             .Where(jogador => jogador.Id == id)
-            .Set(jogador => jogador, objeto)
-            .Update();
+            .Update(jogador => new Jogador
+            {
+                Nome = objeto.Nome,
+                IdClube = objeto.IdClube,
+                Clube = objeto.Clube,
+                Idade = objeto.Idade,
+                DataDeNascimento = objeto.DataDeNascimento,
+                Altura = objeto.Altura,
+                Peso = objeto.Peso
+            });
     }
 
     public void Remover(int id)

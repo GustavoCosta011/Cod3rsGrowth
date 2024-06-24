@@ -20,7 +20,7 @@ namespace Cod3rsGrowth.Forms
         private readonly ServicoJogador _servicoJogador;
         private readonly ServicoClube _servicoClube;
         private int? _id = 0;
-        Jogador jogador = new();
+        private Jogador jogador = new();
         
         public FormCriarJogador(int? id ,ServicoJogador servicoJogador,ServicoClube servicoClube)
         {
@@ -94,7 +94,7 @@ namespace Cod3rsGrowth.Forms
                 BoxNomeCriarJogador.Text = jogador.Nome;
                 ComboBoxClubeCriarJogador.SelectedValue = jogador.IdClube.ToString();
                 ComboBoxClubeCriarJogador.Text = jogador.Clube;
-                BoxIdadeCriarJogador.Text = jogador.Clube;
+                BoxIdadeCriarJogador.Text = jogador.Idade.ToString();
                 NascimentoCriarJogador.Value = jogador.DataDeNascimento;
                 BoxAlturaCriarJogador.Text = jogador.Altura.ToString();
                 BoxPesoCriarJogador.Text = jogador.Peso.ToString();

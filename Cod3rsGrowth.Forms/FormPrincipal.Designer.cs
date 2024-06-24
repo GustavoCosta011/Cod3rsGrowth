@@ -95,7 +95,8 @@
             // 
             // tabelaClube
             // 
-            tabelaClube.AllowUserToOrderColumns = true;
+            tabelaClube.AllowUserToResizeColumns = false;
+            tabelaClube.AllowUserToResizeRows = false;
             tabelaClube.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaClube.AutoGenerateColumns = false;
             tabelaClube.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -114,6 +115,7 @@
             tabelaClube.Columns.AddRange(new DataGridViewColumn[] { idClube, NomeClube, fundacaoDataGridViewTextBoxColumn, estadioDataGridViewTextBoxColumn, estadoDataGridViewTextBoxColumn, coberturaAntiChuvaDataGridViewCheckBoxColumn });
             tabelaClube.DataSource = clubeBindingSource;
             tabelaClube.Location = new Point(6, 79);
+            tabelaClube.MultiSelect = false;
             tabelaClube.Name = "tabelaClube";
             tabelaClube.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             tabelaClube.RowHeadersVisible = false;
@@ -453,7 +455,8 @@
             // 
             // tabelaJogadores
             // 
-            tabelaJogadores.AllowUserToOrderColumns = true;
+            tabelaJogadores.AllowUserToResizeColumns = false;
+            tabelaJogadores.AllowUserToResizeRows = false;
             tabelaJogadores.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaJogadores.AutoGenerateColumns = false;
             tabelaJogadores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -465,10 +468,13 @@
             tabelaJogadores.Columns.AddRange(new DataGridViewColumn[] { IdJogador, NomeJogador, Clube, idadeDataGridViewTextBoxColumn, dataDeNascimentoDataGridViewTextBoxColumn, alturaDataGridViewTextBoxColumn, pesoDataGridViewTextBoxColumn });
             tabelaJogadores.DataSource = jogadorBindingSource2;
             tabelaJogadores.Location = new Point(6, 79);
+            tabelaJogadores.MultiSelect = false;
             tabelaJogadores.Name = "tabelaJogadores";
+            tabelaJogadores.ReadOnly = true;
             tabelaJogadores.RowHeadersVisible = false;
             tabelaJogadores.RowTemplate.Height = 25;
             tabelaJogadores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            tabelaJogadores.ShowEditingIcon = false;
             tabelaJogadores.Size = new Size(568, 261);
             tabelaJogadores.TabIndex = 10;
             // 
@@ -478,6 +484,7 @@
             IdJogador.FillWeight = 60F;
             IdJogador.HeaderText = "Id";
             IdJogador.Name = "IdJogador";
+            IdJogador.ReadOnly = true;
             // 
             // NomeJogador
             // 
@@ -485,12 +492,14 @@
             NomeJogador.FillWeight = 120F;
             NomeJogador.HeaderText = "Nome";
             NomeJogador.Name = "NomeJogador";
+            NomeJogador.ReadOnly = true;
             // 
             // Clube
             // 
             Clube.DataPropertyName = "Clube";
             Clube.HeaderText = "Clube";
             Clube.Name = "Clube";
+            Clube.ReadOnly = true;
             // 
             // idadeDataGridViewTextBoxColumn
             // 
@@ -498,6 +507,7 @@
             idadeDataGridViewTextBoxColumn.FillWeight = 60F;
             idadeDataGridViewTextBoxColumn.HeaderText = "Idade";
             idadeDataGridViewTextBoxColumn.Name = "idadeDataGridViewTextBoxColumn";
+            idadeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // dataDeNascimentoDataGridViewTextBoxColumn
             // 
@@ -505,6 +515,7 @@
             dataDeNascimentoDataGridViewTextBoxColumn.FillWeight = 130F;
             dataDeNascimentoDataGridViewTextBoxColumn.HeaderText = "Nascimento";
             dataDeNascimentoDataGridViewTextBoxColumn.Name = "dataDeNascimentoDataGridViewTextBoxColumn";
+            dataDeNascimentoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // alturaDataGridViewTextBoxColumn
             // 
@@ -512,6 +523,7 @@
             alturaDataGridViewTextBoxColumn.FillWeight = 70F;
             alturaDataGridViewTextBoxColumn.HeaderText = "Altura";
             alturaDataGridViewTextBoxColumn.Name = "alturaDataGridViewTextBoxColumn";
+            alturaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // pesoDataGridViewTextBoxColumn
             // 
@@ -519,6 +531,7 @@
             pesoDataGridViewTextBoxColumn.FillWeight = 70F;
             pesoDataGridViewTextBoxColumn.HeaderText = "Peso";
             pesoDataGridViewTextBoxColumn.Name = "pesoDataGridViewTextBoxColumn";
+            pesoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // jogadorBindingSource2
             // 
