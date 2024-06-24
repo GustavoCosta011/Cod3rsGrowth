@@ -122,15 +122,17 @@ namespace Cod3rsGrowth.Forms
             CarregarListaAtualizadas();
         }
 
-        private void AoClicarBotaocriarNaAbaclube(object sender, EventArgs e)
+        private void AoClicarBotaoCriarNaAbaclube(object sender, EventArgs e)
         {
-            new FormCriarClube(_servicoClube).ShowDialog();
+            int? IdClube = null;
+            new FormCriarClube(IdClube, _servicoClube).ShowDialog();
             CarregarListaAtualizadas();
         }
 
-        private void CriarJogador_Click(object sender, EventArgs e)
+        private void AoClicarCriarNaAbaJogador(object sender, EventArgs e)
         {
-            new FormCriarJogador(_servicoJogador, _servicoClube).ShowDialog();
+            int? id = null;
+            new FormCriarJogador(id,_servicoJogador, _servicoClube).ShowDialog();
             CarregarListaAtualizadas();
         }
 
@@ -168,7 +170,7 @@ namespace Cod3rsGrowth.Forms
 
         private void AoCliclarRemoverNaAbaJogadores(object sender, EventArgs e)
         {
-            string MsgNenhumJogadoresNãoSelecionado = "Nenhuma Jogador foi selecionada!!";
+            string MsgNenhumJogadorSelecionado = "Nenhuma Jogador foi selecionado!!";
 
             try
             {
@@ -194,7 +196,43 @@ namespace Cod3rsGrowth.Forms
             }
             catch (Exception)
             {
-                MessageBox.Show(MsgNenhumJogadoresNãoSelecionado, Aviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(MsgNenhumJogadorSelecionado, Aviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AoclicarEditarNaAbaClube(object sender, EventArgs e)
+        {
+            string MsgNenhumClubeSelecionado = "Nenhuma Clube foi selecionado!!";
+            try
+            {
+                if (tabelaClube.CurrentCell == null) throw new Exception();
+                string? clubeSelecionado = tabelaClube.Rows[tabelaClube.CurrentRow.Index].Cells[idClube.Index].Value.ToString();
+                int idClubeSelecionado = int.Parse(clubeSelecionado);
+                new FormCriarClube(idClubeSelecionado, _servicoClube).ShowDialog();
+                CarregarListaAtualizadas();
+                LimparSelecaoNaGrid(tabelaClube);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MsgNenhumClubeSelecionado, Aviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AoClicarEditarNaAbaJogador(object sender, EventArgs e)
+        {
+            string MsgNenhumJogadorSelecionado = "Nenhuma Jogador foi selecionado!!";
+            try
+            {
+                if (tabelaJogadores.CurrentCell == null) throw new Exception();
+                string? jogadorSelecionado = tabelaJogadores.Rows[tabelaJogadores.CurrentRow.Index].Cells[IdJogador.Index].Value.ToString();
+                int idJogadorSelecionado = int.Parse(jogadorSelecionado);
+                new FormCriarJogador(idJogadorSelecionado, _servicoJogador, _servicoClube).ShowDialog();
+                CarregarListaAtualizadas();
+                LimparSelecaoNaGrid(tabelaJogadores);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MsgNenhumJogadorSelecionado, Aviso, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

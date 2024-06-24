@@ -54,7 +54,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
                 mensagem = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new Exception(mensagem);
             }
-            repositoryJogador.Editar(id, jogador);
+            repositoryJogador.Editar(jogador);
         }
 
         public void RemoverJogador(int id )

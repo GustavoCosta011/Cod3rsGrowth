@@ -38,13 +38,11 @@ namespace Cod3rsGrowth.Test.Repositorios
             return database.Insert(objeto);
         }
 
-        public void Editar(int id, Clube objeto)
+        public void Editar(Clube objeto)
         {
-            database.Clubes
-                .Where(clube => clube.Id == id)
-                .Set(clube => clube, objeto)
-                .Update();
+            database.Update(objeto);
         }
+
 
         public void Remover(int id)
         {

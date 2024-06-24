@@ -1,4 +1,5 @@
-﻿using Cod3rsGrowth.Dominio.Enums;
+﻿using System.DirectoryServices.ActiveDirectory;
+using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
 using FluentValidation;
@@ -9,42 +10,73 @@ namespace Cod3rsGrowth.Forms
     public partial class FormCriarClube : Form
     {
         private readonly ServicoClube _servicoClube;
-        Clube clube = new();
-        public FormCriarClube(ServicoClube servicoClube)
+        private Clube clube = new();
+        private int? _id = 0;
+        public FormCriarClube(int? id, ServicoClube servicoClube)
         {
+            _id = id;
             _servicoClube = servicoClube;
             InitializeComponent();
         }
 
         private void AoClicarEmSalvarNaAbaCriarClube(object sender, EventArgs e)
         {
-            try
+            if(_id == null)
             {
-                clube.Nome = BoxNomeCriarClube.Text;
-                clube.Fundacao = FundacaoCriarClube.Value;
-                clube.Estadio = BoxEstadioCriarClube.Text;
-                clube.Estado = (EstadosEnum)EstadoCriarClube.SelectedIndex;
-                if (BotaoSimCriarClube.Checked)
+                try
                 {
-                    clube.CoberturaAntiChuva = true;
-                }
-                else if(BotaoNaoCriarClube.Checked)
-                {
-                    clube.CoberturaAntiChuva = false;
-                }
-                
+                    clube.Nome = BoxNomeCriarClube.Text;
+                    clube.Fundacao = FundacaoCriarClube.Value;
+                    clube.Estadio = BoxEstadioCriarClube.Text;
+                    clube.Estado = (EstadosEnum)EstadoCriarClube.SelectedIndex;
+                    if (BotaoSimCriarClube.Checked)
+                    {
+                        clube.CoberturaAntiChuva = true;
+                    }
+                    else if (BotaoNaoCriarClube.Checked)
+                    {
+                        clube.CoberturaAntiChuva = false;
+                    }
 
-                _servicoClube.CriarClube(clube);
-                Close();
+
+                    _servicoClube.CriarClube(clube);
+                    Close();
+                }
+                catch (ValidationException ex)
+                {
+                    var StringDialogo = $"Erro encontrado: {ex.Message}";
+                    var NomeDaTela = "Erro";
+
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                }
             }
-            catch (ValidationException ex)
+            else
             {
-                var StringDialogo = $"Erro encontrado: {ex.Message}";
-                var NomeDaTela = "Erro";
+                try
+                {
+                    clube.Nome = BoxNomeCriarClube.Text;
+                    clube.Fundacao = FundacaoCriarClube.Value;
+                    clube.Estadio = BoxEstadioCriarClube.Text;
+                    clube.Estado = (EstadosEnum)EstadoCriarClube.SelectedIndex;
+                    if (BotaoSimCriarClube.Checked)
+                    {
+                        clube.CoberturaAntiChuva = true;
+                    }
+                    else if (BotaoNaoCriarClube.Checked)
+                    {
+                        clube.CoberturaAntiChuva = false;
+                    }
+                    _servicoClube.EditarClube((int)_id,clube);
+                    Close();
+                }
+                catch (ValidationException ex)
+                {
+                    var StringDialogo = $"Erro encontrado: {ex.Message}";
+                    var NomeDaTela = "Erro";
 
-                MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                }
             }
-
         }
 
         private void CancelarClube_Click(object sender, EventArgs e)
@@ -54,7 +86,23 @@ namespace Cod3rsGrowth.Forms
 
         private void FormCriarClube_Load(object sender, EventArgs e)
         {
-
+            if (_id != null)
+            {
+                this.Text = "Editar Clube";
+                clube = _servicoClube.ObterPorId((int)_id);
+                BoxNomeCriarClube.Text = clube.Nome;
+                FundacaoCriarClube.Value = clube.Fundacao;
+                BoxEstadioCriarClube.Text = clube.Estadio;
+                EstadoCriarClube.SelectedIndex = (int)clube.Estado;
+                if(clube.CoberturaAntiChuva == true)
+                {
+                    BotaoSimCriarClube.Checked = true;
+                }
+                else
+                {
+                    BotaoNaoCriarClube.Checked = true;
+                }
+            }
         }
     }
 }

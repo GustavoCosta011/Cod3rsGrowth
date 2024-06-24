@@ -29,6 +29,7 @@ namespace Cod3rsGrowth.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCriarClube));
             label1 = new Label();
             BoxNomeCriarClube = new TextBox();
             BoxCriar = new GroupBox();
@@ -48,20 +49,13 @@ namespace Cod3rsGrowth.Forms
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(6, 10);
+            resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            label1.Size = new Size(37, 16);
-            label1.TabIndex = 0;
-            label1.Text = "Nome:";
             // 
             // BoxNomeCriarClube
             // 
-            BoxNomeCriarClube.Location = new Point(6, 29);
+            resources.ApplyResources(BoxNomeCriarClube, "BoxNomeCriarClube");
             BoxNomeCriarClube.Name = "BoxNomeCriarClube";
-            BoxNomeCriarClube.Size = new Size(285, 23);
-            BoxNomeCriarClube.TabIndex = 1;
             // 
             // BoxCriar
             // 
@@ -79,146 +73,92 @@ namespace Cod3rsGrowth.Forms
             BoxCriar.Controls.Add(label2);
             BoxCriar.Controls.Add(label1);
             BoxCriar.Controls.Add(BoxNomeCriarClube);
-            BoxCriar.Location = new Point(12, 6);
+            resources.ApplyResources(BoxCriar, "BoxCriar");
             BoxCriar.Name = "BoxCriar";
-            BoxCriar.Size = new Size(304, 361);
-            BoxCriar.TabIndex = 2;
             BoxCriar.TabStop = false;
             // 
             // FundacaoCriarClube
             // 
-            FundacaoCriarClube.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            FundacaoCriarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            resources.ApplyResources(FundacaoCriarClube, "FundacaoCriarClube");
             FundacaoCriarClube.Format = DateTimePickerFormat.Short;
-            FundacaoCriarClube.Location = new Point(7, 88);
             FundacaoCriarClube.Name = "FundacaoCriarClube";
-            FundacaoCriarClube.Size = new Size(284, 22);
-            FundacaoCriarClube.TabIndex = 18;
             // 
             // CancelarClube
             // 
-            CancelarClube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resources.ApplyResources(CancelarClube, "CancelarClube");
             CancelarClube.BackColor = SystemColors.AppWorkspace;
-            CancelarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             CancelarClube.ForeColor = Color.Black;
-            CancelarClube.Location = new Point(172, 322);
             CancelarClube.Name = "CancelarClube";
-            CancelarClube.Size = new Size(102, 27);
-            CancelarClube.TabIndex = 17;
-            CancelarClube.Text = " Cancelar";
             CancelarClube.UseVisualStyleBackColor = false;
             CancelarClube.Click += CancelarClube_Click;
             // 
             // SalvarClube
             // 
-            SalvarClube.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resources.ApplyResources(SalvarClube, "SalvarClube");
             SalvarClube.BackColor = SystemColors.AppWorkspace;
-            SalvarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             SalvarClube.ForeColor = Color.Black;
-            SalvarClube.Location = new Point(19, 322);
             SalvarClube.Name = "SalvarClube";
-            SalvarClube.Size = new Size(102, 27);
-            SalvarClube.TabIndex = 16;
-            SalvarClube.Text = "Salvar";
             SalvarClube.UseVisualStyleBackColor = false;
             SalvarClube.Click += AoClicarEmSalvarNaAbaCriarClube;
             // 
             // BotaoNaoCriarClube
             // 
-            BotaoNaoCriarClube.AutoSize = true;
-            BotaoNaoCriarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            BotaoNaoCriarClube.Location = new Point(21, 279);
+            resources.ApplyResources(BotaoNaoCriarClube, "BotaoNaoCriarClube");
             BotaoNaoCriarClube.Name = "BotaoNaoCriarClube";
-            BotaoNaoCriarClube.Size = new Size(44, 20);
-            BotaoNaoCriarClube.TabIndex = 12;
             BotaoNaoCriarClube.TabStop = true;
-            BotaoNaoCriarClube.Text = "Não";
             BotaoNaoCriarClube.UseVisualStyleBackColor = true;
             // 
             // BotaoSimCriarClube
             // 
-            BotaoSimCriarClube.AutoSize = true;
-            BotaoSimCriarClube.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            BotaoSimCriarClube.Location = new Point(21, 253);
+            resources.ApplyResources(BotaoSimCriarClube, "BotaoSimCriarClube");
             BotaoSimCriarClube.Name = "BotaoSimCriarClube";
-            BotaoSimCriarClube.Size = new Size(43, 20);
-            BotaoSimCriarClube.TabIndex = 11;
             BotaoSimCriarClube.TabStop = true;
-            BotaoSimCriarClube.Text = "Sim";
             BotaoSimCriarClube.UseVisualStyleBackColor = true;
             // 
             // EstadoCriarClube
             // 
             EstadoCriarClube.DropDownHeight = 110;
             EstadoCriarClube.DropDownStyle = ComboBoxStyle.DropDownList;
-            EstadoCriarClube.FlatStyle = FlatStyle.Flat;
+            resources.ApplyResources(EstadoCriarClube, "EstadoCriarClube");
             EstadoCriarClube.FormattingEnabled = true;
-            EstadoCriarClube.IntegralHeight = false;
-            EstadoCriarClube.Items.AddRange(new object[] { "        AC", "        AL", "        AP", "        AM", "        BA", "        CE", "        ES", "        GO", "        MA", "        MT", "        MS", "        MG", "        PA", "        PB", "        PR", "        PE", "        PI", "        RJ", "        RN", "        RS", "        RO", "        RR", "        SC", "        SP", "        SE", "        TO" });
-            EstadoCriarClube.Location = new Point(7, 198);
+            EstadoCriarClube.Items.AddRange(new object[] { resources.GetString("EstadoCriarClube.Items"), resources.GetString("EstadoCriarClube.Items1"), resources.GetString("EstadoCriarClube.Items2"), resources.GetString("EstadoCriarClube.Items3"), resources.GetString("EstadoCriarClube.Items4"), resources.GetString("EstadoCriarClube.Items5"), resources.GetString("EstadoCriarClube.Items6"), resources.GetString("EstadoCriarClube.Items7"), resources.GetString("EstadoCriarClube.Items8"), resources.GetString("EstadoCriarClube.Items9"), resources.GetString("EstadoCriarClube.Items10"), resources.GetString("EstadoCriarClube.Items11"), resources.GetString("EstadoCriarClube.Items12"), resources.GetString("EstadoCriarClube.Items13"), resources.GetString("EstadoCriarClube.Items14"), resources.GetString("EstadoCriarClube.Items15"), resources.GetString("EstadoCriarClube.Items16"), resources.GetString("EstadoCriarClube.Items17"), resources.GetString("EstadoCriarClube.Items18"), resources.GetString("EstadoCriarClube.Items19"), resources.GetString("EstadoCriarClube.Items20"), resources.GetString("EstadoCriarClube.Items21"), resources.GetString("EstadoCriarClube.Items22"), resources.GetString("EstadoCriarClube.Items23"), resources.GetString("EstadoCriarClube.Items24"), resources.GetString("EstadoCriarClube.Items25") });
             EstadoCriarClube.Name = "EstadoCriarClube";
-            EstadoCriarClube.Size = new Size(95, 23);
-            EstadoCriarClube.TabIndex = 10;
             EstadoCriarClube.Tag = "";
             // 
             // BoxEstadioCriarClube
             // 
-            BoxEstadioCriarClube.Location = new Point(6, 143);
+            resources.ApplyResources(BoxEstadioCriarClube, "BoxEstadioCriarClube");
             BoxEstadioCriarClube.Name = "BoxEstadioCriarClube";
-            BoxEstadioCriarClube.Size = new Size(285, 23);
-            BoxEstadioCriarClube.TabIndex = 7;
             // 
             // label5
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(6, 234);
+            resources.ApplyResources(label5, "label5");
             label5.Name = "label5";
-            label5.Size = new Size(199, 16);
-            label5.TabIndex = 5;
-            label5.Text = "O estadio possui cobertura anti-chuva?";
             // 
             // label4
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(7, 179);
+            resources.ApplyResources(label4, "label4");
             label4.Name = "label4";
-            label4.Size = new Size(42, 16);
-            label4.TabIndex = 4;
-            label4.Text = "Estado:";
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(6, 124);
+            resources.ApplyResources(label3, "label3");
             label3.Name = "label3";
-            label3.Size = new Size(45, 16);
-            label3.TabIndex = 3;
-            label3.Text = "Estadio:";
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(6, 69);
+            resources.ApplyResources(label2, "label2");
             label2.Name = "label2";
-            label2.Size = new Size(56, 16);
-            label2.TabIndex = 2;
-            label2.Text = "Fundacao:";
             // 
             // FormCriarClube
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.AppWorkspace;
-            ClientSize = new Size(328, 374);
             Controls.Add(BoxCriar);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormCriarClube";
-            Text = "Cadastro de Clube";
             Load += FormCriarClube_Load;
             BoxCriar.ResumeLayout(false);
             BoxCriar.PerformLayout();
