@@ -270,7 +270,7 @@
             CriarClube.TabIndex = 9;
             CriarClube.Text = "Criar";
             CriarClube.UseVisualStyleBackColor = false;
-            CriarClube.Click += AoClicarBotaocriarNaAbaclube;
+            CriarClube.Click += AoClicarBotaoCriarNaAbaclube;
             // 
             // BoxBuscar
             // 
@@ -437,7 +437,7 @@
             EditarJogador.TabIndex = 12;
             EditarJogador.Text = "Editar";
             EditarJogador.UseVisualStyleBackColor = false;
-            EditarJogador.Click += EditarJogador_Click;
+            EditarJogador.Click += AoClicarEditarNaAbaJogador;
             // 
             // CriarJogador
             // 
@@ -451,7 +451,7 @@
             CriarJogador.TabIndex = 11;
             CriarJogador.Text = "Criar";
             CriarJogador.UseVisualStyleBackColor = false;
-            CriarJogador.Click += CriarJogador_Click;
+            CriarJogador.Click += AoClicarCriarNaAbaJogador;
             // 
             // tabelaJogadores
             // 

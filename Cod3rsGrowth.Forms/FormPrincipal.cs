@@ -122,14 +122,14 @@ namespace Cod3rsGrowth.Forms
             CarregarListaAtualizadas();
         }
 
-        private void AoClicarBotaocriarNaAbaclube(object sender, EventArgs e)
+        private void AoClicarBotaoCriarNaAbaclube(object sender, EventArgs e)
         {
             int? IdClube = null;
             new FormCriarClube(IdClube, _servicoClube).ShowDialog();
             CarregarListaAtualizadas();
         }
 
-        private void CriarJogador_Click(object sender, EventArgs e)
+        private void AoClicarCriarNaAbaJogador(object sender, EventArgs e)
         {
             int? id = null;
             new FormCriarJogador(id,_servicoJogador, _servicoClube).ShowDialog();
@@ -218,7 +218,7 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void EditarJogador_Click(object sender, EventArgs e)
+        private void AoClicarEditarNaAbaJogador(object sender, EventArgs e)
         {
             string MsgNenhumJogadorSelecionado = "Nenhuma Jogador foi selecionado!!";
             try
