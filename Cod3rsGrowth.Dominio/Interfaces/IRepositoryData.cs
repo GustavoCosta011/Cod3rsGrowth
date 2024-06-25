@@ -6,7 +6,7 @@
         List<T> ObterTodos(Filtro? filtro);
         int  Criar(T objeto);
         T? ObterPorId(int id);
-        void Editar(int id,T objeto);
+        void Editar(T objeto);
         void Remover(int id);
         
     }

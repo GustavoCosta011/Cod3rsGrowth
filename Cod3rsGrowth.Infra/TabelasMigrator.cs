@@ -7,15 +7,16 @@ namespace Cod3rsGrowth.Infra
 {
     public class TabelasMigrator
     {
-        [Migration(20240611103200)]
+        [Migration(20240620083100)]
         public class TabelasMigration : Migration
         {
             public override void Up()
             {
                 Create.Table("Jogador")
                     .WithColumn("Id").AsInt64().PrimaryKey().Identity()
-                    .WithColumn("Name").AsString()
+                    .WithColumn("Nome").AsString()
                     .WithColumn("IdClube").AsInt64()
+                    .WithColumn("Clube").AsString()
                     .WithColumn("Idade").AsInt64()
                     .WithColumn("DataDeNascimento").AsDateTime()
                     .WithColumn("Altura").AsDouble()
@@ -23,16 +24,17 @@ namespace Cod3rsGrowth.Infra
 
                 Create.Table("Clube")
                     .WithColumn("Id").AsInt64().PrimaryKey().Identity()
-                    .WithColumn("Name").AsString()
+                    .WithColumn("Nome").AsString().Unique() 
                     .WithColumn("Fundacao").AsDateTime()
                     .WithColumn("Estadio").AsString()
                     .WithColumn("Estado").AsInt64()
-                    .WithColumn("CoberturaAntiChuva").AsBoolean();
+                    .WithColumn("CoberturaTeto").AsBoolean();
 
                 Create.ForeignKey()
-                    .FromTable("Jogador").ForeignColumn("Id")
-                    .ToTable("Jogador").PrimaryColumn("Id");  
-               }
+                    .FromTable("Jogador").ForeignColumn("IdClube")
+                    .ToTable("Clube").PrimaryColumn("Id");
+
+            }
 
             public override void Down()
             {

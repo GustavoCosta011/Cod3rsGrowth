@@ -20,7 +20,7 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         var jogadores = database.Jogadores.AsQueryable();
 
         if (!string.IsNullOrEmpty(filtro.Nome)) jogadores = jogadores.Where(jogador => jogador.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
-        if (filtro.Estado.HasValue) jogadores = jogadores.Where(jogador => jogador.IdClube == filtro.IdClube);
+        if (!string.IsNullOrEmpty(filtro.Clube)) jogadores = jogadores.Where(jogador => jogador.Clube.Contains(filtro.Clube, StringComparison.OrdinalIgnoreCase));
         if (filtro.DataPiso.HasValue) jogadores = jogadores.Where(jogador => jogador.DataDeNascimento >= filtro.DataPiso);
         if (filtro.DataTeto.HasValue) jogadores = jogadores.Where(jogador => jogador.DataDeNascimento <= filtro.DataTeto);
 
@@ -37,12 +37,9 @@ public class RepositoryJogador : IRepositoryData<Jogador>
         return database.Insert(objeto);
     }
 
-    public void Editar(int id, Jogador objeto)
+    public void Editar(Jogador objeto)
     {
-        database.Jogadores
-            .Where(jogador => jogador.Id == id)
-            .Set(jogador => jogador, objeto)
-            .Update();
+        database.Update(objeto);
     }
 
     public void Remover(int id)

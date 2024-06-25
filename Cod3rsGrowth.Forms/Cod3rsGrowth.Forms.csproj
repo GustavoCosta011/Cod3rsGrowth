@@ -15,8 +15,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Form2.cs" />
+    <Compile Remove="Form2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Form2.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentMigrator" Version="5.2.0" />
     <PackageReference Include="FluentMigrator.Runner" Version="5.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
   </ItemGroup>
 
@@ -24,6 +35,21 @@
     <ProjectReference Include="..\Cod3rsGrowth.Dominio\Cod3rsGrowth.Dominio.csproj" />
     <ProjectReference Include="..\Cod3rsGrowth.Servicos\Cod3rsGrowth.Servicos.csproj" />
 	<ProjectReference Include="..\Cod3rsGrowth.Infra\Cod3rsGrowth.Infra.csproj" />				  			  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
