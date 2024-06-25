@@ -30,10 +30,11 @@ namespace Cod3rsGrowth.Dominio.Modelos
         public double? Peso { get; set; }
 
 
-        public Jogador(int id, string nome,string? clube, int? idade, DateTime dataDeNascimento, double? altura, double? peso)
+        public Jogador(int id, string nome,int? idClube, string? clube, int? idade, DateTime dataDeNascimento, double? altura, double? peso)
         {
             Id = id;
             Nome = nome;
+            IdClube = idClube;
             Clube = clube;
             Idade = idade;
             DataDeNascimento = dataDeNascimento;

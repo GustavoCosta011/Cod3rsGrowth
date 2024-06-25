@@ -9,7 +9,7 @@ namespace Cod3rsGrowth.Test.Testes
         private readonly Cod3rsGrowthConnect DbConexao;
         public TestConexao() : base() 
         {
-            DbConexao = ServiceProvider.GetRequiredService<Cod3rsGrowthConnect>();
+            DbConexao = _serviceProvider.GetRequiredService<Cod3rsGrowthConnect>();
         }
 
         //OBTER TODOS

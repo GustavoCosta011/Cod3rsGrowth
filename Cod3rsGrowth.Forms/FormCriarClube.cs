@@ -29,15 +29,18 @@ namespace Cod3rsGrowth.Forms
                     clube.Fundacao = FundacaoCriarClube.Value;
                     clube.Estadio = BoxEstadioCriarClube.Text;
                     clube.Estado = (EstadosEnum)EstadoCriarClube.SelectedIndex;
-                    if (BotaoSimCriarClube.Checked)
+                    if (BotaoSimCriarClube.Checked == true)
                     {
                         clube.CoberturaAntiChuva = true;
                     }
-                    else if (BotaoNaoCriarClube.Checked)
+                    else if (BotaoNaoCriarClube.Checked == true)
                     {
                         clube.CoberturaAntiChuva = false;
                     }
-
+                    else
+                    {
+                        clube.CoberturaAntiChuva = null;
+                    }
 
                     _servicoClube.CriarClube(clube);
                     Close();

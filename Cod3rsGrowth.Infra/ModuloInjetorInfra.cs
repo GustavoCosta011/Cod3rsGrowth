@@ -15,13 +15,13 @@ namespace Cod3rsGrowth.Test
         public static void Servicos(IServiceCollection ServicoInfra)
         {
             Env.Load();
-            var connectionString = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
+            var connectionString = Environment.GetEnvironmentVariable("cntString");
 
             ServicoInfra.AddLinqToDBContext<Cod3rsGrowthConnect>((provider, options) => options.UseSqlServer(connectionString));
 
             ServicoInfra.AddScoped<IRepositoryData<Clube>, RepositoryClube>();
             ServicoInfra.AddScoped<IRepositoryData<Jogador>, RepositoryJogador>();
-            
+
             ServicoInfra.AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddSqlServer()
