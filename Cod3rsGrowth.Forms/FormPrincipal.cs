@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Cod3rsGrowth.Dominio.Enums;
 using Microsoft.IdentityModel.Tokens;
 using Cod3rsGrowth.Dominio.Modelos;
+using FluentValidation;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -22,6 +23,7 @@ namespace Cod3rsGrowth.Forms
             _servicoClube = servicoClube;
             _servicoJogador = servicoJogador;
             InitializeComponent();
+
         }
 
         private void CarregarListasDoFormPrincipal(object sender, EventArgs e)
@@ -36,7 +38,7 @@ namespace Cod3rsGrowth.Forms
             tabelaClube.DataSource = null;
             tabelaClube.DataSource = _servicoClube.ObterTodos(filtroClube);
             tabelaJogadores.DataSource = null;
-            tabelaJogadores.DataSource = _servicoJogador.ObterTodos(filtroJogador);
+            tabelaJogadores.DataSource = _servicoJogador.ObterTodos(filtroJogador);       
         }
 
         private void LimparSelecaoNaGrid(DataGridView tabela)
@@ -154,12 +156,12 @@ namespace Cod3rsGrowth.Forms
                     if (ConfirmacaoRemoverClube == DialogResult.Yes)
                     {
                         _servicoClube.RemoverClube(idClubeSelecionado);
-                        CarregarListaAtualizadas();
                     }
                     else
                     {
                         LimparSelecaoNaGrid(tabelaClube);
                     }
+                    CarregarListaAtualizadas();
                 }
             }
             catch (Exception)

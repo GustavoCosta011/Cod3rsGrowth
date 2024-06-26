@@ -53,7 +53,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             if (!resultado.IsValid)
             {
                 mensagem = string.Join(separador,resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(mensagem);
+                throw new ValidationException(mensagem);
             }
             repositoryClube.Editar(clube);
         }

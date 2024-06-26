@@ -40,8 +40,6 @@
             label5 = new Label();
             CancelarJogador = new Button();
             SalvarJogador = new Button();
-            BoxIdadeCriarJogador = new TextBox();
-            label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
@@ -64,8 +62,6 @@
             BoxCriar.Controls.Add(label5);
             BoxCriar.Controls.Add(CancelarJogador);
             BoxCriar.Controls.Add(SalvarJogador);
-            BoxCriar.Controls.Add(BoxIdadeCriarJogador);
-            BoxCriar.Controls.Add(label4);
             BoxCriar.Controls.Add(label3);
             BoxCriar.Controls.Add(label2);
             BoxCriar.Controls.Add(label1);
@@ -99,14 +95,14 @@
             NascimentoCriarJogador.CalendarFont = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             NascimentoCriarJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             NascimentoCriarJogador.Format = DateTimePickerFormat.Short;
-            NascimentoCriarJogador.Location = new Point(6, 199);
+            NascimentoCriarJogador.Location = new Point(5, 143);
             NascimentoCriarJogador.Name = "NascimentoCriarJogador";
             NascimentoCriarJogador.Size = new Size(284, 22);
             NascimentoCriarJogador.TabIndex = 25;
             // 
             // BoxPesoCriarJogador
             // 
-            BoxPesoCriarJogador.Location = new Point(7, 309);
+            BoxPesoCriarJogador.Location = new Point(6, 253);
             BoxPesoCriarJogador.Name = "BoxPesoCriarJogador";
             BoxPesoCriarJogador.Size = new Size(285, 23);
             BoxPesoCriarJogador.TabIndex = 24;
@@ -115,7 +111,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(7, 290);
+            label7.Location = new Point(6, 234);
             label7.Name = "label7";
             label7.Size = new Size(33, 16);
             label7.TabIndex = 23;
@@ -123,7 +119,7 @@
             // 
             // BoxAlturaCriarJogador
             // 
-            BoxAlturaCriarJogador.Location = new Point(7, 255);
+            BoxAlturaCriarJogador.Location = new Point(6, 199);
             BoxAlturaCriarJogador.Name = "BoxAlturaCriarJogador";
             BoxAlturaCriarJogador.Size = new Size(285, 23);
             BoxAlturaCriarJogador.TabIndex = 22;
@@ -132,7 +128,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(7, 236);
+            label6.Location = new Point(6, 180);
             label6.Name = "label6";
             label6.Size = new Size(38, 16);
             label6.TabIndex = 21;
@@ -142,7 +138,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(7, 180);
+            label5.Location = new Point(6, 124);
             label5.Name = "label5";
             label5.Size = new Size(107, 16);
             label5.TabIndex = 19;
@@ -154,7 +150,7 @@
             CancelarJogador.BackColor = SystemColors.AppWorkspace;
             CancelarJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             CancelarJogador.ForeColor = Color.Black;
-            CancelarJogador.Location = new Point(172, 350);
+            CancelarJogador.Location = new Point(174, 319);
             CancelarJogador.Name = "CancelarJogador";
             CancelarJogador.Size = new Size(102, 27);
             CancelarJogador.TabIndex = 17;
@@ -168,30 +164,13 @@
             SalvarJogador.BackColor = SystemColors.AppWorkspace;
             SalvarJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             SalvarJogador.ForeColor = Color.Black;
-            SalvarJogador.Location = new Point(18, 350);
+            SalvarJogador.Location = new Point(20, 319);
             SalvarJogador.Name = "SalvarJogador";
             SalvarJogador.Size = new Size(102, 27);
             SalvarJogador.TabIndex = 16;
             SalvarJogador.Text = "Salvar";
             SalvarJogador.UseVisualStyleBackColor = false;
             SalvarJogador.Click += AoClicarSalvarNaAbaCriarJogador;
-            // 
-            // BoxIdadeCriarJogador
-            // 
-            BoxIdadeCriarJogador.Location = new Point(6, 143);
-            BoxIdadeCriarJogador.Name = "BoxIdadeCriarJogador";
-            BoxIdadeCriarJogador.Size = new Size(285, 23);
-            BoxIdadeCriarJogador.TabIndex = 7;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(6, 124);
-            label4.Name = "label4";
-            label4.Size = new Size(36, 16);
-            label4.TabIndex = 4;
-            label4.Text = "Idade:";
             // 
             // label3
             // 
@@ -257,8 +236,6 @@
         private GroupBox BoxCriar;
         private Button CancelarJogador;
         private Button SalvarJogador;
-        private TextBox BoxIdadeCriarJogador;
-        private Label label4;
         private Label label3;
         private Label label2;
         private Label label1;

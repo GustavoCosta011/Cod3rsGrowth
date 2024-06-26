@@ -37,10 +37,10 @@ namespace Cod3rsGrowth.Forms
                 try
                 {
                     jogador.Nome = BoxNomeCriarJogador.Text;
-                    jogador.IdClube = (int)ComboBoxClubeCriarJogador.SelectedValue;
-                    jogador.Clube = ComboBoxClubeCriarJogador.Text;
-                    jogador.Idade = !BoxIdadeCriarJogador.Text.IsNullOrEmpty() ? int.Parse(BoxIdadeCriarJogador.Text) : null;
-                    jogador.DataDeNascimento = NascimentoCriarJogador.Value;
+                    jogador.IdClube = (int?)ComboBoxClubeCriarJogador.SelectedValue;
+                    jogador.Clube = jogador.IdClube != null ? ComboBoxClubeCriarJogador.Text : null;
+                    jogador.DataDeNascimento = NascimentoCriarJogador.Value.Date;
+                    jogador.Idade = DateTime.Now.Year - jogador.DataDeNascimento.Year;
                     jogador.Altura = !BoxAlturaCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxAlturaCriarJogador.Text) : null;
                     jogador.Peso = !BoxPesoCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxPesoCriarJogador.Text) : null;
 
@@ -60,10 +60,10 @@ namespace Cod3rsGrowth.Forms
                 try
                 {
                     jogador.Nome = BoxNomeCriarJogador.Text;
-                    jogador.IdClube = (int)ComboBoxClubeCriarJogador.SelectedValue;
+                    jogador.IdClube = (int?)ComboBoxClubeCriarJogador.SelectedValue;
                     jogador.Clube = ComboBoxClubeCriarJogador.Text;
-                    jogador.Idade = !BoxIdadeCriarJogador.Text.IsNullOrEmpty() ? int.Parse(BoxIdadeCriarJogador.Text) : null;
-                    jogador.DataDeNascimento = NascimentoCriarJogador.Value;
+                    jogador.DataDeNascimento = NascimentoCriarJogador.Value.Date;
+                    jogador.Idade = DateTime.Now.Year - jogador.DataDeNascimento.Year;
                     jogador.Altura = !BoxAlturaCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxAlturaCriarJogador.Text) : null;
                     jogador.Peso = !BoxPesoCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxPesoCriarJogador.Text) : null;
 
@@ -78,6 +78,7 @@ namespace Cod3rsGrowth.Forms
                     MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
         }
 
         private void AoClicarCancelarNaAbaCriarJogador(object sender, EventArgs e)
@@ -87,20 +88,22 @@ namespace Cod3rsGrowth.Forms
 
         private void FormCriarJogador_Load(object sender, EventArgs e)
         {
-
+            var EnumVazio = -1;
             ComboBoxClubeCriarJogador.DataSource = _servicoClube.ObterTodos(null);
             if (_id != null)
             {
                 this.Text = "Editar Jogador";
                 jogador = _servicoJogador.ObterPorId((int)_id);
                 BoxNomeCriarJogador.Text = jogador.Nome;
-                ComboBoxClubeCriarJogador.SelectedValue = jogador.IdClube.ToString();
-                ComboBoxClubeCriarJogador.Text = jogador.Clube;
-                BoxIdadeCriarJogador.Text = jogador.Idade.ToString();
+                ComboBoxClubeCriarJogador.SelectedValue = jogador.IdClube != null ? jogador.IdClube : EnumVazio;
                 NascimentoCriarJogador.Value = jogador.DataDeNascimento;
                 BoxAlturaCriarJogador.Text = jogador.Altura.ToString();
                 BoxPesoCriarJogador.Text = jogador.Peso.ToString();
             }
+            else
+            {
+                ComboBoxClubeCriarJogador.SelectedValue = EnumVazio;
+            }  
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.DirectoryServices.ActiveDirectory;
+﻿using System.Data.SqlClient;
+using System.DirectoryServices.ActiveDirectory;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
@@ -77,7 +78,15 @@ namespace Cod3rsGrowth.Forms
                     var StringDialogo = $"Erro encontrado: {ex.Message}";
                     var NomeDaTela = "Erro";
 
-                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (SqlException) 
+                {
+                    var NomeJáPertencente = $"O nome {BoxNomeCriarClube.Text} já pertence a Clube existente!";
+                    var NomeDaTela = "Erro";
+
+                    MessageBox.Show(NomeJáPertencente, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
         }
