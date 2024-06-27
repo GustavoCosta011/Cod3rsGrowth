@@ -53,6 +53,13 @@ namespace Cod3rsGrowth.Forms
 
                     MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
                 }
+                catch (FormatException)
+                {
+                    var StringDialogo = $"Erro encontrado: Os campos devem ter seus formatos preenchidos corretamente de acodo com os dados solicitados!";
+                    var NomeDaTela = "Erro";
+
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -87,6 +94,13 @@ namespace Cod3rsGrowth.Forms
 
                     MessageBox.Show(NomeJáPertencente, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                }
+                catch (FormatException)
+                {
+                    var StringDialogo = $"Erro encontrado: Os campos devem ter seus formatos preenchidos corretamente de acodo com os dados solicitados!";
+                    var NomeDaTela = "Erro";
+
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

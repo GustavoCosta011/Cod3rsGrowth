@@ -77,13 +77,14 @@
             ComboBoxClubeCriarJogador.DataSource = clubeBindingSource1;
             ComboBoxClubeCriarJogador.DisplayMember = "Nome";
             ComboBoxClubeCriarJogador.DropDownHeight = 80;
+            ComboBoxClubeCriarJogador.FlatStyle = FlatStyle.Flat;
             ComboBoxClubeCriarJogador.Font = new Font("Impact", 9F, FontStyle.Regular, GraphicsUnit.Point);
             ComboBoxClubeCriarJogador.FormattingEnabled = true;
             ComboBoxClubeCriarJogador.IntegralHeight = false;
             ComboBoxClubeCriarJogador.Location = new Point(7, 88);
             ComboBoxClubeCriarJogador.Name = "ComboBoxClubeCriarJogador";
             ComboBoxClubeCriarJogador.Size = new Size(283, 24);
-            ComboBoxClubeCriarJogador.TabIndex = 26;
+            ComboBoxClubeCriarJogador.TabIndex = 0;
             ComboBoxClubeCriarJogador.ValueMember = "Id";
             // 
             // clubeBindingSource1

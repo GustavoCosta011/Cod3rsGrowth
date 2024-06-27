@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Dominio.Modelos;
+﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
 using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
@@ -54,6 +44,13 @@ namespace Cod3rsGrowth.Forms
 
                     MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                catch (FormatException)
+                {
+                    var StringDialogo = $"Erro encontrado: Os campos devem ter seus formatos preenchidos corretamente de acodo com os dados solicitados!";
+                    var NomeDaTela = "Erro";
+
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -77,8 +74,14 @@ namespace Cod3rsGrowth.Forms
 
                     MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+                catch (FormatException)
+                {
+                    var StringDialogo = $"Erro encontrado: Os campos devem ter seus formatos preenchidos corretamente de acodo com os dados solicitados!";
+                    var NomeDaTela = "Erro";
 
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void AoClicarCancelarNaAbaCriarJogador(object sender, EventArgs e)

@@ -48,12 +48,8 @@ namespace Cod3rsGrowth.Servicos.Validadores
 
                 RuleFor(clube => clube.Estadio)
                     .Cascade(CascadeMode.StopOnFirstFailure)
+                    .NotEmpty().WithMessage("Campo editado 'Estadio' não pode ser alterado para vazio!")
                     .Length(3, 60).WithMessage("O nome do estádio deve ter entre 3 e 60 caracteres!");
-
-                RuleFor(clube => clube.Estado)
-                    .Cascade(CascadeMode.StopOnFirstFailure)
-                    .Must(estado => estado >= 0).WithMessage("Campo 'Estado' não pode ser vazio!")
-                    .IsInEnum().WithMessage("O valor deve ser a sigla da unidade federativa!");
             });
         }
     }
