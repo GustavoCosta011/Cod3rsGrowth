@@ -1,67 +1,29 @@
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Infra;
-using DotNetEnv;
 using Cod3rsGrowth.Forms;
 using Microsoft.Extensions.Hosting;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Test;
-using Cod3rsGrowth.Test.Repositorios;
+using Cod3rsGrowth.Servicos;
 
-namespace test
+namespace Forms
 {
     class Program
     {
+        private static ServiceProvider? _serviceProvider;
 
-        public static IServiceProvider serviceProvider { get; private set; }
-        static void Main(string[] args)
+        static void Main()
         {
-            var host = CreateHostBuilder().Build();
-            serviceProvider = host.Services;
+            var ServiceCollection = new ServiceCollection();
+            ModuloInjetorInfra.Servicos(ServiceCollection);
+            ModuloInjetorServico.Servicos(ServiceCollection);
+            _serviceProvider = ServiceCollection.BuildServiceProvider();
+
+            ModuloInjetorInfra.IniciarBanco(_serviceProvider);
 
             ApplicationConfiguration.Initialize();
-
-            // Update the database before running the application
-            using (var scope = serviceProvider.CreateScope())
-            {
-                UpdateDatabase(scope.ServiceProvider);
-            }
-
-            Application.Run(new FormPrincipal(serviceProvider.GetRequiredService<ServicoClube>(),serviceProvider.GetRequiredService<ServicoJogador>()));
-        }
-
-        private static IHostBuilder CreateHostBuilder()
-        {
-            return Host.CreateDefaultBuilder()
-                .ConfigureServices((context, services) => {
-                    Env.Load();
-                    var connectionString = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
-
-                    // Add common FluentMigrator services
-                    services.AddFluentMigratorCore()
-                        .ConfigureRunner(rb => rb
-                            // Add SQL Server support to FluentMigrator
-                            .AddSqlServer()
-                            // Set the connection string
-                            .WithGlobalConnectionString(connectionString)
-                            // Define the assembly containing the migrations
-                            .ScanIn(typeof(TabelasMigrator).Assembly).For.Migrations())
-                        // Enable logging to console in the FluentMigrator way
-                        .AddLogging(lb => lb.AddFluentMigratorConsole());
-
-                    ModuloInjetorInfra.Servicos(services);
-                    ModuloInjetorServico.Servicos(services);
-                    
-                });
-        }
-
-        private static void UpdateDatabase(IServiceProvider serviceProvider)
-        {
-            // Instantiate the runner
-            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-
-            // Execute the migrations
-            runner.MigrateUp();
+            Application.Run(new FormPrincipal(_serviceProvider.GetRequiredService<ServicoClube>(), _serviceProvider.GetRequiredService<ServicoJogador>()));
         }
     }
 }

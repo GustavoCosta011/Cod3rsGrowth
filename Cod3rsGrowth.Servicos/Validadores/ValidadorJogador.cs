@@ -20,14 +20,9 @@ namespace Cod3rsGrowth.Servicos.Validadores
                 .NotEmpty().WithMessage("Campo 'Data de Nascimento' é obrigatório!")
                 .LessThanOrEqualTo(DateTime.Now).WithMessage("A data deve ser anterior ou igual à data atual!");
 
-            RuleFor(jogador => jogador.Idade)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty().WithMessage("Campo 'Idade' não pode ser vazio!")
-                .Must((jogador, idade) => idade <= DateTime.Now.Year - jogador.DataDeNascimento.Year)
-                    .WithMessage("Idade não condizente com a data de nascimento!");
-
             RuleFor(jogador => jogador.Altura)
                 .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotNull()
                 .NotEmpty().WithMessage("Campo 'Altura' não pode ser vazio!");
 
             RuleFor(jogador => jogador.Peso)
@@ -37,17 +32,20 @@ namespace Cod3rsGrowth.Servicos.Validadores
             RuleSet("Editar", () =>
             {
                 RuleFor(jogador => jogador.Nome)
+                    .NotEmpty().WithMessage("Campo editado 'Nome' não pode ser alterado para vazio!")
                     .Length(3, 60).WithMessage("O nome deve ter entre 3 e 60 caracteres!");
 
                 RuleFor(jogador => jogador.DataDeNascimento)
                     .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotNull().WithMessage("Campo 'Data de Nascimento' é obrigatório!")
                     .LessThanOrEqualTo(DateTime.Now).WithMessage("A data deve ser anterior ou igual à data atual!");
-
-                RuleFor(jogador => jogador.Idade)
+                RuleFor(jogador => jogador.Altura)
                     .Cascade(CascadeMode.StopOnFirstFailure)
-                    .Must((jogador, idade) => idade <= DateTime.Now.Year - jogador.DataDeNascimento.Year)
-                        .WithMessage("Idade não condizente com a data de nascimento!");
+                    .NotNull()
+                    .NotEmpty().WithMessage("Campo editado 'Altura' não pode ser alterado para vazio!");
+                RuleFor(jogador => jogador.Peso)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
+                    .NotEmpty().WithMessage("Campo editado 'Peso' não pode ser alterado para vazio!");
             });
         }
     }

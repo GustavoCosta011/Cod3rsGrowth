@@ -1,4 +1,5 @@
-﻿using System.DirectoryServices.ActiveDirectory;
+﻿using System.Data.SqlClient;
+using System.DirectoryServices.ActiveDirectory;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
@@ -29,15 +30,18 @@ namespace Cod3rsGrowth.Forms
                     clube.Fundacao = FundacaoCriarClube.Value;
                     clube.Estadio = BoxEstadioCriarClube.Text;
                     clube.Estado = (EstadosEnum)EstadoCriarClube.SelectedIndex;
-                    if (BotaoSimCriarClube.Checked)
+                    if (BotaoSimCriarClube.Checked == true)
                     {
                         clube.CoberturaAntiChuva = true;
                     }
-                    else if (BotaoNaoCriarClube.Checked)
+                    else if (BotaoNaoCriarClube.Checked == true)
                     {
                         clube.CoberturaAntiChuva = false;
                     }
-
+                    else
+                    {
+                        clube.CoberturaAntiChuva = null;
+                    }
 
                     _servicoClube.CriarClube(clube);
                     Close();
@@ -48,6 +52,13 @@ namespace Cod3rsGrowth.Forms
                     var NomeDaTela = "Erro";
 
                     MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                }
+                catch (FormatException)
+                {
+                    var StringDialogo = $"Erro encontrado: Os campos devem ter seus formatos preenchidos corretamente de acodo com os dados solicitados!";
+                    var NomeDaTela = "Erro";
+
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -74,7 +85,22 @@ namespace Cod3rsGrowth.Forms
                     var StringDialogo = $"Erro encontrado: {ex.Message}";
                     var NomeDaTela = "Erro";
 
-                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (SqlException) 
+                {
+                    var NomeJáPertencente = $"O nome {BoxNomeCriarClube.Text} já pertence a Clube existente!";
+                    var NomeDaTela = "Erro";
+
+                    MessageBox.Show(NomeJáPertencente, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+                catch (FormatException)
+                {
+                    var StringDialogo = $"Erro encontrado: Os campos devem ter seus formatos preenchidos corretamente de acodo com os dados solicitados!";
+                    var NomeDaTela = "Erro";
+
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

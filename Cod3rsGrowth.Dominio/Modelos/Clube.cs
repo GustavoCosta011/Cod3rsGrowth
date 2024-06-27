@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Dominio.Modelos
         public EstadosEnum Estado { get; set; }
 
         [Column("CoberturaTeto"), NotNull]
-        public bool CoberturaAntiChuva { get; set; }
+        public bool? CoberturaAntiChuva { get; set; }
 
         public List<int>? Elenco { get; set; }
 

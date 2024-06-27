@@ -318,7 +318,7 @@
             EnumEstado.Location = new Point(88, 39);
             EnumEstado.Name = "EnumEstado";
             EnumEstado.Size = new Size(57, 24);
-            EnumEstado.TabIndex = 9;
+            EnumEstado.TabIndex = 0;
             EnumEstado.Tag = "";
             EnumEstado.SelectedIndexChanged += AoSelecionarOEstadoDoClube;
             // 

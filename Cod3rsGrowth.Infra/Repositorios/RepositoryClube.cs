@@ -41,14 +41,35 @@ namespace Cod3rsGrowth.Test.Repositorios
         public void Editar(Clube objeto)
         {
             database.Update(objeto);
+            AlterarAtributoClubeNoJogador(objeto);
+        }
+
+        public void AlterarAtributoClubeNoJogador(Clube objeto)
+        {
+            database.Jogadores.Where(jogador => jogador.IdClube == objeto.Id)
+                .Set(jogador => jogador.Clube, objeto.Nome)
+                .Update();            
         }
 
 
         public void Remover(int id)
-        {
+        {            
+            string nomeClube = ObterPorId(id).Nome;
+
             database.Clubes
                 .Where(clube => clube.Id == id)
                 .Delete();
+            LimparNomeDoClubeDoAtributoNoJogador(nomeClube);
         }
+        
+        public void LimparNomeDoClubeDoAtributoNoJogador(string nomeClube)
+        {
+            string Vazio = "";
+            database.Jogadores.Where(jogador => jogador.Clube == nomeClube)
+                .Set(jogador => jogador.Clube, Vazio)
+                .Update();
+        }
+
+
     }
 }
