@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.18" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.20" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cod3rsGrowth.Infra\Cod3rsGrowth.Infra.csproj" />
+    <ProjectReference Include="..\Cod3rsGrowth.Servicos\Cod3rsGrowth.Servicos.csproj" />
   </ItemGroup>
 
 </Project>

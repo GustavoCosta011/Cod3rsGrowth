@@ -4,11 +4,10 @@ using Cod3rsGrowth.Test.Repositorios;
 using Microsoft.Extensions.DependencyInjection;
 using LinqToDB.AspNet;
 using LinqToDB;
-using Cod3rsGrowth.Infra;
 using FluentMigrator.Runner;
 using DotNetEnv;
 
-namespace Cod3rsGrowth.Test
+namespace Cod3rsGrowth.Infra
 {
     public class ModuloInjetorInfra
     {

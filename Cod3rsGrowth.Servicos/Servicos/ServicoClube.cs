@@ -45,7 +45,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             
         }
 
-        public void EditarClube( int id ,Clube clube)
+        public void EditarClube(Clube clube)
         {
             var resultado = validadorClube.Validate(clube, opitons => opitons.IncludeRuleSets("Editar"));
             string? mensagem = null;
