@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             return IdNovoJogador;
         }
 
-        public void EditarJogador(int id, Jogador jogador)
+        public void EditarJogador(Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador, options => options.IncludeRuleSets("Editar"));
 

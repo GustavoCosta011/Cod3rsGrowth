@@ -42,7 +42,8 @@ namespace Cod3rsGrowth.Web.Controllers
         {
             try
             {
-                _servicoJogador.EditarJogador(id, objeto);
+                objeto.Id = id;
+                _servicoJogador.EditarJogador( objeto);
                 return NoContent();
             }
             catch (ValidationException excecao)
