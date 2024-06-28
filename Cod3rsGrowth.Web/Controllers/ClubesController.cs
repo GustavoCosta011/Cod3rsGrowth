@@ -87,7 +87,7 @@ namespace Cod3rsGrowth.Web.Controllers
             try
             {
                 _servicoClube.RemoverClube(id);
-                return NotFound();
+                return NoContent();
             }
             catch (ValidationException excecao)
             {

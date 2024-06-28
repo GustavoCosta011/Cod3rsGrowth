@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Test.Repositorios
 
         public int Criar(Clube objeto)
         {
-            return database.Insert(objeto);
+            return database.InsertWithInt32Identity(objeto);
         }
 
         public void Editar(Clube objeto)
