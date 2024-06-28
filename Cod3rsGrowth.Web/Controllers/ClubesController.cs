@@ -1,19 +1,20 @@
-using Cod3rsGrowth.Dominio.Interfaces;
+﻿using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cod3rsGrowth.Web.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-    public class JogadorController : ControllerBase
+    public class ClubesController : ControllerBase
     {
-        private readonly ServicoJogador _servicoJogador;
-        public JogadorController(ServicoJogador servicoJogador)
+        private readonly ServicoClube _servicoClube;
+        public ClubesController(ServicoClube servicoClube)
         {
-            _servicoJogador = servicoJogador;
+            _servicoClube = servicoClube;
         }
 
         [HttpGet]
@@ -21,35 +22,35 @@ namespace Cod3rsGrowth.Web.Controllers
         {
             try
             {
-                return Ok(_servicoJogador.ObterTodos(filtro));
+                return Ok(_servicoClube.ObterTodos(filtro));
             }
-            catch(Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,ex.Message);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult ObterPorID([FromRoute]int id)
-        {
-            try
-            {
-                var jogador = _servicoJogador.ObterPorId(id);
-                if (jogador == null) return NotFound();
-                return Ok(jogador);
-            }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
-        [HttpGet]
-        public IActionResult Criar([FromBody] Jogador objeto)
+        [HttpGet("{id}")]
+        public IActionResult ObterPorID([FromRoute] int id)
         {
             try
             {
-                return Ok(_servicoJogador.CriarJogador(objeto));
+                var clube = _servicoClube.ObterPorId(id);
+                if (clube == null) return NotFound();
+                return Ok(clube);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Criar([FromBody] Clube objeto)
+        {
+            try
+            {
+                return Ok(_servicoClube.CriarClube(objeto));
             }
             catch (ValidationException excecao)
             {
@@ -62,12 +63,12 @@ namespace Cod3rsGrowth.Web.Controllers
 
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Editar([FromRoute]int id, [FromBody]Jogador objeto)
+        [HttpPut("{id}")]
+        public IActionResult Editar([FromRoute] int id, [FromBody] Clube objeto)
         {
             try
             {
-                _servicoJogador.EditarJogador(id,objeto);
+                _servicoClube.EditarClube(id, objeto);
                 return NoContent();
             }
             catch (ValidationException excecao)
@@ -79,12 +80,13 @@ namespace Cod3rsGrowth.Web.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        [HttpGet("{id}")]
+
+        [HttpDelete("{id}")]
         public IActionResult Remover([FromRoute] int id)
         {
             try
             {
-                _servicoJogador.RemoverJogador(id);
+                _servicoClube.RemoverClube(id);
                 return NotFound();
             }
             catch (ValidationException excecao)
