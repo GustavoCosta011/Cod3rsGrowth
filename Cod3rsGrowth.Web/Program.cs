@@ -1,6 +1,10 @@
+using Cod3rsGrowth.Servicos;
+using Cod3rsGrowth.Infra;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+ModuloInjetorServico.Servicos(builder.Services);
+ModuloInjetorInfra.Servicos(builder.Services);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
