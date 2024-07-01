@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Web
                     var ManipuladorExceptions = context.Features.Get<IExceptionHandlerFeature>();
                     if (ManipuladorExceptions != null)
                     {
-                        var DETALHES = "Um ou mais erros encotrados";
+                        var Titulo = "Um ou mais erros encontrados";
                         var exception = ManipuladorExceptions.Error;
                         var problemDetails = new ProblemDetails
                         {
@@ -27,9 +27,9 @@ namespace Cod3rsGrowth.Web
                         };
                         if (exception is ValidationException Validação)
                         {
-                            problemDetails.Title = "A ação executada é invalida";
+                            problemDetails.Title = Titulo;
                             problemDetails.Status = StatusCodes.Status400BadRequest;
-                            problemDetails.Detail = DETALHES;
+                            problemDetails.Detail = Validação.Demystify().ToString();
                             problemDetails.Extensions["Erros Encontrados"] = Validação.Errors
                             .GroupBy(error => error.PropertyName)
                             .ToDictionary(group => group.Key, group => group.First().ErrorMessage);
@@ -39,9 +39,9 @@ namespace Cod3rsGrowth.Web
                         {
                             var logger = loggerFactory.CreateLogger("GlobalExceptionHandler");
                             logger.LogError($"Unexpected error: {ManipuladorExceptions.Error}");
-                            problemDetails.Title = "A ação executada é invalida";
+                            problemDetails.Title = Titulo;
                             problemDetails.Status = StatusCodes.Status400BadRequest;
-                            problemDetails.Detail = DETALHES;
+                            problemDetails.Detail = exception.Demystify().ToString();
                             problemDetails.Extensions["Erros Encontrados"] = exception.Message;
                         }
                         context.Response.StatusCode = problemDetails.Status.Value;
