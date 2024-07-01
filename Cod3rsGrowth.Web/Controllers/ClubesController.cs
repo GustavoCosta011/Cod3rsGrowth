@@ -20,66 +20,29 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpGet]
         public IActionResult ObterTodos([FromQuery] Filtro? filtro)
         {
-            try
-            {
-                return Ok(_servicoClube.ObterTodos(filtro));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            return Ok(_servicoClube.ObterTodos(filtro));
         }
 
         [HttpGet("{id}")]
         public IActionResult ObterPorID([FromRoute] int id)
         {
-            try
-            {
-                var clube = _servicoClube.ObterPorId(id);
-                if (clube == null) return NotFound();
-                return Ok(clube);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            var clube = _servicoClube.ObterPorId(id);
+            if (clube == null) return NotFound();
+            return Ok(clube);
         }
 
         [HttpPost]
         public IActionResult Criar([FromBody] Clube objeto)
         {
-            try
-            {
-                return Ok(_servicoClube.CriarClube(objeto));
-            }
-            catch (ValidationException excecao)
-            {
-                return BadRequest(excecao.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-
+            return Ok(_servicoClube.CriarClube(objeto));    
         }
 
         [HttpPut("{id}")]
         public IActionResult Editar([FromRoute] int id, [FromBody] Clube objeto)
         {
-            try
-            {
-                objeto.Id = id;
-                _servicoClube.EditarClube(objeto);
-                return NoContent();
-            }
-            catch (ValidationException excecao)
-            {
-                return BadRequest(excecao.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            objeto.Id = id;
+            _servicoClube.EditarClube(objeto);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

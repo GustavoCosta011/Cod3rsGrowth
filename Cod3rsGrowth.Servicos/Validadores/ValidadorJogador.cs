@@ -20,6 +20,10 @@ namespace Cod3rsGrowth.Servicos.Validadores
                 .NotEmpty().WithMessage("Campo 'Data de Nascimento' é obrigatório!")
                 .LessThanOrEqualTo(DateTime.Now).WithMessage("A data deve ser anterior ou igual à data atual!");
 
+            RuleFor(jogador => jogador.Idade)
+                .NotEmpty().WithMessage("Campo não pode ser vazio!!")
+                .LessThanOrEqualTo(jogador => DateTime.Now.Year - jogador.DataDeNascimento.Year).WithMessage("Idade incoerente a data de nascimento!!");
+
             RuleFor(jogador => jogador.Altura)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()
