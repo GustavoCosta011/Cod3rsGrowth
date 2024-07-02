@@ -23,33 +23,33 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoClube.ObterTodos(filtro));
         }
 
-        [HttpGet("{id}")]
-        public IActionResult ObterPorID([FromRoute] int id)
-        {
-            var clube = _servicoClube.ObterPorId(id);
-            if (clube == null) return NotFound();
-            return Ok(clube);
-        }
+        //[HttpGet("{id}")]
+        //public IActionResult ObterPorID([FromRoute] int id)
+        //{
+        //    var clube = _servicoClube.ObterPorId(id);
+        //    if (clube == null) return NotFound();
+        //    return Ok(clube);
+        //}
 
-        [HttpPost]
-        public IActionResult Criar([FromBody] Clube objeto)
-        {
-            return Ok(_servicoClube.CriarClube(objeto));    
-        }
+        //[HttpPost]
+        //public IActionResult Criar([FromBody] Clube objeto)
+        //{
+        //    return Ok(_servicoClube.CriarClube(objeto));    
+        //}
 
-        [HttpPut("{id}")]
-        public IActionResult Editar([FromRoute] int id, [FromBody] Clube objeto)
-        {
-            objeto.Id = id;
-            _servicoClube.EditarClube(objeto);
-            return NoContent();
-        }
+        //[HttpPut("{id}")]
+        //public IActionResult Editar([FromRoute] int id, [FromBody] Clube objeto)
+        //{
+        //    objeto.Id = id;
+        //    _servicoClube.EditarClube(objeto);
+        //    return NoContent();
+        //}
 
-        [HttpDelete("{id}")]
-        public IActionResult Remover([FromRoute] int id)
-        {
-                _servicoClube.RemoverClube(id);
-                return NoContent();
-        }
+        //[HttpDelete("{id}")]
+        //public IActionResult Remover([FromRoute] int id)
+        //{
+        //        _servicoClube.RemoverClube(id);
+        //        return NoContent();
+        //}
     }
 }
