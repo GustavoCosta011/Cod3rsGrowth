@@ -17,11 +17,11 @@ namespace Cod3rsGrowth.Web.Controllers
             _servicoJogador = servicoJogador;
         }
 
-        //[HttpGet]
-        //public IActionResult ObterTodos([FromQuery] Filtro? filtro)
-        //{
-        //    return Ok(_servicoJogador.ObterTodos(filtro));
-        //}
+        [HttpGet]
+        public IActionResult ObterTodos([FromQuery] Filtro? filtro)
+        {
+            return Ok(_servicoJogador.ObterTodos(filtro));
+        }
 
         //[HttpGet("{id}")]
         //public IActionResult ObterPorID([FromRoute] int id)
