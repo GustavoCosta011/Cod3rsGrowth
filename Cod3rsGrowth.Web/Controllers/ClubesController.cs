@@ -23,13 +23,13 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoClube.ObterTodos(filtro));
         }
 
-        //[HttpGet("{id}")]
-        //public IActionResult ObterPorID([FromRoute] int id)
-        //{
-        //    var clube = _servicoClube.ObterPorId(id);
-        //    if (clube == null) return NotFound();
-        //    return Ok(clube);
-        //}
+        [HttpGet("{id}")]
+        public IActionResult ObterPorID([FromRoute] int id)
+        {
+            var clube = _servicoClube.ObterPorId(id);
+            if (clube == null) return NotFound();
+            return Ok(clube);
+        }
 
         //[HttpPost]
         //public IActionResult Criar([FromBody] Clube objeto)
