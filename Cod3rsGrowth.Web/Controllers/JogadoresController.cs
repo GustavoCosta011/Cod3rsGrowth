@@ -31,11 +31,11 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(jogador);
         }
 
-        //[HttpPost]
-        //public IActionResult Criar([FromBody] Jogador objeto)
-        //{
-        //    return Ok(_servicoJogador.CriarJogador(objeto));
-        //}
+        [HttpPost]
+        public IActionResult Criar([FromBody] Jogador objeto)
+        {
+            return Ok(_servicoJogador.CriarJogador(objeto));
+        }
 
         //[HttpPut("{id}")]
         //public IActionResult Editar([FromRoute] int id, [FromBody] Jogador objeto)
