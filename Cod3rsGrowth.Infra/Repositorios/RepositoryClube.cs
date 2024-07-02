@@ -30,12 +30,14 @@ namespace Cod3rsGrowth.Test.Repositorios
 
         public Clube? ObterPorId(int id)
         {
-            return database.Clubes.FirstOrDefault(clube => clube.Id == id);
+            var clube = database.Clubes.FirstOrDefault(clube => clube.Id == id);
+            if(clube != null) clube.Elenco = ObterElencDoClube(clube.Nome);
+            return clube;
         }
 
         public int Criar(Clube objeto)
         {
-            return database.Insert(objeto);
+            return database.InsertWithInt32Identity(objeto);
         }
 
         public void Editar(Clube objeto)
@@ -70,6 +72,12 @@ namespace Cod3rsGrowth.Test.Repositorios
                 .Update();
         }
 
+        public List<int> ObterElencDoClube(string? Nome)
+        {
+            return database.Jogadores.Where(jogador => jogador.Clube == Nome)
+                        .Select(jogador => jogador.Id)
+                        .ToList();              
+        }
 
     }
 }

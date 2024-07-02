@@ -34,7 +34,7 @@ public class RepositoryJogador : IRepositoryData<Jogador>
 
     public int Criar(Jogador objeto)
     {
-        return database.Insert(objeto);
+        return database.InsertWithInt32Identity(objeto);
     }
 
     public void Editar(Jogador objeto)
