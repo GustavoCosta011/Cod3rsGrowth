@@ -31,11 +31,11 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(clube);
         }
 
-        //[HttpPost]
-        //public IActionResult Criar([FromBody] Clube objeto)
-        //{
-        //    return Ok(_servicoClube.CriarClube(objeto));    
-        //}
+        [HttpPost]
+        public IActionResult Criar([FromBody] Clube objeto)
+        {
+            return Ok(_servicoClube.CriarClube(objeto));    
+        }
 
         //[HttpPut("{id}")]
         //public IActionResult Editar([FromRoute] int id, [FromBody] Clube objeto)
