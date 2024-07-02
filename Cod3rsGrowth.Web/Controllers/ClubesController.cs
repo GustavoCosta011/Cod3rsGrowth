@@ -48,19 +48,8 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpDelete("{id}")]
         public IActionResult Remover([FromRoute] int id)
         {
-            try
-            {
                 _servicoClube.RemoverClube(id);
                 return NoContent();
-            }
-            catch (ValidationException excecao)
-            {
-                return BadRequest(excecao.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
         }
     }
 }
