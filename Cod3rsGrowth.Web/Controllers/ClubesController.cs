@@ -37,13 +37,13 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoClube.CriarClube(objeto));    
         }
 
-        //[HttpPut("{id}")]
-        //public IActionResult Editar([FromRoute] int id, [FromBody] Clube objeto)
-        //{
-        //    objeto.Id = id;
-        //    _servicoClube.EditarClube(objeto);
-        //    return NoContent();
-        //}
+        [HttpPut("{id}")]
+        public IActionResult Editar([FromRoute] int id, [FromBody] Clube objeto)
+        {
+            objeto.Id = id;
+            _servicoClube.EditarClube(objeto);
+            return NoContent();
+        }
 
         //[HttpDelete("{id}")]
         //public IActionResult Remover([FromRoute] int id)
