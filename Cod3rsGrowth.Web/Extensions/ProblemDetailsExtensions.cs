@@ -29,7 +29,7 @@ namespace Cod3rsGrowth.Web
                         {
                             problemDetails.Title = Titulo;
                             problemDetails.Status = StatusCodes.Status400BadRequest;
-                            problemDetails.Detail = Validação.Demystify().ToString();
+                            problemDetails.Detail = Validação.StackTrace;
                             problemDetails.Extensions["Erros Encontrados"] = Validação.Errors
                             .GroupBy(error => error.PropertyName)
                             .ToDictionary(group => group.Key, group => group.First().ErrorMessage);
@@ -41,7 +41,7 @@ namespace Cod3rsGrowth.Web
                             logger.LogError($"Unexpected error: {ManipuladorExceptions.Error}");
                             problemDetails.Title = Titulo;
                             problemDetails.Status = StatusCodes.Status400BadRequest;
-                            problemDetails.Detail = exception.Demystify().ToString();
+                            problemDetails.Detail = exception.StackTrace;
                             problemDetails.Extensions["Erros Encontrados"] = exception.Message;
                         }
                         context.Response.StatusCode = problemDetails.Status.Value;
