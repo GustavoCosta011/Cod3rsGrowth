@@ -45,12 +45,12 @@ namespace Cod3rsGrowth.Web.Controllers
             return NoContent();
         }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Remover([FromRoute] int id)
-        //{
-        //        _servicoJogador.RemoverJogador(id);
-        //        return NotFound();
-        //}
+        [HttpDelete("{id}")]
+        public IActionResult Remover([FromRoute] int id)
+        {
+            _servicoJogador.RemoverJogador(id);
+            return NotFound();
+        }
     }
 }
 
