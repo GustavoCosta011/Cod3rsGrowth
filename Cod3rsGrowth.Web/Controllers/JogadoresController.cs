@@ -37,24 +37,14 @@ namespace Cod3rsGrowth.Web.Controllers
             return Ok(_servicoJogador.CriarJogador(objeto));
         }
 
-        //[HttpPut("{id}")]
-        //public IActionResult Editar([FromRoute] int id, [FromBody] Jogador objeto)
-        //{
-        //    try
-        //    {
-        //        objeto.Id = id;
-        //        _servicoJogador.EditarJogador( objeto);
-        //        return NoContent();
-        //    }
-        //    catch (ValidationException excecao)
-        //    {
-        //        return BadRequest(excecao.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        //    }
-        //}
+        [HttpPut("{id}")]
+        public IActionResult Editar([FromRoute] int id, [FromBody] Jogador objeto)
+        {
+            objeto.Id = id;
+            _servicoJogador.EditarJogador(objeto);
+            return NoContent();
+        }
+
         //[HttpDelete("{id}")]
         //public IActionResult Remover([FromRoute] int id)
         //{
