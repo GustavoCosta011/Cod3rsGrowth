@@ -29,11 +29,8 @@ namespace Cod3rsGrowth.Servicos.Servicos
         public int CriarClube(Clube clube)
         {
             ValidationResult resultado = validadorClube.Validate(clube);
-            //string? mensagem = null;
-            //string? separador = "\n";
             if (!resultado.IsValid)
             {
-                //mensagem = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new ValidationException(resultado.Errors);
             }
 
@@ -45,12 +42,10 @@ namespace Cod3rsGrowth.Servicos.Servicos
 
         public void EditarClube(Clube clube)
         {
-            var resultado = validadorClube.Validate(clube, opitons => opitons.IncludeRuleSets("Editar"));
-            //string? mensagem = null;
-            //string? separador = "\n";
+            ValidationResult resultado = validadorClube.Validate(clube, opitons => opitons.IncludeRuleSets("Editar"));
+
             if (!resultado.IsValid)
             {
-                //mensagem = string.Join(separador,resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new ValidationException(resultado.Errors);
             }
             repositoryClube.Editar(clube);

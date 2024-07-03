@@ -39,7 +39,10 @@ namespace Cod3rsGrowth.Forms
                 }
                 catch (ValidationException ex)
                 {
-                    var StringDialogo = $"Erro encontrado: {ex.Message}";
+                    string? mensagem = null;
+                    string? separador = "\n";
+                    mensagem = string.Join(separador, ex.Errors.Select(erro => erro.ErrorMessage));
+                    var StringDialogo = $"Erro encontrado: {mensagem}";
                     var NomeDaTela = "Erro";
 
                     MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -64,12 +67,15 @@ namespace Cod3rsGrowth.Forms
                     jogador.Altura = !BoxAlturaCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxAlturaCriarJogador.Text) : null;
                     jogador.Peso = !BoxPesoCriarJogador.Text.IsNullOrEmpty() ? double.Parse(BoxPesoCriarJogador.Text) : null;
 
-                    _servicoJogador.EditarJogador((int)_id,jogador);
+                    _servicoJogador.EditarJogador(jogador);
                     Close();
                 }
                 catch (ValidationException ex)
                 {
-                    var StringDialogo = $"Erro encontrado: {ex.Message}";
+                    string? mensagem = null;
+                    string? separador = "\n";
+                    mensagem = string.Join(separador, ex.Errors.Select(erro => erro.ErrorMessage));
+                    var StringDialogo = $"Erro encontrado: {mensagem}";
                     var NomeDaTela = "Erro";
 
                     MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);

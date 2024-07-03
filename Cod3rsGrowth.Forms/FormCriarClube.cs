@@ -48,10 +48,13 @@ namespace Cod3rsGrowth.Forms
                 }
                 catch (ValidationException ex)
                 {
-                    var StringDialogo = $"Erro encontrado: {ex.Message}";
+                    string? mensagem = null;
+                    string? separador = "\n";
+                    mensagem = string.Join(separador, ex.Errors.Select(erro => erro.ErrorMessage));
+                    var StringDialogo = $"Erro encontrado: {mensagem}";
                     var NomeDaTela = "Erro";
 
-                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (FormatException)
                 {
@@ -77,12 +80,15 @@ namespace Cod3rsGrowth.Forms
                     {
                         clube.CoberturaAntiChuva = false;
                     }
-                    _servicoClube.EditarClube((int)_id,clube);
+                    _servicoClube.EditarClube(clube);
                     Close();
                 }
                 catch (ValidationException ex)
                 {
-                    var StringDialogo = $"Erro encontrado: {ex.Message}";
+                    string? mensagem = null;
+                    string? separador = "\n";
+                    mensagem = string.Join(separador, ex.Errors.Select(erro => erro.ErrorMessage));
+                    var StringDialogo = $"Erro encontrado: {mensagem}";
                     var NomeDaTela = "Erro";
 
                     MessageBox.Show(StringDialogo, NomeDaTela, MessageBoxButtons.OK, MessageBoxIcon.Error);
