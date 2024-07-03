@@ -26,7 +26,6 @@ namespace Cod3rsGrowth.Servicos.Validadores
 
             RuleFor(jogador => jogador.Altura)
                 .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotNull()
                 .NotEmpty().WithMessage("Campo 'Altura' não pode ser vazio!");
 
             RuleFor(jogador => jogador.Peso)
@@ -46,7 +45,6 @@ namespace Cod3rsGrowth.Servicos.Validadores
                     .LessThanOrEqualTo(DateTime.Now).WithMessage("A data deve ser anterior ou igual à data atual!");
                 RuleFor(jogador => jogador.Altura)
                     .Cascade(CascadeMode.StopOnFirstFailure)
-                    .NotNull()
                     .NotEmpty().WithMessage("Campo editado 'Altura' não pode ser alterado para vazio!");
                 RuleFor(jogador => jogador.Peso)
                     .Cascade(CascadeMode.StopOnFirstFailure)
