@@ -40,37 +40,16 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPut("{id}")]
         public IActionResult Editar([FromRoute] int id, [FromBody] Jogador objeto)
         {
-            try
-            {
-                objeto.Id = id;
-                _servicoJogador.EditarJogador( objeto);
-                return NoContent();
-            }
-            catch (ValidationException excecao)
-            {
-                return BadRequest(excecao.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            objeto.Id = id;
+            _servicoJogador.EditarJogador(objeto);
+            return NoContent();
         }
+
         [HttpDelete("{id}")]
         public IActionResult Remover([FromRoute] int id)
         {
-            try
-            {
-                _servicoJogador.RemoverJogador(id);
-                return NotFound();
-            }
-            catch (ValidationException excecao)
-            {
-                return BadRequest(excecao.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            _servicoJogador.RemoverJogador(id);
+            return NotFound();
         }
     }
 }

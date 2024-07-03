@@ -48,8 +48,8 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpDelete("{id}")]
         public IActionResult Remover([FromRoute] int id)
         {
-                _servicoClube.RemoverClube(id);
-                return NoContent();
+            _servicoClube.RemoverClube(id);
+            return NoContent();
         }
     }
 }
