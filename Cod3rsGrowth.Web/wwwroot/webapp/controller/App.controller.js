@@ -4,9 +4,9 @@ sap.ui.define([
 ], (Controller, ResourceModel) => {
     "use strict";
 
-    return Controller.extend("Cod3rsGrowth.controller.App", {
+    return Controller.extend("cod3rsgrowth.controller.App", {
         onInit() {
-            const oModel = new ResourceModel({ bundleName: "Cod3rsGrowth.i18n.i18n" });
+            const oModel = new ResourceModel({ bundleName: "cod3rsgrowth.i18n.i18n" });
             this.getView().setModel(oModel, "i18n");
         }
     });

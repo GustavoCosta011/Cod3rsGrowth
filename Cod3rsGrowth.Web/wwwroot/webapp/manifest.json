@@ -1,24 +1,33 @@
 {
     "_version": "1.58.0",
     "sap.app": {
-        "id": "ui5.Cod3rsGrowth",
+        "id": "ui5.cod3rsgrowth",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
             "version": "1.0.0"
-        }
+        },
+        "title": "{{appTitle}}"
+    },	
+    "sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+	    }
     },
     "sap.ui5": {
         "rootView": {
             "id": "app",
             "type": "XML",
-            "viewName": "Cod3rsGrowth.view.App"
+            "viewName": "cod3rsgrowth.view.App"
         },
         "models": {
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "Cod3rsGrowth.i18n.i18n"
+                    "bundleName": "cod3rsgrowth.i18n.i18n"
                 }
             }
         },
@@ -28,6 +37,17 @@
                     "uri": "css/style.css"
                 }
             ]
+        },        
+        "dependencies": {
+            "minUI5Version": "1.108.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
         }
     }
 }

@@ -1,13 +1,13 @@
 sap.ui.require([
     "sap/ui/test/opaQUnit",
     "/pages/app"
-  ], function (Opa5, opaQUnit, Press, PropertyStrictEquals) {
+  ], function (opaQUnit) {
   
     opaQUnit("Obter texto esperado", function (Given, When, Then) {
           // Arrangements
           Given.iStartMyUIComponent({
             componentConfig: {
-                name: "Cod3rsGrowth"
+                name: "cod3rsgrowth"
             }
           });
           Then.onTheAppPage.iShouldSeeExpectedText();

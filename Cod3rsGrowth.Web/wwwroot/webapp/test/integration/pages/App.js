@@ -4,7 +4,7 @@ sap.ui.define([
 ], (Opa5, Properties) => {
     "use strict";
 
-    const sNameView = "Cod3rsGrowth.view.App";
+    const sNameView = "cod3rsgrowth.view.App";
 
     Opa5.createPageObjects({
         onTheAppPage: {
@@ -18,7 +18,7 @@ sap.ui.define([
                         success() {
                             Opa5.assert.ok(true, "Texto esperado!");
                         },
-                        errorMessage: "O texto não é o esperado"
+                        errorMessage: "O texto não condisente com esperado"
                     });
                 }
             }

@@ -4,9 +4,9 @@ sap.ui.define([
 	"use strict";
 
 	new ComponentContainer({
-		name: "Cod3rsGrowth",
+		name: "cod3rsgrowth",
 		settings : {
-			id : "Cod3rsGrowth"
+			id : "cod3rsgrowth"
 		},
 		async: true
 	}).placeAt("conteudo");
