@@ -1,10 +1,9 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"./Base"
+], function (Base) {
 	"use strict";
 
-	return Controller.extend("cod3rsgrowth.controller.Home", {
-
+	return Base.extend("cod3rsgrowth.controller.Home", {
+		onInit: function () {}
 	});
-
 });
