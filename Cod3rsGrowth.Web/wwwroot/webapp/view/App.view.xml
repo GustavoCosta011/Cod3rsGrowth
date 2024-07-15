@@ -4,6 +4,6 @@
     controllerName="cod3rsgrowth.controller.App"
 >
 <App id ="app" class= "myAppClass">
-
+    
 </App>
 </mvc:View>

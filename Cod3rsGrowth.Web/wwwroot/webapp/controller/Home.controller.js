@@ -4,6 +4,8 @@ sap.ui.define([
 	"use strict";
 
 	return Base.extend("cod3rsgrowth.controller.Home", {
-		onInit: function () {}
+		IrParaClubes(){
+			this.getRouter().navTo("clubes");
+		}
 	});
 });

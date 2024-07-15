@@ -1,0 +1,33 @@
+<mvc:View
+	controllerName="cod3rsgrowth.controller.ListaDeClubes"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+>
+<Page 
+    id="PaginaListadeClubes"
+    title="{i18n>homePageTitle}"
+    showNavButton="true"
+    navButtonPress=".onNavBack"
+    class="sapUiResponsiveContentPadding">
+	<List
+		id="ListaDeCllubes"
+		items = "{ path: '/' }"
+	>
+		<headerToolbar>
+			<Toolbar>
+				<Title text="{i18n>ListaDeClubes}" />
+				<ToolbarSpacer />
+				<SearchField
+					width="50%"
+					search=".onFilterInvoices"
+				/>
+			</Toolbar>
+		</headerToolbar>
+		<items>
+			<StandardListItem
+				title="{Id}{Nome}">
+			</StandardListItem>
+		</items>
+	</List>
+</Page>
+</mvc:View>

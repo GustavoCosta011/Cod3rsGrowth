@@ -31,6 +31,10 @@
                 }
             }
         },
+        "clubes" : {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri" : "https://localhost:7178//api/Clubes"
+		},
         "resources": {
             "css": [
                 {
@@ -67,16 +71,26 @@
                 "pattern": "",
                 "name": "Home",
                 "target": "home"
+            },
+            {
+                "pattern": "clubes",
+                "name": "clubes",
+                "target": "clubes"
             }],
             "targets": {
                 "home": {
-                "id": "home",
-                "name": "Home",
-                "level" : 1
+                    "id": "home",
+                    "name": "Home",
+                    "level" : 1
                 },
                 "notFound": {
-                "name": "NotFound",
-                "transition": "show"
+                    "id": "NotFound",
+                    "name": "NotFound",
+                    "transition": "show"
+                },
+                "clubes": {
+                    "name": "ListaDeClubes",
+                    "level": 2
                 }
             }
         }         
