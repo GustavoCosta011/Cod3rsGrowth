@@ -3,5 +3,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     controllerName="cod3rsgrowth.controller.App"
 >
-    <Text id="textoOM" text="{i18n>olaMundo}" />
+<App id ="app" class= "myApp">
+
+</App>
 </mvc:View>

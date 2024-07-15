@@ -5,8 +5,16 @@ sap.ui.define([
 
     return UIComponent.extend("cod3rsgrowth.Component", {
         metadata : {
-            interfaces : ["sap.ui.core.IAsyncContentCreation"],
-            rootView: {"id": "app", "type": "XML", "viewName": "cod3rsgrowth.view.App"}
+			interfaces: ["sap.ui.core.IAsyncContentCreation"],
+			manifest: "json"
+        },
+
+        init(){
+            UIComponent.prototype.init.apply(this, arguments);
+
+            this.getRouter().initialize();
         }
     });
+
+    
 });
