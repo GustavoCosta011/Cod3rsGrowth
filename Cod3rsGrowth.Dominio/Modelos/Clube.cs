@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Dominio.Modelos
         {
             Id = id;
             Nome = nome;
-            Fundacao = fundacao;
+            Fundacao = fundacao.Date;
             Estadio = estadio;
             Estado = estado;
             CoberturaAntiChuva = coberturaAntiChuva;

@@ -9,20 +9,29 @@ sap.ui.define([
 
 	return Base.extend("coders-growth.controller.ListaPersonagem", {
 		onInit: function() {
-            const ObterClubes = "https://localhost:7178//api/Clubes";
+            const ObterClubes = "https://localhost:7178/api/Clubes";
 
 			fetch(ObterClubes, {
 				method: "GET",
 				headers: { "Content-Type": "application/json" },
 			})
-			.then(Response => Response.json())
+			.then(resposta => {
+				if (resposta.ok) {
+					return resposta.json();
+				}
+				else {
+					throw new Error('Erro na requisição da API');
+				}
+            })
 			.then(Clubes => {
-                const ClubesModels = new JSONModel(Clubes);
-                this.getView().setModel(ClubesModels);
+                this.getView().setModel(new JSONModel(Clubes));
 			})
             .catch(error => {
                 console.error('Erro:', error);
             })
+        },
+        aoPressionarUmItem(){
+            this.getRouter().navTo("clubes");
         }
 	});
 });

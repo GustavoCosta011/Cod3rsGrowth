@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Dominio.Modelos
             IdClube = idClube;
             Clube = clube;
             Idade = idade;
-            DataDeNascimento = dataDeNascimento;
+            DataDeNascimento = dataDeNascimento.Date;
             Altura = altura;
             Peso = peso;
         }

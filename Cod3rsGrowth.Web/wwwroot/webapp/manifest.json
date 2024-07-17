@@ -89,6 +89,7 @@
                     "transition": "show"
                 },
                 "clubes": {
+                    "id": "clubes",
                     "name": "ListaDeClubes",
                     "level": 2
                 }
