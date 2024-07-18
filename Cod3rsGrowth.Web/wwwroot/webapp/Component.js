@@ -14,7 +14,5 @@ sap.ui.define([
 
             this.getRouter().initialize();
         }
-    });
-
-    
+    });  
 });
