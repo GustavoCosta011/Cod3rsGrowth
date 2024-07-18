@@ -19,6 +19,8 @@
                 id="ListaDeCllubes"  
                 alternateRowColors="true" 
                 rows="{ path: '/' }"
+                columnResize="false"
+                enableColumnReordering="false"
             >
                 <extension>
                     <m:OverflowToolbar>
@@ -35,33 +37,33 @@
                             change="aoMudarOEstadoNaComboBox"
                         >
                             <m:items>
-                                <core:Item text="AC" key="0"/>
-                                <core:Item text="AL" key="1"/>
-                                <core:Item text="AP" key="2"/>
-                                <core:Item text="AM" key="3"/>
-                                <core:Item text="BA" key="4"/>
-                                <core:Item text="CE" key="5"/>
-                                <core:Item text="DF" key="6"/>
-                                <core:Item text="ES" key="7"/>
-                                <core:Item text="GO" key="8"/>
-                                <core:Item text="MA" key="9"/>
-                                <core:Item text="MT" key="10"/>
-                                <core:Item text="MS" key="11"/>
-                                <core:Item text="MG" key="12"/>
-                                <core:Item text="PA" key="13"/>
-                                <core:Item text="PB" key="14"/>
-                                <core:Item text="PR" key="15"/>
-                                <core:Item text="PE" key="16"/>
-                                <core:Item text="PI" key="17"/>
-                                <core:Item text="RJ" key="18"/>
-                                <core:Item text="RN" key="19"/>
-                                <core:Item text="RS" key="20"/>
-                                <core:Item text="RO" key="21"/>
-                                <core:Item text="RR" key="22"/>
-                                <core:Item text="SC" key="23"/>
-                                <core:Item text="SP" key="24"/>
-                                <core:Item text="SE" key="25"/>
-                                <core:Item text="TO" key="26"/>
+                                <core:Item text="Acre" key="0"/>
+                                <core:Item text="Alagoas" key="1"/>
+                                <core:Item text="Amapá" key="2"/>
+                                <core:Item text="Amazonas" key="3"/>
+                                <core:Item text="Bahia" key="4"/>
+                                <core:Item text="Ceará" key="5"/>
+                                <core:Item text="Distrito Federal" key="6"/>
+                                <core:Item text="Espírito Santo" key="7"/>
+                                <core:Item text="Goiás" key="8"/>
+                                <core:Item text="Maranhão" key="9"/>
+                                <core:Item text="Mato Grosso" key="10"/>
+                                <core:Item text="Mato Grosso do Sul" key="11"/>
+                                <core:Item text="Minas Gerais" key="12"/>
+                                <core:Item text="Pará" key="13"/>
+                                <core:Item text="Paraíba" key="14"/>
+                                <core:Item text="Paraná" key="15"/>
+                                <core:Item text="Pernambuco" key="16"/>
+                                <core:Item text="Piauí" key="17"/>
+                                <core:Item text="Rio de Janeiro" key="18"/>
+                                <core:Item text="Rio Grande do Norte" key="19"/>
+                                <core:Item text="Rio Grande do Sul" key="20"/>
+                                <core:Item text="Rondônia" key="21"/>
+                                <core:Item text="Roraima" key="22"/>
+                                <core:Item text="Santa Catarina" key="23"/>
+                                <core:Item text="São Paulo" key="24"/>
+                                <core:Item text="Sergipe" key="25"/>
+                                <core:Item text="Tocantins" key="26"/>
                             </m:items>
                         </m:ComboBox>
                         <m:ToolbarSeparator/>
@@ -77,8 +79,10 @@
                 </extension>
                 <columns>
                     <Column
-                        width="1rem"
-                        filterProperty="Id"
+                        autoResizable="false" 
+                        resizable="false"
+                        width="5%"
+                        filterProperty="Id" 
                     >
                         <m:Label text="id" />
                         <template>
@@ -86,7 +90,9 @@
                         </template>
                     </Column>
                     <Column
-                        width="11rem"
+                        autoResizable="false" 
+                        resizable="false"
+                        width="15%"
                         filterProperty="Name"
                     >
                         <m:Label text="Nome do Clube" />
@@ -95,7 +101,9 @@
                         </template>
                     </Column>
                     <Column
-                        width="11rem"
+                        autoResizable="false" 
+                        resizable="false"
+                        width="15%"
                         filterProperty="Fundação"
                     >
                         <m:Label text="Fundação" />
@@ -104,7 +112,9 @@
                         </template>
                     </Column>
                     <Column
-                        width="9rem"
+                        autoResizable="false" 
+                        resizable="false"
+                        width="15%"
                         filterProperty="Estadio"
                     >
                         <m:Label text="Estadio" />
@@ -113,18 +123,22 @@
                         </template>
                     </Column>
                     <Column
+                        autoResizable="false" 
+                        resizable="false"
                         hAlign="Center"
-                        width="6rem"
+                        width="20%"
                         filterProperty="Estado"
                     >
                         <m:Label text="Estado" />
                         <template>
-                            <m:Text text="{ path: 'estado', formatter: '.formatter.formatEstado' }" wrapping="false" />
+                            <m:Text text = "{estado}" wrapping="false" />
                         </template>
                     </Column>
                     <Column
+                        autoResizable="false" 
+                        resizable="false"
                         hAlign="Center"
-                        width="9rem"
+                        width="20%"
                     >
                         <m:Label text="Cobertura Anti-Chuva" />
                         <template>
@@ -133,6 +147,10 @@
                     </Column>
                 </columns>
             </Table>
+            <m:Toolbar>
+                <m:Button text="Anterior" press="onPreviousPage" />
+                <m:Button text="Próximo" press="onNextPage" />
+            </m:Toolbar>
         </m:content>
     </m:Page>
 </mvc:View>

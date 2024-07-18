@@ -4,12 +4,10 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"../formatter"
-], (Base, JSONModel, formatter, Filter, FilterOperator) => {
+], (Base, JSONModel, Filter, FilterOperator) => {
 	"use strict";
 
 	return Base.extend("cod3rsgrowth.controller.ListaDeClubes", {
-		formatter: formatter,
 		onInit: function() {
             const ObterClubes = "https://localhost:7178/api/Clubes";
 			
@@ -32,10 +30,6 @@ sap.ui.define([
             .catch(error => {
                 console.error('Erro:', error);
             })
-
-			var oModel = new JSONModel();
-            oModel.loadData("../estados");
-            this.getView().setModel(oModel, "estadosModel");
         },
         aoPressionarUmItem(){
             this.getRouter().navTo("clubes");
