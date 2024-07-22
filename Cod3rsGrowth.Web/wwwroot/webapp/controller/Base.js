@@ -9,7 +9,6 @@ sap.ui.define([
         getRouter: function () {
             return UIComponent.getRouterFor(this);
         },
-        
         onNavBack() {
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
