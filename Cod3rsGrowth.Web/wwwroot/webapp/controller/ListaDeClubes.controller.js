@@ -50,6 +50,29 @@ sap.ui.define([
 			}
 			this.aoBuscar();
 		},
+        aoLimparOsFiltros: function(){
+            var calendario = this.byId("calendario");
+            if(calendario){
+                calendario.setDateValue(null);
+                calendario.setSecondDateValue(null);
+                this.filtros = this.filtros.filter(f => !f.startsWith("DataPiso="))
+                this.filtros = this.filtros.filter(f => !f.startsWith("DataTeto="))
+            }
+
+            var ComboBox = this.byId("ComboBoxEstados");
+            if(ComboBox){
+                ComboBox.setSelectedKey("-1");
+                this.filtros = this.filtros.filter(f => !f.startsWith("estado="))
+            }
+
+            var InputNome = this.byId("InputNome");
+            if(InputNome){
+                InputNome.setValue("");
+                this.filtros = this.filtros.filter(f => !f.startsWith("nome="))
+            }
+
+            this.aoBuscar();
+        },
 		
         aoBuscar: function() {
 			this.urlClubes = "https://localhost:7178/api/Clubes";

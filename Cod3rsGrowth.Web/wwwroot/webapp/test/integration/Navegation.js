@@ -1,16 +1,18 @@
 sap.ui.require([
     "sap/ui/test/opaQUnit",
-    "/pages/app"
+    "./pages/Home"
   ], function (opaQUnit) {
   
-    opaQUnit("Obter texto esperado", function (Given, When, Then) {
-          // Arrangements
+    opaQUnit("Deve navegar para a aba de clubes", function (Given, When, Then) {
+          // Arrange
           Given.iStartMyUIComponent({
             componentConfig: {
                 name: "cod3rsgrowth"
             }
           });
-          Then.onTheAppPage.iShouldSeeExpectedText();
+          //Act
+          When.NaPaginaClube.aoClicarEmcClubes();
+          //Assert
           Then.iTeardownMyApp();
     });
 });
