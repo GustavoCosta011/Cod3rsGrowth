@@ -1,0 +1,27 @@
+sap.ui.define([
+    "sap/ui/test/opaQunit",
+    "../pages/Home",
+    "../pages/ListadeClubes",
+    "../pages/NotFound"
+  ], (opaQUnit) => {
+    "use strict";
+
+    QUnit.module("Home");
+  
+    opaQUnit("Deve navegar para a pagina da lista de clubes", function (Given, When, Then) {
+        // Arrange
+        Given.iStartMyUIComponent({
+          componentConfig: {
+              name: "cod3rsgrowth"
+          }
+        });
+
+        // Act  
+        When.naPaginaHome.aoClicarEmClubes();
+
+        // Assert
+        Then.naPaginaListaDeClubes.verificarUrlDaPaginaDeClubes();
+        Then.naPaginaListaDeClubes.verificarOTituloDaPagina();
+        Then.iTeardownMyApp();
+    });
+});

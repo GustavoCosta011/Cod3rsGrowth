@@ -4,12 +4,12 @@ sap.ui.define([
 ], (Opa5, Press) => {
     "use strict";
 
-    const sNameView = "cod3rsgrowth.view.Home";
+    const dataView = "Home";
 
     Opa5.createPageObjects({
-        NaPaginaClube: {
+        naPaginaHome: {
             actions: {
-                aoClicarEmcClubes: function() {
+                aoClicarEmClubes: function() {
                     return this.waitFor({
                         id: "BotaoIrParaClubes",
                         viewName: dataView,
