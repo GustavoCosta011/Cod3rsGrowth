@@ -10,18 +10,15 @@ sap.ui.define([
   
     opaQUnit("Deve navegar para a pagina da lista de clubes", function (Given, When, Then) {
         // Arrange
-        Given.iStartMyUIComponent({
-          componentConfig: {
-              name: "cod3rsgrowth"
-          }
-        });
+        Given.iStartMyApp();
 
         // Act  
         When.naPaginaHome.aoClicarEmClubes();
 
         // Assert
-        Then.naPaginaListaDeClubes.verificarUrlDaPaginaDeClubes();
-        Then.naPaginaListaDeClubes.verificarOTituloDaPagina();
+        Then.naPaginaListaDeClubes.buscarOTituloDaPaginaClubes();
+        Then.naPaginaListaDeClubes.buscarUrlDaPaginaDeClubes();
+        
         Then.iTeardownMyApp();
     });
 });
