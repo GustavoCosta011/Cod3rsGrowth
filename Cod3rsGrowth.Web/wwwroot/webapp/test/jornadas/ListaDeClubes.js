@@ -22,6 +22,15 @@ sap.ui.define([
         // Assert
         Then.naPaginaListaDeClubes.buscarSeItemsForamAdicionados();
         
-        Then.iTeardownMyApp();
     });
+    opaQUnit("Deve varificar se a lista foi filtrada por nome", function (Given, When, Then) {
+      //Act
+      When.naPaginaListaDeClubes.aoInserirFiltroNome("Flamengo");
+      //Assert
+      Then.naPaginaListaDeClubes.varificarSeFoiRetornadaListaComFiltroNome("Flamengo");
+
+      Then.iTeardownMyApp();
+    });
+
+
 });

@@ -1,9 +1,12 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/test/actions/Press",
+    "sap/ui/test/actions/EnterText",
     "sap/ui/test/matchers/PropertyStrictEquals",
-    "sap/ui/test/matchers/AggregationLengthEquals"
-], (Opa5,Press, PropertyStrictEquals, AggregationLengthEquals) => {
+    "sap/ui/test/matchers/AggregationLengthEquals",
+    "sap/ui/test/matchers/AggregationContainsPropertyEqual"
+
+], (Opa5,Press, EnterText, PropertyStrictEquals, AggregationLengthEquals, AggregationContainsPropertyEqual) => {
     "use strict"; 
 
     const dataView = "ListaDeClubes";
@@ -18,7 +21,15 @@ sap.ui.define([
                         actions: new Press(),
                         errorMessage: "Os dados não foram carregados ao clicar 'Mais'"
                     });
-                }
+                },
+                aoInserirFiltroNome: function(InputNome) {
+                    return this.waitFor({
+                        id: "InputNome",
+                        viewName: dataView,
+                        actions: new EnterText({ text: InputNome }),
+                        errorMessage: "Campo de busca para filtrar por nome não encontrado."
+                    });
+                },
             },
             assertions: {
                 buscarUrlDaPaginaDeClubes: function() {
@@ -69,6 +80,26 @@ sap.ui.define([
 						errorMessage: "Os dados não foram carregados"
 					});                   
                 },
+                varificarSeFoiRetornadaListaComFiltroNome: function(filtroNome) {
+                    return this.waitFor({
+                        id: "ListaDeClubes",
+                        viewName: dataView,
+                        success: function(oList) {
+                            var aItems = oList.getItems();
+                            var bFound = aItems.some(function(oItem) {
+                                var oContext = oItem.getBindingContext();
+                                if (oContext) {
+                                    var sNome = oContext.getProperty("nome");
+                                    return sNome.includes(filtroNome);
+                                }
+                                return false;
+                            });
+
+                            Opa5.assert.ok(bFound, "A lista contém o nome: " + filtroNome);
+                        },
+                        errorMessage: "A lista não contém o nome: " + filtroNome
+                    });
+                }
             }
         }
     });
