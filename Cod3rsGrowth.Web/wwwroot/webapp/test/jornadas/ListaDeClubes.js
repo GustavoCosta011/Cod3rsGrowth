@@ -23,14 +23,43 @@ sap.ui.define([
         Then.naPaginaListaDeClubes.buscarSeItemsForamAdicionados();
         
     });
-    opaQUnit("Deve varificar se a lista foi filtrada por nome", function (Given, When, Then) {
-      //Act
-      When.naPaginaListaDeClubes.aoInserirFiltroNome("Flamengo");
-      //Assert
-      Then.naPaginaListaDeClubes.varificarSeFoiRetornadaListaComFiltroNome("Flamengo");
 
-      Then.iTeardownMyApp();
+    opaQUnit("Deve varificar se a lista foi filtrada por nome", function (Given, When, Then) {
+        //Act
+        When.naPaginaListaDeClubes.aoInserirFiltroNome("Flamengo");
+        //Assert
+        Then.naPaginaListaDeClubes.verificarSeFoiRetornadaListaComFiltroNome("Flamengo");
+        Then.iTeardownMyApp();
     });
 
+    opaQUnit("Deve verificar se a lista foi filtrada por estado", function(Given, When, Then){
+        // Arrange
+        Given.iStartMyApp();
+
+        //Parar que possa ser excutado os testes na pagina de lista
+        When.naPaginaHome.aoClicarEmClubes();
+
+        //Act
+        When.naPaginaListaDeClubes.aoInserirFiltroEstado("Rio de Janeiro");
+        //Assert
+        Then.naPaginaListaDeClubes.verificarSeFoiRetornadaListaComFiltroEstado("Rio de Janeiro");
+
+        Then.iTeardownMyApp();      
+    });
+
+    opaQUnit("Deve verificar se a lista foi filtrada por Data", function(Given, When, Then){
+      // Arrange
+      Given.iStartMyApp();
+
+      //Parar que possa ser excutado os testes na pagina de lista
+      When.naPaginaHome.aoClicarEmClubes();
+
+      //Act
+      When.naPaginaListaDeClubes.aoInserirFiltroData("25/03/1924 - 02/01/1931");
+      //Assert
+      Then.naPaginaListaDeClubes.verificarSeFoiRetornadaListaComFiltroFundacao("03/25/1924","01/02/1931");
+
+      Then.iTeardownMyApp();      
+    });
 
 });
