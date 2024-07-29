@@ -73,7 +73,7 @@
                 "target": "home"
             },
             {
-                "pattern": "clubes",
+                "pattern": "clubes:?query:",
                 "name": "clubes",
                 "target": "clubes"
             }],
