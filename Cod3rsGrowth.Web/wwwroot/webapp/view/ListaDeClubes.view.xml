@@ -40,7 +40,6 @@
                             placeholder="{i18n>TituloComboBoxEstado.Acao}"
                             selectionChange="aoMudarOEstadoNaComboBox">
                             <items>
-                                <core:Item text="Nenhum" key="-1"/>
                                 <core:Item text="Acre" key="0"/>
                                 <core:Item text="Alagoas" key="1"/>
                                 <core:Item text="Amapá" key="2"/>

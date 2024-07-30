@@ -6,7 +6,7 @@ sap.ui.define([
         aoBuscar: function(filtros, oView) {
 			this.urlClubes = "https://localhost:7178/api/Clubes";
             if (filtros.length > 0) {
-                urlClubes += "?" + this.filtros.map(filtro => `${filtro.key}=${filtro.value}`).join("&");
+                this.urlClubes += "?" + filtros.map(filtro => `${filtro.key}=${filtro.value}`).join("&");
             }
 
             fetch(this.urlClubes, {

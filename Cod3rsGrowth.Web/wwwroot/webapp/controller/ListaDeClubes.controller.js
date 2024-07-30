@@ -74,7 +74,7 @@ sap.ui.define([
 
             var ComboBox = this.byId("ComboBoxEstados");
             if (ComboBox) {
-                ComboBox.setSelectedKey("-1");
+                ComboBox.setSelectedKey(null);
                 this.filtros = this.filtros.filter(f => f.key !== "estado");
             }
 
