@@ -11,11 +11,20 @@
         navButtonPress=".onNavBack"
         class="sapUiResponsiveContentPadding">
         <VBox>
+            <VBox>
+                <Button
+                    text="{i18n>Botao.Adiconar}"
+                    press="aoClicarAdicionar"
+                    type="Emphasized"/>
+            </VBox>
+            <VBox height="0.5em"/>
             <OverflowToolbar>
+            <Title text= "{i18n>TituloFiltros}" />
+            <ToolbarSpacer width="1.5em"/>
                 <content>
                     <Toolbar>
-                        <Title text="Nome :" />
-                        <ToolbarSpacer width="2em"/>
+                        <Title text="{i18n>TituloInputNome}" />
+                        <ToolbarSpacer width="0.5em"/>
                         <Input
                             id="InputNome"
                             width="60%"
@@ -24,11 +33,11 @@
                     </Toolbar>
                     <ToolbarSeparator/>
                     <Toolbar>
-                        <Title text="Estado :"/>
-                        <ToolbarSpacer/>
+                        <Title text="{i18n>TituloComboBoxEstado}"/>
+                        <ToolbarSpacer width="0.5em"/>
                         <ComboBox id="ComboBoxEstados"
                             width="60%"
-                            placeholder="Selecione o estado"
+                            placeholder="{i18n>TituloComboBoxEstado.Acao}"
                             selectionChange="aoMudarOEstadoNaComboBox">
                             <items>
                                 <core:Item text="Nenhum" key="-1"/>
@@ -64,12 +73,12 @@
                     </Toolbar>
                     <ToolbarSeparator/>
                     <Toolbar>
-                        <Title text="Fundação :"/>
-                        <ToolbarSpacer/>
+                        <Title text="{i18n>TituloFundacao}"/>
+                        <ToolbarSpacer width="0.5em"/>
                         <DateRangeSelection
                             id="calendario"
                             width="60%"
-                            placeholder="Defina o range"
+                            placeholder="{i18n>TituloFundacao.Acao}"
                             change="aoAlterarData"
                             liveChange="true"
                             showFooter="true"/>
@@ -77,7 +86,7 @@
                     <ToolbarSpacer/>
                     <Toolbar>
                         <Button
-                            text="Limpar"
+                            text="{i18n>Botao.LimparFiltros}"
                             press="aoLimparOsFiltros"
                             type="Emphasized"/>
                     </Toolbar>
@@ -90,22 +99,22 @@
                 alternateRowColors="true"
                 growing="true"
                 growingThreshold="10"
-                growingTriggerText="Mais">
+                growingTriggerText="{i18n>GrowingPaginacao}">
                 <columns>
                     <Column width="12em">
-                        <Text text="Clube"/>
+                        <Text text="{i18n>TextColuna.Nome}"/>
                     </Column>
                     <Column minScreenWidth="Tablet" demandPopin="true">
-                        <Text text="Fundação"/>
+                        <Text text="{i18n>TextColuna.Fundacao}"/>
                     </Column>
                     <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
-                        <Text text="Estádio"/>
+                        <Text text="{i18n>TextColuna.Estadio}"/>
                     </Column>
                     <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
-                        <Text text="Estado"/>
+                        <Text text="{i18n>TextColuna.Estado}"/>
                     </Column>
                     <Column hAlign="Center">
-                        <Text text="Cobertura Anti-Chuva"/>
+                        <Text text="{i18n>TextColuna.Cobertura}"/>
                     </Column>
                 </columns>
                 <items>

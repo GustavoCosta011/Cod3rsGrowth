@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Servicos.Validadores;
 using Cod3rsGrowth.Dominio.Interfaces;
 using FluentValidation;
+using System.Reflection;
 using FluentValidation.Results;
 
 
@@ -17,9 +18,25 @@ namespace Cod3rsGrowth.Servicos.Servicos
             repositoryClube = repositoryMock;
             validadorClube = validador; 
         }
-        public List<Clube> ObterTodos(Filtro? filtro)
+        public List<ClubeDto> ObterTodos(Filtro? filtro)
         {
-            return repositoryClube.ObterTodos(filtro);
+            var Clubes =  repositoryClube.ObterTodos(filtro);
+            var ClubesDto = new List<ClubeDto>();
+
+            foreach(Clube clube in Clubes)
+            {
+                var clubedto = new ClubeDto() {
+                    Id = clube.Id,
+                    Nome = clube.Nome,
+                    Fundacao = clube.Fundacao.Date,
+                    Estadio = clube.Estadio,
+                    Estado = PegarODisplayName(clube.Estado),
+                    CoberturaAntiChuva = clube.CoberturaAntiChuva,
+                    Elenco = clube.Elenco
+                };
+                ClubesDto.Add(clubedto);
+            }
+            return ClubesDto.ToList();
         }
         public Clube ObterPorId(int id)
         {
@@ -31,7 +48,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             ValidationResult resultado = validadorClube.Validate(clube);
             if (!resultado.IsValid)
             {
-                throw new ValidationException(resultado.Errors);
+                throw new FluentValidation.ValidationException(resultado.Errors);
             }
 
             int IdNovoClube = repositoryClube.Criar(clube);
@@ -54,6 +71,14 @@ namespace Cod3rsGrowth.Servicos.Servicos
         public void RemoverClube(int id)
         {
            repositoryClube.Remover(id);
-        } 
+        }
+
+        public string PegarODisplayName(Enum EnumDoClube)
+        {
+            return EnumDoClube.GetType()
+                            .GetMember(EnumDoClube.ToString())[0]
+                            .GetCustomAttribute<System.ComponentModel.DataAnnotations.DisplayAttribute>()?
+                            .GetName() ?? EnumDoClube.ToString();
+        }
     }
 }

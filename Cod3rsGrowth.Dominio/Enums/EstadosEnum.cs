@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cod3rsGrowth.Dominio.Enums
 {
@@ -86,7 +80,10 @@ namespace Cod3rsGrowth.Dominio.Enums
         SE,
 
         [Display(Name = "Tocantins")]
-        TO
+        TO,
+
+        [Display(Name = "Distrito Federal")]
+        DF
     }
 }
 
