@@ -4,6 +4,8 @@ sap.ui.define([
 	"sap/ui/core/UIComponent"
 ], function(Controller, History, UIComponent) {
 	"use strict";
+    const MENOSUM = -1
+    const HOME = "Home"
 
     return Controller.extend("cod3rsgrowth.controller.Base", {
         getRouter: function () {
@@ -14,10 +16,10 @@ sap.ui.define([
             var sPreviousHash = oHistory.getPreviousHash();
 
             if (sPreviousHash !== undefined) {
-            window.history.go(-1);
+            window.history.go(MENOSUM);
             } else {
             const oRouter = this.getRouter();
-            oRouter.navTo("Home", {}, true);
+            oRouter.navTo(HOME, {}, true);
             }
         }
     });

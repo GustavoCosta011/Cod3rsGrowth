@@ -2,9 +2,24 @@ sap.ui.define([
     "./Base",
     "sap/ui/core/UIComponent",
     "../formatter",
-    "../servico/ClubeServico"
-], (Base, UIComponent, Formatter, ClubeServico) => {
+    "../servico/ClubeServico",
+    "sap/ui/model/json/JSONModel"
+], (Base, UIComponent, Formatter, ClubeServico, JSONModel) => {
     "use strict";
+    const NUMZERO = 0;
+    const CLUBES = "clubes";
+    const VALUE = "value";
+    const NOME = "nome";
+    const ESTADO = "estado";
+    const ITEMSELECIONADO = "selectedItem";
+    const FROM = "from";
+    const TO = "to";
+    const DATAPISO = "DataPiso";
+    const DATATETO = "DataTeto";
+    const CALENDARIO = "calendario";
+    const COMBOBOXESTADOS = "ComboBoxEstados";
+    const INPUTNOME = "InputNome";
+    const VAZIO = ""
 
     return Base.extend("cod3rsgrowth.controller.ListaDeClubes", {
         formatter: Formatter,
@@ -14,77 +29,83 @@ sap.ui.define([
             this.clubeServico.aoBuscar(this.filtros, this.getView());
             
             var oRouter = UIComponent.getRouterFor(this);
-            oRouter.getRoute("clubes").attachPatternMatched(this.aoBuscarFiltros, this);
+            oRouter.getRoute(CLUBES).attachPatternMatched(this.aoBuscarFiltros, this);
         },
         aoClicarAdicionar: function(){
-            this.clubeServico.aoBuscar(this.filtros, this.getView());
+            this.aoBuscarFiltros(this.filtros, this.getView());
         },
 
         aoBuscarFiltros: function() {
-            this.getRouter().navTo("clubes", this.filtros.length === 0 ? {} : {
+            this.getRouter().navTo(CLUBES, this.filtros.length === NUMZERO ? {} : {
                 query: this.filtros.reduce((newArray, atual) => {
                     newArray[atual.key] = atual.value;
                     return newArray;
                 }, {})
             });
-
-            this.clubeServico.aoBuscar(this.filtros, this.getView());
+            var oView = this.getView();
+            ClubeServico.aoBuscar(this.filtros)
+            .then(function(Clubes) {
+                oView.setModel(new JSONModel(Clubes));
+            })
+            .catch(function(error) {
+                console.error('Erro:', error);
+            });
         },
 
         aoBuscarPorNome: function(oEvent) {
-            var nome = oEvent.getParameter("value");
-            this.filtros = this.filtros.filter(f => f.key !== "nome");
+            var nome = oEvent.getParameter(VALUE);
+            this.filtros = this.filtros.filter(f => f.key !== NOME);
             if (nome) {
-                this.filtros.push({ key: "nome", value: encodeURIComponent(nome) });
+                this.filtros.push({ key: NOME, value: encodeURIComponent(nome) });
             }
             this.clubeServico.aoBuscar(this.filtros, this.getView());
         },
 
         aoMudarOEstadoNaComboBox: function(oEvent) {
-            var estado = oEvent.getParameter("selectedItem").getKey();
-            this.filtros = this.filtros.filter(f => f.key !== "estado");
-            if (estado >= 0) {
-                this.filtros.push({ key: "estado", value: encodeURIComponent(estado) });
+            var estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
+            this.filtros = this.filtros.filter(f => f.key !== ESTADO);
+            if (estado >= NUMZERO) {
+                this.filtros.push({ key: ESTADO, value: encodeURIComponent(estado) });
             }
-            this.clubeServico.aoBuscar(this.filtros, this.getView());
+            this.aoBuscarFiltros(this.filtros, this.getView());
         },
 
         aoAlterarData: function(oEvent) {
-            var DataPiso = oEvent.getParameter("from");
-            var DataTeto = oEvent.getParameter("to");
-            this.filtros = this.filtros.filter(f => f.key !== "DataPiso" && f.key !== "DataTeto");
+            var DataPiso = oEvent.getParameter(FROM);
+            var DataTeto = oEvent.getParameter(TO);
+            this.filtros = this.filtros.filter(f => f.key !== DATAPISO && f.key !== DATATETO);
             if (DataPiso) {
                 var DataFormatada = this.formatter.formatDateReverse(DataPiso);
-                this.filtros.push({ key: "DataPiso", value: encodeURIComponent(DataFormatada) });
+                this.filtros.push({ key: DATAPISO, value: encodeURIComponent(DataFormatada) });
             }
             if (DataTeto) {
                 var DataFormatada = this.formatter.formatDateReverse(DataTeto);
-                this.filtros.push({ key: "DataTeto", value: encodeURIComponent(DataFormatada) });
+                this.filtros.push({ key: DATATETO, value: encodeURIComponent(DataFormatada) });
             }
-            this.clubeServico.aoBuscar(this.filtros, this.getView());
+            this.aoBuscarFiltros(this.filtros, this.getView());
         },
 
         aoLimparOsFiltros: function() {
-            var calendario = this.byId("calendario");
+            var calendario = this.byId(CALENDARIO);
             if (calendario) {
                 calendario.setDateValue(null);
                 calendario.setSecondDateValue(null);
-                this.filtros = this.filtros.filter(f => f.key !== "DataPiso" && f.key !== "DataTeto");
+                this.filtros = this.filtros.filter(f => f.key !== DATAPISO && f.key !== DATATETO);
             }
 
-            var ComboBox = this.byId("ComboBoxEstados");
+            var ComboBox = this.byId(COMBOBOXESTADOS);
             if (ComboBox) {
                 ComboBox.setSelectedKey(null);
-                this.filtros = this.filtros.filter(f => f.key !== "estado");
+                this.filtros = this.filtros.filter(f => f.key !== ESTADO);
             }
 
-            var InputNome = this.byId("InputNome");
+            var InputNome = this.byId(INPUTNOME);
             if (InputNome) {
-                InputNome.setValue("");
-                this.filtros = this.filtros.filter(f => f.key !== "nome");
+                InputNome.setValue(VAZIO);
+                this.filtros = this.filtros.filter(f => f.key !== NOME);
             }
 
-            this.clubeServico.aoBuscar(this.filtros, this.getView());
+            this.aoBuscarFiltros(this.filtros, this.getView());
         }
     });
 });
