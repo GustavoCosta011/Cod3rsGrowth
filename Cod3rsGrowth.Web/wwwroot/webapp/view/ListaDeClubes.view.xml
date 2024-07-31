@@ -15,6 +15,7 @@
                 <Button
                     text="{i18n>Botao.Adiconar}"
                     press="aoClicarAdicionar"
+                    icon="sap-icon://add"
                     type="{i18n>Botao.Adiconar.Tipo}"/>
             </VBox>
             <VBox height="0.5em"/>

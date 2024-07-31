@@ -1,0 +1,23 @@
+<mvc:View
+    controllerName="cod3rsgrowth.controller.Criar"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
+    <Page title="Criar Clube" class="sapUiResponsiveContentPadding" navButtonPress="onNavBack">
+        <VBox class="sapUiSmallMargin">
+            <Label text="Nome"/>
+            <Input
+                id="InputNome"
+                width="60%"
+                valueState="None"
+                valueStateText="O campo 'Nome' é obrigatório."
+                liveChange="aoInserirNome"/>
+            <Label
+                id="NomeErrorText"
+                text="O campo 'Nome' é obrigatório."
+                visible="false"
+                class="sapUiSmallMarginTop"/>
+            <Button text="Salvar" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
+        </VBox>
+    </Page>
+</mvc:View>

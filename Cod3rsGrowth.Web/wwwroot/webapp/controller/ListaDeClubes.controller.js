@@ -19,7 +19,8 @@ sap.ui.define([
     const CALENDARIO = "calendario";
     const COMBOBOXESTADOS = "ComboBoxEstados";
     const INPUTNOME = "InputNome";
-    const VAZIO = ""
+    const VAZIO = "";
+    const CRIAR = "criar"
 
     return Base.extend("cod3rsgrowth.controller.ListaDeClubes", {
         formatter: Formatter,
@@ -31,8 +32,9 @@ sap.ui.define([
             var oRouter = UIComponent.getRouterFor(this);
             oRouter.getRoute(CLUBES).attachPatternMatched(this.aoBuscarFiltros, this);
         },
+
         aoClicarAdicionar: function(){
-            this.aoBuscarFiltros();
+            this.getRouter().navTo(CRIAR,{});
         },
 
         aoBuscarFiltros: function() {

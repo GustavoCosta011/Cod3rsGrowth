@@ -76,6 +76,11 @@
                 "pattern": "clubes:?query:",
                 "name": "clubes",
                 "target": "clubes"
+            },
+            {
+                "pattern": "criar?query:",
+                "name": "criar",
+                "target": "criar"
             }],
             "targets": {
                 "home": {
@@ -92,6 +97,11 @@
                     "id": "clubes",
                     "name": "ListaDeClubes",
                     "level": 2
+                },
+                "criar":{
+                    "id": "criar" ,
+                    "name": "TelaCriar",
+                    "level": 3
                 }
             }
         }         
