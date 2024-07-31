@@ -3,7 +3,5 @@
     xmlns:mvc="sap.ui.core.mvc"
     controllerName="cod3rsgrowth.controller.App"
 >
-<App id ="app" class= "myAppClass">
-
-</App>
+<App id ="app" class= "myAppClass"></App>
 </mvc:View>

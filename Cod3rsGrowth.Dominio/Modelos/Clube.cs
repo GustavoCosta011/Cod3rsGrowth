@@ -41,3 +41,30 @@ namespace Cod3rsGrowth.Dominio.Modelos
         public Clube(){ }
     }
 }
+
+namespace Cod3rsGrowth.Dominio.Modelos
+{
+    public class ClubeDto
+    {
+            [PrimaryKey, Identity]
+            public int Id { get; set; }
+
+            [Column("Nome"), NotNull]
+            public string Nome { get; set; }
+
+            [Column("Fundacao"), NotNull]
+            public DateTime Fundacao { get; set; }
+
+            [Column("Estadio")]
+            public string? Estadio { get; set; }
+
+            [Column("Estado"), NotNull]
+            public string Estado { get; set; }
+
+            [Column("CoberturaTeto"), NotNull]
+            public bool? CoberturaAntiChuva { get; set; }
+
+            public List<int>? Elenco { get; set; }
+    }
+}
+
