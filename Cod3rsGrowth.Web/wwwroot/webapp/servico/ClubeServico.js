@@ -3,10 +3,11 @@ sap.ui.define([
 ], (JSONModel) => {
     "use strict";
     const ERRROR = 'Erro na requisição da API';
+    const NUMZERO = 0;
     return {
         aoBuscar: function(filtros) {
 			this.urlClubes = "https://localhost:7178/api/Clubes";
-            if (filtros.length > 0) {
+            if (filtros.length > NUMZERO) {
                 this.urlClubes += "?" + filtros.map(filtro => `${filtro.key}=${filtro.value}`).join("&");
             }
 
@@ -17,9 +18,8 @@ sap.ui.define([
             .then(resposta => {
                 if (resposta.ok) {
                     return resposta.json();
-                } else {
-                    throw new Error(ERRROR);
-                }
+                } 
+                throw new Error(ERRROR);                
             })
             .catch(error => {
                 console.error('Erro:', error);

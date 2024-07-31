@@ -6,24 +6,24 @@
     xmlns:tnt="sap.tnt">
     <Page 
         id="PaginaDaListaClubes"
-        title="{i18n>ListPageTitle}"
+        title="{i18n>Page.Home.Titulo}"
         showNavButton="true"
-        navButtonPress=".onNavBack"
+        navButtonPress="onNavBack"
         class="sapUiResponsiveContentPadding">
         <VBox>
             <VBox>
                 <Button
                     text="{i18n>Botao.Adiconar}"
                     press="aoClicarAdicionar"
-                    type="Emphasized"/>
+                    type="{i18n>Botao.Adiconar.Tipo}"/>
             </VBox>
             <VBox height="0.5em"/>
             <OverflowToolbar>
-            <Title text= "{i18n>TituloFiltros}" />
+            <Title text= "{i18n>Filtros.Titulo}" />
             <ToolbarSpacer width="1.5em"/>
                 <content>
                     <Toolbar>
-                        <Title text="{i18n>TituloInputNome}" />
+                        <Title text="{i18n>Filtro.Nome.Titulo}" />
                         <ToolbarSpacer width="0.5em"/>
                         <Input
                             id="InputNome"
@@ -33,11 +33,11 @@
                     </Toolbar>
                     <ToolbarSeparator/>
                     <Toolbar>
-                        <Title text="{i18n>TituloComboBoxEstado}"/>
+                        <Title text="{i18n>Filtro.Estado.Titulo}"/>
                         <ToolbarSpacer width="0.5em"/>
                         <ComboBox id="ComboBoxEstados"
                             width="60%"
-                            placeholder="{i18n>TituloComboBoxEstado.Acao}"
+                            placeholder="{i18n>Filtro.Estado.Acao}"
                             selectionChange="aoMudarOEstadoNaComboBox">
                             <items>
                                 <core:Item text="Acre" key="0"/>
@@ -72,12 +72,12 @@
                     </Toolbar>
                     <ToolbarSeparator/>
                     <Toolbar>
-                        <Title text="{i18n>TituloFundacao}"/>
+                        <Title text="{i18n>Filtro.Data.Titulo}"/>
                         <ToolbarSpacer width="0.5em"/>
                         <DateRangeSelection
                             id="calendario"
                             width="60%"
-                            placeholder="{i18n>TituloFundacao.Acao}"
+                            placeholder="{i18n>Filtro.Data.Acao}"
                             change="aoAlterarData"
                             liveChange="true"
                             showFooter="true"/>
@@ -85,35 +85,35 @@
                     <ToolbarSpacer/>
                     <Toolbar>
                         <Button
-                            text="{i18n>Botao.LimparFiltros}"
+                            text="{i18n>Botao.Limpar.Filtros.Nome}"
                             press="aoLimparOsFiltros"
-                            type="Emphasized"/>
+                            type= "{i18n>Botao.Limpar.Filtros.Tipo}"/>
                     </Toolbar>
                 </content>
             </OverflowToolbar>
             <VBox height="1em"/>
             <Table id="ListaDeClubes"
                 items="{ path: '/' }"
-                backgroundDesign="Solid"
+                backgroundDesign="{i18n>Table.Back.Design}"
                 alternateRowColors="true"
                 growing="true"
                 growingThreshold="10"
-                growingTriggerText="{i18n>GrowingPaginacao}">
+                growingTriggerText="{i18n>Table.Growing}">
                 <columns>
                     <Column width="12em">
-                        <Text text="{i18n>TextColuna.Nome}"/>
+                        <Text text="{i18n>Table.Coluna.Nome}"/>
                     </Column>
                     <Column minScreenWidth="Tablet" demandPopin="true">
-                        <Text text="{i18n>TextColuna.Fundacao}"/>
+                        <Text text="{i18n>Table.Coluna.Fundacao}"/>
                     </Column>
                     <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
-                        <Text text="{i18n>TextColuna.Estadio}"/>
+                        <Text text="{i18n>Table.Coluna.Estadio}"/>
                     </Column>
                     <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
-                        <Text text="{i18n>TextColuna.Estado}"/>
+                        <Text text="{i18n>Table.Coluna.Estado}"/>
                     </Column>
                     <Column hAlign="Center">
-                        <Text text="{i18n>TextColuna.Cobertura}"/>
+                        <Text text="{i18n>Table.Coluna.Cobertura}"/>
                     </Column>
                 </columns>
                 <items>

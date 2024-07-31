@@ -2,10 +2,11 @@ sap.ui.define([
     "sap/ui/core/format/DateFormat"
 ], function(DateFormat) {
     "use strict";
+    const VAZIO = "";
     return {
         formatDate: function(data) {
             if (!data) {
-                return "";
+                return VAZIO;
             }
             var oDateFormat = DateFormat.getDateTimeInstance({
                 pattern: "dd/MM/yyyy"
@@ -14,7 +15,7 @@ sap.ui.define([
         },
         formatDateReverse: function(data){
             if (!data) {
-                return "";
+                return VAZIO;
             }
             var oDateFormat = DateFormat.getDateTimeInstance({
                 pattern: "yyyy-MM-dd"

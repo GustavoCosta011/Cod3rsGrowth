@@ -26,13 +26,13 @@ sap.ui.define([
         clubeServico: ClubeServico,
         onInit: function() {
             this.filtros = [];
-            this.clubeServico.aoBuscar(this.filtros, this.getView());
+            this.aoBuscarFiltros();
             
             var oRouter = UIComponent.getRouterFor(this);
             oRouter.getRoute(CLUBES).attachPatternMatched(this.aoBuscarFiltros, this);
         },
         aoClicarAdicionar: function(){
-            this.aoBuscarFiltros(this.filtros, this.getView());
+            this.aoBuscarFiltros();
         },
 
         aoBuscarFiltros: function() {
@@ -58,7 +58,7 @@ sap.ui.define([
             if (nome) {
                 this.filtros.push({ key: NOME, value: encodeURIComponent(nome) });
             }
-            this.clubeServico.aoBuscar(this.filtros, this.getView());
+            this.aoBuscarFiltros();
         },
 
         aoMudarOEstadoNaComboBox: function(oEvent) {
@@ -67,8 +67,9 @@ sap.ui.define([
             if (estado >= NUMZERO) {
                 this.filtros.push({ key: ESTADO, value: encodeURIComponent(estado) });
             }
-            this.aoBuscarFiltros(this.filtros, this.getView());
+            this.aoBuscarFiltros();
         },
+
 
         aoAlterarData: function(oEvent) {
             var DataPiso = oEvent.getParameter(FROM);
@@ -82,7 +83,7 @@ sap.ui.define([
                 var DataFormatada = this.formatter.formatDateReverse(DataTeto);
                 this.filtros.push({ key: DATATETO, value: encodeURIComponent(DataFormatada) });
             }
-            this.aoBuscarFiltros(this.filtros, this.getView());
+            this.aoBuscarFiltros();
         },
 
         aoLimparOsFiltros: function() {
@@ -105,7 +106,7 @@ sap.ui.define([
                 this.filtros = this.filtros.filter(f => f.key !== NOME);
             }
 
-            this.aoBuscarFiltros(this.filtros, this.getView());
+            this.aoBuscarFiltros();
         }
     });
 });

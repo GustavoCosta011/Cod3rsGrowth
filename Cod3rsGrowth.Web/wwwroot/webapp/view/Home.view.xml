@@ -2,9 +2,9 @@
 	controllerName="cod3rsgrowth.controller.Home"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
-	<Page title="{i18n>homePageTitle}" class="sapUiResponsiveContentPadding">
+	<Page title="{i18n>Page.Home.Titulo}" class="sapUiResponsiveContentPadding">
 		<content>
-			<Button id = "BotaoIrParaClubes" text="{i18n>GoToListaDeClubes}" press = "IrParaClubes" class="sapUiTinyMarginEnd"/>
+			<Button id = "BotaoIrParaClubes" text="{i18n>Page.Home.Botao.Clubes.Text}" press = "IrParaClubes" class="sapUiTinyMarginEnd"/>
 		</content>
 	</Page>
 </mvc:View>
