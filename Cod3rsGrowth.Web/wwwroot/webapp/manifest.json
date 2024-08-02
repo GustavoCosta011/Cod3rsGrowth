@@ -78,7 +78,7 @@
                 "target": "clubes"
             },
             {
-                "pattern": "criar?query:",
+                "pattern": "criar",
                 "name": "criar",
                 "target": "criar"
             }],

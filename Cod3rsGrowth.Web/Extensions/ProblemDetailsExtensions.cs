@@ -32,8 +32,7 @@ namespace Cod3rsGrowth.Web
                             problemDetails.Detail = Validação.StackTrace;
                             problemDetails.Extensions["Erros Encontrados"] = Validação.Errors
                             .GroupBy(error => error.PropertyName)
-                            .ToDictionary(group => group.Key, group => group.First().ErrorMessage);
-                            
+                            .ToDictionary(group => group.Key, group => group.First().ErrorMessage);                        
                         }
                         else
                         {

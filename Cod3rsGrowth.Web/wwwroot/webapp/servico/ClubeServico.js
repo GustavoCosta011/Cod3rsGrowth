@@ -1,8 +1,7 @@
 sap.ui.define([
-    "sap/ui/model/json/JSONModel"
-], (JSONModel) => {
+], () => {
     "use strict";
-    const ERRROR = 'Erro na requisição da API';
+    const ERROR = 'Erro na requisição da API';
     const NUMZERO = 0;
     return {
         aoBuscar: function(filtros) {
@@ -19,10 +18,30 @@ sap.ui.define([
                 if (resposta.ok) {
                     return resposta.json();
                 } 
-                throw new Error(ERRROR);                
+                throw new Error(ERROR);                
             })
             .catch(error => {
                 console.error('Erro:', error);
+            });
+        },
+        aoCriarClube: function(DadosCriacao) {
+			 this.urlClubes = "https://localhost:7178/api/Clubes";
+
+            return fetch(this.urlClubes, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(DadosCriacao)
+                
+            }) 
+            .then(resposta => {
+                if (resposta.ok) {
+                    return resposta.json();
+                } 
+                throw new Error(ERROR);                
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                console.log(JSON.stringify(DadosCriacao))
             });
         }
     }
