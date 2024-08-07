@@ -13,7 +13,7 @@ sap.ui.define([
     const ESTADO = "estado";
     const COBERTURA = "coberturaAntiChuva";
     const SELECTEDINDEX = "selectedIndex"
-    return Base.extend("cod3rsgrowth.controller.Criar", {
+    return Base.extend("cod3rsgrowth.webapp.controller.Criar", {
         clubeServico: ClubeServico,
         formatter: Formatter,
         onInit: function () {

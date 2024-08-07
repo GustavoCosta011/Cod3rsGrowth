@@ -1,6 +1,8 @@
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Servicos;
 using Cod3rsGrowth.Web;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,13 +14,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureProblemDetailsModelState();
 
 var app = builder.Build();
-app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
+app.UseDefaultFiles();
 app.UseHttpsRedirection();
-app.UseRouting();
 app.UseStaticFiles(new StaticFileOptions
 {
-    ServeUnknownFileTypes = true
+    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "wwwroot")),
+    ContentTypeProvider = new FileExtensionContentTypeProvider
+    {
+        Mappings = { [".properties"] = "application/x-msdownload" }
+    }
 });
+app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

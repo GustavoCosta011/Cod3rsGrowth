@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="cod3rsgrowth.controller.ListaDeClubes"
+    controllerName="cod3rsgrowth.webapp.controller.ListaDeClubes"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
@@ -29,8 +29,7 @@
                         <Input
                             id="InputNome"
                             width="60%"
-                            change="aoBuscarPorNome"
-                            liveChange="true"/>
+                            liveChange="aoBuscarPorNome"/>
                     </Toolbar>
                     <ToolbarSeparator/>
                     <Toolbar>
@@ -80,7 +79,7 @@
                             width="60%"
                             placeholder="{i18n>Filtro.Data.Acao}"
                             change="aoAlterarData"
-                            liveChange="true"
+                            liveChange="aoAlterarData"
                             showFooter="true"/>
                     </Toolbar>
                     <ToolbarSpacer/>

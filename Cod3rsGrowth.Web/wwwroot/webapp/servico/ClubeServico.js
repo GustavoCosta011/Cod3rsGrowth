@@ -30,8 +30,7 @@ sap.ui.define([
             return fetch(this.urlClubes, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(DadosCriacao)
-                
+                body: JSON.stringify(DadosCriacao)           
             }) 
             .then(resposta => {
                 if (resposta.ok) {

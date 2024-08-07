@@ -4,7 +4,7 @@ sap.ui.define([
     "../formatter",
     "../servico/ClubeServico",
     "sap/ui/model/json/JSONModel"
-], (Base, UIComponent, Formatter, ClubeServico, JSONModel) => {
+], function (Base, UIComponent, Formatter, ClubeServico, JSONModel) {
     "use strict";
     const NUMZERO = 0;
     const CLUBES = "clubes";
@@ -20,21 +20,21 @@ sap.ui.define([
     const COMBOBOXESTADOS = "ComboBoxEstados";
     const INPUTNOME = "InputNome";
     const VAZIO = "";
-    const CRIAR = "criar"
+    const CRIAR = "criar";
+    const RESETAR = "resetar";
 
-    return Base.extend("cod3rsgrowth.controller.ListaDeClubes", {
+    return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
         formatter: Formatter,
         clubeServico: ClubeServico,
+
         onInit: function() {
             this.filtros = [];
-            this.aoBuscarFiltros();
-            
             var oRouter = UIComponent.getRouterFor(this);
             oRouter.getRoute(CLUBES).attachPatternMatched(this.aoBuscarFiltros, this);
         },
 
         aoClicarAdicionar: function(){
-            this.getRouter().navTo(CRIAR,{});
+            this.getRouter().navTo(CRIAR, {});
         },
 
         aoBuscarFiltros: function() {
@@ -44,14 +44,15 @@ sap.ui.define([
                     return newArray;
                 }, {})
             });
+
             var oView = this.getView();
             ClubeServico.aoBuscar(this.filtros)
-            .then(function(Clubes) {
-                oView.setModel(new JSONModel(Clubes));
-            })
-            .catch(function(error) {
-                console.error('Erro:', error);
-            });
+                .then((Clubes) => {
+                    oView.setModel(new JSONModel(Clubes));
+                })
+                .catch((error) => {
+                    console.error('Erro:', error);
+                });
         },
 
         aoBuscarPorNome: function(oEvent) {
@@ -71,7 +72,6 @@ sap.ui.define([
             }
             this.aoBuscarFiltros();
         },
-
 
         aoAlterarData: function(oEvent) {
             var DataPiso = oEvent.getParameter(FROM);
@@ -109,6 +109,6 @@ sap.ui.define([
             }
 
             this.aoBuscarFiltros();
-        }
+        },
     });
 });

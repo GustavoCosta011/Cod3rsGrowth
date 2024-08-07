@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="cod3rsgrowth.controller.TelaCriar"
+    controllerName="cod3rsgrowth.webapp.controller.TelaCriar"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core">
