@@ -11,36 +11,22 @@ sap.ui.define([
 
     return Controller.extend("cod3rsgrowth.controller.Base", {
         Historico: [],
-
-        getRouter: function() {
+        _getRouter: function() {
             return UIComponent.getRouterFor(this);
         },
 
-        onInit: function() {
-            this.salvarHash();
-        },
-
-        salvarHash: function() {
-            var oRouter = this.getRouter();
-
-            oRouter.attachRouteMatched((oEvent) => {
-                var sHash = oEvent.getParameter(HASH);
-
-                if (sHash && sHash.indexOf("?") === -MENOSUM) {
-                    this.Historico.push(sHash);
-                }
-            });
-        },
-
-        onNavBack: function() {
-            if (this.Historico.length > 1) {
-                this.Historico.pop();
-                var HashAnterior = this.Historico.pop();
-                this.getRouter().navTo(HashAnterior, {}, true);
-            } else {
-                const oRouter = this.getRouter();
-                oRouter.navTo(HOME, {}, true);
+        _onNavBack: function(rotaDestino, parametros = {}) {
+			if (rotaDestino) {
+                this._getRouter().navTo(rotaDestino, parametros);
+                this.resetarItems();
             }
-        }
+			else { 
+                this._getRouter().navTo(HOME);
+            }
+        },
+        
+        _vincularRota: function(Rota, Metodo){
+            this._getRouter().getRoute(Rota).attachMatched(Metodo, this); 
+        },
     });
 });

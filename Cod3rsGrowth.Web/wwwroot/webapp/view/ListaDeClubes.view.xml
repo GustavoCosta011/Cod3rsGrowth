@@ -8,7 +8,7 @@
         id="PaginaDaListaClubes"
         title="{i18n>Page.Home.Titulo}"
         showNavButton="true"
-        navButtonPress="onNavBack"
+        navButtonPress="_onNavBack('')"
         class="sapUiResponsiveContentPadding">
         <VBox>
             <VBox>
@@ -85,8 +85,9 @@
                     <ToolbarSpacer/>
                     <Toolbar>
                         <Button
+                            id = "BotaoLimpar"
                             text="{i18n>Botao.Limpar.Filtros.Nome}"
-                            press="aoLimparOsFiltros"
+                            press="resetarItems"
                             type= "{i18n>Botao.Limpar.Filtros.Tipo}"/>
                     </Toolbar>
                 </content>

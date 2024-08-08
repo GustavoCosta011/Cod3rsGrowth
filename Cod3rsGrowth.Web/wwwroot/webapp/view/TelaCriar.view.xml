@@ -3,7 +3,7 @@
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core">
-    <Page title="Criar Clube" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="onNavBack">
+    <Page title="Criar Clube" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="_onNavBack('clubes')">
         <VBox justifyContent="Center" alignItems="Center" class="sapUiSmallMargin">
             <VBox width="50%" class="customVBox">
                 <VBox justifyContent="Center" alignItems="Center">
@@ -74,8 +74,8 @@
                 </ComboBox>
                 <Label text="O estadio do clube possui Cobertura Anti-Chuva?"/>
                 <RadioButtonGroup id="CoberturaAntiChuva" select="aoInserirCobertura">
-					<RadioButton text="Sim" selected="false"/>
-					<RadioButton text="Não" selected="false"/>
+					<RadioButton id="BotaoSim" text="Sim" selected="false"/>
+					<RadioButton id="BotaoNao" text="Não" selected="false"/>
 				</RadioButtonGroup>
                 <Button text="Salvar" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
             </VBox>

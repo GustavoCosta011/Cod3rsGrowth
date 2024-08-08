@@ -1,10 +1,9 @@
 sap.ui.define([
     "./Base",
-    "sap/ui/core/UIComponent",
     "../formatter",
     "../servico/ClubeServico",
     "sap/ui/model/json/JSONModel"
-], function (Base, UIComponent, Formatter, ClubeServico, JSONModel) {
+], function (Base, Formatter, ClubeServico, JSONModel) {
     "use strict";
     const NUMZERO = 0;
     const CLUBES = "clubes";
@@ -21,7 +20,6 @@ sap.ui.define([
     const INPUTNOME = "InputNome";
     const VAZIO = "";
     const CRIAR = "criar";
-    const RESETAR = "resetar";
 
     return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
         formatter: Formatter,
@@ -29,16 +27,15 @@ sap.ui.define([
 
         onInit: function() {
             this.filtros = [];
-            var oRouter = UIComponent.getRouterFor(this);
-            oRouter.getRoute(CLUBES).attachPatternMatched(this.aoBuscarFiltros, this);
+            this._vincularRota(CLUBES, this.aoBuscarFiltros);
         },
 
         aoClicarAdicionar: function(){
-            this.getRouter().navTo(CRIAR, {});
+            this._getRouter().navTo(CRIAR, {});
         },
 
         aoBuscarFiltros: function() {
-            this.getRouter().navTo(CLUBES, this.filtros.length === NUMZERO ? {} : {
+            this._getRouter().navTo(CLUBES, this.filtros.length === NUMZERO ? {} : {
                 query: this.filtros.reduce((newArray, atual) => {
                     newArray[atual.key] = atual.value;
                     return newArray;
@@ -88,7 +85,7 @@ sap.ui.define([
             this.aoBuscarFiltros();
         },
 
-        aoLimparOsFiltros: function() {
+        resetarItems: function(oEvent) {
             var calendario = this.byId(CALENDARIO);
             if (calendario) {
                 calendario.setDateValue(null);
@@ -107,8 +104,11 @@ sap.ui.define([
                 InputNome.setValue(VAZIO);
                 this.filtros = this.filtros.filter(f => f.key !== NOME);
             }
-
-            this.aoBuscarFiltros();
-        },
+            
+            var Botao = oEvent.getSource().getId();
+            if (Botao === "BotaoLimpar") {
+                this.aoBuscarFiltros();
+            }           
+        }
     });
 });
