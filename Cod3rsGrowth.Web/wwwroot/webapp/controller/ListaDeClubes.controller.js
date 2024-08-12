@@ -28,6 +28,18 @@ sap.ui.define([
         onInit: function() {
             this.filtros = [];
             this._vincularRota(CLUBES, this.aoBuscarFiltros);
+            this._fetchEstados();
+        },
+    
+        _fetchEstados: function() {
+            ClubeServico.aoBuscarEstados()
+                .then((estados) => {
+                    var oModel = new JSONModel(estados);
+                    this.getView().setModel(oModel, "estados");
+                })
+                .catch((error) => {
+                    console.error('Erro ao buscar estados:', error);
+                });
         },
 
         aoClicarAdicionar: function(){

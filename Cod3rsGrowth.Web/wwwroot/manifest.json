@@ -8,14 +8,14 @@
             "version": "1.0.0"
         },
         "title": "{{appTitle}}"
-    },	
+    },
     "sap.ui": {
-		"technology": "UI5",
-		"deviceTypes": {
-			"desktop": true,
-			"tablet": true,
-			"phone": true
-	    }
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
     },
     "sap.ui5": {
         "rootView": {
@@ -30,15 +30,19 @@
                     "bundleName": "cod3rsgrowth.i18n.i18n"
                 }
             },
-            "clubes" : {
-				"type": "sap.ui.model.json.JSONModel",
-				"uri" : "https://localhost:7178/api/Clubes"
-		    }
+            "clubes": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "https://localhost:7178/api/Clubes"
+            },
+            "estados": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "https://localhost:7178/api/Clubes/estados"
+            }
         },
         "resources": {
             "css": [
                 {
-                    "uri": "css/style.css"
+                    "uri": "webapp/css/style.css"
                 }
             ]
         },
@@ -54,7 +58,7 @@
             "cozy": true
         },
         "routing": {
-            "config":{
+            "config": {
                 "routerClass": "sap.m.routing.Router",
                 "type": "View",
                 "viewType": "XML",
@@ -86,7 +90,7 @@
                 "home": {
                     "id": "home",
                     "name": "Home",
-                    "level" : 1
+                    "level": 1
                 },
                 "notFound": {
                     "id": "NotFound",
@@ -98,12 +102,12 @@
                     "name": "ListaDeClubes",
                     "level": 2
                 },
-                "criar":{
-                    "id": "criar" ,
+                "criar": {
+                    "id": "criar",
                     "name": "TelaCriar",
                     "level": 3
                 }
             }
-        }         
+        }
     }
 }

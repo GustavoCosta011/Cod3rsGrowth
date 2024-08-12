@@ -23,7 +23,7 @@ sap.ui.define([
             }
         
             var day = parts[0];
-            var month = parts[1];
+            var month = parts[1] - 1;
             var year = parts[2];
         
             var DATE = new Date(year, month, day);
@@ -35,7 +35,6 @@ sap.ui.define([
                 pattern: "yyyy-MM-dd"
             });
             return oDateFormat.format(DATE);
-        }
-        
+        }        
     };
 });

@@ -4,6 +4,7 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using FluentValidation;
 using System.Reflection;
 using FluentValidation.Results;
+using System.ComponentModel;
 
 
 namespace Cod3rsGrowth.Servicos.Servicos
@@ -79,6 +80,19 @@ namespace Cod3rsGrowth.Servicos.Servicos
                             .GetMember(EnumDoClube.ToString())[0]
                             .GetCustomAttribute<System.ComponentModel.DataAnnotations.DisplayAttribute>()?
                             .GetName() ?? EnumDoClube.ToString();
+        }
+
+        public string PegarDescrição(Enum value)
+        {
+            var enums = value.GetType().GetField(value.ToString());
+
+            var DisplayDoEnum = enums.GetCustomAttribute<System.ComponentModel.DataAnnotations.DisplayAttribute>();
+            if (DisplayDoEnum != null)
+            {
+                return DisplayDoEnum.Name;
+            }
+
+            return value.ToString();
         }
     }
 }

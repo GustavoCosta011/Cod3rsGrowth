@@ -7,17 +7,18 @@
         <VBox justifyContent="Center" alignItems="Center" class="sapUiSmallMargin">
             <VBox width="50%" class="customVBox">
                 <VBox justifyContent="Center" alignItems="Center">
-                    <Title  text= "Clube"/>
+                    <Title text="Clube"/>
                 </VBox>
-                <Label text="Nome:" />
+                <Label text="Nome:" required="true"/>
                 <Input
                     id="InputNome"
                     width="100%"
                     placeholder="Insira o Nome"
                     change="aoInserirNome"
                     liveChange="true"
+                    class="sapUiSmallMarginBottom"
                 />
-                <Label text="Fundação:"/>
+                <Label text="Fundação:" required="true"/>
                 <DatePicker
                     id="CalendarioCriar"
                     width="100%"
@@ -28,56 +29,32 @@
                     class="sapUiSmallMarginBottom"
                     visible="true"
                 />
-                <Label text="Estadio:"/>
+                <Label text="Estadio:" required="true"/>
                 <Input
                     id="InputEstadio"
                     width="100%"
                     valueState="None" 
-                    valueStateText= "O campo 'Estadio' é obrigatório."
+                    valueStateText="O campo 'Estadio' é obrigatório."
                     placeholder="Insira o Nome do Estadio"
                     change="aoInserirEstadio"
                     liveChange="true"
+                    class="sapUiSmallMarginBottom"
                 />
-                <Label text="Estado:"/>
-                <ComboBox id="EstadoCriacao"
+                <Label text="Estado:" required="true"/>
+                <ComboBox
+                    id="EstadoCriacao"
                     width="100%"
                     placeholder="Insira o Estado do Clube"
-                    selectionChange="aoInserirEstadoDeCriação">
-                    <items>
-                        <core:Item text="Acre" key="0"/>
-                        <core:Item text="Alagoas" key="1"/>
-                        <core:Item text="Amapá" key="2"/>
-                        <core:Item text="Amazonas" key="3"/>
-                        <core:Item text="Bahia" key="4"/>
-                        <core:Item text="Ceará" key="5"/>
-                        <core:Item text="Espírito Santo" key="6"/>
-                        <core:Item text="Goiás" key="7"/>
-                        <core:Item text="Maranhão" key="8"/>
-                        <core:Item text="Mato Grosso" key="9"/>
-                        <core:Item text="Mato Grosso do Sul" key="10"/>
-                        <core:Item text="Minas Gerais" key="11"/>
-                        <core:Item text="Pará" key="12"/>
-                        <core:Item text="Paraíba" key="13"/>
-                        <core:Item text="Paraná" key="14"/>
-                        <core:Item text="Pernambuco" key="15"/>
-                        <core:Item text="Piauí" key="16"/>
-                        <core:Item text="Rio de Janeiro" key="17"/>
-                        <core:Item text="Rio Grande do Norte" key="18"/>
-                        <core:Item text="Rio Grande do Sul" key="19"/>
-                        <core:Item text="Rondônia" key="20"/>
-                        <core:Item text="Roraima" key="21"/>
-                        <core:Item text="Santa Catarina" key="22"/>
-                        <core:Item text="São Paulo" key="23"/>
-                        <core:Item text="Sergipe" key="24"/>
-                        <core:Item text="Tocantins" key="25"/>
-                        <core:Item text="Distrito Federal" key="26"/>
-                    </items>
-                </ComboBox>
-                <Label text="O estadio do clube possui Cobertura Anti-Chuva?"/>
-                <RadioButtonGroup id="CoberturaAntiChuva" select="aoInserirCobertura">
-					<RadioButton id="BotaoSim" text="Sim" selected="false"/>
-					<RadioButton id="BotaoNao" text="Não" selected="false"/>
-				</RadioButtonGroup>
+                    selectionChange="aoInserirEstadoDeCriação"
+                    class="sapUiSmallMarginBottom"
+                    items="{estados>/}">
+                    <core:Item key="{estados>Key}" text="{estados>Description}" />
+                </ComboBox>                
+                <Label text="O estadio do clube possui Cobertura Anti-Chuva?" required="true"/>
+                <RadioButtonGroup id="CoberturaAntiChuva" select="aoInserirCobertura" class="sapUiSmallMarginBottom">
+                    <RadioButton id="BotaoSim" text="Sim" selected="false"/>
+                    <RadioButton id="BotaoNao" text="Não" selected="false"/>
+                </RadioButtonGroup>
                 <Button text="Salvar" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
             </VBox>
         </VBox>

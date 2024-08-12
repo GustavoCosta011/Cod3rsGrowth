@@ -1,4 +1,5 @@
-﻿using Cod3rsGrowth.Dominio.Interfaces;
+﻿using Cod3rsGrowth.Dominio.Enums;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Servicos.Servicos;
 using FluentValidation;
@@ -47,9 +48,22 @@ namespace Cod3rsGrowth.Web.Controllers
 
         [HttpDelete("{id}")]
         public IActionResult Remover([FromRoute] int id)
-        {
-            _servicoClube.RemoverClube(id);
+        { 
             return NoContent();
+        }
+
+        [HttpGet("estados")]
+        public IActionResult GetEstados()
+        {
+            var estados = Enum.GetValues(typeof(EstadosEnum))
+                              .Cast<EstadosEnum>()
+                              .Select(e => new
+                              {
+                                  Key = (int)e,
+                                  Description = _servicoClube.PegarDescrição(e)
+                              });
+
+            return Ok(estados); 
         }
     }
 }
