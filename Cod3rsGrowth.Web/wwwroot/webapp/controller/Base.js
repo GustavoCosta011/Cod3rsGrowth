@@ -22,6 +22,7 @@ sap.ui.define([
             }
 			else { 
                 this._getRouter().navTo(HOME);
+                this.resetarItems();
             }
         },
         

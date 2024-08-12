@@ -2,7 +2,9 @@ sap.ui.define([
     "./Base",
     "../servico/ClubeServico",
     "../formatter",
-], (Base, ClubeServico, Formatter) => {
+    "sap/m/MessageBox",
+    "sap/m/MessageToast",
+], (Base, ClubeServico, Formatter, MessageBox,MessageToast) => {
     "use strict";
 
     const NUMZERO = 0;
@@ -110,12 +112,48 @@ sap.ui.define([
             }
         },
 
-        aoSalvarClube: function () {
+        aoSalvarClube: async function () {
             var DadosDaCriação = this.DadosCriacao.reduce((newArray, atual) => {
                 newArray[atual.key] = atual.value;
                 return newArray;
             }, {})
-            this.clubeServico.aoCriarClube(DadosDaCriação);
-        }
+            try {
+                const resultado = await this.clubeServico.aoCriarClube(DadosDaCriação);
+                MessageToast.show(`Clube ${resultado} criado com sucesso!`, { duration: 5000, closeOnBrowserNavigation: false });
+                this.resetarItems();
+                this._onNavBack("clubes");
+            } 
+            catch (erro) {
+                this.exibirErroNaTela(erro);
+            }
+        },
+
+        exibirErroNaTela: function(erro) {  
+            console.log(erro);
+
+            let mensagemErro = "Erro desconhecido encontrado!";
+            let detalhesErro = "Stacktrace está indisponível!";
+        
+            if (erro.extensions && erro.extensions.fluentValidation) {
+                mensagemErro = Object.values(erro.extensions.fluentValidation).join("\r\n");
+            } 
+
+            else if (erro.detail) {
+                mensagemErro = erro.detail.split("\r\n")[0];
+            }
+        
+            if (erro.title || erro.Title) {
+                detalhesErro = `Status: ${erro.status || erro.Status} - Detalhes: ${erro.detail || "Sem detalhes adicionais"}`;
+            }
+
+            MessageBox.error(
+                mensagemErro,
+                {
+                    title: erro.title || erro.Title || "Erro ao criar clube",
+                    details: detalhesErro,
+                    contentWidth: "500px"
+                }
+            );
+        }        
     });
 });

@@ -18,15 +18,16 @@
                     liveChange="true"
                 />
                 <Label text="Fundação:"/>
-				<DatePicker
-					id="CalendarioCriar"
+                <DatePicker
+                    id="CalendarioCriar"
                     width="100%"
-					placeholder="Insira a Fundação"
-					change= "aoInserirFundação"
+                    placeholder="Insira a Fundação"
+                    change="aoInserirFundação"
                     liveChange="true"
-					class="sapUiSmallMarginBottom"
+                    displayFormat="dd/MM/yyyy"
+                    class="sapUiSmallMarginBottom"
                     visible="true"
-                    />
+                />
                 <Label text="Estadio:"/>
                 <Input
                     id="InputEstadio"
