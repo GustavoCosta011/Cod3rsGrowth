@@ -48,7 +48,7 @@
                     selectionChange="aoInserirEstadoDeCriação"
                     class="sapUiSmallMarginBottom"
                     items="{estados>/}">
-                    <core:Item key="{estados>Key}" text="{estados>Description}" />
+                    <core:Item key="{estados>key}" text="{estados>description}" />
                 </ComboBox>                
                 <Label text="O estadio do clube possui Cobertura Anti-Chuva?" required="true"/>
                 <RadioButtonGroup id="CoberturaAntiChuva" select="aoInserirCobertura" class="sapUiSmallMarginBottom">

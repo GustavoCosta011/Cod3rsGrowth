@@ -35,12 +35,12 @@
                     <Toolbar>
                         <Title text="{i18n>Filtro.Estado.Titulo}"/>
                         <ToolbarSpacer width="0.5em"/>
-                        <ComboBox id="ComboBoxEstados"
+                        <ComboBox id="ComboBoxEstados" 
                             width="60%"
                             placeholder="{i18n>Filtro.Estado.Acao}"
                             selectionChange="aoMudarOEstadoNaComboBox"
                             items="{estados>/}">
-                            <core:Item key="{estados>Key}" text="{estados>Description}" />
+                            <core:Item key="{estados>key}" text="{estados>description}" />
                         </ComboBox>
                     </Toolbar>
                     <ToolbarSeparator/>

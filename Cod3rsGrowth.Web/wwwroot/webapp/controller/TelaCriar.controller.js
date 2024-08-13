@@ -4,7 +4,8 @@ sap.ui.define([
     "../formatter",
     "sap/m/MessageBox",
     "sap/m/MessageToast",
-], (Base, ClubeServico, Formatter, MessageBox, MessageToast) => {
+    "sap/ui/model/json/JSONModel"
+], (Base, ClubeServico, Formatter, MessageBox, MessageToast, JSONModel) => {
     "use strict";
 
     const NUMZERO = 0;
@@ -33,22 +34,21 @@ sap.ui.define([
         onInit: function () {
             this.DadosCriacao = [];
             this._vincularRota("criar", this.aoCoincidirRota);
-            this._carregarEstados();
+            this._CarregarEstados();
         },
 
         aoCoincidirRota: function(){
             this.resetarItems();
         },
 
-        _carregarEstados: function() {
+        _CarregarEstados: function() {
             this.clubeServico.aoBuscarEstados()
-                .then(data => {
-                    const oModel = new sap.ui.model.json.JSONModel();
-                    oModel.setData({ estados: data });
+                .then((estados) => {
+                    var oModel = new JSONModel(estados);
                     this.getView().setModel(oModel, ESTADOS);
                 })
-                .catch(error => {
-                    console.error("Erro ao carregar estados:", error);
+                .catch((error) => {
+                    console.error('Erro ao buscar estados:', error);
                 });
         },
 
