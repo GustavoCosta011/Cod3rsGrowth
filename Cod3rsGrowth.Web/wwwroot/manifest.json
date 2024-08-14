@@ -82,30 +82,26 @@
                 "target": "clubes"
             },
             {
-                "pattern": "criar",
+                "pattern": "clubes/criar",
                 "name": "criar",
-                "target": "criar"
+                "target": "criarClube"
             }],
             "targets": {
                 "home": {
-                    "id": "home",
-                    "name": "Home",
-                    "level": 1
+					"viewName": "Home",
+					"viewLevel": 3
                 },
                 "notFound": {
-                    "id": "NotFound",
-                    "name": "NotFound",
-                    "transition": "show"
+					"viewName": "NotFound",
+					"viewLevel": 3
                 },
                 "clubes": {
-                    "id": "clubes",
-                    "name": "ListaDeClubes",
-                    "level": 2
+					"viewName": "ListaDeClubes",
+					"viewLevel": 3
                 },
-                "criar": {
-                    "id": "criar",
-                    "name": "TelaCriar",
-                    "level": 3
+                "criarClube": {
+					"viewName": "TelaCriar",
+					"viewLevel": 3
                 }
             }
         }

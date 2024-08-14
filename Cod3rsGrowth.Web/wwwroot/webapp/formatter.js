@@ -17,24 +17,32 @@ sap.ui.define([
             if (!data) {
                 return VAZIO;
             }
+        
+            if (data instanceof Date) {
+                var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
+                    pattern: "yyyy-MM-dd"
+                });
+                return oDateFormat.format(data);
+            }
+
             var parts = data.split("/");
             if (parts.length !== 3) {
                 return VAZIO;
             }
         
-            var day = parts[0];
-            var month = parts[1] - 1;
-            var year = parts[2];
+            var day = parseInt(parts[0], 10);
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
         
             var DATE = new Date(year, month, day);
-            if (isNaN(DATE)) {
+            if (isNaN(DATE.getTime())) {
                 return VAZIO;
             }
         
-            var oDateFormat = DateFormat.getDateTimeInstance({
+            var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
                 pattern: "yyyy-MM-dd"
             });
             return oDateFormat.format(DATE);
-        }        
+        }                
     };
 });
