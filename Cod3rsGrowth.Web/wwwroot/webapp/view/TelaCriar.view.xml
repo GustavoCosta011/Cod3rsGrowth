@@ -55,7 +55,7 @@
                     <RadioButton id="BotaoSim" text="Sim" selected="false"/>
                     <RadioButton id="BotaoNao" text="Não" selected="false"/>
                 </RadioButtonGroup>
-                <Button text="Salvar" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
+                <Button id= "BotaoSalvar" text="Salvar" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
             </VBox>
         </VBox>
     </Page>

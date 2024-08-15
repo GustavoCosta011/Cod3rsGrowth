@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/test/opaQunit",
     "../pages/Home",
-    "../pages/ListadeClubes",
+    "../pages/ListaDeClubes",
     "../pages/NotFound"
   ], (opaQUnit) => {
     "use strict";
@@ -50,7 +50,7 @@ sap.ui.define([
       When.naPaginaListaDeClubes.aoInserirFiltroData("25/03/1924 - 02/01/1931");
 
       //Assert
-      Then.naPaginaListaDeClubes.verificarSeFoiRetornadaListaComFiltroFundacao("25/03/1924","01/02/1931");
+      Then.naPaginaListaDeClubes.verificarSeFoiRetornadaListaComFiltroFundacao("03/25/1924","01/02/1931");
 
       Then.iTeardownMyApp();      
     });

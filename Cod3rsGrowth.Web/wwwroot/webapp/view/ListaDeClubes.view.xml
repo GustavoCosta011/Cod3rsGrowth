@@ -6,7 +6,7 @@
     xmlns:tnt="sap.tnt">
     <Page 
         id="PaginaDaListaClubes"
-        title="{i18n>Page.Home.Titulo}"
+        title="{i18n>Page.Clubes.Titulo}"
         showNavButton="true"
         navButtonPress="_onNavBack('')"
         class="sapUiResponsiveContentPadding">
