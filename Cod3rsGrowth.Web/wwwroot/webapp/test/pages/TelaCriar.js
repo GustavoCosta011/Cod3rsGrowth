@@ -162,17 +162,17 @@ sap.ui.define([
                     return this.waitFor({
                         pollingInterval: 100,
                         check: function () {
-                            var Controlador = sap.ui.getCore().byClassName("sapMMessageToast");
-                            return Controlador.some(function (oControl) {
-                                return oControl.getText() === Mensagem;
-                            });
+                            var MessageToastControle = sap.ui.test.Opa5.getJQuery()(".sapMMessageToast");
+                            return MessageToastControle.filter(function (i, elemento) {
+                                return elemento.textContent === Mensagem;
+                            }).length > 0;
                         },
                         success: function () {
                             Opa5.assert.ok(true, "MessageToast foi exibido com o texto: " + Mensagem);
                         },
                         errorMessage: "MessageToast com o texto '" + Mensagem + "' não foi encontrado."
                     });
-                }
+                } 
             }
         }
     });

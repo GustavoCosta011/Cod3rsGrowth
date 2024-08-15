@@ -219,7 +219,6 @@ sap.ui.define([
                 const resultado = await this.clubeServico.aoCriarClube(DadosDaCriação);
                 MessageToast.show(`Clube criado com sucesso!`, { duration: 5000, closeOnBrowserNavigation: false });
                 this.resetarItems();
-                this._onNavBack("clubes");
             } 
             catch (erro) {
                 this.exibirErroNaTela(erro);

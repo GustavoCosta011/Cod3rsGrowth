@@ -34,9 +34,10 @@ sap.ui.define([
       Then.iTeardownMyApp();
     });
 
-    opaQUnit("Deve Verificar  se as mensagens de erro aparecem nis inputs", function (Given, When, Then) {
+    opaQUnit("Deve verificar se o MessageToast aparece na tela", function (Given, When, Then) {
       // Arrange
       Given.iStartMyApp({hash : "clubes/criar"});
+
       //Act 
       When.naPaginaDeCriacao.aoInserirNome("Goiânia");
       When.naPaginaDeCriacao.aoInserirFundacao("18/01/1976");
