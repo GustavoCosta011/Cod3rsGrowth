@@ -172,7 +172,30 @@ sap.ui.define([
                         },
                         errorMessage: "MessageToast com o texto '" + Mensagem + "' não foi encontrado."
                     });
-                } 
+                },
+                DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo: function(mensagemEsperada) {
+                    return this.waitFor({
+                        controlType: "sap.m.Dialog",
+                        matchers: new PropertyStrictEquals({
+                            name: "title",
+                            value: "Erro"
+                        }),
+                        success: function(CaixaDeDialogo) {
+                            Opa5.assert.ok(CaixaDeDialogo.length, "Caixa de diálogo de erro foi exibida.");
+                
+                            var dialogo = CaixaDeDialogo[0];
+                            var vbox = dialogo.getContent()[0];
+                            var conteudo = vbox.getItems()[0]
+                            var texto = conteudo.getText();
+                            Opa5.assert.strictEqual(texto, mensagemEsperada, "Mensagem de erro está correta.");
+                
+                            var detalhes = vbox.getItems()[1]; 
+                            var textoDetalhes = detalhes.getText();
+                            Opa5.assert.ok(textoDetalhes.length > 0, "Detalhes do erro estão presentes.");
+                        },
+                        errorMessage: "Caixa de diálogo de erro não foi exibida corretamente."
+                    });
+                }
             }
         }
     });

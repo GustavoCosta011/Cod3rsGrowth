@@ -37,7 +37,7 @@
                         <ToolbarSpacer width="0.5em"/>
                         <ComboBox id="ComboBoxEstados" 
                             width="60%"
-                            placeholder="{i18n>Filtro.Estado.Acao}"
+                            placeholder="{i18n>Filtro.Estado.Placeholder}"
                             selectionChange="aoMudarOEstadoNaComboBox"
                             items="{estados>/}">
                             <core:Item key="{estados>key}" text="{estados>description}" />
@@ -50,7 +50,7 @@
                         <DateRangeSelection
                             id="calendario"
                             width="60%"
-                            placeholder="{i18n>Filtro.Data.Acao}"
+                            placeholder="{i18n>Filtro.Data.Placeholder}"
                             change="aoAlterarData"
                             liveChange="aoAlterarData"
                             showFooter="true"/>

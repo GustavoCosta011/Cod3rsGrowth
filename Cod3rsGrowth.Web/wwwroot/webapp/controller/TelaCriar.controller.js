@@ -25,7 +25,21 @@ sap.ui.define([
     const BOTAO_SIM = "BotaoSim";
     const BOTAO_NAO = "BotaoNao";
     const VAZIO = "";
+    const CRIAR = "criar"; 
+    const QUEBRADELINHA = "\r\n";
     const ESTADOS = "estados";
+    const TITULO_ERRO = "Erro";
+    const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
+    const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
+    const MENSAGEM_SUCESSO_CLUBE = "Clube criado com sucesso!";
+    const DURACAO_TOAST = 5000;
+    const ESTADO_NONE = "None";
+    const ESTADO_ERROR = "Error";
+    const TEXTO_ERRO_NOME = "Campo 'Nome' precisa ser preenchido.";
+    const TEXTO_ERRO_ESTADIO = "Campo 'Estádio' precisa ser preenchido.";
+    const TEXTO_ERRO_FUNDACAO = "Campo 'Data de Fundação' precisa ser preenchido.";
+    const TEXTO_ERRO_ESTADO = "Campo 'Estado' precisa ser preenchido.";
+    const TEXTO_ERRO_FETCH_ESTADO = 'Erro ao buscar estados:';
 
     return Base.extend("cod3rsgrowth.webapp.controller.Criar", {
         clubeServico: ClubeServico,
@@ -33,7 +47,7 @@ sap.ui.define([
 
         onInit: function () {
             this.DadosCriacao = [];
-            this._vincularRota("criar", this.aoCoincidirRota);
+            this._vincularRota(CRIAR, this.aoCoincidirRota);
             this._CarregarEstados();
         },
 
@@ -48,7 +62,7 @@ sap.ui.define([
                     this.getView().setModel(oModel, ESTADOS);
                 })
                 .catch((error) => {
-                    console.error('Erro ao buscar estados:', error);
+                    console.error(TEXTO_ERRO_FETCH_ESTADO, error);
                 });
         },
 
@@ -103,56 +117,44 @@ sap.ui.define([
         validarNome: function(nome) {
             var inputNome = this.byId(INPUTNOME);
             if (!nome) {
-                inputNome.setValueState("Error");
-                inputNome.setValueStateText("Campo 'Nome' precisa ser preenchido.");
-                return false;
-            } else if (nome.length < 3 || nome.length > 60) {
-                inputNome.setValueState("Error");
-                inputNome.setValueStateText("Nome deve ter entre 3 e 60 caracteres.");
+                inputNome.setValueState(ESTADO_ERROR);
+                inputNome.setValueStateText(TEXTO_ERRO_NOME);
                 return false;
             }
-            inputNome.setValueState("None");
+            inputNome.setValueState(ESTADO_NONE);
             return true;
         },
         
         validarEstadio: function(estadio) {
             var inputEstadio = this.byId(INPUTESTADIO);
             if (!estadio) {
-                inputEstadio.setValueState("Error");
-                inputEstadio.setValueStateText("Campo 'Estádio' precisa ser preenchido.");
-                return false;
-            } else if (estadio.length < 3 || estadio.length > 60) {
-                inputEstadio.setValueState("Error");
-                inputEstadio.setValueStateText("Estádio deve ter entre 3 e 60 caracteres.");
+                inputEstadio.setValueState(ESTADO_ERROR);
+                inputEstadio.setValueStateText(TEXTO_ERRO_ESTADIO);
                 return false;
             }
-            inputEstadio.setValueState("None");
+            inputEstadio.setValueState(ESTADO_NONE);
             return true;
         },
         
         validarFundacao: function(data) {
             var calendarioCriar = this.byId(CALENDARIOCRIAR);
             if (!data) {
-                calendarioCriar.setValueState("Error");
-                calendarioCriar.setValueStateText("Campo 'Data de Fundação' precisa ser preenchido.");
-                return false;
-            } else if (new Date(data) > new Date()) {
-                calendarioCriar.setValueState("Error");
-                calendarioCriar.setValueStateText("A data deve ser igual ou anterior ao dia atual.");
+                calendarioCriar.setValueState(ESTADO_ERROR);
+                calendarioCriar.setValueStateText(TEXTO_ERRO_FUNDACAO);
                 return false;
             }
-            calendarioCriar.setValueState("None");
+            calendarioCriar.setValueState(ESTADO_NONE);
             return true;
         },
         
         validarEstado: function(estado) {
             var estadoCriacao = this.byId(ESTADIOCRIACAO);
-            if (estado == null || estado === "") {
-                estadoCriacao.setValueState("Error");
-                estadoCriacao.setValueStateText("Campo 'Estado' precisa ser preenchido.");
+            if (estado == null || estado === VAZIO) {
+                estadoCriacao.setValueState(ESTADO_ERROR);
+                estadoCriacao.setValueStateText(TEXTO_ERRO_ESTADO);
                 return false;
             }
-            estadoCriacao.setValueState("None");
+            estadoCriacao.setValueState(ESTADO_NONE);
             return true;
         },
         
@@ -160,12 +162,12 @@ sap.ui.define([
             var botaoSim = this.byId(BOTAO_SIM);
             var botaoNao = this.byId(BOTAO_NAO);
             if (cobertura === undefined) {
-                botaoSim.setValueState("Error");
-                botaoNao.setValueState("Error");
+                botaoSim.setValueState(ESTADO_ERROR);
+                botaoNao.setValueState(ESTADO_ERROR);
                 return false;
             }
-            botaoSim.setValueState("None");
-            botaoNao.setValueState("None");
+            botaoSim.setValueState(ESTADO_NONE);
+            botaoNao.setValueState(ESTADO_NONE);
             return true;
         },
 
@@ -173,37 +175,37 @@ sap.ui.define([
             var inputNome = this.byId(INPUTNOME);
             if (inputNome) {
                 inputNome.setValue(VAZIO);
-                inputNome.setValueState("None");
+                inputNome.setValueState(ESTADO_NONE);
             }
 
             var calendarioCriar = this.byId(CALENDARIOCRIAR);
             if (calendarioCriar) {
                 calendarioCriar.setDateValue(null);
-                calendarioCriar.setValueState("None");
+                calendarioCriar.setValueState(ESTADO_NONE);
             }
 
             var inputEstadio = this.byId(INPUTESTADIO);
             if (inputEstadio) {
                 inputEstadio.setValue(VAZIO);
-                inputEstadio.setValueState("None");
+                inputEstadio.setValueState(ESTADO_NONE);
             }
 
             var estadoCriacao = this.byId(ESTADIOCRIACAO);
             if (estadoCriacao) {
                 estadoCriacao.setSelectedKey(null);
-                estadoCriacao.setValueState("None");
+                estadoCriacao.setValueState(ESTADO_NONE);
             }
 
             var botaoSim = this.byId(BOTAO_SIM);
             if (botaoSim) {
                 botaoSim.setSelected(false);
-                botaoSim.setValueState("None");
+                botaoSim.setValueState(ESTADO_NONE);
             }
 
             var botaoNao = this.byId(BOTAO_NAO);
             if (botaoNao) {
                 botaoNao.setSelected(false);
-                botaoNao.setValueState("None");
+                botaoNao.setValueState(ESTADO_NONE);
             }
         },
 
@@ -217,7 +219,7 @@ sap.ui.define([
             }, {})
             try {
                 const resultado = await this.clubeServico.aoCriarClube(DadosDaCriação);
-                MessageToast.show(`Clube criado com sucesso!`, { duration: 5000, closeOnBrowserNavigation: false });
+                MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 this.resetarItems();
             } 
             catch (erro) {
@@ -238,21 +240,21 @@ sap.ui.define([
         exibirErroNaTela: function(erro) {  
             console.log(erro);
 
-            let mensagemErro = "Erro desconhecido encontrado!";
-            let detalhesErro = "Stacktrace está indisponível!";
+            let mensagemErro = MENSAGEM_ERRO_DESCONHECIDO;
+            let detalhesErro = DETALHES_ERRO_INDISPONIVEL;
         
             if (erro.extensions && erro.extensions.fluentValidation) {
                 mensagemErro = Object.values(erro.extensions.fluentValidation).join("\r\n");
             } 
             else if (erro.detail) {
-                mensagemErro = erro.detail.split("\r\n")[0];
+                mensagemErro = erro.detail.split(QUEBRADELINHA)[0];
             }
             if (erro.title || erro.Title) {
                 detalhesErro = `Status: ${erro.status || erro.Status} - Detalhes: ${erro.title || erro.Title}`;
             }
         
             MessageBox.error(mensagemErro, {
-                title: "Erro",
+                title: TITULO_ERRO,
                 details: detalhesErro,
                 actions: [MessageBox.Action.CLOSE]
             });

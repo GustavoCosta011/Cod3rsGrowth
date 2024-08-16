@@ -3,59 +3,58 @@
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core">
-    <Page title="Criar Clube" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="_onNavBack('clubes')">
+    <Page title="{i18n>Page.Criar.Titulo}" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="_onNavBack('clubes')">
         <VBox justifyContent="Center" alignItems="Center" class="sapUiSmallMargin">
             <VBox width="50%" class="customVBox">
                 <VBox justifyContent="Center" alignItems="Center">
-                    <Title text="Clube"/>
+                    <Title text="{i18n>Page.Criar.Titulo.Clube}"/>
                 </VBox>
-                <Label text="Nome:" required="true"/>
+                <Label text="{i18n>Page.Criar.Nome}" required="true"/>
                 <Input
                     id="InputNome"
                     width="100%"
-                    placeholder="Insira o Nome"
+                    placeholder="{i18n>Page.Criar.Nome.Placeholder}"
                     change="aoInserirNome"
                     liveChange="true"
                     class="sapUiSmallMarginBottom"
                 />
-                <Label text="Fundação:" required="true"/>
+                <Label text="{i18n>Page.Criar.Fundacao}" required="true"/>
                 <DatePicker
                     id="CalendarioCriar"
                     width="100%"
-                    placeholder="Insira a Fundação"
+                    placeholder="{i18n>Page.Criar.Fundacao.Placeholder}"
                     change="aoInserirFundação"
                     liveChange="true"
                     displayFormat="dd/MM/yyyy"
                     class="sapUiSmallMarginBottom"
                     visible="true"
                 />
-                <Label text="Estadio:" required="true"/>
+                <Label text="{i18n>Page.Criar.Estadio}" required="true"/>
                 <Input
                     id="InputEstadio"
                     width="100%"
                     valueState="None" 
-                    valueStateText="O campo 'Estadio' é obrigatório."
-                    placeholder="Insira o Nome do Estadio"
+                    placeholder="{i18n>Page.Criar.Estadio.Placeholder}"
                     change="aoInserirEstadio"
                     liveChange="true"
                     class="sapUiSmallMarginBottom"
                 />
-                <Label text="Estado:" required="true"/>
+                <Label text="{i18n>Page.Criar.Estado}" required="true"/>
                 <ComboBox
                     id="EstadoCriacao"
                     width="100%"
-                    placeholder="Insira o Estado do Clube"
+                    placeholder="{i18n>Page.Criar.Estado.Placeholder}"
                     selectionChange="aoInserirEstadoDeCriação"
                     class="sapUiSmallMarginBottom"
                     items="{estados>/}">
                     <core:Item key="{estados>key}" text="{estados>description}" />
                 </ComboBox>                
-                <Label text="O estadio do clube possui Cobertura Anti-Chuva?" required="true"/>
+                <Label text="{i18n>Page.Criar.CoberturaAntiChuva}" required="true"/>
                 <RadioButtonGroup id="CoberturaAntiChuva" select="aoInserirCobertura" class="sapUiSmallMarginBottom">
-                    <RadioButton id="BotaoSim" text="Sim" selected="false"/>
-                    <RadioButton id="BotaoNao" text="Não" selected="false"/>
+                    <RadioButton id="BotaoSim" text="{i18n>Page.Criar.CoberturaAntiChuva.Sim}" selected="false"/>
+                    <RadioButton id="BotaoNao" text="{i18n>Page.Criar.CoberturaAntiChuva.Nao}" selected="false"/>
                 </RadioButtonGroup>
-                <Button id= "BotaoSalvar" text="Salvar" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
+                <Button id="BotaoSalvar" text="{i18n>Page.Criar.Salvar}" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
             </VBox>
         </VBox>
     </Page>
