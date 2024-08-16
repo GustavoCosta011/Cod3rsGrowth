@@ -75,7 +75,7 @@ sap.ui.define([
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, "clubes/criar", "Navegou para tela de NotFound");
+                            Opa5.assert.strictEqual(hash, "clubes/criar", "Navegou para tela de Criação");
                         },
                         errorMessage: "A URL não é a esperada"
                     });
@@ -84,7 +84,7 @@ sap.ui.define([
                     return this.waitFor({
                         controlType: "sap.m.Page",
                         viewName: dataView,
-                        matchers: new PropertyStrictEquals({ name: "title", value: "Criar Clube"}),
+                        matchers: new PropertyStrictEquals({ name: "title", value: "Criação"}),
                         success: function(page) {
                             Opa5.assert.ok(page, "O título da página está certo");
                         },
