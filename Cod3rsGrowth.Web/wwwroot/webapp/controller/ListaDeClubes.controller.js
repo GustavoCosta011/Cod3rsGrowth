@@ -19,7 +19,7 @@ sap.ui.define([
     const COMBOBOXESTADOS = "ComboBoxEstados";
     const INPUTNOME = "InputNome";
     const VAZIO = "";
-    const CRIAR = "criarClube";
+    const CRIAR = "criar";
     const ESTADOS = "estados";
 
     return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {

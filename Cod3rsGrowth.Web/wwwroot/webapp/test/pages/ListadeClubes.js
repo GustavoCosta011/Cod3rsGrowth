@@ -88,7 +88,7 @@ sap.ui.define([
                         viewName: dataView,
                         matchers: new AggregationLengthEquals({
 							name: "items",
-							length: 18
+							length: 20
 						}),
 						success: function () {
 							Opa5.assert.ok(true, "Foram adicionados na tabela mais 8 items");
