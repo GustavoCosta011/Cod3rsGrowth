@@ -1,26 +1,27 @@
 <mvc:View
-    controllerName="cod3rsgrowth.controller.ListaDeClubes"
+    controllerName="cod3rsgrowth.webapp.controller.ListaDeClubes"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns:tnt="sap.tnt">
     <Page 
         id="PaginaDaListaClubes"
-        title="{i18n>Page.Home.Titulo}"
+        title="{i18n>Page.Clubes.Titulo}"
         showNavButton="true"
-        navButtonPress="onNavBack"
+        navButtonPress="navegarPara('')"
         class="sapUiResponsiveContentPadding">
         <VBox>
             <VBox>
                 <Button
                     text="{i18n>Botao.Adiconar}"
                     press="aoClicarAdicionar"
+                    icon="sap-icon://add"
                     type="{i18n>Botao.Adiconar.Tipo}"/>
             </VBox>
             <VBox height="0.5em"/>
             <OverflowToolbar>
-            <Title text= "{i18n>Filtros.Titulo}" />
-            <ToolbarSpacer width="1.5em"/>
+                <Title text= "{i18n>Filtros.Titulo}" />
+                <ToolbarSpacer width="1.5em"/>
                 <content>
                     <Toolbar>
                         <Title text="{i18n>Filtro.Nome.Titulo}" />
@@ -28,46 +29,18 @@
                         <Input
                             id="InputNome"
                             width="60%"
-                            change="aoBuscarPorNome"
-                            liveChange="true"/>
+                            liveChange="aoBuscarPorNome"/>
                     </Toolbar>
                     <ToolbarSeparator/>
                     <Toolbar>
                         <Title text="{i18n>Filtro.Estado.Titulo}"/>
                         <ToolbarSpacer width="0.5em"/>
-                        <ComboBox id="ComboBoxEstados"
+                        <ComboBox id="ComboBoxEstados" 
                             width="60%"
-                            placeholder="{i18n>Filtro.Estado.Acao}"
-                            selectionChange="aoMudarOEstadoNaComboBox">
-                            <items>
-                                <core:Item text="Acre" key="0"/>
-                                <core:Item text="Alagoas" key="1"/>
-                                <core:Item text="Amapá" key="2"/>
-                                <core:Item text="Amazonas" key="3"/>
-                                <core:Item text="Bahia" key="4"/>
-                                <core:Item text="Ceará" key="5"/>
-                                <core:Item text="Espírito Santo" key="6"/>
-                                <core:Item text="Goiás" key="7"/>
-                                <core:Item text="Maranhão" key="8"/>
-                                <core:Item text="Mato Grosso" key="9"/>
-                                <core:Item text="Mato Grosso do Sul" key="10"/>
-                                <core:Item text="Minas Gerais" key="11"/>
-                                <core:Item text="Pará" key="12"/>
-                                <core:Item text="Paraíba" key="13"/>
-                                <core:Item text="Paraná" key="14"/>
-                                <core:Item text="Pernambuco" key="15"/>
-                                <core:Item text="Piauí" key="16"/>
-                                <core:Item text="Rio de Janeiro" key="17"/>
-                                <core:Item text="Rio Grande do Norte" key="18"/>
-                                <core:Item text="Rio Grande do Sul" key="19"/>
-                                <core:Item text="Rondônia" key="20"/>
-                                <core:Item text="Roraima" key="21"/>
-                                <core:Item text="Santa Catarina" key="22"/>
-                                <core:Item text="São Paulo" key="23"/>
-                                <core:Item text="Sergipe" key="24"/>
-                                <core:Item text="Tocantins" key="25"/>
-                                <core:Item text="Distrito Federal" key="26"/>
-                            </items>
+                            placeholder="{i18n>Filtro.Estado.Placeholder}"
+                            selectionChange="aoMudarOEstadoNaComboBox"
+                            items="{estados>/}">
+                            <core:Item key="{estados>key}" text="{estados>description}" />
                         </ComboBox>
                     </Toolbar>
                     <ToolbarSeparator/>
@@ -77,17 +50,18 @@
                         <DateRangeSelection
                             id="calendario"
                             width="60%"
-                            placeholder="{i18n>Filtro.Data.Acao}"
+                            placeholder="{i18n>Filtro.Data.Placeholder}"
                             change="aoAlterarData"
-                            liveChange="true"
+                            liveChange="aoAlterarData"
                             showFooter="true"/>
                     </Toolbar>
                     <ToolbarSpacer/>
                     <Toolbar>
                         <Button
+                            id="BotaoLimpar"
                             text="{i18n>Botao.Limpar.Filtros.Nome}"
-                            press="aoLimparOsFiltros"
-                            type= "{i18n>Botao.Limpar.Filtros.Tipo}"/>
+                            press="resetarItems"
+                            type="{i18n>Botao.Limpar.Filtros.Tipo}"/>
                     </Toolbar>
                 </content>
             </OverflowToolbar>
@@ -123,7 +97,7 @@
                             <Text text="{path: 'fundacao', formatter: '.formatter.formatDate'}"/>
                             <Text text="{estadio}"/>
                             <Text text="{estado}"/>
-                            <Text text="{coberturaAntiChuva}"/>
+                            <CheckBox selected="{coberturaAntiChuva}" editable="false"/>
                         </cells>
                     </ColumnListItem>
                 </items>

@@ -1,0 +1,61 @@
+<mvc:View
+    controllerName="cod3rsgrowth.webapp.controller.TelaCriar"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
+    <Page title="{i18n>Page.Criar.Titulo}" class="sapUiResponsiveContentPadding" showNavButton="true" navButtonPress="navegarPara('clubes')">
+        <VBox justifyContent="Center" alignItems="Center" class="sapUiSmallMargin">
+            <VBox width="50%" class="customVBox">
+                <VBox justifyContent="Center" alignItems="Center">
+                    <Title text="{i18n>Page.Criar.Titulo.Clube}"/>
+                </VBox>
+                <Label text="{i18n>Page.Criar.Nome}" required="true"/>
+                <Input
+                    id="InputNome"
+                    width="100%"
+                    placeholder="{i18n>Page.Criar.Nome.Placeholder}"
+                    change="aoInserirNome"
+                    liveChange="true"
+                    class="sapUiSmallMarginBottom"
+                />
+                <Label text="{i18n>Page.Criar.Fundacao}" required="true"/>
+                <DatePicker
+                    id="CalendarioCriar"
+                    width="100%"
+                    placeholder="{i18n>Page.Criar.Fundacao.Placeholder}"
+                    change="aoInserirFundação"
+                    liveChange="true"
+                    displayFormat="dd/MM/yyyy"
+                    class="sapUiSmallMarginBottom"
+                    visible="true"
+                />
+                <Label text="{i18n>Page.Criar.Estadio}" required="true"/>
+                <Input
+                    id="InputEstadio"
+                    width="100%"
+                    valueState="None" 
+                    placeholder="{i18n>Page.Criar.Estadio.Placeholder}"
+                    change="aoInserirEstadio"
+                    liveChange="true"
+                    class="sapUiSmallMarginBottom"
+                />
+                <Label text="{i18n>Page.Criar.Estado}" required="true"/>
+                <ComboBox
+                    id="EstadoCriacao"
+                    width="100%"
+                    placeholder="{i18n>Page.Criar.Estado.Placeholder}"
+                    selectionChange="aoInserirEstadoDeCriação"
+                    class="sapUiSmallMarginBottom"
+                    items="{estados>/}">
+                    <core:Item key="{estados>key}" text="{estados>description}" />
+                </ComboBox>                
+                <Label text="{i18n>Page.Criar.CoberturaAntiChuva}" required="true"/>
+                <RadioButtonGroup id="CoberturaAntiChuva" select="aoInserirCobertura" class="sapUiSmallMarginBottom">
+                    <RadioButton id="BotaoSim" text="{i18n>Page.Criar.CoberturaAntiChuva.Sim}" selected="false"/>
+                    <RadioButton id="BotaoNao" text="{i18n>Page.Criar.CoberturaAntiChuva.Nao}" selected="false"/>
+                </RadioButtonGroup>
+                <Button id="BotaoSalvar" text="{i18n>Page.Criar.Salvar}" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
+            </VBox>
+        </VBox>
+    </Page>
+</mvc:View>

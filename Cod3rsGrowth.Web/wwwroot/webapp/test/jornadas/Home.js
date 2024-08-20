@@ -1,11 +1,11 @@
 sap.ui.define([
     "sap/ui/test/opaQunit",
     "../pages/Home",
-    "../pages/ListadeClubes",
+    "../pages/ListaDeClubes",
     "../pages/NotFound"
   ], (opaQUnit) => {
     "use strict";
-
+     
     QUnit.module("Home");
   
     opaQUnit("Deve navegar para a pagina da lista de clubes", function (Given, When, Then) {

@@ -13,14 +13,36 @@ sap.ui.define([
             });
             return oDateFormat.format(new Date(data));
         },
-        formatDateReverse: function(data){
+        formatDateReverse: function(data) {
             if (!data) {
                 return VAZIO;
             }
-            var oDateFormat = DateFormat.getDateTimeInstance({
+        
+            if (data instanceof Date) {
+                var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
+                    pattern: "yyyy-MM-dd"
+                });
+                return oDateFormat.format(data);
+            }
+
+            var parts = data.split("/");
+            if (parts.length !== 3) {
+                return VAZIO;
+            }
+        
+            var day = parseInt(parts[0], 10);
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
+        
+            var DATE = new Date(year, month, day);
+            if (isNaN(DATE.getTime())) {
+                return VAZIO;
+            }
+        
+            var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({
                 pattern: "yyyy-MM-dd"
             });
-            return oDateFormat.format(new Date(data))
-        }
+            return oDateFormat.format(DATE);
+        }                
     };
 });

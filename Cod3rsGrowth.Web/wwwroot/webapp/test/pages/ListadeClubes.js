@@ -84,14 +84,14 @@ sap.ui.define([
                 },
                 buscarSeItemsForamAdicionados: function(){
                     return this.waitFor({
-                        id: "ListaDeClubes",
+                        controlType:"sap.m.Table",
                         viewName: dataView,
                         matchers: new AggregationLengthEquals({
 							name: "items",
 							length: 20
 						}),
 						success: function () {
-							Opa5.assert.ok(true, "Foram adicionados na tabela mais 10 items");
+							Opa5.assert.ok(true, "Foram adicionados na tabela mais 8 items");
 						},
 						errorMessage: "Os dados não foram carregados"
 					});                   

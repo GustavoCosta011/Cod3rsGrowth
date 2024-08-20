@@ -4,9 +4,9 @@ sap.ui.define([
 	"use strict";
 	const CLUBES = "clubes";
 
-	return Base.extend("cod3rsgrowth.controller.Home", {
+	return Base.extend("cod3rsgrowth.webapp.controller.Home", {
 		IrParaClubes(){
-			this.getRouter().navTo(CLUBES);
+			this._getRouter().navTo(CLUBES);
 		}
 	});
 });

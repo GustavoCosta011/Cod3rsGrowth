@@ -1,10 +1,9 @@
 sap.ui.define([
     "./Base",
-    "sap/ui/core/UIComponent",
     "../formatter",
     "../servico/ClubeServico",
     "sap/ui/model/json/JSONModel"
-], (Base, UIComponent, Formatter, ClubeServico, JSONModel) => {
+], function (Base, Formatter, ClubeServico, JSONModel) {
     "use strict";
     const NUMZERO = 0;
     const CLUBES = "clubes";
@@ -19,37 +18,44 @@ sap.ui.define([
     const CALENDARIO = "calendario";
     const COMBOBOXESTADOS = "ComboBoxEstados";
     const INPUTNOME = "InputNome";
-    const VAZIO = ""
+    const VAZIO = "";
+    const CRIAR = "criar";
 
-    return Base.extend("cod3rsgrowth.controller.ListaDeClubes", {
+
+    return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
         formatter: Formatter,
         clubeServico: ClubeServico,
+
         onInit: function() {
             this.filtros = [];
-            this.aoBuscarFiltros();
-            
-            var oRouter = UIComponent.getRouterFor(this);
-            oRouter.getRoute(CLUBES).attachPatternMatched(this.aoBuscarFiltros, this);
+            this._vincularRota(CLUBES, this.aoCoincidirRota);
         },
-        aoClicarAdicionar: function(){
+
+        aoCoincidirRota : function(){
             this.aoBuscarFiltros();
+            this._CarregarEstados();
+        },
+
+        aoClicarAdicionar: function(){
+            this._getRouter().navTo(CRIAR, {});
         },
 
         aoBuscarFiltros: function() {
-            this.getRouter().navTo(CLUBES, this.filtros.length === NUMZERO ? {} : {
+            this._getRouter().navTo(CLUBES, this.filtros.length === NUMZERO ? {} : {
                 query: this.filtros.reduce((newArray, atual) => {
                     newArray[atual.key] = atual.value;
                     return newArray;
                 }, {})
             });
+
             var oView = this.getView();
             ClubeServico.aoBuscar(this.filtros)
-            .then(function(Clubes) {
-                oView.setModel(new JSONModel(Clubes));
-            })
-            .catch(function(error) {
-                console.error('Erro:', error);
-            });
+                .then((Clubes) => {
+                    oView.setModel(new JSONModel(Clubes));
+                })
+                .catch((error) => {
+                    console.error('Erro:', error);
+                });
         },
 
         aoBuscarPorNome: function(oEvent) {
@@ -70,7 +76,6 @@ sap.ui.define([
             this.aoBuscarFiltros();
         },
 
-
         aoAlterarData: function(oEvent) {
             var DataPiso = oEvent.getParameter(FROM);
             var DataTeto = oEvent.getParameter(TO);
@@ -86,7 +91,7 @@ sap.ui.define([
             this.aoBuscarFiltros();
         },
 
-        aoLimparOsFiltros: function() {
+        resetarItems: function(oEvent) {
             var calendario = this.byId(CALENDARIO);
             if (calendario) {
                 calendario.setDateValue(null);
@@ -105,8 +110,11 @@ sap.ui.define([
                 InputNome.setValue(VAZIO);
                 this.filtros = this.filtros.filter(f => f.key !== NOME);
             }
-
-            this.aoBuscarFiltros();
+            
+            var Botao = oEvent.getSource().getId();
+            if (Botao.includes("BotaoLimpar")) {
+                this.aoBuscarFiltros();
+            }            
         }
     });
 });

@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/test/opaQunit",
     "../pages/Home",
-    "../pages/ListadeClubes",
+    "../pages/ListaDeClubes",
     "../pages/NotFound"
   ], (opaQUnit) => {
     "use strict";
@@ -10,10 +10,7 @@ sap.ui.define([
   
     opaQUnit("Deve navegar para pagina de Clubes e verificar a paginação", function (Given, When, Then) {
         // Arrange
-        Given.iStartMyApp();
-
-        //Parar que possa ser excutado os testes na pagina de lista
-        When.naPaginaHome.aoClicarEmClubes();
+        Given.iStartMyApp({ hash: "clubes"});
 
         //Act
         Then.naPaginaListaDeClubes.buscarSeExisteUmaPaginação();
@@ -34,13 +31,11 @@ sap.ui.define([
 
     opaQUnit("Deve verificar se a lista foi filtrada por estado", function(Given, When, Then){
         // Arrange
-        Given.iStartMyApp();
-
-        //Parar que possa ser excutado os testes na pagina de lista
-        When.naPaginaHome.aoClicarEmClubes();
+        Given.iStartMyApp({ hash: "clubes"});
 
         //Act
         When.naPaginaListaDeClubes.aoInserirFiltroEstado("Rio de Janeiro");
+
         //Assert
         Then.naPaginaListaDeClubes.verificarSeFoiRetornadaListaComFiltroEstado("Rio de Janeiro");
 
@@ -49,17 +44,14 @@ sap.ui.define([
 
     opaQUnit("Deve verificar se a lista foi filtrada por Data", function(Given, When, Then){
       // Arrange
-      Given.iStartMyApp();
-
-      //Parar que possa ser excutado os testes na pagina de lista
-      When.naPaginaHome.aoClicarEmClubes();
+      Given.iStartMyApp({ hash: "clubes"});
 
       //Act
       When.naPaginaListaDeClubes.aoInserirFiltroData("25/03/1924 - 02/01/1931");
+
       //Assert
       Then.naPaginaListaDeClubes.verificarSeFoiRetornadaListaComFiltroFundacao("03/25/1924","01/02/1931");
 
       Then.iTeardownMyApp();      
     });
-
 });
