@@ -97,7 +97,7 @@
                             <Text text="{path: 'fundacao', formatter: '.formatter.formatDate'}"/>
                             <Text text="{estadio}"/>
                             <Text text="{estado}"/>
-                            <Text text="{coberturaAntiChuva}"/>
+                            <CheckBox selected="{coberturaAntiChuva}" editable="false"/>
                         </cells>
                     </ColumnListItem>
                 </items>
