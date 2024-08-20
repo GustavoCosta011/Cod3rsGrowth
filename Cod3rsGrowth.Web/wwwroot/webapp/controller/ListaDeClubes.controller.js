@@ -28,11 +28,11 @@ sap.ui.define([
 
         onInit: function() {
             this.filtros = [];
-            this.aoCoincidirRota();
+            this._vincularRota(CLUBES, this.aoCoincidirRota);
         },
 
         aoCoincidirRota : function(){
-            this._vincularRota(CLUBES, this.aoBuscarFiltros);
+            this.aoBuscarFiltros();
             this._CarregarEstados();
         },
 

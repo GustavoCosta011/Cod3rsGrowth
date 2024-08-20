@@ -48,11 +48,12 @@ sap.ui.define([
         onInit: function () {
             this.DadosCriacao = [];
             this._vincularRota(CRIAR, this.aoCoincidirRota);
-            this._CarregarEstados();
+
         },
 
         aoCoincidirRota: function(){
             this.resetarItems();
+            this._CarregarEstados();
         },
 
         aoInserirNome: function(oEvent){

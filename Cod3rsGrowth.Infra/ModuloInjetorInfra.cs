@@ -11,14 +11,8 @@ namespace Cod3rsGrowth.Infra
 {
     public class ModuloInjetorInfra
     {
-        public static void Servicos(IServiceCollection ServicoInfra, string[] args)
+        public static void Servicos(IServiceCollection ServicoInfra, string connectionString)
         {
-            Env.Load();
-            var isTestEnvironment = args.Contains("--teste");
-            var connectionString = isTestEnvironment
-                ? Environment.GetEnvironmentVariable("cntStringTest")
-                : Environment.GetEnvironmentVariable("cntString");
-
             ServicoInfra.AddLinqToDBContext<Cod3rsGrowthConnect>((provider, options) => options.UseSqlServer(connectionString));
 
             ServicoInfra.AddScoped<IRepositoryData<Clube>, RepositoryClube>();

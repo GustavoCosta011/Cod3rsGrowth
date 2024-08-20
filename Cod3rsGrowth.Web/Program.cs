@@ -6,8 +6,12 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 var builder = WebApplication.CreateBuilder(args);
 
+string? cntString = builder.Environment.EnvironmentName == "Tests" ? 
+builder.Configuration.GetConnectionString("ConexaoTeste"):
+builder.Configuration.GetConnectionString("ConexaoPadrao");
+
 ModuloInjetorServico.Servicos(builder.Services);
-ModuloInjetorInfra.Servicos(builder.Services, args);
+ModuloInjetorInfra.Servicos(builder.Services, cntString);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
