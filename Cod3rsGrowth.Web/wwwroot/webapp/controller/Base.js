@@ -1,21 +1,24 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/core/routing/History",
-    "sap/ui/core/UIComponent"
-], function(Controller, History, UIComponent) {
+    "sap/ui/core/UIComponent",
+    "../servico/ClubeServico"
+
+], function(Controller, UIComponent, ClubeServico) {
     "use strict";
 
-    const MENOSUM = -1;
     const HOME = "Home";
-    const HASH = "hash";
+    const ESTADOS = "estados";
+    const TEXTO_ERRO_FETCH_ESTADO = 'Erro ao buscar estados:';
 
     return Controller.extend("cod3rsgrowth.controller.Base", {
         Historico: [],
+        clubeServico: ClubeServico,
+
         _getRouter: function() {
             return UIComponent.getRouterFor(this);
         },
 
-        _onNavBack: function(rotaDestino, parametros = {}) {
+        navegarPara: function(rotaDestino, parametros = {}) {
 			if (rotaDestino) {
                 this._getRouter().navTo(rotaDestino, parametros);
                 this.resetarItems();
@@ -24,6 +27,17 @@ sap.ui.define([
                 this._getRouter().navTo(HOME);
                 this.resetarItems();
             }
+        },
+
+        _CarregarEstados: function() {
+            this.clubeServico.aoBuscarEstados()
+                .then((estados) => {
+                    var oModel = new JSONModel(estados);
+                    this.getView().setModel(oModel, ESTADOS);
+                })
+                .catch((error) => {
+                    console.error(TEXTO_ERRO_FETCH_ESTADO, error);
+                });
         },
         
         _vincularRota: function(Rota, Metodo){

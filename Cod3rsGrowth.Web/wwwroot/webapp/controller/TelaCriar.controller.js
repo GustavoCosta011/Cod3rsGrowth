@@ -55,18 +55,6 @@ sap.ui.define([
             this.resetarItems();
         },
 
-        _CarregarEstados: function() {
-            this.clubeServico.aoBuscarEstados()
-                .then((estados) => {
-                    var oModel = new JSONModel(estados);
-                    this.getView().setModel(oModel, ESTADOS);
-                })
-                .catch((error) => {
-                    console.error(TEXTO_ERRO_FETCH_ESTADO, error);
-                });
-        },
-
-
         aoInserirNome: function(oEvent){
             var nome = oEvent.getParameter(VALUE);
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== NOME);

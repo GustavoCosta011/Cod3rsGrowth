@@ -20,7 +20,7 @@ sap.ui.define([
     const INPUTNOME = "InputNome";
     const VAZIO = "";
     const CRIAR = "criar";
-    const ESTADOS = "estados";
+
 
     return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
         formatter: Formatter,
@@ -28,19 +28,12 @@ sap.ui.define([
 
         onInit: function() {
             this.filtros = [];
+            this.aoCoincidirRota();
+        },
+
+        aoCoincidirRota : function(){
             this._vincularRota(CLUBES, this.aoBuscarFiltros);
             this._CarregarEstados();
-        },
-    
-        _CarregarEstados: function() {
-            this.clubeServico.aoBuscarEstados()
-                .then((estados) => {
-                    var oModel = new JSONModel(estados);
-                    this.getView().setModel(oModel, ESTADOS);
-                })
-                .catch((error) => {
-                    console.error('Erro ao buscar estados:', error);
-                });
         },
 
         aoClicarAdicionar: function(){

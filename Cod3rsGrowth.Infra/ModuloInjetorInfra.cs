@@ -11,10 +11,13 @@ namespace Cod3rsGrowth.Infra
 {
     public class ModuloInjetorInfra
     {
-        public static void Servicos(IServiceCollection ServicoInfra)
+        public static void Servicos(IServiceCollection ServicoInfra, string[] args)
         {
             Env.Load();
-            var connectionString = Environment.GetEnvironmentVariable("cntString");
+            var isTestEnvironment = args.Contains("--teste");
+            var connectionString = isTestEnvironment
+                ? Environment.GetEnvironmentVariable("cntStringTest")
+                : Environment.GetEnvironmentVariable("cntString");
 
             ServicoInfra.AddLinqToDBContext<Cod3rsGrowthConnect>((provider, options) => options.UseSqlServer(connectionString));
 
@@ -33,8 +36,28 @@ namespace Cod3rsGrowth.Infra
         {
             using (var scope = serviceProvider.CreateScope())
             {
-                var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+                var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+                Console.WriteLine("Starting migrations...");
                 runner.MigrateUp();
+                Console.WriteLine("Migrations completed.");
+            }
+        }
+
+        public static void DeletarBancoDeDados(IServiceProvider serviceProvider)
+        {
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var executor = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+                try
+                {
+                    executor.MigrateDown(0);
+                    Console.WriteLine("As tabelas foram apagadas");
+                }
+                catch (Exception erro)
+                {
+                    Console.WriteLine($"Erro em apagar tabelas :\n{erro.Message}");
+                    throw;
+                }
             }
         }
     }

@@ -1,19 +1,29 @@
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Servicos;
 using Cod3rsGrowth.Web;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
-
 var builder = WebApplication.CreateBuilder(args);
 
 ModuloInjetorServico.Servicos(builder.Services);
-ModuloInjetorInfra.Servicos(builder.Services);
+ModuloInjetorInfra.Servicos(builder.Services, args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureProblemDetailsModelState();
+builder.Services.Configure<HttpsRedirectionOptions>(options =>
+{
+    options.HttpsPort = 7178;
+});
 
 var app = builder.Build();
+if (args.Contains("--teste"))
+{
+    ModuloInjetorInfra.DeletarBancoDeDados(app.Services);
+}
+ModuloInjetorInfra.IniciarBanco(app.Services);
+
 app.UseDefaultFiles();
 app.UseHttpsRedirection();
 app.UseStaticFiles(new StaticFileOptions
