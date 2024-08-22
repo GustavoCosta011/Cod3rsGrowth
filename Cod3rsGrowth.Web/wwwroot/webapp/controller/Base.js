@@ -1,9 +1,10 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/UIComponent",
-    "../servico/ClubeServico"
+    "../servico/ClubeServico",
+    "sap/ui/model/json/JSONModel"
 
-], function(Controller, UIComponent, ClubeServico) {
+], function(Controller, UIComponent, ClubeServico,JSONModel) {
     "use strict";
 
     const HOME = "Home";

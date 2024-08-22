@@ -1,0 +1,31 @@
+<mvc:View
+	controllerName="cod3rsgrowth.webapp.controller.Detalhes"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout">
+	<m:Page title="Detalhes" 
+        id="PaginaDeDetalhes"
+        showNavButton="true"
+        navButtonPress="navegarPara('clubes')"
+        class="sapUiResponsiveContentPadding">
+	    <ObjectPageLayout id="ObjectPageLayout">
+            <headerContent>        
+            <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
+                <layout:VerticalLayout>
+                    <m:Title title= "Nome" text="{clubes>/nome}"/>
+                    <m:ObjectStatus title="Fundação" text= "{path: 'clubes>/fundacao', formatter: '.formatter.formatDate'}"/>   
+                    <m:ObjectStatus title="Estadio" text="{clubes>/estadio}"/>
+                    <m:ObjectStatus title="Estado" text="{clubes>/estado}"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout>
+                    	<m:ObjectStatus
+                            title="Cobertura Anti-chuva"
+							class="sapUiSmallMarginBottom"
+							icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
+							state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
+                </layout:VerticalLayout>
+            </headerContent>
+	    </ObjectPageLayout>
+	</m:Page>
+</mvc:View>

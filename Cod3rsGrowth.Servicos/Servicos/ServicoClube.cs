@@ -39,10 +39,19 @@ namespace Cod3rsGrowth.Servicos.Servicos
             }
             return ClubesDto.ToList();
         }
-        public Clube ObterPorId(int id)
+        public ClubeDto ObterPorId(int id)
         {
-            return repositoryClube.ObterPorId(id);
-
+            var clube = repositoryClube.ObterPorId(id);
+            var clubeDto = new ClubeDto() {
+                Id = clube.Id,
+                Nome = clube.Nome,
+                Fundacao = clube.Fundacao.Date,
+                Estadio = clube.Estadio,
+                Estado = PegarODisplayName(clube.Estado),
+                CoberturaAntiChuva = clube.CoberturaAntiChuva,
+                Elenco = clube.Elenco
+            };
+            return clubeDto;
         }
         public int CriarClube(Clube clube)
         {

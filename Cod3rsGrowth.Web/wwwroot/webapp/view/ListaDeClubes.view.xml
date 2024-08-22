@@ -67,12 +67,13 @@
             </OverflowToolbar>
             <VBox height="1em"/>
             <Table id="ListaDeClubes"
-                items="{ path: '/' }"
+                items="{clubes>/}"
                 backgroundDesign="{i18n>Table.Back.Design}"
                 alternateRowColors="true"
                 growing="true"
                 growingThreshold="10"
-                growingTriggerText="{i18n>Table.Growing}">
+                growingTriggerText="{i18n>Table.Growing}"
+                >
                 <columns>
                     <Column width="12em">
                         <Text text="{i18n>Table.Coluna.Nome}"/>
@@ -91,13 +92,13 @@
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem vAlign="Middle">
+                    <ColumnListItem vAlign="Middle" type="Navigation" press="aoSelecionarUmItem"> 
                         <cells>
-                            <ObjectIdentifier text="{nome}"/>
-                            <Text text="{path: 'fundacao', formatter: '.formatter.formatDate'}"/>
-                            <Text text="{estadio}"/>
-                            <Text text="{estado}"/>
-                            <CheckBox selected="{coberturaAntiChuva}" editable="false"/>
+                            <ObjectIdentifier text="{clubes>nome}"/>
+                            <Text text="{path: 'clubes>fundacao', formatter: '.formatter.formatDate'}"/>
+                            <Text text="{clubes>estadio}"/>
+                            <Text text="{clubes>estado}"/>
+                            <CheckBox selected="{clubes>coberturaAntiChuva}" editable="false"/>
                         </cells>
                     </ColumnListItem>
                 </items>

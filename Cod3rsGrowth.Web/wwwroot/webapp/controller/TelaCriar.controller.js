@@ -48,7 +48,6 @@ sap.ui.define([
         onInit: function () {
             this.DadosCriacao = [];
             this._vincularRota(CRIAR, this.aoCoincidirRota);
-
         },
 
         aoCoincidirRota: function(){
@@ -239,7 +238,7 @@ sap.ui.define([
                 mensagemErro = erro.detail.split(QUEBRADELINHA)[0];
             }
             if (erro.title || erro.Title) {
-                detalhesErro = `Status: ${erro.status || erro.Status} - Detalhes: ${erro.title || erro.Title}`;
+                detalhesErro = erro.detail;
             }
         
             MessageBox.error(mensagemErro, {

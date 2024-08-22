@@ -3,6 +3,8 @@ sap.ui.define([
 ], function(DateFormat) {
     "use strict";
     const VAZIO = "";
+    const SUCCESS = "Success"
+    const ERROR = "Error"
     return {
         formatDate: function(data) {
             if (!data) {
@@ -43,6 +45,12 @@ sap.ui.define([
                 pattern: "yyyy-MM-dd"
             });
             return oDateFormat.format(DATE);
-        }                
+        },
+        formatBolean: function(boleano){
+           return boleano == true? SUCCESS : ERROR;
+        },
+        formatIcon: function(boleano){
+            return boleano == true? "sap-icon://sys-enter-2" : "sap-icon://status-error"
+        }
     };
 });
