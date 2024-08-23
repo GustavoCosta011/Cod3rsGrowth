@@ -45,7 +45,6 @@ sap.ui.define([
         },
 
         aoSelecionarUmItem: function(oEvent){
-            console.log(oEvent.getSource().getBindingContext(CLUBES).getProperty(ID_DO_CLUBE))
             this.navegarPara(DETALHES,{ idClube : oEvent.getSource().getBindingContext(CLUBES).getProperty(ID_DO_CLUBE)})
         },
 

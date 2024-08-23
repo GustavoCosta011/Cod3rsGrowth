@@ -2,8 +2,9 @@ sap.ui.define([
 	"./Base",
     "../servico/ClubeServico",
     "../formatter",
+    "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel"
-], function (Base, ClubeServico, Formatter, JSONModel) {
+], function (Base, ClubeServico, Formatter, MessageBox,JSONModel) {
 	"use strict";
 
     const CLUBES = "clubes";
@@ -11,7 +12,7 @@ sap.ui.define([
     const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado";
     const ARGUMENTS = "arguments";
     const DESTINO_VOLTAR = 'clubes';
-    const LIMPAR = "Limpar"
+    const TITULO_ERRO = "Erro";
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter: Formatter,
@@ -27,7 +28,7 @@ sap.ui.define([
                 this.getView().setModel(oModel, CLUBES);
             })
             .catch((error) => {
-                console.error(TEXTO_ERRO_FETCH_CLUBE, error);
+                MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
             });
         },
         aoClivarEmVoltar: function(){

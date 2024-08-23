@@ -27,7 +27,6 @@ sap.ui.define([
     const VAZIO = "";
     const CRIAR = "criar"; 
     const QUEBRADELINHA = "\r\n";
-    const ESTADOS = "estados";
     const TITULO_ERRO = "Erro";
     const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
     const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
