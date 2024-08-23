@@ -21,7 +21,7 @@ sap.ui.define([
         
     });
 
-    opaQUnit("Deve varificar se a lista foi filtrada por nome", function (Given, When, Then) {
+    opaQUnit("Deve verificar se a lista foi filtrada por nome", function (Given, When, Then) {
         //Act
         When.naPaginaListaDeClubes.aoInserirFiltroNome("Flamengo");
         //Assert

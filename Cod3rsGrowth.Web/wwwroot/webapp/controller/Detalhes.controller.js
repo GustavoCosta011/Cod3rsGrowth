@@ -5,9 +5,11 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel"
 ], function (Base, ClubeServico, Formatter, JSONModel) {
 	"use strict";
-    const CLUBES = "clubes"
-    const DETALHES = "detalhes"
-    const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado"
+
+    const CLUBES = "clubes";
+    const DETALHES = "detalhes";
+    const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado";
+    const ARGUMENTS = "arguments";
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter: Formatter,
@@ -16,7 +18,7 @@ sap.ui.define([
             this._vincularRota(DETALHES, this.aoCoincidirRota);
         },
         aoCoincidirRota : function(evento){
-            const argumentos = evento.getParameter("arguments");
+            const argumentos = evento.getParameter(ARGUMENTS);
             this.clubeServico.aoBuscarClubePorId(argumentos.idClube)
             .then((clube) => {
                 var oModel = new JSONModel(clube);

@@ -7,7 +7,9 @@ sap.ui.require([
     "cod3rsgrowth/webapp/test/jornadas/Home",
     "cod3rsgrowth/webapp/test/jornadas/ListaDeClubes",
     "cod3rsgrowth/webapp/test/jornadas/NotFound",
-    "cod3rsgrowth/webapp/test/jornadas/TelaCriar"
+    "cod3rsgrowth/webapp/test/jornadas/TelaCriar",
+    "cod3rsgrowth/webapp/test/jornadas/Detalhes"
+
 ], async (Core, Opa5, Startup) => {
     "use strict";
 

@@ -4,7 +4,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.uxap"
     xmlns:layout="sap.ui.layout">
-	<m:Page title="Detalhes" 
+	<m:Page title="{i18n>Page.Detalhes.Titulo}" 
         id="PaginaDeDetalhes"
         showNavButton="true"
         navButtonPress="navegarPara('clubes')"
@@ -13,18 +13,18 @@
             <headerContent>        
             <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
                 <layout:VerticalLayout>
-                    <m:Title title= "Nome" text="{clubes>/nome}"/>
-                    <m:ObjectStatus title="Fundação" text= "{path: 'clubes>/fundacao', formatter: '.formatter.formatDate'}"/>   
-                    <m:ObjectStatus title="Estadio" text="{clubes>/estadio}"/>
-                    <m:ObjectStatus title="Estado" text="{clubes>/estado}"/>
+                    <m:Title title= "{i18n>Page.Detalhes.Nome.Titulo}" text="{clubes>/nome}"/>
+                    <m:ObjectStatus title="{i18n>Page.Detalhes.Fundacao.Titulo}" text= "{path: 'clubes>/fundacao', formatter: '.formatter.formatDate'}"/>   
+                    <m:ObjectStatus title="{i18n>Page.Detalhes.Estadio.Titulo}" text="{clubes>/estadio}"/>
+                    <m:ObjectStatus title="{i18n>Page.Detalhes.Estado.Titulo}" text="{clubes>/estado}"/>
                 </layout:VerticalLayout>
                 <layout:VerticalLayout>
                     	<m:ObjectStatus
-                            title="Cobertura Anti-chuva"
+                            title="{i18n>Page.Detalhes.Cobertura.Titulo}"
 							class="sapUiSmallMarginBottom"
 							icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
 							state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
-                </layout:VerticalLayout>
+                </layout:VerticalLayout>    
             </headerContent>
 	    </ObjectPageLayout>
 	</m:Page>
