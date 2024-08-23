@@ -39,7 +39,8 @@ sap.ui.define([
     const TEXTO_ERRO_ESTADIO = "Campo 'Estádio' precisa ser preenchido.";
     const TEXTO_ERRO_FUNDACAO = "Campo 'Data de Fundação' precisa ser preenchido.";
     const TEXTO_ERRO_ESTADO = "Campo 'Estado' precisa ser preenchido.";
-    const TEXTO_ERRO_FETCH_ESTADO = 'Erro ao buscar estados:';
+    const DESTINO_VOLTAR = 'clubes';
+    const LIMPAR = "Limpar"
 
     return Base.extend("cod3rsgrowth.webapp.controller.Criar", {
         clubeServico: ClubeServico,
@@ -53,6 +54,10 @@ sap.ui.define([
         aoCoincidirRota: function(){
             this.resetarItems();
             this._CarregarEstados();
+        },
+
+        aoClivarEmVoltar: function(){
+            this.navegarPara(DESTINO_VOLTAR, {Acao : LIMPAR});
         },
 
         aoInserirNome: function(oEvent){

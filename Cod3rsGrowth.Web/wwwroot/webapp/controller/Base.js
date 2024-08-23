@@ -22,7 +22,9 @@ sap.ui.define([
         navegarPara: function(rotaDestino, parametros = {}) {
 			if (rotaDestino) {
                 this._getRouter().navTo(rotaDestino, parametros);
-                this.resetarItems();
+                if(parametros.Acao == "Limpar"){
+                    this.resetarItems();
+                }
             }
 			else { 
                 this._getRouter().navTo(HOME);

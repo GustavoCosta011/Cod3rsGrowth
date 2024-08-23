@@ -21,7 +21,9 @@ sap.ui.define([
     const VAZIO = "";
     const CRIAR = "criar";
     const DETALHES = "detalhes";
-    const ID_DO_CLUBE = "id"
+    const ID_DO_CLUBE = "id";
+    const DESTINO_VOLTAR = '';
+    const LIMPAR = "Limpar"
 
 
     return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
@@ -63,6 +65,10 @@ sap.ui.define([
                 .catch((error) => {
                     console.error('Erro:', error);
                 });
+        },
+
+        aoClivarEmVoltar: function(){
+            this.navegarPara(DESTINO_VOLTAR,{Acao : LIMPAR})
         },
 
         aoBuscarPorNome: function(oEvent) {

@@ -7,7 +7,7 @@
 	<m:Page title="{i18n>Page.Detalhes.Titulo}" 
         id="PaginaDeDetalhes"
         showNavButton="true"
-        navButtonPress="navegarPara('clubes')"
+        navButtonPress="aoClivarEmVoltar"
         class="sapUiResponsiveContentPadding"
         >
 	    <ObjectPageLayout id="ObjectPageLayout" height="100%">

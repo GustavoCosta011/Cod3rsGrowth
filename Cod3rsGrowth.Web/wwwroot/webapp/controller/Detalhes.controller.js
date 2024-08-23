@@ -10,6 +10,8 @@ sap.ui.define([
     const DETALHES = "detalhes";
     const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado";
     const ARGUMENTS = "arguments";
+    const DESTINO_VOLTAR = 'clubes';
+    const LIMPAR = "Limpar"
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter: Formatter,
@@ -27,6 +29,9 @@ sap.ui.define([
             .catch((error) => {
                 console.error(TEXTO_ERRO_FETCH_CLUBE, error);
             });
+        },
+        aoClivarEmVoltar: function(){
+            this.navegarPara(DESTINO_VOLTAR);
         }
 	});
 });
