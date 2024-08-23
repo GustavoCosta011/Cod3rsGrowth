@@ -27,7 +27,6 @@ sap.ui.define([
     const VAZIO = "";
     const CRIAR = "criar"; 
     const QUEBRADELINHA = "\r\n";
-    const ESTADOS = "estados";
     const TITULO_ERRO = "Erro";
     const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
     const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
@@ -39,7 +38,8 @@ sap.ui.define([
     const TEXTO_ERRO_ESTADIO = "Campo 'Estádio' precisa ser preenchido.";
     const TEXTO_ERRO_FUNDACAO = "Campo 'Data de Fundação' precisa ser preenchido.";
     const TEXTO_ERRO_ESTADO = "Campo 'Estado' precisa ser preenchido.";
-    const TEXTO_ERRO_FETCH_ESTADO = 'Erro ao buscar estados:';
+    const DESTINO_VOLTAR = 'clubes';
+    const LIMPAR = "Limpar"
 
     return Base.extend("cod3rsgrowth.webapp.controller.Criar", {
         clubeServico: ClubeServico,
@@ -48,12 +48,15 @@ sap.ui.define([
         onInit: function () {
             this.DadosCriacao = [];
             this._vincularRota(CRIAR, this.aoCoincidirRota);
-
         },
 
         aoCoincidirRota: function(){
             this.resetarItems();
             this._CarregarEstados();
+        },
+
+        aoClivarEmVoltar: function(){
+            this.navegarPara(DESTINO_VOLTAR, {Acao : LIMPAR});
         },
 
         aoInserirNome: function(oEvent){
@@ -239,7 +242,7 @@ sap.ui.define([
                 mensagemErro = erro.detail.split(QUEBRADELINHA)[0];
             }
             if (erro.title || erro.Title) {
-                detalhesErro = `Status: ${erro.status || erro.Status} - Detalhes: ${erro.title || erro.Title}`;
+                detalhesErro = erro.detail;
             }
         
             MessageBox.error(mensagemErro, {

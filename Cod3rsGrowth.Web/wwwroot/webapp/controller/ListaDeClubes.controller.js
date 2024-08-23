@@ -20,6 +20,10 @@ sap.ui.define([
     const INPUTNOME = "InputNome";
     const VAZIO = "";
     const CRIAR = "criar";
+    const DETALHES = "detalhes";
+    const ID_DO_CLUBE = "id";
+    const DESTINO_VOLTAR = '';
+    const LIMPAR = "Limpar"
 
 
     return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
@@ -40,6 +44,10 @@ sap.ui.define([
             this._getRouter().navTo(CRIAR, {});
         },
 
+        aoSelecionarUmItem: function(oEvent){
+            this.navegarPara(DETALHES,{ idClube : oEvent.getSource().getBindingContext(CLUBES).getProperty(ID_DO_CLUBE)})
+        },
+
         aoBuscarFiltros: function() {
             this._getRouter().navTo(CLUBES, this.filtros.length === NUMZERO ? {} : {
                 query: this.filtros.reduce((newArray, atual) => {
@@ -49,13 +57,17 @@ sap.ui.define([
             });
 
             var oView = this.getView();
-            ClubeServico.aoBuscar(this.filtros)
+            this.clubeServico.aoBuscar(this.filtros)
                 .then((Clubes) => {
-                    oView.setModel(new JSONModel(Clubes));
+                    oView.setModel(new JSONModel(Clubes),CLUBES);
                 })
                 .catch((error) => {
                     console.error('Erro:', error);
                 });
+        },
+
+        aoClivarEmVoltar: function(){
+            this.navegarPara(DESTINO_VOLTAR,{Acao : LIMPAR})
         },
 
         aoBuscarPorNome: function(oEvent) {

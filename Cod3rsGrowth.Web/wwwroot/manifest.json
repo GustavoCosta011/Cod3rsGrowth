@@ -85,23 +85,31 @@
                 "pattern": "clubes/criar",
                 "name": "criar",
                 "target": "criarClube"
+            },
+            {
+                "pattern": "clubes/detalhes/{idClube}",
+                "name":"detalhes",
+                "target":"detalhesClube"
             }],
             "targets": {
                 "home": {
 					"viewName": "Home",
-					"viewLevel": 3
+					"viewLevel": 1
                 },
                 "notFound": {
-					"viewName": "NotFound",
-					"viewLevel": 3
+					"viewName": "NotFound"
                 },
                 "clubes": {
 					"viewName": "ListaDeClubes",
-					"viewLevel": 3
+					"viewLevel": 2
                 },
                 "criarClube": {
 					"viewName": "TelaCriar",
 					"viewLevel": 3
+                },
+                "detalhesClube":{
+                    "viewName": "Detalhes",
+                    "viewLevel":3
                 }
             }
         }

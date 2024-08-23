@@ -1,9 +1,10 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/UIComponent",
-    "../servico/ClubeServico"
+    "../servico/ClubeServico",
+    "sap/ui/model/json/JSONModel"
 
-], function(Controller, UIComponent, ClubeServico) {
+], function(Controller, UIComponent, ClubeServico,JSONModel) {
     "use strict";
 
     const HOME = "Home";
@@ -21,7 +22,9 @@ sap.ui.define([
         navegarPara: function(rotaDestino, parametros = {}) {
 			if (rotaDestino) {
                 this._getRouter().navTo(rotaDestino, parametros);
-                this.resetarItems();
+                if(parametros.Acao == "Limpar"){
+                    this.resetarItems();
+                }
             }
 			else { 
                 this._getRouter().navTo(HOME);
