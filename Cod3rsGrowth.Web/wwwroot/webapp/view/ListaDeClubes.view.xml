@@ -9,7 +9,8 @@
         title="{i18n>Page.Clubes.Titulo}"
         showNavButton="true"
         navButtonPress="navegarPara('')"
-        class="sapUiResponsiveContentPadding">
+        class="sapUiResponsiveContentPadding"
+        >
         <VBox>
             <VBox>
                 <Button
@@ -65,7 +66,6 @@
                     </Toolbar>
                 </content>
             </OverflowToolbar>
-            <VBox height="1em"/>
             <Table id="ListaDeClubes"
                 items="{clubes>/}"
                 backgroundDesign="{i18n>Table.Back.Design}"

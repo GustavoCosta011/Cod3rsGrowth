@@ -1,8 +1,10 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/test/matchers/Properties",
-    "sap/ui/test/matchers/PropertyStrictEquals"
-], (Opa5, Properties, PropertyStrictEquals) => {
+    "sap/ui/test/matchers/PropertyStrictEquals",
+    "sap/ui/test/actions/Press"
+
+], (Opa5, Properties, PropertyStrictEquals, Press) => {
     "use strict";
 
     const dataView = "Detalhes";
@@ -12,7 +14,18 @@ sap.ui.define([
     const COBERTURAANTICHUVA = "Cobertura Anti-chuva";
 
     Opa5.createPageObjects({
-        naPaginadedetalhes: {
+        naPaginaDeDetalhes: {
+            actions: {
+                DevePressionarOBotãoNavBack: function(){
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        viewName: dataView,
+                        actions: new Press(),
+                        errorMessage: "Não foi possivel encontrar o botão de voltar"
+                    });
+                }
+            },
+
             assertions: {
                 buscarUrlDaPaginaDeDetalhes: function() {
                     return this.waitFor({

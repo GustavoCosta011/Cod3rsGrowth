@@ -8,8 +8,9 @@
         id="PaginaDeDetalhes"
         showNavButton="true"
         navButtonPress="navegarPara('clubes')"
-        class="sapUiResponsiveContentPadding">
-	    <ObjectPageLayout id="ObjectPageLayout">
+        class="sapUiResponsiveContentPadding"
+        >
+	    <ObjectPageLayout id="ObjectPageLayout" height="100%">
             <headerContent>        
             <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
                 <layout:VerticalLayout>
