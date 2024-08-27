@@ -8,8 +8,10 @@ sap.ui.define([
 ], (Base, ClubeServico, Formatter, MessageBox, MessageToast, JSONModel) => {
     "use strict";
 
+    const CLUBE = "clube"
     const NUMZERO = 0;
     const SIM = "Sim";
+    const ID = "id";
     const FUNDACAO = "fundacao";
     const ESTADIO = "estadio";
     const NOME = "nome";
@@ -31,6 +33,7 @@ sap.ui.define([
     const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
     const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
     const MENSAGEM_SUCESSO_CLUBE = "Clube criado com sucesso!";
+    const MENSAGEM_SUCESSO_CLUBE_EDITADO = "Clube editado com sucesso!";
     const DURACAO_TOAST = 5000;
     const ESTADO_NONE = "None";
     const ESTADO_ERROR = "Error";
@@ -39,18 +42,60 @@ sap.ui.define([
     const TEXTO_ERRO_FUNDACAO = "Campo 'Data de Fundação' precisa ser preenchido.";
     const TEXTO_ERRO_ESTADO = "Campo 'Estado' precisa ser preenchido.";
     const DESTINO_VOLTAR = 'clubes';
-    const LIMPAR = "Limpar"
+    const EDITAR = "editar";
+    const LIMPAR = "Limpar";
+    const ARGUMENTS = "arguments";
+    const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado";
 
-    return Base.extend("cod3rsgrowth.webapp.controller.Criar", {
+    return Base.extend("cod3rsgrowth.webapp.controller.TelaCriar", {
         clubeServico: ClubeServico,
         formatter: Formatter,
 
         onInit: function () {
             this.DadosCriacao = [];
-            this._vincularRota(CRIAR, this.aoCoincidirRota);
+            this._vincularRota(CRIAR, this.aoCoincidirRotaAdicionar);
+            this._vincularRota(EDITAR, this.aoCoincidirRotaEditar)
         },
 
-        aoCoincidirRota: function(){
+        aoCoincidirRotaEditar: function(evento){
+            this.aoAdiquirirClube(evento);
+            this.salvarModelo();
+        },
+        
+        aoAdiquirirClube: async function(evento){
+            const argumento = evento.getParameter(ARGUMENTS);
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ID);
+            this.DadosCriacao.push({ key: ID, value: argumento.idClube});
+            console.log(this.DadosCriacao)
+            await this.clubeServico.aoBuscarClubePorId(argumento.idClube)
+                .then((clube) => {
+                    var oModel = new JSONModel(clube);
+                    console.log(oModel)
+                    this.getView().setModel(oModel, CLUBE);
+                })
+                .catch((Error) => {
+                    MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
+                });  
+        },
+
+        salvarModelo:function*(){
+            const modelo = this.getView().getModel(CLUBE).getData();
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== NOME);
+            this.DadosCriacao.push({ key: NOME, value: modelo.nome});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== FUNDACAO);
+            let fundacao = this.formatter.formatDateReverse(modelo.fundação)
+            this.DadosCriacao.push({ key: FUNDACAO, value: fundacao });
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ESTADIO);
+            this.DadosCriacao.push({ key: ESTADIO, value: modelo.estadio});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ESTADO);
+            this.DadosCriacao.push({ key: ESTADO, value: modelo.estado});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ESTADIO);
+            this.DadosCriacao.push({ key: ESTADIO, value: modelo.estadoInt});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== COBERTURA);
+            this.DadosCriacao.push({ key: COBERTURA, value: modelo.coberturaAntiChuva});
+        },
+
+        aoCoincidirRotaAdicionar: function(){
             this.resetarItems();
             this._CarregarEstados();
         },
@@ -209,13 +254,25 @@ sap.ui.define([
                 newArray[atual.key] = atual.value;
                 return newArray;
             }, {})
-            try {
-                const resultado = await this.clubeServico.aoCriarClube(DadosDaCriação);
-                MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-                this.resetarItems();
-            } 
-            catch (erro) {
-                this.exibirErroNaTela(erro);
+            var hash = this._getRouter().getHashChanger().getHash().split("/")
+            if(hash [1] == "editar"){
+                try {           
+                    this.aoSalvarAlteracoes();
+                    var resposta = await this.clubeServico.aoEditarClube(DadosDaCriação);
+                    MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                } 
+                catch (erro) {
+                    this.exibirErroNaTela(erro);
+                }
+            }else{
+                try {
+                    await this.clubeServico.aoCriarClube(DadosDaCriação);
+                    MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                    this.resetarItems();
+                } 
+                catch (erro) {
+                    this.exibirErroNaTela(erro);
+                }
             }
         },
 

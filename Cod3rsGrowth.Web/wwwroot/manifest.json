@@ -90,7 +90,13 @@
                 "pattern": "clubes/detalhes/{idClube}",
                 "name":"detalhes",
                 "target":"detalhesClube"
-            }],
+            },
+            {
+                "pattern": "clubes/editar/{idClube}",
+                "name":"editar",
+                "target":"editarClube"
+            }
+            ],
             "targets": {
                 "home": {
 					"viewName": "Home",
@@ -110,6 +116,10 @@
                 "detalhesClube":{
                     "viewName": "Detalhes",
                     "viewLevel":3
+                },
+                "editarClube": {
+                    "viewName": "TelaCriar",
+                    "viewLevel": 4
                 }
             }
         }

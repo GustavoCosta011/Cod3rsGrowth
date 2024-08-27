@@ -17,6 +17,7 @@
                     change="aoInserirNome"
                     liveChange="true"
                     class="sapUiSmallMarginBottom"
+                    value = "{path: 'clube>/nome'}"
                 />
                 <Label text="{i18n>Page.Criar.Fundacao}" required="true"/>
                 <DatePicker
@@ -28,6 +29,7 @@
                     displayFormat="dd/MM/yyyy"
                     class="sapUiSmallMarginBottom"
                     visible="true"
+                    value = "{path: 'clube>/fundacao', formatter: '.formatter.formatDate'}"
                 />
                 <Label text="{i18n>Page.Criar.Estadio}" required="true"/>
                 <Input
@@ -38,6 +40,7 @@
                     change="aoInserirEstadio"
                     liveChange="true"
                     class="sapUiSmallMarginBottom"
+                    value = "{path: 'clube>/estadio'}"
                 />
                 <Label text="{i18n>Page.Criar.Estado}" required="true"/>
                 <ComboBox
@@ -46,13 +49,14 @@
                     placeholder="{i18n>Page.Criar.Estado.Placeholder}"
                     selectionChange="aoInserirEstadoDeCriação"
                     class="sapUiSmallMarginBottom"
+                    selectedKey ="{path: 'clube>/estadoInt'}"
                     items="{estados>/}">
                     <core:Item key="{estados>key}" text="{estados>description}" />
                 </ComboBox>                
                 <Label text="{i18n>Page.Criar.CoberturaAntiChuva}" required="true"/>
                 <RadioButtonGroup id="CoberturaAntiChuva" select="aoInserirCobertura" class="sapUiSmallMarginBottom">
-                    <RadioButton id="BotaoSim" text="{i18n>Page.Criar.CoberturaAntiChuva.Sim}" selected="false"/>
-                    <RadioButton id="BotaoNao" text="{i18n>Page.Criar.CoberturaAntiChuva.Nao}" selected="false"/>
+                    <RadioButton id="BotaoSim" text="{i18n>Page.Criar.CoberturaAntiChuva.Sim}" selected="{clube>/coberturaAntiChuva}"/>
+                    <RadioButton id="BotaoNao" text="{i18n>Page.Criar.CoberturaAntiChuva.Nao}" selected="{= !${clube>/coberturaAntiChuva}}"/>
                 </RadioButtonGroup>
                 <Button id="BotaoSalvar" text="{i18n>Page.Criar.Salvar}" press="aoSalvarClube" class="sapUiSmallMarginTop"/>
             </VBox>

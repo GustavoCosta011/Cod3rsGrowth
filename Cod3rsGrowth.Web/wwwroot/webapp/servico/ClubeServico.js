@@ -26,6 +26,26 @@ sap.ui.define([], () => {
                 console.error('Erro:', error);
             });
         },
+        
+        aoEditarClube: async function(DadosEdição) {
+            this.urlClubes = OBTERTODOS;
+            console.log(DadosEdição)
+
+            return fetch(this.urlClubes, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(DadosEdição)
+            }) 
+            .then(async resposta => {
+                if (resposta.ok) {
+                    return await resposta.json();
+                } 
+                throw resposta;                
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        },
 
         aoCriarClube: async function(DadosCriacao) {
             try {

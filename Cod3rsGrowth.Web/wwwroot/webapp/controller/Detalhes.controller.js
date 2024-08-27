@@ -13,6 +13,7 @@ sap.ui.define([
     const ARGUMENTS = "arguments";
     const DESTINO_VOLTAR = 'clubes';
     const TITULO_ERRO = "Erro";
+    const DESTINO_EDITAR = 'editar';
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter: Formatter,
@@ -33,6 +34,10 @@ sap.ui.define([
         },
         aoClivarEmVoltar: function(){
             this.navegarPara(DESTINO_VOLTAR);
+        },
+        aoClicarEditar: function(){
+            console.log(this.getView().getModel(CLUBES).getData().id)
+            this.navegarPara(DESTINO_EDITAR,{ idClube : this.getView().getModel(CLUBES).getData().id})
         }
 	});
 });
