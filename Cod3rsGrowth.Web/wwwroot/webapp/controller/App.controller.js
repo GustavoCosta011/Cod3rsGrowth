@@ -11,7 +11,6 @@ sap.ui.define([
         onInit() {
             const i18nModelo = new ResourceModel({ bundleName: BUNDLENAME });
             this.getView().setModel(i18nModelo, NAMEMODEL);
-        }
-        
+        }       
     });
 });

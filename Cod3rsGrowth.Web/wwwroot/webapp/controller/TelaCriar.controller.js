@@ -8,7 +8,7 @@ sap.ui.define([
 ], (Base, ClubeServico, Formatter, MessageBox, MessageToast, JSONModel) => {
     "use strict";
 
-    const CLUBE = "clube"
+    const CLUBES = "clube"
     const NUMZERO = 0;
     const SIM = "Sim";
     const ID = "id";
@@ -57,40 +57,40 @@ sap.ui.define([
             this._vincularRota(EDITAR, this.aoCoincidirRotaEditar)
         },
 
-        aoCoincidirRotaEditar: function(evento){
-            this.aoAdiquirirClube(evento);
+        aoCoincidirRotaEditar: async function(evento){
+            await this.aoAdiquirirClube(evento);
             this.salvarModelo();
+            console.log(this.DadosCriacao);
         },
         
         aoAdiquirirClube: async function(evento){
             const argumento = evento.getParameter(ARGUMENTS);
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ID);
-            this.DadosCriacao.push({ key: ID, value: argumento.idClube});
-            console.log(this.DadosCriacao)
+            var oView = this.getView();
+
             await this.clubeServico.aoBuscarClubePorId(argumento.idClube)
-                .then((clube) => {
-                    var oModel = new JSONModel(clube);
-                    console.log(oModel)
-                    this.getView().setModel(oModel, CLUBE);
+                .then((resposta) => {
+                    console.log(new JSONModel(resposta))
+                    oView.setModel(new JSONModel(resposta) , CLUBES);
                 })
-                .catch((Error) => {
+                .catch(() => {
                     MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
                 });  
         },
 
-        salvarModelo:function*(){
-            const modelo = this.getView().getModel(CLUBE).getData();
+        salvarModelo: function(){
+            const modelo = this.getView().getModel(CLUBES).getData();
+
+            console.log(modelo)
+
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== NOME);
             this.DadosCriacao.push({ key: NOME, value: modelo.nome});
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== FUNDACAO);
-            let fundacao = this.formatter.formatDateReverse(modelo.fundação)
+            var fundacao = this.formatter.formatDateReverse(this.formatter.formatDate(modelo.fundacao))
             this.DadosCriacao.push({ key: FUNDACAO, value: fundacao });
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ESTADIO);
             this.DadosCriacao.push({ key: ESTADIO, value: modelo.estadio});
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ESTADO);
-            this.DadosCriacao.push({ key: ESTADO, value: modelo.estado});
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ESTADIO);
-            this.DadosCriacao.push({ key: ESTADIO, value: modelo.estadoInt});
+            this.DadosCriacao.push({ key: ESTADO, value: modelo.estadoInt});
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== COBERTURA);
             this.DadosCriacao.push({ key: COBERTURA, value: modelo.coberturaAntiChuva});
         },
@@ -256,9 +256,9 @@ sap.ui.define([
             }, {})
             var hash = this._getRouter().getHashChanger().getHash().split("/")
             if(hash [1] == "editar"){
-                try {           
-                    this.aoSalvarAlteracoes();
-                    var resposta = await this.clubeServico.aoEditarClube(DadosDaCriação);
+                try {        
+                    var idClube = this.getView().getModel(CLUBES).getData().id;   
+                    await this.clubeServico.aoEditarClube(DadosDaCriação, idClube);
                     MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 } 
                 catch (erro) {

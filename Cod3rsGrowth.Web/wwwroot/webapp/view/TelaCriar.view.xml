@@ -11,7 +11,7 @@
                 </VBox>
                 <Label text="{i18n>Page.Criar.Nome}" required="true"/>
                 <Input
-                    id="InputNome"
+                    id= "InputNome"
                     width="100%"
                     placeholder="{i18n>Page.Criar.Nome.Placeholder}"
                     change="aoInserirNome"
@@ -22,7 +22,7 @@
                 <Label text="{i18n>Page.Criar.Fundacao}" required="true"/>
                 <DatePicker
                     id="CalendarioCriar"
-                    width="100%"
+                    width="100%"  
                     placeholder="{i18n>Page.Criar.Fundacao.Placeholder}"
                     change="aoInserirFundação"
                     liveChange="true"

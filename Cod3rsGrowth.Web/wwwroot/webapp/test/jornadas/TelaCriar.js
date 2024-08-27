@@ -11,8 +11,8 @@ sap.ui.define([
         Given.iStartMyApp({hash : "clubes/criar"});
 
         // Assert
-        Then.naPaginaDeCriacao.DeveVerificarSeAUrlSeraADaPaginaDeCriação();
-        Then.naPaginaDeCriacao.DeveVerificarSeOTituloDaPaginaEODeCriacao();
+        Then.naPaginaDeCriacao.DeveVerificarSeAUrlSeraADaPaginaDeCriação("clubes/criar");
+        Then.naPaginaDeCriacao.DeveVerificarSeOTituloDaPaginaEODeCriacao("Formulario - Clube");
 
         Then.iTeardownMyApp();
     });

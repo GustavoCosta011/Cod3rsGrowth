@@ -26,10 +26,10 @@ sap.ui.define([], () => {
                 console.error('Erro:', error);
             });
         },
-        
-        aoEditarClube: async function(DadosEdição) {
-            this.urlClubes = OBTERTODOS;
-            console.log(DadosEdição)
+
+        aoEditarClube: async function(DadosEdição, idClube){
+            this.urlClubes = OBTERTODOS + "/" + idClube;
+            console.log(this.urlClubes)
 
             return fetch(this.urlClubes, {
                 method: "PUT",
@@ -68,21 +68,19 @@ sap.ui.define([], () => {
 
         aoBuscarClubePorId: async function (idClube){            
             this.urlClubes = OBTERTODOS + "/" + idClube;
-            try {
-                const resposta = await fetch(this.urlClubes, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                });
-                
-                if (!resposta.ok) {
-                    const erro = await resposta.json();
-                    throw erro;
-                }
-                return await resposta.json();
-            } 
-            catch (erro) {
-                throw erro;             
-            }
+            return fetch(this.urlClubes, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            }) 
+            .then(async resposta => {
+                if (resposta.ok) {
+                    return await resposta.json();
+                } 
+                throw resposta;                
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
         },
 
         aoBuscarEstados: async function() {

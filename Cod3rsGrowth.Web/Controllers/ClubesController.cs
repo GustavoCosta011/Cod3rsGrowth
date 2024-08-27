@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Web.Controllers
         {
             objeto.Id = id;
             _servicoClube.EditarClube(objeto);
-            return NoContent();
+            return Ok(id);
         }
 
         [HttpDelete("{id}")]
