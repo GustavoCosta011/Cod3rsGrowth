@@ -36,7 +36,6 @@ sap.ui.define([
             this.navegarPara(DESTINO_VOLTAR);
         },
         aoClicarEditar: function(){
-            console.log(this.getView().getModel(CLUBES).getData().id)
             this.navegarPara(DESTINO_EDITAR,{ idClube : this.getView().getModel(CLUBES).getData().id})
         }
 	});

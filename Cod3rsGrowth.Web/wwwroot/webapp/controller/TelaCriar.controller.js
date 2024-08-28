@@ -27,7 +27,9 @@ sap.ui.define([
     const BOTAO_SIM = "BotaoSim";
     const BOTAO_NAO = "BotaoNao";
     const VAZIO = "";
-    const CRIAR = "criar"; 
+    const CRIAR = "criar";
+    const INDICEUM = 1;
+    const BARRA = "/";
     const QUEBRADELINHA = "\r\n";
     const TITULO_ERRO = "Erro";
     const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
@@ -60,7 +62,6 @@ sap.ui.define([
         aoCoincidirRotaEditar: async function(evento){
             await this.aoAdiquirirClube(evento);
             this.salvarModelo();
-            console.log(this.DadosCriacao);
         },
         
         aoAdiquirirClube: async function(evento){
@@ -69,7 +70,6 @@ sap.ui.define([
 
             await this.clubeServico.aoBuscarClubePorId(argumento.idClube)
                 .then((resposta) => {
-                    console.log(new JSONModel(resposta))
                     oView.setModel(new JSONModel(resposta) , CLUBES);
                 })
                 .catch(() => {
@@ -79,8 +79,6 @@ sap.ui.define([
 
         salvarModelo: function(){
             const modelo = this.getView().getModel(CLUBES).getData();
-
-            console.log(modelo)
 
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== NOME);
             this.DadosCriacao.push({ key: NOME, value: modelo.nome});
@@ -250,12 +248,12 @@ sap.ui.define([
             if (!this.validarCamposPreenchidos()) {
                 return;
             }
-            var DadosDaCriação = this.DadosCriacao.reduce((newArray, atual) => {
+            var DadosDaCriação = this.DadosCriacao.reduce((newArray, atual) => {d
                 newArray[atual.key] = atual.value;
                 return newArray;
             }, {})
-            var hash = this._getRouter().getHashChanger().getHash().split("/")
-            if(hash [1] == "editar"){
+            var hash = this._getRouter().getHashChanger().getHash().split(BARRA)
+            if(hash [1] == EDITAR){
                 try {        
                     var idClube = this.getView().getModel(CLUBES).getData().id;   
                     await this.clubeServico.aoEditarClube(DadosDaCriação, idClube)
