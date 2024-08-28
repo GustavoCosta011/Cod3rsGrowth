@@ -46,6 +46,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
                 Id = clube.Id,
                 Nome = clube.Nome,
                 Fundacao = clube.Fundacao.Date,
+                EstadoInt = clube.Estado,
                 Estadio = clube.Estadio,
                 Estado = PegarODisplayName(clube.Estado),
                 CoberturaAntiChuva = clube.CoberturaAntiChuva,

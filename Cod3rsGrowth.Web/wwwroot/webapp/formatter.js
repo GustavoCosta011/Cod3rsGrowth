@@ -15,6 +15,7 @@ sap.ui.define([
             });
             return oDateFormat.format(new Date(data));
         },
+
         formatDateReverse: function(data) {
             if (!data) {
                 return VAZIO;
@@ -46,9 +47,11 @@ sap.ui.define([
             });
             return oDateFormat.format(DATE);
         },
+
         formatBolean: function(boleano){
            return boleano == true? SUCCESS : ERROR;
         },
+
         formatIcon: function(boleano){
             return boleano == true? "sap-icon://sys-enter-2" : "sap-icon://status-error"
         }

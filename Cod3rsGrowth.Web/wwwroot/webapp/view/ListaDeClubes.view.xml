@@ -97,7 +97,7 @@
                             <ObjectIdentifier text="{clubes>nome}"/>
                             <Text text="{path: 'clubes>fundacao', formatter: '.formatter.formatDate'}"/>
                             <Text text="{clubes>estadio}"/>
-                            <Text text="{clubes>estado}"/>
+                            <Text text="{clubes>estado}"/>  
                             <CheckBox selected="{clubes>coberturaAntiChuva}" editable="false"/>
                         </cells>
                     </ColumnListItem>

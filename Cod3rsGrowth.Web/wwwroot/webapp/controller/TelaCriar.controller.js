@@ -8,8 +8,10 @@ sap.ui.define([
 ], (Base, ClubeServico, Formatter, MessageBox, MessageToast, JSONModel) => {
     "use strict";
 
+    const CLUBES = "clube"
     const NUMZERO = 0;
     const SIM = "Sim";
+    const ID = "id";
     const FUNDACAO = "fundacao";
     const ESTADIO = "estadio";
     const NOME = "nome";
@@ -25,12 +27,15 @@ sap.ui.define([
     const BOTAO_SIM = "BotaoSim";
     const BOTAO_NAO = "BotaoNao";
     const VAZIO = "";
-    const CRIAR = "criar"; 
+    const CRIAR = "criar";
+    const INDICEUM = 1;
+    const BARRA = "/";
     const QUEBRADELINHA = "\r\n";
     const TITULO_ERRO = "Erro";
     const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
     const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
     const MENSAGEM_SUCESSO_CLUBE = "Clube criado com sucesso!";
+    const MENSAGEM_SUCESSO_CLUBE_EDITADO = "Clube editado com sucesso!";
     const DURACAO_TOAST = 5000;
     const ESTADO_NONE = "None";
     const ESTADO_ERROR = "Error";
@@ -39,18 +44,56 @@ sap.ui.define([
     const TEXTO_ERRO_FUNDACAO = "Campo 'Data de Fundação' precisa ser preenchido.";
     const TEXTO_ERRO_ESTADO = "Campo 'Estado' precisa ser preenchido.";
     const DESTINO_VOLTAR = 'clubes';
-    const LIMPAR = "Limpar"
+    const EDITAR = "editar";
+    const LIMPAR = "Limpar";
+    const ARGUMENTS = "arguments";
+    const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado";
 
-    return Base.extend("cod3rsgrowth.webapp.controller.Criar", {
+    return Base.extend("cod3rsgrowth.webapp.controller.TelaCriar", {
         clubeServico: ClubeServico,
         formatter: Formatter,
 
         onInit: function () {
             this.DadosCriacao = [];
-            this._vincularRota(CRIAR, this.aoCoincidirRota);
+            this._vincularRota(CRIAR, this.aoCoincidirRotaAdicionar);
+            this._vincularRota(EDITAR, this.aoCoincidirRotaEditar)
         },
 
-        aoCoincidirRota: function(){
+        aoCoincidirRotaEditar: async function(evento){
+            await this.aoAdiquirirClube(evento);
+            this.salvarModelo();
+        },
+        
+        aoAdiquirirClube: async function(evento){
+            const argumento = evento.getParameter(ARGUMENTS);
+            var oView = this.getView();
+
+            await this.clubeServico.aoBuscarClubePorId(argumento.idClube)
+                .then((resposta) => {
+                    oView.setModel(new JSONModel(resposta) , CLUBES);
+                })
+                .catch(() => {
+                    MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
+                });  
+        },
+
+        salvarModelo: function(){
+            const modelo = this.getView().getModel(CLUBES).getData();
+
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== NOME);
+            this.DadosCriacao.push({ key: NOME, value: modelo.nome});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== FUNDACAO);
+            var fundacao = this.formatter.formatDateReverse(this.formatter.formatDate(modelo.fundacao))
+            this.DadosCriacao.push({ key: FUNDACAO, value: fundacao });
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ESTADIO);
+            this.DadosCriacao.push({ key: ESTADIO, value: modelo.estadio});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ESTADO);
+            this.DadosCriacao.push({ key: ESTADO, value: modelo.estadoInt});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== COBERTURA);
+            this.DadosCriacao.push({ key: COBERTURA, value: modelo.coberturaAntiChuva});
+        },
+
+        aoCoincidirRotaAdicionar: function(){
             this.resetarItems();
             this._CarregarEstados();
         },
@@ -205,17 +248,29 @@ sap.ui.define([
             if (!this.validarCamposPreenchidos()) {
                 return;
             }
-            var DadosDaCriação = this.DadosCriacao.reduce((newArray, atual) => {
+            var DadosDaCriação = this.DadosCriacao.reduce((newArray, atual) => {d
                 newArray[atual.key] = atual.value;
                 return newArray;
             }, {})
-            try {
-                const resultado = await this.clubeServico.aoCriarClube(DadosDaCriação);
-                MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-                this.resetarItems();
-            } 
-            catch (erro) {
-                this.exibirErroNaTela(erro);
+            var hash = this._getRouter().getHashChanger().getHash().split(BARRA)
+            if(hash [1] == EDITAR){
+                try {        
+                    var idClube = this.getView().getModel(CLUBES).getData().id;   
+                    await this.clubeServico.aoEditarClube(DadosDaCriação, idClube)
+                    MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                } 
+                catch (erro) {
+                    this.exibirErroNaTela(erro);
+                }
+            }else{
+                try {
+                    await this.clubeServico.aoCriarClube(DadosDaCriação);
+                    MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                    this.resetarItems();
+                } 
+                catch (erro) {
+                    this.exibirErroNaTela(erro);
+                }
             }
         },
 

@@ -71,20 +71,20 @@ sap.ui.define([
                 }                                                                                               
             },
             assertions: {
-                DeveVerificarSeAUrlSeraADaPaginaDeCriação: function() {
+                DeveVerificarSeAUrlSeraADaPaginaDeCriação: function(url) {
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, "clubes/criar", "Navegou para tela de Criação");
+                            Opa5.assert.strictEqual(hash, url, "Navegou para tela de Criação");
                         },
                         errorMessage: "A URL não é a esperada"
                     });
                 },
-                DeveVerificarSeOTituloDaPaginaEODeCriacao: function(){
+                DeveVerificarSeOTituloDaPaginaEODeCriacao: function(titulo){
                     return this.waitFor({
                         controlType: "sap.m.Page",
                         viewName: dataView,
-                        matchers: new PropertyStrictEquals({ name: "title", value: "Criação"}),
+                        matchers: new PropertyStrictEquals({ name: "title", value: titulo}),
                         success: function(page) {
                             Opa5.assert.ok(page, "O título da página está certo");
                         },
@@ -195,7 +195,66 @@ sap.ui.define([
                         },
                         errorMessage: "Caixa de diálogo de erro não foi exibida corretamente."
                     });
-                }
+                },
+
+                deVerificarSeONomeFoiCarregado: function (Nome) {
+                    return this.waitFor({
+                        id : "InputNome",
+                        viewName: dataView,
+                        matchers: new Properties({ value: Nome }),
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo nome foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo não foi preenchido corretamente."
+                    });
+                },
+                deVerificarSeAFundacaoFoiCarregada: function (Data) {
+                    return this.waitFor({
+                        controlType: "sap.m.DatePicker",
+                        viewName: dataView,
+                        matchers: new Properties({value: Data }),
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo fundacao foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo foi não preenchido corretamente."
+                    });
+                },
+
+                deVerificarSeOEstadioFoiCarregado: function (estadio) {
+                    return this.waitFor({
+                        id : "InputEstadio",
+                        viewName: dataView,
+                        matchers: new Properties({ value: estadio }),
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo estadio foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo não foi preenchido corretamente."
+                    });
+                },
+
+                deVerificarSeOEstadoFoiCarregado: function (estado) {
+                    return this.waitFor({
+                        id : "EstadoCriacao",
+                        viewName: dataView,
+                        matchers: new Properties({ value : estado }),
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo estado foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo não foi preenchido corretamente."
+                    });
+                },
+
+                deVerificarSeACoberturaFoiCarregada: function (fundacao) {
+                    return this.waitFor({
+                        controlType: "sap.m.RadioButton",
+                        viewName: dataView,
+                        matchers: new Properties({ text : "Sim", selected : fundacao }),
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo ccobertura foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo não foi preenchido corretamente."
+                    });
+                },
             }
         }
     });

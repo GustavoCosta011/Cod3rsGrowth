@@ -20,12 +20,20 @@
                     <m:ObjectStatus title="{i18n>Page.Detalhes.Estado.Titulo}" text="{clubes>/estado}"/>
                 </layout:VerticalLayout>
                 <layout:VerticalLayout>
-                    	<m:ObjectStatus
-                            title="{i18n>Page.Detalhes.Cobertura.Titulo}"
-							class="sapUiSmallMarginBottom"
-							icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
-							state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
-                </layout:VerticalLayout>    
+                    <m:ObjectStatus
+                        title="{i18n>Page.Detalhes.Cobertura.Titulo}"
+                        class="sapUiSmallMarginBottom"
+                        icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
+                        state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
+                </layout:VerticalLayout>
+                <m:ToolbarSpacer/>
+                <layout:VerticalLayout>
+                    <m:Button
+                        id="BotaoEditar"
+                        text="{i18n>Page.Detalhes.Botao.Editar}"
+                        press="aoClicarEditar"
+                        type="{i18n>Botao.Limpar.Filtros.Tipo}"/>
+                </layout:VerticalLayout>              
             </headerContent>
 	    </ObjectPageLayout>
 	</m:Page>

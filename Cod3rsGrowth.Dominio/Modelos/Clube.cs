@@ -61,6 +61,9 @@ namespace Cod3rsGrowth.Dominio.Modelos
             [Column("Estado"), NotNull]
             public string Estado { get; set; }
 
+            [Column("EstadoEnum"), NotNull]
+            public EstadosEnum EstadoInt { get; set; }
+
             [Column("CoberturaTeto"), NotNull]
             public bool? CoberturaAntiChuva { get; set; }
 
