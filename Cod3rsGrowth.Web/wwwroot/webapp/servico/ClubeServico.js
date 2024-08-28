@@ -31,20 +31,19 @@ sap.ui.define([], () => {
             this.urlClubes = OBTERTODOS + "/" + idClube;
             console.log(this.urlClubes)
 
-            return fetch(this.urlClubes, {
+            return await fetch(this.urlClubes, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(DadosEdição)
             }) 
             .then(async resposta => {
-                if (resposta.ok) {
-                    return await resposta.json();
-                } 
-                throw resposta;                
+                let response = await resposta.json(); 
+                console.log(response)
+                if(response.status == 400){
+                    throw response   
+                }
+                return response             
             })
-            .catch(error => {
-                console.error('Erro:', error);
-            });
         },
 
         aoCriarClube: async function(DadosCriacao) {

@@ -258,7 +258,7 @@ sap.ui.define([
             if(hash [1] == "editar"){
                 try {        
                     var idClube = this.getView().getModel(CLUBES).getData().id;   
-                    await this.clubeServico.aoEditarClube(DadosDaCriação, idClube);
+                    await this.clubeServico.aoEditarClube(DadosDaCriação, idClube)
                     MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 } 
                 catch (erro) {
