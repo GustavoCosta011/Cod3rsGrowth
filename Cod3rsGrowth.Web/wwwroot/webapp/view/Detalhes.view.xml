@@ -7,7 +7,7 @@
 	<m:Page title="{i18n>Page.Detalhes.Titulo}" 
         id="PaginaDeDetalhes"
         showNavButton="true"
-        navButtonPress="aoClivarEmVoltar"
+        navButtonPress="aoClicarEmVoltar"
         class="sapUiResponsiveContentPadding"
         >
 	    <ObjectPageLayout id="ObjectPageLayout" height="100%">
@@ -26,14 +26,21 @@
                         icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
                         state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
                 </layout:VerticalLayout>
-                <m:ToolbarSpacer/>
+                <m:ToolbarSpacer width= "50%"/>
                 <layout:VerticalLayout>
                     <m:Button
+                        width="6rem"
                         id="BotaoEditar"
                         text="{i18n>Page.Detalhes.Botao.Editar}"
                         press="aoClicarEditar"
                         type="{i18n>Botao.Limpar.Filtros.Tipo}"/>
-                </layout:VerticalLayout>              
+                     <m:Button
+                        width="6rem"
+                        id="BotaoDeletar"
+                        text="{i18n>Page.Detalhes.Botao.Deletar}"
+                        press="aoClicarDeletar"
+                        type="Default"/>   
+                 </layout:VerticalLayout>   
             </headerContent>
 	    </ObjectPageLayout>
 	</m:Page>

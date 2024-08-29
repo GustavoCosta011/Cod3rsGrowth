@@ -3,7 +3,8 @@ sap.ui.define([
     "../servico/ClubeServico",
     "../formatter",
     "sap/m/MessageBox",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+
 ], function (Base, ClubeServico, Formatter, MessageBox,JSONModel) {
 	"use strict";
 
@@ -14,6 +15,7 @@ sap.ui.define([
     const DESTINO_VOLTAR = 'clubes';
     const TITULO_ERRO = "Erro";
     const DESTINO_EDITAR = 'editar';
+    const PERGUNTA = "Deseja excluir este clube?";
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter: Formatter,
@@ -32,11 +34,25 @@ sap.ui.define([
                 MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
             });
         },
-        aoClivarEmVoltar: function(){
+        aoClicarEmVoltar: function(){
             this.navegarPara(DESTINO_VOLTAR);
         },
         aoClicarEditar: function(){
             this.navegarPara(DESTINO_EDITAR,{ idClube : this.getView().getModel(CLUBES).getData().id})
-        }
+        },
+        aoClicarDeletar: function(){
+            MessageBox.confirm(PERGUNTA, {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: async (oAction) => {
+                    if (oAction === MessageBox.Action.YES) {
+                        const idDoClube = this.getView().getModel(CLUBES).getData().id;
+                        await this.clubeServico.aoDeletarClube(idDoClube);
+                        this.aoClicarEmVoltar();
+                    } else if (oAction === MessageBox.Action.NO) {
+                        MessageBox.close();
+                    }
+                }
+            });
+        }           
 	});
 });

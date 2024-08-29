@@ -50,7 +50,7 @@ namespace Cod3rsGrowth.Web.Controllers
         public IActionResult Remover([FromRoute] int id)
         {
             _servicoClube.RemoverClube(id);
-            return NoContent();
+            return Ok(id);
         }
 
         [HttpGet("estados")]
