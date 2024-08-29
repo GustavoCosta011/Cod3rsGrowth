@@ -13,20 +13,20 @@
 	    <ObjectPageLayout id="ObjectPageLayout" height="100%">
             <headerContent>        
             <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
-                <layout:VerticalLayout>
+                <layout:VerticalLayout width="20%">
                     <m:Title title= "{i18n>Page.Detalhes.Nome.Titulo}" text="{clubes>/nome}"/>
                     <m:ObjectStatus title="{i18n>Page.Detalhes.Fundacao.Titulo}" text= "{path: 'clubes>/fundacao', formatter: '.formatter.formatDate'}"/>   
                     <m:ObjectStatus title="{i18n>Page.Detalhes.Estadio.Titulo}" text="{clubes>/estadio}"/>
                     <m:ObjectStatus title="{i18n>Page.Detalhes.Estado.Titulo}" text="{clubes>/estado}"/>
                 </layout:VerticalLayout>
-                <layout:VerticalLayout>
+                <layout:VerticalLayout width="20%">
                     <m:ObjectStatus
                         title="{i18n>Page.Detalhes.Cobertura.Titulo}"
                         class="sapUiSmallMarginBottom"
                         icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
                         state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
                 </layout:VerticalLayout>
-                <m:ToolbarSpacer width= "50%"/>
+                <m:ToolbarSpacer width= "35%"/>
                 <layout:VerticalLayout>
                     <m:Button
                         width="6rem"

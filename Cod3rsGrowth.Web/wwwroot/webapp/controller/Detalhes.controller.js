@@ -16,6 +16,7 @@ sap.ui.define([
     const TITULO_ERRO = "Erro";
     const DESTINO_EDITAR = 'editar';
     const PERGUNTA = "Deseja excluir este clube?";
+    const TITULO_CONFIRMAR = "Confirme";
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter: Formatter,
@@ -42,6 +43,7 @@ sap.ui.define([
         },
         aoClicarDeletar: function(){
             MessageBox.confirm(PERGUNTA, {
+                title: TITULO_CONFIRMAR,
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 onClose: async (oAction) => {
                     if (oAction === MessageBox.Action.YES) {
