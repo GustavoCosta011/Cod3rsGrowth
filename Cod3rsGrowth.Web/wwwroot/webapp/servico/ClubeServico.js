@@ -98,6 +98,23 @@ sap.ui.define([], () => {
             catch (erro) {
                 throw erro;             
             }
+        },
+
+        aoDeletarClube: async function(idDoClube) {
+            this.urlClubes = OBTERTODOS + "/" + idDoClube;
+
+            return await fetch(this.urlClubes, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+            }) 
+            .then(async resposta => {
+                let response = await resposta.json(); 
+                console.log(response)
+                if(response.status == 400){
+                    throw response   
+                }
+                return response             
+            })
         }
     }
 });

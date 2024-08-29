@@ -17,7 +17,7 @@ sap.ui.define([
         When.naPaginaListaDeClubes.apertarMaisNaPaginação();
 
         // Assert
-        Then.naPaginaListaDeClubes.buscarSeItemsForamAdicionados();
+        Then.naPaginaListaDeClubes.buscarOTamanhoDaLista(20);
         
     });
 

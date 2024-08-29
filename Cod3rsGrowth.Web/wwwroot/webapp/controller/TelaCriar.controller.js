@@ -98,7 +98,7 @@ sap.ui.define([
             this._CarregarEstados();
         },
 
-        aoClivarEmVoltar: function(){
+        aoClicarEmVoltar: function(){
             this.navegarPara(DESTINO_VOLTAR, {Acao : LIMPAR});
         },
 
@@ -248,12 +248,12 @@ sap.ui.define([
             if (!this.validarCamposPreenchidos()) {
                 return;
             }
-            var DadosDaCriação = this.DadosCriacao.reduce((newArray, atual) => {d
+            var DadosDaCriação = this.DadosCriacao.reduce((newArray, atual) => {
                 newArray[atual.key] = atual.value;
                 return newArray;
             }, {})
             var hash = this._getRouter().getHashChanger().getHash().split(BARRA)
-            if(hash [1] == EDITAR){
+            if(hash [INDICEUM] == EDITAR){
                 try {        
                     var idClube = this.getView().getModel(CLUBES).getData().id;   
                     await this.clubeServico.aoEditarClube(DadosDaCriação, idClube)

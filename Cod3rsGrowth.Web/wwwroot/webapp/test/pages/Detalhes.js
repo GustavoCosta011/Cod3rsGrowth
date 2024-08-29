@@ -2,9 +2,10 @@ sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/test/matchers/Properties",
     "sap/ui/test/matchers/PropertyStrictEquals",
-    "sap/ui/test/actions/Press"
+    "sap/ui/test/actions/Press",
+    "sap/ui/test/matchers/Ancestor"
 
-], (Opa5, Properties, PropertyStrictEquals, Press) => {
+], (Opa5, Properties, PropertyStrictEquals, Press, Ancestor) => {
     "use strict";
 
     const dataView = "Detalhes";
@@ -23,7 +24,31 @@ sap.ui.define([
                         actions: new Press(),
                         errorMessage: "Não foi possivel encontrar o botão de voltar"
                     });
-                }
+                },  
+                aoClicarNoBotaoDeletar: function(){
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        viewName: dataView,
+                        matchers: new Properties({text : "Deletar"}),
+                        actions: new Press(),
+                        errorMessage: "Não foi possivel encontrar o botão de voltar"
+                    });
+                },
+
+                aoClicarNoBotaoDoMessageBox: function (textoButao) {
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        matchers: [
+                            new Properties({ text: textoButao }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        actions: new Press(),
+                        success: function () {
+                            Opa5.assert.ok(true, `Sucesso ao fechar MessageBox ao clicar no botao '${textoButao}'.`);
+                        },
+                        errorMessage: "Falha ao fechar MessageBox ao clicar no botao Ok."
+                    });
+                },
             },
 
             assertions: {
@@ -102,6 +127,25 @@ sap.ui.define([
                         errorMessage: "O valor do estado do campo boleano esta incorreto."
                     });
                 },
+
+                DeveVerificarMessageBoxDeDeletar: function (mensagemEsperada){
+                    return this.waitFor({
+                        controlType: "sap.m.Dialog",
+                        matchers: new PropertyStrictEquals({
+                            name: "title",
+                            value: "Confirme"
+                        }),
+                        success: function(CaixaDeDialogo) {
+                            Opa5.assert.ok(CaixaDeDialogo.length, "Caixa de diálogo de erro foi exibida.");
+                
+                            var dialogo = CaixaDeDialogo[0];
+                            var conteudo = dialogo.getContent()[0];
+                            var texto = conteudo.getText();
+                            Opa5.assert.strictEqual(texto, mensagemEsperada, "Mensagem de erro está correta.");
+                        },
+                        errorMessage: "Caixa de diálogo de erro não foi exibida corretamente."
+                    });
+                }
             }
         }
     });

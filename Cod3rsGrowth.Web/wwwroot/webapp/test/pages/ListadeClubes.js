@@ -82,13 +82,13 @@ sap.ui.define([
 						errorMessage: "Os dados não foram carregados"
 					});                   
                 },
-                buscarSeItemsForamAdicionados: function(){
+                buscarOTamanhoDaLista: function(tamanho){
                     return this.waitFor({
                         controlType:"sap.m.Table",
                         viewName: dataView,
                         matchers: new AggregationLengthEquals({
 							name: "items",
-							length: 20
+							length: tamanho
 						}),
 						success: function () {
 							Opa5.assert.ok(true, "Foram adicionados na tabela mais 8 items");
