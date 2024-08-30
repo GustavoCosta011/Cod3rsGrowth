@@ -34,6 +34,10 @@
                 "type": "sap.ui.model.json.JSONModel",
                 "uri": "https://localhost:7178/api/Clubes"
             },
+            "jogadores": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "https://localhost:7178/api/Jogadores"
+            },
             "estados": {
                 "type": "sap.ui.model.json.JSONModel",
                 "uri": "https://localhost:7178/api/Clubes/estados"
