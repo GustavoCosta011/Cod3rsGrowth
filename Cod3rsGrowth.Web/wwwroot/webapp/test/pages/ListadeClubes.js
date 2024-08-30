@@ -70,7 +70,7 @@ sap.ui.define([
                 },
                 buscarSeExisteUmaPaginação: function(){
                     return this.waitFor({
-                        id: "ListaDeClubes",
+                        controlType:"sap.m.Table",
                         viewName: dataView,
                         matchers: new AggregationLengthEquals({
 							name: "items",

@@ -26,6 +26,19 @@ sap.ui.define([
 
     });
 
+    opaQUnit("Deve verificar se existe uma tabela de elenco com paginação", function (Given, When, Then) {
+        // Assert
+        Then.naPaginaDeDetalhes.buscarSeExisteUmaPaginação();
+    });
+
+    opaQUnit("Deve pressionar a paginação  e conferir o tamanho da lista", function (Given, When, Then) {
+        //Act
+        When.naPaginaDeDetalhes.apertarMaisNaPaginação();
+
+        // Assert
+        Then.naPaginaDeDetalhes.buscarOTamanhoDaLista(11);
+    });
+
     opaQUnit("Deve verificar se o botão de voltar retorna para  a pagina de Clubes", function (Given, When, Then) {
 
         // Act

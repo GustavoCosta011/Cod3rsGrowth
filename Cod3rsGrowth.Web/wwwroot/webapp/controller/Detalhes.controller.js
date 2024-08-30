@@ -1,11 +1,12 @@
 sap.ui.define([
 	"./Base",
     "../servico/ClubeServico",
+    "../servico/JogadorServico",
     "../formatter",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
 
-], function (Base, ClubeServico, Formatter, MessageBox,JSONModel) {
+], function (Base, ClubeServico, JogadorServico, Formatter, MessageBox,JSONModel) {
 	"use strict";
 
     const CLUBES = "clubes";
@@ -17,22 +18,37 @@ sap.ui.define([
     const DESTINO_EDITAR = 'editar';
     const PERGUNTA = "Deseja excluir este clube?";
     const TITULO_CONFIRMAR = "Confirme";
+    const JOGADORES = "jogadores"
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter: Formatter,
         clubeServico : ClubeServico,
+        jogadorServico : JogadorServico,
+
         onInit: function () {
             this._vincularRota(DETALHES, this.aoCoincidirRota);
         },
-        aoCoincidirRota : function(evento){
+        aoCoincidirRota : async function(evento){
             const argumentos = evento.getParameter(ARGUMENTS);
-            this.clubeServico.aoBuscarClubePorId(argumentos.idClube)
+
+            await this.clubeServico.aoBuscarClubePorId(argumentos.idClube)
             .then((clube) => {
                 var oModel = new JSONModel(clube);
                 this.getView().setModel(oModel, CLUBES);
             })
             .catch((error) => {
-                MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
+                MessageBox.error(error, {title : TITULO_ERRO});
+            });
+
+            var elenco =  this.getView().getModel(CLUBES).getData().elenco
+
+            await this.aoCarregarElenco(elenco)
+            .then((jogador) =>{
+                var oModel = new JSONModel(jogador);
+                this.getView().setModel(oModel, JOGADORES);
+            })
+            .catch((error) => {
+                MessageBox.error(error, {title : TITULO_ERRO});
             });
         },
         aoClicarEmVoltar: function(){
@@ -40,6 +56,12 @@ sap.ui.define([
         },
         aoClicarEditar: function(){
             this.navegarPara(DESTINO_EDITAR,{ idClube : this.getView().getModel(CLUBES).getData().id})
+        },
+        aoCarregarElenco: async function (elenco) {
+            const jogadores = elenco.map( id => { 
+                return this.jogadorServico.aoBuscarJogadorPorId(id);
+            });
+            return await Promise.all(jogadores);
         },
         aoClicarDeletar: function(){
             MessageBox.confirm(PERGUNTA, {

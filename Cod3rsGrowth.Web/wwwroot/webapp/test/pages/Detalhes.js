@@ -3,9 +3,10 @@ sap.ui.define([
     "sap/ui/test/matchers/Properties",
     "sap/ui/test/matchers/PropertyStrictEquals",
     "sap/ui/test/actions/Press",
-    "sap/ui/test/matchers/Ancestor"
+    "sap/ui/test/matchers/Ancestor",
+    "sap/ui/test/matchers/AggregationLengthEquals"
 
-], (Opa5, Properties, PropertyStrictEquals, Press, Ancestor) => {
+], (Opa5, Properties, PropertyStrictEquals, Press, Ancestor, AggregationLengthEquals) => {
     "use strict";
 
     const dataView = "Detalhes";
@@ -49,6 +50,15 @@ sap.ui.define([
                         errorMessage: "Falha ao fechar MessageBox ao clicar no botao Ok."
                     });
                 },
+
+                apertarMaisNaPaginação: function() {
+                    return this.waitFor({
+                        controlType: "sap.m.Table",
+                        viewName: dataView,
+                        actions: new Press(),
+                        errorMessage: "Os dados não foram carregados ao clicar 'Mais'"
+                    });
+                }
             },
 
             assertions: {
@@ -145,7 +155,37 @@ sap.ui.define([
                         },
                         errorMessage: "Caixa de diálogo de erro não foi exibida corretamente."
                     });
-                }
+                },
+
+                buscarSeExisteUmaPaginação: function(){
+                    return this.waitFor({
+                        id: "Elenco",
+                        viewName: dataView,
+                        matchers: new AggregationLengthEquals({
+							name: "items",
+							length: 10
+						}),
+						success: function () {
+							Opa5.assert.ok(true, "A tabela esta exibindo um Elenco de 10 jogadores");
+						},
+						errorMessage: "Os dados não foram carregados"
+					});                   
+                },
+
+                buscarOTamanhoDaLista: function(tamanho){
+                    return this.waitFor({
+                        controlType:"sap.m.Table",
+                        viewName: dataView,
+                        matchers: new AggregationLengthEquals({
+							name: "items",
+							length: tamanho
+						}),
+						success: function () {
+							Opa5.assert.ok(true, "Foram adicionados na tabela mais 1 items");
+						},
+						errorMessage: "Os dados não foram carregados"
+					});                   
+                },
             }
         }
     });

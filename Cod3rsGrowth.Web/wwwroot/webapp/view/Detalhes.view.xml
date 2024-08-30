@@ -1,47 +1,129 @@
 <mvc:View
-	controllerName="cod3rsgrowth.webapp.controller.Detalhes"
-	xmlns:m="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
+    controllerName="cod3rsgrowth.webapp.controller.Detalhes"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.uxap"
     xmlns:layout="sap.ui.layout">
-	<m:Page title="{i18n>Page.Detalhes.Titulo}" 
+    
+    <m:Page title="{i18n>Page.Detalhes.Titulo}" 
         id="PaginaDeDetalhes"
         showNavButton="true"
         navButtonPress="aoClicarEmVoltar"
-        class="sapUiResponsiveContentPadding"
-        >
-	    <ObjectPageLayout id="ObjectPageLayout" height="100%">
-            <headerContent>        
-            <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
-                <layout:VerticalLayout width="20%">
-                    <m:Title title= "{i18n>Page.Detalhes.Nome.Titulo}" text="{clubes>/nome}"/>
-                    <m:ObjectStatus title="{i18n>Page.Detalhes.Fundacao.Titulo}" text= "{path: 'clubes>/fundacao', formatter: '.formatter.formatDate'}"/>   
-                    <m:ObjectStatus title="{i18n>Page.Detalhes.Estadio.Titulo}" text="{clubes>/estadio}"/>
-                    <m:ObjectStatus title="{i18n>Page.Detalhes.Estado.Titulo}" text="{clubes>/estado}"/>
-                </layout:VerticalLayout>
-                <layout:VerticalLayout width="20%">
-                    <m:ObjectStatus
-                        title="{i18n>Page.Detalhes.Cobertura.Titulo}"
-                        class="sapUiSmallMarginBottom"
-                        icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
-                        state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
-                </layout:VerticalLayout>
-                <m:ToolbarSpacer width= "35%"/>
-                <layout:VerticalLayout>
-                    <m:Button
-                        width="6rem"
-                        id="BotaoEditar"
-                        text="{i18n>Page.Detalhes.Botao.Editar}"
-                        press="aoClicarEditar"
-                        type="{i18n>Botao.Limpar.Filtros.Tipo}"/>
-                     <m:Button
-                        width="6rem"
-                        id="BotaoDeletar"
-                        text="{i18n>Page.Detalhes.Botao.Deletar}"
-                        press="aoClicarDeletar"
-                        type="Default"/>   
-                 </layout:VerticalLayout>   
+        class="sapUiResponsiveContentPadding">
+        
+        <ObjectPageLayout id="ObjectPageLayout" height="auto"
+            enableLazyLoading="true"
+            useIconTabBar="true"
+            showTitleInHeaderContent="true"
+            upperCaseAnchorBar="true">
+            
+            <headerTitle>
+                <ObjectPageDynamicHeaderTitle>
+                    <expandedHeading>
+                        <m:Title text="{clubes>/nome}" wrapping="true"/>
+                    </expandedHeading>
+
+                    <snappedHeading>
+                        <m:FlexBox fitContainer="true" alignItems="Center">
+                            <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
+                            <m:Title title="{i18n>Page.Detalhes.Nome.Titulo}" text="{clubes>/nome}" wrapping="true"/>
+                        </m:FlexBox>
+                    </snappedHeading>
+
+                    <expandedContent>
+                        <m:Text text="Clube de futebol"/>
+                    </expandedContent>
+
+                    <snappedContent>
+                        <m:Text text="Clube de futebol"/>
+                    </snappedContent>
+
+                    <snappedTitleOnMobile>
+                        <m:Title text="Clube de futebol"/>
+                    </snappedTitleOnMobile>
+
+                    <actions>
+                        <m:Button
+                            width="6rem"
+                            id="BotaoEditar"
+                            text="{i18n>Page.Detalhes.Botao.Editar}"
+                            press="aoClicarEditar"
+                            type="{i18n>Botao.Limpar.Filtros.Tipo}"/>
+                        <m:Button
+                            width="6rem"
+                            id="BotaoDeletar"
+                            text="{i18n>Page.Detalhes.Botao.Deletar}"
+                            press="aoClicarDeletar"
+                            type="Default"/>
+                    </actions>
+                </ObjectPageDynamicHeaderTitle>
+            </headerTitle>
+
+            <headerContent>
+                <m:FlexBox wrap="Wrap" fitContainer="true" >
+                    <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
+                    <layout:VerticalLayout>
+                        <m:ObjectStatus title="{i18n>Page.Detalhes.Fundacao.Titulo}" text="{path: 'clubes>/fundacao', formatter: '.formatter.formatDate'}"/>   
+                        <m:ObjectStatus title="{i18n>Page.Detalhes.Estadio.Titulo}" text="{clubes>/estadio}"/>
+                        <m:ObjectStatus title="{i18n>Page.Detalhes.Estado.Titulo}" text="{clubes>/estado}"/>
+                        <m:ObjectStatus
+                            title="{i18n>Page.Detalhes.Cobertura.Titulo}"
+                            class="sapUiSmallMarginBottom"
+                            icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
+                            state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
+                    </layout:VerticalLayout>
+                </m:FlexBox>
             </headerContent>
-	    </ObjectPageLayout>
-	</m:Page>
+
+            <sections>
+                <ObjectPageSection titleUppercase="false" id="SessaoElenco" title="Elenco">
+                    <subSections>
+                        <ObjectPageSubSection id="JogadoresDoElenco" title="Jogadores" titleUppercase="false">
+                            <blocks>
+                                <m:Table
+                                    items="{jogadores>/}"
+                                    id="Elenco"
+                                    backgroundDesign="{i18n>Page.Detalhes.Tabela.Design}"
+                                    alternateRowColors="true"
+                                    growing="true"
+                                    growingThreshold="10"
+                                    growingTriggerText="{i18n>Page.Detalhes.Tabela.Growing}"
+                                    >
+                                    <m:columns>
+                                        <m:Column width="12em">
+                                            <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.Nome}"/>
+                                        </m:Column>
+                                        <m:Column width="12em">
+                                            <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.Idade}"/>
+                                        </m:Column>
+                                        <m:Column width="12em">
+                                            <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.DataDeNascimento}"/>
+                                        </m:Column>
+                                    </m:columns>
+                                    <m:items>
+                                        <m:ColumnListItem vAlign="Middle" type="Navigation"> 
+                                            <m:cells>
+                                                <m:ObjectIdentifier text="{jogadores>nome}"/>
+                                                <m:Text text="{jogadores>idade}"/>
+                                                <m:Text text="{path: 'jogadores>dataDeNascimento', formatter: '.formatter.formatDate'}"/>
+                                            </m:cells>
+                                        </m:ColumnListItem>
+                                    </m:items>
+                                </m:Table>
+                            </blocks>
+                        </ObjectPageSubSection>
+                    </subSections>
+                </ObjectPageSection>
+                <ObjectPageSection titleUppercase="false" id="SessaoHistoria" title="História">
+                    <subSections>
+                        <ObjectPageSubSection id="DetalhesHistoria" title="Detalhes" titleUppercase="false">
+                            <blocks>
+                                <m:Text text="Aqui vai o conteúdo sobre a história do clube." />
+                            </blocks>
+                        </ObjectPageSubSection>
+                    </subSections>
+                </ObjectPageSection>
+            </sections>
+        </ObjectPageLayout>
+    </m:Page>
 </mvc:View>
