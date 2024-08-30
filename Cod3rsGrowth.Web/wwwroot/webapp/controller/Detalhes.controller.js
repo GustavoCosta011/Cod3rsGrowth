@@ -41,7 +41,7 @@ sap.ui.define([
             });
 
             var elenco =  this.getView().getModel(CLUBES).getData().elenco
-            console.log(elenco)
+
             await this.aoCarregarElenco(elenco)
             .then((jogador) =>{
                 var oModel = new JSONModel(jogador);
@@ -50,7 +50,6 @@ sap.ui.define([
             .catch((error) => {
                 MessageBox.error(error, {title : TITULO_ERRO});
             });
-            console.log(this.getView().getModel(JOGADORES))
         },
         aoClicarEmVoltar: function(){
             this.navegarPara(DESTINO_VOLTAR);
