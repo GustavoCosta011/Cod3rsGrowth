@@ -1,0 +1,64 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core">
+   <Dialog id="CriarJogador" title="Formulario - Jogador" contentWidth="500px">
+        <VBox alignItems="Inherit" class="sapUiSmallMargin" width="auto">
+            <Label text="{i18n>Criar.Jogador.Nome}" required="true"/>
+            <Input
+                id= "InputNomeJogador"
+                width="100%"
+                placeholder="{i18n>Criar.Jogador.Nome.Placeholder}"
+                liveChange="true"
+                class="sapUiSmallMarginBottom"
+                value = "{jogador>/nome}"
+            />
+            <Label text="{i18n>Criar.Jogador.Clube}" required="true"/>
+            <ComboBox
+                id="ClubeCriacaoJogador"
+                width="100%"
+                placeholder="{i18n>Criar.Jogador.Clube.Placeholder}"
+                class="sapUiSmallMarginBottom"
+                selectedKey ="{jogador>/idClube}"
+                items="{clubes>/}">
+                <core:Item key="{clubes>id}" text="{clubes>nome}" />
+            </ComboBox>         
+            <Label text="{i18n>Criar.Jogador.DataDeNascimento}" required="true"/>
+            <DatePicker
+                id="CalendarioCriarJogador"
+                width="100%"  
+                placeholder="{i18n>Criar.Jogador.DataDeNascimento.Placeholder}"
+                liveChange="true"
+                displayFormat="dd/MM/yyyy"
+                class="sapUiSmallMarginBottom"
+                visible="true"
+                value = "{path: 'jogador>/dataDeNascimento', formatter: '.formatter.formatDate'}"
+            />
+            <Label text="{i18n>Criar.Jogador.Altura}" required="true"/>
+            <Input
+                id="InputAltura"
+                width="100%"
+                valueState="None" 
+                placeholder="{i18n>Criar.Jogador.Altura.Placeholder}"
+                liveChange="true"
+                class="sapUiSmallMarginBottom"
+                value = "{path: 'jogador>/altura', type:'sap.ui.model.type.Float'}"
+            />
+            <Label text="{i18n>Criar.Jogador.Peso}" required="true"/>
+            <Input
+                id="InputPeso"
+                width="100%"
+                valueState="None" 
+                placeholder="{i18n>Criar.Jogador.Peso.Placeholder}"
+                liveChange="true"
+                class="sapUiSmallMarginBottom"
+                value = "{path: 'jogador>/peso', type:'sap.ui.model.type.Float'}"
+            />
+        </VBox>
+        <beginButton>
+            <Button width= "20%" id="BotaoSalvarJogador" text="{i18n>Criar.Jogador.Botao.Criar}" press="aoSalvarJogador" type= "Emphasized"/>    
+        </beginButton>
+        <endButton>
+            <Button  width= "20%" id="BotaoCancelarCriacao" text="{i18n>Criar.Jogador.Botao.Cancelar}" press="aoFecharModal" type="Default"/> 
+        </endButton>
+   </Dialog>
+</core:FragmentDefinition>

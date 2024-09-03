@@ -1,6 +1,6 @@
 sap.ui.define([
     "sap/ui/test/opaQunit",
-    "../pages/Detalhes"
+    "../pages/Detalhes",
   ], (opaQUnit) => {
     "use strict";
      

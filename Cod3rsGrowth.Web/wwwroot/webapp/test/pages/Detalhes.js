@@ -4,9 +4,10 @@ sap.ui.define([
     "sap/ui/test/matchers/PropertyStrictEquals",
     "sap/ui/test/actions/Press",
     "sap/ui/test/matchers/Ancestor",
-    "sap/ui/test/matchers/AggregationLengthEquals"
+    "sap/ui/test/matchers/AggregationLengthEquals",
+    "sap/ui/test/actions/EnterText"
 
-], (Opa5, Properties, PropertyStrictEquals, Press, Ancestor, AggregationLengthEquals) => {
+], (Opa5, Properties, PropertyStrictEquals, Press, Ancestor, AggregationLengthEquals, EnterText) => {
     "use strict";
 
     const dataView = "Detalhes";
@@ -35,8 +36,16 @@ sap.ui.define([
                         errorMessage: "Não foi possivel encontrar o botão de voltar"
                     });
                 },
-
-                aoClicarNoBotaoDoMessageBox: function (textoButao) {
+                aoClicarEmCriar: function(){
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        viewName: dataView,
+                        matchers: new Properties({text : "Criar"}),
+                        actions: new Press(),
+                        errorMessage: "Não foi possivel encontrar o botão de voltar"
+                    });
+                },
+                aoClicarNoBotaoDoDialogo: function (textoButao) {
                     return this.waitFor({
                         controlType: "sap.m.Button",
                         matchers: [
@@ -57,6 +66,61 @@ sap.ui.define([
                         viewName: dataView,
                         actions: new Press(),
                         errorMessage: "Os dados não foram carregados ao clicar 'Mais'"
+                    });
+                },
+                aoInserirNome: function(Nome) {
+                    return this.waitFor({
+                        id: "InputNomeJogador",
+                        viewName: dataView,
+                        matchers: [
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        actions: new EnterText({ text: Nome }),
+                        errorMessage: "Não foi possível encontrar o campo 'Nome'"
+                    });
+                },
+                aoInserirData: function(Data) {
+                    return this.waitFor({
+                        id: "CalendarioCriarJogador",
+                        viewName: dataView,
+                        matchers: [
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        actions: new EnterText({ text: Data }),
+                        errorMessage: "Não foi possível encontrar o campo 'Data de Nascimento'"
+                    });
+                },
+                aoInserirAltura: function(altura) {
+                    return this.waitFor({
+                        id: "InputAltura",
+                        viewName: dataView,
+                        matchers: [
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        actions: new EnterText({ text: altura }),
+                        errorMessage: "Não foi possível encontrar o campo 'Altura'"
+                    });
+                },
+                aoInserirPeso: function(peso) {
+                    return this.waitFor({
+                        id: "InputPeso",
+                        viewName: dataView,
+                        matchers: [
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        actions: new EnterText({ text: peso }),
+                        errorMessage: "Não foi possível encontrar o campo 'Peso'"
+                    });
+                },
+                aoSelecionarClube: function(clube) {
+                    return this.waitFor({
+                        id: "ClubeCriacaoJogador",
+                        viewName: dataView,
+                        matchers: [
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        actions: new EnterText({ text: clube }),
+                        errorMessage: "Não foi possível selecionar o clube no ComboBox"
                     });
                 }
             },
@@ -186,6 +250,143 @@ sap.ui.define([
 						errorMessage: "Os dados não foram carregados"
 					});                   
                 },
+
+                DeveVerificarOTituloDoModalDeCriacao: function (){
+                    return this.waitFor({
+                        controlType: "sap.m.Dialog",
+                        matchers: new PropertyStrictEquals({
+                            name: "title",
+                            value: "Formulario - Jogador"
+                        }),
+                        success: function(CaixaDeDialogo) {
+                            Opa5.assert.ok(CaixaDeDialogo.length, "Caixa de diálogo de erro foi exibida.");
+                        },
+                        errorMessage: "Caixa de diálogo de erro não foi exibida corretamente."
+                    });
+                },
+                DeveVerificarMensagemDeErroParaNome: function () {
+                    return this.waitFor({
+                        id: "InputNomeJogador",
+                        viewName: dataView,
+                        matchers:[ 
+                            new PropertyStrictEquals({
+                                name: "valueStateText",
+                                value: "Campo 'Nome' precisa ser preenchido."
+                            }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "A mensagem de erro para 'Nome' está correta.");
+                        },
+                        errorMessage: "A mensagem de erro para 'Nome' não está correta."
+                    });
+                },
+                DeveVerificarMensagemDeErroParaData: function () {
+                    return this.waitFor({
+                        id: "CalendarioCriarJogador",
+                        viewName: dataView,
+                        matchers: [
+                            new PropertyStrictEquals({
+                                name: "valueStateText",
+                                value: "Campo 'Data de Nascimento' precisa ser preenchido."
+                            }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "A mensagem de erro para 'Data de Nascimento' está correta.");
+                        },
+                        errorMessage: "A mensagem de erro para 'Data de Nascimento' não está correta."
+                    });
+                },
+                DeveVerificarMensagemDeErroParaAltura: function () {
+                    return this.waitFor({
+                        id: "InputAltura",
+                        viewName: dataView,
+                        matchers: [
+                            new PropertyStrictEquals({
+                                name: "valueStateText",
+                                value: "Campo 'Altura' precisa ser preenchido."
+                            }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "A mensagem de erro para 'Altura' está correta.");
+                        },
+                        errorMessage: "A mensagem de erro para 'Altura' não está correta."
+                    });
+                },
+                DeveVerificarMensagemDeErroParaPeso: function () {
+                    return this.waitFor({
+                        id: "InputPeso",
+                        viewName: dataView,
+                        matchers: [
+                            new PropertyStrictEquals({
+                                name: "valueStateText",
+                                value: "Campo 'Peso' precisa ser preenchido."
+                            }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "A mensagem de erro para 'Peso' está correta.");
+                        },
+                        errorMessage: "A mensagem de erro para 'Peso' não está correta."
+                    });
+                },
+                DeveVerificarMensagemDeErroParaClube: function () {
+                    return this.waitFor({
+                        id: "ClubeCriacaoJogador",
+                        viewName: dataView,
+                        matchers: [
+                            new PropertyStrictEquals({
+                            name: "valueStateText",
+                            value: "Campo 'Clube' precisa ser preenchido."
+                            }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "A mensagem de erro para 'Clube' está correta.");
+                        },
+                        errorMessage: "A mensagem de erro para 'Clube' não está correta."
+                    });
+                },
+                DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo: function(mensagemEsperada) {
+                    return this.waitFor({
+                        controlType: "sap.m.Dialog",
+                        matchers: new PropertyStrictEquals({
+                            name: "title",
+                            value: "Erro"
+                        }),
+                        success: function(CaixaDeDialogo) {
+                            Opa5.assert.ok(CaixaDeDialogo.length, "Caixa de diálogo de erro foi exibida.");
+                
+                            var dialogo = CaixaDeDialogo[0];
+                            var vbox = dialogo.getContent()[0];
+                            var conteudo = vbox.getItems()[0]
+                            var texto = conteudo.getText();
+                            Opa5.assert.strictEqual(texto, mensagemEsperada, "Mensagem de erro está correta.");
+                
+                            var detalhes = vbox.getItems()[1]; 
+                            var textoDetalhes = detalhes.getText();
+                            Opa5.assert.ok(textoDetalhes.length > 0, "Detalhes do erro estão presentes.");
+                        },
+                        errorMessage: "Caixa de diálogo de erro não foi exibida corretamente."
+                    });
+                },
+                DeveVerificarMessageToast: function (Mensagem) {
+                    return this.waitFor({
+                        pollingInterval: 100,
+                        check: function () {
+                            var MessageToastControle = sap.ui.test.Opa5.getJQuery()(".sapMMessageToast");
+                            return MessageToastControle.filter(function (i, elemento) {
+                                return elemento.textContent === Mensagem;
+                            }).length > 0;
+                        },
+                        success: function () {
+                            Opa5.assert.ok(true, "MessageToast foi exibido com o texto: " + Mensagem);
+                        },
+                        errorMessage: "MessageToast com o texto '" + Mensagem + "' não foi encontrado."
+                    });
+                }
             }
         }
     });

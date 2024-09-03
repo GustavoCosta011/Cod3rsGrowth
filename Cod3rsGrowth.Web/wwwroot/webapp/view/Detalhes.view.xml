@@ -20,13 +20,13 @@
             <headerTitle>
                 <ObjectPageDynamicHeaderTitle>
                     <expandedHeading>
-                        <m:Title text="{clubes>/nome}" wrapping="true"/>
+                        <m:Title text="{clube>/nome}" wrapping="true"/>
                     </expandedHeading>
 
                     <snappedHeading>
                         <m:FlexBox fitContainer="true" alignItems="Center">
                             <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
-                            <m:Title title="{i18n>Page.Detalhes.Nome.Titulo}" text="{clubes>/nome}" wrapping="true"/>
+                            <m:Title title="{i18n>Page.Detalhes.Nome.Titulo}" text="{clube>/nome}" wrapping="true"/>
                         </m:FlexBox>
                     </snappedHeading>
 
@@ -63,14 +63,14 @@
                 <m:FlexBox wrap="Wrap" fitContainer="true" >
                     <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
                     <layout:VerticalLayout>
-                        <m:ObjectStatus title="{i18n>Page.Detalhes.Fundacao.Titulo}" text="{path: 'clubes>/fundacao', formatter: '.formatter.formatDate'}"/>   
-                        <m:ObjectStatus title="{i18n>Page.Detalhes.Estadio.Titulo}" text="{clubes>/estadio}"/>
-                        <m:ObjectStatus title="{i18n>Page.Detalhes.Estado.Titulo}" text="{clubes>/estado}"/>
+                        <m:ObjectStatus title="{i18n>Page.Detalhes.Fundacao.Titulo}" text="{path: 'clube>/fundacao', formatter: '.formatter.formatDate'}"/>   
+                        <m:ObjectStatus title="{i18n>Page.Detalhes.Estadio.Titulo}" text="{clube>/estadio}"/>
+                        <m:ObjectStatus title="{i18n>Page.Detalhes.Estado.Titulo}" text="{clube>/estado}"/>
                         <m:ObjectStatus
                             title="{i18n>Page.Detalhes.Cobertura.Titulo}"
                             class="sapUiSmallMarginBottom"
-                            icon="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
-                            state="{path : 'clubes>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
+                            icon="{path : 'clube>/coberturaAntiChuva', formatter: '.formatter.formatIcon'}"
+                            state="{path : 'clube>/coberturaAntiChuva', formatter: '.formatter.formatBolean'}"/>
                     </layout:VerticalLayout>
                 </m:FlexBox>
             </headerContent>
@@ -80,36 +80,46 @@
                     <subSections>
                         <ObjectPageSubSection id="JogadoresDoElenco" title="Jogadores" titleUppercase="false">
                             <blocks>
-                                <m:Table
-                                    items="{jogadores>/}"
-                                    id="Elenco"
-                                    backgroundDesign="{i18n>Page.Detalhes.Tabela.Design}"
-                                    alternateRowColors="true"
-                                    growing="true"
-                                    growingThreshold="10"
-                                    growingTriggerText="{i18n>Page.Detalhes.Tabela.Growing}"
-                                    >
-                                    <m:columns>
-                                        <m:Column width="12em">
-                                            <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.Nome}"/>
-                                        </m:Column>
-                                        <m:Column width="12em">
-                                            <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.Idade}"/>
-                                        </m:Column>
-                                        <m:Column width="12em">
-                                            <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.DataDeNascimento}"/>
-                                        </m:Column>
-                                    </m:columns>
-                                    <m:items>
-                                        <m:ColumnListItem vAlign="Middle" type="Navigation"> 
-                                            <m:cells>
-                                                <m:ObjectIdentifier text="{jogadores>nome}"/>
-                                                <m:Text text="{jogadores>idade}"/>
-                                                <m:Text text="{path: 'jogadores>dataDeNascimento', formatter: '.formatter.formatDate'}"/>
-                                            </m:cells>
-                                        </m:ColumnListItem>
-                                    </m:items>
-                                </m:Table>
+                                <m:VBox justifyContent="Start" alignItems="Start" width="100%">
+                                    <m:VBox justifyContent="Start" alignItems="Start" width="100%">
+                                        <m:Button
+                                            width="6rem"
+                                            id="BotaoCriarJogador"
+                                            text="{i18n>Page.Detalhes.Botao.Criar.Jogador}"
+                                            press="aoAbrirModalDeCriacao"
+                                            type="Emphasized"/>
+                                    </m:VBox>
+                                    <m:Table
+                                        items="{jogadores>/}"
+                                        id="Elenco"
+                                        backgroundDesign="{i18n>Page.Detalhes.Tabela.Design}"
+                                        alternateRowColors="true"
+                                        growing="true"
+                                        growingThreshold="10"
+                                        growingTriggerText="{i18n>Page.Detalhes.Tabela.Growing}"
+                                        >
+                                        <m:columns>
+                                            <m:Column width="12em">
+                                                <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.Nome}"/>
+                                            </m:Column>
+                                            <m:Column width="12em">
+                                                <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.Idade}"/>
+                                            </m:Column>
+                                            <m:Column width="12em">
+                                                <m:Text text="{i18n>Page.Detalhes.Tabela.Coluna.DataDeNascimento}"/>
+                                            </m:Column>
+                                        </m:columns>
+                                        <m:items>
+                                            <m:ColumnListItem vAlign="Middle" type="Navigation"> 
+                                                <m:cells>
+                                                    <m:ObjectIdentifier text="{jogadores>nome}"/>
+                                                    <m:Text text="{jogadores>idade}"/>
+                                                    <m:Text text="{path: 'jogadores>dataDeNascimento', formatter: '.formatter.formatDate'}"/>
+                                                </m:cells>
+                                            </m:ColumnListItem>
+                                        </m:items>
+                                    </m:Table>
+                                </m:VBox>
                             </blocks>
                         </ObjectPageSubSection>
                     </subSections>
