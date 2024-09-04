@@ -6,7 +6,7 @@ sap.ui.define([], () => {
     const OBTERESTADOS = "https://localhost:7178/api/Clubes/estados";
 
     return {
-        BuscarClubes: function(filtros) {
+        buscarClubes: function(filtros) {
             this.urlClubes = OBTERTODOS;
             if (filtros.length > NUMZERO) {
                 this.urlClubes += "?" + filtros.map(filtro => `${filtro.key}=${filtro.value}`).join("&");
@@ -27,7 +27,7 @@ sap.ui.define([], () => {
             });
         },
 
-        EditarClube: async function(DadosEdição, idClube){
+        editarClube: async function(DadosEdição, idClube){
             this.urlClubes = OBTERTODOS + "/" + idClube;
             console.log(this.urlClubes)
 
@@ -46,7 +46,7 @@ sap.ui.define([], () => {
             })
         },
 
-        CriarClube: async function(DadosCriacao) {
+        eriarClube: async function(DadosCriacao) {
             try {
                 const resposta = await fetch(new URL(OBTERTODOS), {
                     method: "POST",
@@ -65,7 +65,7 @@ sap.ui.define([], () => {
             }
         },
 
-        BuscarClubePorId: async function (idClube){            
+        buscarClubePorId: async function (idClube){            
             this.urlClubes = OBTERTODOS + "/" + idClube;
             return fetch(this.urlClubes, {
                 method: "GET",
@@ -82,7 +82,7 @@ sap.ui.define([], () => {
             });
         },
 
-        BuscarEstados: async function() {
+        buscarEstados: async function() {
             try {
                 const resposta = await fetch(new URL(OBTERESTADOS), {
                     method: "GET",
@@ -100,7 +100,7 @@ sap.ui.define([], () => {
             }
         },
 
-        DeletarClube: async function(idDoClube) {
+        deletarClube: async function(idDoClube) {
             this.urlClubes = OBTERTODOS + "/" + idDoClube;
 
             return await fetch(this.urlClubes, {

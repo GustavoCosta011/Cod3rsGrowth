@@ -3,7 +3,7 @@ sap.ui.define([], () => {
     const OBTERTODOS = "https://localhost:7178/api/Jogadores";
 
     return {
-        BuscarJogadorPorId: async function (IdDoJogador){            
+        buscarJogadorPorId: async function (IdDoJogador){            
             this.urlJogadores = OBTERTODOS + "/" + IdDoJogador;
             return fetch(this.urlJogadores, {
                 method: "GET",
@@ -17,7 +17,7 @@ sap.ui.define([], () => {
             })
         },
 
-        CriarJogador: async function(DadosCriacao) {
+        criarJogador: async function(DadosCriacao) {
             try {
                 const resposta = await fetch(new URL(OBTERTODOS), {
                     method: "POST",
@@ -36,7 +36,7 @@ sap.ui.define([], () => {
             }
         },
 
-        EditarJogador: async function(DadosEdição, IdDoJogador){
+        editarJogador: async function(DadosEdição, IdDoJogador){
             this.urlJogadores = OBTERTODOS + "/" + IdDoJogador;
             console.log(this.urlJogadores)
 
@@ -55,7 +55,7 @@ sap.ui.define([], () => {
             })
         },
 
-        DeletarJogador: async function(IdDoJogador) {
+        deletarJogador: async function(IdDoJogador) {
             this.urlJogadores = OBTERTODOS + "/" + IdDoJogador;
 
             return await fetch(this.urlJogadores, {

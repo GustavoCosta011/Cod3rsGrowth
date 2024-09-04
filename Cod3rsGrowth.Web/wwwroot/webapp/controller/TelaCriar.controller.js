@@ -63,7 +63,7 @@ sap.ui.define([
             const argumento = evento.getParameter(ARGUMENTS);
             var oView = this.getView();
 
-            await ClubeServico.BuscarClubePorId(argumento.idClube)
+            await ClubeServico.buscarClubePorId(argumento.idClube)
                 .then((resposta) => {
                     oView.setModel(new JSONModel(resposta) , CLUBES);
                 })
@@ -248,7 +248,7 @@ sap.ui.define([
             if(hash [INDICEUM] == EDITAR){
                 try {        
                     var idClube = this.getView().getModel(CLUBES).getData().id;   
-                    await ClubeServico.EditarClube(DadosDaCriação, idClube)
+                    await ClubeServico.editarClube(DadosDaCriação, idClube)
                     MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 } 
                 catch (erro) {
@@ -256,7 +256,7 @@ sap.ui.define([
                 }
             }else{
                 try {
-                    await ClubeServico.CriarClube(DadosDaCriação);
+                    await ClubeServico.criarClube(DadosDaCriação);
                     MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                     this._resetarItems();
                 } 

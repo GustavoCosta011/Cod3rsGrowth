@@ -64,7 +64,7 @@ sap.ui.define([
 
             const argumentos = evento.getParameter(ARGUMENTS);
 
-            await ClubeServico.BuscarClubePorId(argumentos.idClube)
+            await ClubeServico.buscarClubePorId(argumentos.idClube)
             .then((clube) => {
                 let oModel = new JSONModel(clube);
                 this._criarModelo(oModel, NOME_MODELO_CLUBE);
@@ -91,7 +91,7 @@ sap.ui.define([
         },
         _aoCarregarElenco: async function (elenco) {
             const jogadores = elenco.map( id => { 
-                return JogadorServico.BuscarJogadorPorId(id);
+                return JogadorServico.buscarJogadorPorId(id);
             });
             return await Promise.all(jogadores);
         },
@@ -102,7 +102,7 @@ sap.ui.define([
                 onClose: async (oAction) => {
                     if (oAction === MessageBox.Action.YES) {
                         const idDoClube = this._pegarModelo(NOME_MODELO_CLUBE).getData().id;
-                        await ClubeServico.DeletarClube(idDoClube);
+                        await ClubeServico.deletarClube(idDoClube);
                         this._navegarPara(DESTINO_VOLTAR)
                     } else if (oAction === MessageBox.Action.NO) {
                         MessageBox.close();
@@ -211,7 +211,7 @@ sap.ui.define([
             if(hash [INDICEUM] == EDITAR){
                 try {      
                     let idClube = this._pegarModelo(JOGADOR).getData().id;   
-                    await JogadorServico.EditarJogador(DadosDaCriação, idClube)
+                    await JogadorServico.editarJogador(DadosDaCriação, idClube)
                     MessageToast.show(MENSAGEM_SUCESSO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 } 
                 catch (erro) {
@@ -220,7 +220,7 @@ sap.ui.define([
             }else{
                 try {
                     console.log(DadosDaCriação)  
-                    await JogadorServico.CriarJogador(DadosDaCriação);
+                    await JogadorServico.criarJogador(DadosDaCriação);
                     MessageToast.show(MENSAGEM_SUCESSO_JOGADOR, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                     this.aoFecharModal();
                 } 

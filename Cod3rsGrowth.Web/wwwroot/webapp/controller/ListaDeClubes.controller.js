@@ -56,7 +56,7 @@ sap.ui.define([
             });
 
             var oView = this.getView();
-            ClubeServico.BuscarClubes(this.filtros)
+            ClubeServico.buscarClubes(this.filtros)
                 .then((Clubes) => {
                     oView.setModel(new JSONModel(Clubes),CLUBES);
                 })
