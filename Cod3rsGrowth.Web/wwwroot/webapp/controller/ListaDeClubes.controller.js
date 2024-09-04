@@ -32,12 +32,12 @@ sap.ui.define([
 
         onInit: function() {
             this.filtros = [];
-            this._vincularRota(NOME_ROTA_CLUBES, this.aoCoincidirRota);
+            this.vincularRota(NOME_ROTA_CLUBES, this.aoCoincidirRota);
         },
 
         aoCoincidirRota : function(){
             this.aoBuscarFiltros();
-            this._CarregarEstados();
+            this._carregarEstados();
         },
 
         aoClicarAdicionar: function(){
@@ -56,10 +56,10 @@ sap.ui.define([
                 }, {})
             });
 
-            var oView = this.getView();
+            let oView = this.getView();
             ClubeServico.buscarClubes(this.filtros)
                 .then((Clubes) => {
-                    oView.setModel(new JSONModel(Clubes),NOME_ROTA_CLUBES);
+                    oView.setModel(new JSONModel(Clubes), NOME_ROTA_CLUBES);
                 })
                 .catch((error) => {
                     console.error('Erro:', error);
@@ -71,7 +71,7 @@ sap.ui.define([
         },
 
         aoBuscarPorNome: function(oEvent) {
-            var nome = oEvent.getParameter(VALOR_DO_INPUT);
+            let nome = oEvent.getParameter(VALOR_DO_INPUT);
             this.filtros = this.filtros.filter(f => f.key !== CHAVE_NOME);
             if (nome) {
                 this.filtros.push({ key: CHAVE_NOME, value: encodeURIComponent(nome) });
@@ -80,7 +80,7 @@ sap.ui.define([
         },
 
         aoMudarOEstadoNaComboBox: function(oEvent) {
-            var estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
+            let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
             this.filtros = this.filtros.filter(f => f.key !== CHAVE_ESTADO);
             if (estado >= NUMERO_ZERO) {
                 this.filtros.push({ key: CHAVE_ESTADO, value: encodeURIComponent(estado) });
@@ -89,41 +89,41 @@ sap.ui.define([
         },
 
         aoAlterarData: function(oEvent) {
-            var DataPiso = oEvent.getParameter(FROM);
-            var DataTeto = oEvent.getParameter(TO);
+            let DataPiso = oEvent.getParameter(FROM);
+            let DataTeto = oEvent.getParameter(TO);
             this.filtros = this.filtros.filter(f => f.key !== CHAVE_DATA_PISO && f.key !== CHAVE_DATA_TETO);
             if (DataPiso) {
-                var DataFormatada = this.formatter.formatDateReverse(DataPiso);
+                let DataFormatada = this.formatter.formatDateReverse(DataPiso);
                 this.filtros.push({ key: CHAVE_DATA_PISO, value: encodeURIComponent(DataFormatada) });
             }
             if (DataTeto) {
-                var DataFormatada = this.formatter.formatDateReverse(DataTeto);
+                let DataFormatada = this.formatter.formatDateReverse(DataTeto);
                 this.filtros.push({ key: CHAVE_DATA_TETO, value: encodeURIComponent(DataFormatada) });
             }
             this.aoBuscarFiltros();
         },
 
         resetarItems: function(oEvent) {
-            var calendario = this.byId(CALENDARIO);
+            let calendario = this.byId(CALENDARIO);
             if (calendario) {
                 calendario.setDateValue(null);
                 calendario.setSecondDateValue(null);
                 this.filtros = this.filtros.filter(f => f.key !== CHAVE_DATA_PISO && f.key !== CHAVE_DATA_TETO);
             }
 
-            var ComboBox = this.byId(COMBOBOXESTADOS);
+            let ComboBox = this.byId(COMBOBOXESTADOS);
             if (ComboBox) {
                 ComboBox.setSelectedKey(null);
                 this.filtros = this.filtros.filter(f => f.key !== CHAVE_ESTADO);
             }
 
-            var InputNome = this.byId(INPUTNOME);
+            let InputNome = this.byId(INPUTNOME);
             if (InputNome) {
                 InputNome.setValue(VAZIO);
                 this.filtros = this.filtros.filter(f => f.key !== CHAVE_NOME);
             }
             
-            var Botao = oEvent.getSource().getId();
+            let Botao = oEvent.getSource().getId();
             if (Botao.includes(ID_BOTAO_LIMPAR)) {
                 this.aoBuscarFiltros();
             }            

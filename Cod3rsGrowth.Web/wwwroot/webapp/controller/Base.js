@@ -8,8 +8,9 @@ sap.ui.define([
     "use strict";
 
     const HOME = "Home";
-    const ESTADOS = "estados";
+    const NOME_MODELO_ESTADOS = "estados";
     const TEXTO_ERRO_FETCH_ESTADO = 'Erro ao buscar estados:';
+    const PARAMETRO_LIMPAR = "Limpar";
 
     return Controller.extend("cod3rsgrowth.controller.Base", {
         Historico: [],
@@ -22,7 +23,7 @@ sap.ui.define([
         _navegarPara: function(rotaDestino, parametros = {}) {
 			if (rotaDestino) {
                 this._getRouter().navTo(rotaDestino, parametros);
-                if(parametros.Acao == "Limpar"){
+                if(parametros.Acao == PARAMETRO_LIMPAR){
                     this.resetarItems();
                 }
             }
@@ -31,27 +32,26 @@ sap.ui.define([
             }
         },
 
-        _CarregarEstados: function() {
-            ClubeServico.aoBuscarEstados()
+        _carregarEstados: function() {
+            ClubeServico.buscarEstados()
                 .then((estados) => {
-                    var oModel = new JSONModel(estados);
-                    this.getView().setModel(oModel, ESTADOS);
+                    let oModel = new JSONModel(estados);
+                    this._modelo(oModel, NOME_MODELO_ESTADOS);
                 })
                 .catch((error) => {
                     console.error(TEXTO_ERRO_FETCH_ESTADO, error);
                 });
         },
         
-        _vincularRota: function(Rota, Metodo){
-            this._getRouter().getRoute(Rota).attachMatched(Metodo, this); 
+        vincularRota: function(rota, metodo){
+            this._getRouter().getRoute(rota).attachMatched(metodo, this); 
         },
 
-        _pegarModelo: function(NomeDoModelo){
-            return this.getView().getModel(NomeDoModelo)
-        },
-
-        _criarModelo: function(ModeloJson, NomeDoModelo){
-            this.getView().setModel(ModeloJson, NomeDoModelo)
+        _modelo: function(nome, modelo = null){
+            if(modelo){
+                return this.getView().setModel(modelo, nome)
+            }
+            return this.getView().getModel(nome);
         }
     });
 });

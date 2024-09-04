@@ -50,7 +50,7 @@ sap.ui.define([
 
         onInit: function () {
             this.DadosCriacao = [];
-            this._vincularRota(ROTA_DE_DETALHES, this.aoCoincidirRota);
+            this.vincularRota(ROTA_DE_DETALHES, this.aoCoincidirRota);
         },
         aoCoincidirRota : async function(evento){
             try
@@ -67,27 +67,41 @@ sap.ui.define([
             await ClubeServico.buscarClubePorId(argumentos.idClube)
             .then((clube) => {
                 let oModel = new JSONModel(clube);
-                this._criarModelo(oModel, NOME_MODELO_CLUBE);
+                this._modelo(NOME_MODELO_CLUBE, oModel);
             })
             .catch((error) => {
                 MessageBox.error(error, {title : TITULO_ERRO});
             });
-            let elenco =  this._pegarModelo(NOME_MODELO_CLUBE).getData().elenco
+            let elenco =  this._modelo(NOME_MODELO_CLUBE).getData().elenco
 
             await this._aoCarregarElenco(elenco)
             .then((jogador) =>{
                 let oModel = new JSONModel(jogador);
-                this._criarModelo(oModel, NOME_MODELO_NOME_MODELO_JOGADORES);
+                this._modelo(oModel, NOME_MODELO_NOME_MODELO_JOGADORES);
             })
             .catch((error) => {
                 MessageBox.error(error, {title : TITULO_ERRO});
             });
         },
-        aoClicarEmVoltar: function(){
-            this._navegarPara(DESTINO_VOLTAR);
+        aoClicarEmVoltar: function(){          
+            try
+            {
+                this._navegarPara(DESTINO_VOLTAR);
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
         aoClicarEditar: function(){
-            this._navegarPara(DESTINO_EDITAR,{ idClube : this._pegarModelo(NOME_MODELO_CLUBE).getData().id})
+            try
+            {
+                this._navegarPara(DESTINO_EDITAR,{ idClube : this._modelo(NOME_MODELO_CLUBE).getData().id})
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
         _aoCarregarElenco: async function (elenco) {
             const jogadores = elenco.map( id => { 
@@ -101,7 +115,7 @@ sap.ui.define([
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 onClose: async (oAction) => {
                     if (oAction === MessageBox.Action.YES) {
-                        const idDoClube = this._pegarModelo(NOME_MODELO_CLUBE).getData().id;
+                        const idDoClube = this._modelo(NOME_MODELO_CLUBE).getData().id;
                         await ClubeServico.deletarClube(idDoClube);
                         this._navegarPara(DESTINO_VOLTAR)
                     } else if (oAction === MessageBox.Action.NO) {
@@ -121,15 +135,22 @@ sap.ui.define([
                 "altura": null,
                 "peso": null
             });
-            this._criarModelo(JogadorModelo, NOME_MODELO_JOGADOR);
+            this._modelo(JogadorModelo, NOME_MODELO_JOGADOR);
         },
 
         async aoAbrirModalDeCriacao() {           
-            this.oDialog ??= await this.loadFragment({
-                name: "cod3rsgrowth.webapp.view.CriarJogador"
-            });
-        
-            this.oDialog.open();
+            try
+            {
+                this.oDialog ??= await this.loadFragment({
+                    name: "cod3rsgrowth.webapp.view.CriarJogador"
+                });
+            
+                this.oDialog.open();
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoFecharModal:function (){
@@ -177,9 +198,9 @@ sap.ui.define([
             return true;
         },
         
-        _validarClube: function(Clube) {
+        _validarClube: function(clube) {
             let clubeCriacao = this.byId(ID_CLUBECRIACAO);
-            if (Clube == null || Clube === STRING_VAZIA) {
+            if (clube == null || clube === STRING_VAZIA) {
                 clubeCriacao.setValueState(ESTADO_ELEMENTO_ERROR);
                 return false;
             }
@@ -210,7 +231,7 @@ sap.ui.define([
         _CriarOuEditarJogador: async function(hash, DadosDaCriação){
             if(hash [INDICEUM_NO_ARRAY_DE_HASHs] == NOME_ROTA_EDITAR){
                 try {      
-                    let idClube = this._pegarModelo(NOME_MODELO_JOGADOR).getData().id;   
+                    let idClube = this._modelo(NOME_MODELO_JOGADOR).getData().id;   
                     await JogadorServico.editarJogador(DadosDaCriação, idClube)
                     MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 } 
@@ -238,7 +259,7 @@ sap.ui.define([
         },
 
         aoSalvarDados:function(){
-            const modelo = this._pegarModelo(NOME_MODELO_JOGADOR).getData();
+            const modelo = this._modelo(NOME_MODELO_JOGADOR).getData();
             let clube = this.byId(ID_CLUBECRIACAO).getValue()
             let data = this.formatter.formatDateReverse(this.byId(ID_CALENDARIOCRIAR).getDateValue()); 
             let hoje = new Date();

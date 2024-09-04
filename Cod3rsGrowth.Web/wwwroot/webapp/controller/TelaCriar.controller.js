@@ -50,8 +50,8 @@ sap.ui.define([
 
         onInit: function () {
             this.DadosCriacao = [];
-            this._vincularRota(NOME_ROTA_CRIAR, this.aoCoincidirRota);
-            this._vincularRota(NOME_ROTA_EDITAR, this.aoCoincidirRotaEditar)
+            this.vincularRota(NOME_ROTA_CRIAR, this.aoCoincidirRota);
+            this.vincularRota(NOME_ROTA_EDITAR, this.aoCoincidirRotaEditar)
         },
 
         aoCoincidirRotaEditar: async function(evento){
@@ -61,7 +61,7 @@ sap.ui.define([
         
         _aoAdiquirirClube: async function(evento){
             const argumento = evento.getParameter(ARGUMENTOS_DA_ROTA);
-            var oView = this.getView();
+            let oView = this.getView();
 
             await ClubeServico.buscarClubePorId(argumento.idClube)
                 .then((resposta) => {
@@ -73,12 +73,12 @@ sap.ui.define([
         },
 
         _salvarModelo: function(){
-            const modelo = this.getView().getModel(CLUBES).getData();
+            const modelo = this._modelo(CLUBES).getData();
 
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
             this.DadosCriacao.push({ key: CHAVE_NOME, value: modelo.nome});
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_FUNDACAO);
-            var fundacao = this.formatter.formatDateReverse(this.formatter.formatDate(modelo.fundacao))
+            let fundacao = this.formatter.formatDateReverse(this.formatter.formatDate(modelo.fundacao))
             this.DadosCriacao.push({ key: CHAVE_FUNDACAO, value: fundacao });
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADIO);
             this.DadosCriacao.push({ key: CHAVE_ESTADIO, value: modelo.estadio});
@@ -90,7 +90,7 @@ sap.ui.define([
 
         aoCoincidirRota: function(){
             this._resetarItems();
-            this._CarregarEstados();
+            this._carregarEstados();
         },
 
         aoClicarEmVoltar: function(){
@@ -98,7 +98,7 @@ sap.ui.define([
         },
 
         aoInserirNome: function(oEvent){
-            var nome = oEvent.getParameter(VALOR_DO_INPUT);
+            let nome = oEvent.getParameter(VALOR_DO_INPUT);
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
             if (nome) {
                 this.DadosCriacao.push({ key: CHAVE_NOME, value: nome});
@@ -107,17 +107,17 @@ sap.ui.define([
         },
 
         aoInserirFundação: function(oEvent){
-            var fundacao = oEvent.getParameter(VALOR_DO_INPUT);
+            let fundacao = oEvent.getParameter(VALOR_DO_INPUT);
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_FUNDACAO);
             if(fundacao){
-                var DataFormatada = this.formatter.formatDateReverse(fundacao);
+                let DataFormatada = this.formatter.formatDateReverse(fundacao);
                 this.DadosCriacao.push({key: CHAVE_FUNDACAO, value: DataFormatada});
             }
             this._validarFundacao(fundacao);
         },
 
         aoInserirEstadio: function(oEvent){
-            var estadio = oEvent.getParameter(VALOR_DO_INPUT);
+            let estadio = oEvent.getParameter(VALOR_DO_INPUT);
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADIO);
             if (estadio) {
                 this.DadosCriacao.push({ key: CHAVE_ESTADIO, value: estadio});
@@ -126,7 +126,7 @@ sap.ui.define([
         },
 
         aoInserirEstadoDeCriação: function(oEvent){
-            var estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
+            let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADO);
             if (estado >= NUMERO_ZERO) {
                 this.DadosCriacao.push({ key: CHAVE_ESTADO, value: parseInt(estado, 10)});
@@ -136,16 +136,16 @@ sap.ui.define([
 
         aoInserirCobertura: function(oEvent){
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_COBERTURA);
-            var selectedIndex = oEvent.getParameter(PARAMETRO_SELECTEDINDEX);
-            var grupoDeBotoes = oEvent.getSource();
-            var TextoSelecionado = grupoDeBotoes.getButtons()[selectedIndex].getText();
-            var cobertura = TextoSelecionado === SIM;
+            let selectedIndex = oEvent.getParameter(PARAMETRO_SELECTEDINDEX);
+            let grupoDeBotoes = oEvent.getSource();
+            let TextoSelecionado = grupoDeBotoes.getButtons()[selectedIndex].getText();
+            let cobertura = TextoSelecionado === SIM;
             this.DadosCriacao.push({ key: CHAVE_COBERTURA, value: cobertura});
             this._validarCobertura(cobertura);
         },
 
         _validarNome: function(nome) {
-            var inputNome = this.byId(INPUTNOME);
+            let inputNome = this.byId(INPUTNOME);
             if (!nome) {
                 inputNome.setValueState(ESTADO_ERROR);
                 return false;
@@ -155,7 +155,7 @@ sap.ui.define([
         },
         
         _validarFundacao: function(estadio) {
-            var inputEstadio = this.byId(INPUTESTADIO);
+            let inputEstadio = this.byId(INPUTESTADIO);
             if (!estadio) {
                 inputEstadio.setValueState(ESTADO_ERROR);
                 return false;
@@ -165,7 +165,7 @@ sap.ui.define([
         },
         
         _validarFundacao: function(data) {
-            var calendarioCriar = this.byId(CALENDARIOCRIAR);
+            let calendarioCriar = this.byId(CALENDARIOCRIAR);
             if (!data) {
                 calendarioCriar.setValueState(ESTADO_ERROR);
                 return false;
@@ -175,7 +175,7 @@ sap.ui.define([
         },
         
         _validarFundacao: function(estado) {
-            var estadoCriacao = this.byId(ESTADIOCRIACAO);
+            let estadoCriacao = this.byId(ESTADIOCRIACAO);
             if (estado == null || estado === STRING_VAZIA) {
                 estadoCriacao.setValueState(ESTADO_ERROR);
                 return false;
@@ -185,8 +185,8 @@ sap.ui.define([
         },
         
         _validarCobertura: function(cobertura) {
-            var botaoSim = this.byId(BOTAO_SIM);
-            var botaoNao = this.byId(BOTAO_NAO);
+            let botaoSim = this.byId(BOTAO_SIM);
+            let botaoNao = this.byId(BOTAO_NAO);
             if (cobertura === undefined) {
                 botaoSim.setValueState(ESTADO_ERROR);
                 botaoNao.setValueState(ESTADO_ERROR);
@@ -198,37 +198,37 @@ sap.ui.define([
         },
 
         _resetarItems: function() {
-            var inputNome = this.byId(INPUTNOME);
+            let inputNome = this.byId(INPUTNOME);
             if (inputNome) {
                 inputNome.setValue(STRING_VAZIA);
                 inputNome.setValueState(ESTADO_NONE);
             }
 
-            var calendarioCriar = this.byId(CALENDARIOCRIAR);
+            let calendarioCriar = this.byId(CALENDARIOCRIAR);
             if (calendarioCriar) {
                 calendarioCriar.setDateValue(null);
                 calendarioCriar.setValueState(ESTADO_NONE);
             }
 
-            var inputEstadio = this.byId(INPUTESTADIO);
+            let inputEstadio = this.byId(INPUTESTADIO);
             if (inputEstadio) {
                 inputEstadio.setValue(STRING_VAZIA);
                 inputEstadio.setValueState(ESTADO_NONE);
             }
 
-            var estadoCriacao = this.byId(ESTADIOCRIACAO);
+            let estadoCriacao = this.byId(ESTADIOCRIACAO);
             if (estadoCriacao) {
                 estadoCriacao.setSelectedKey(null);
                 estadoCriacao.setValueState(ESTADO_NONE);
             }
 
-            var botaoSim = this.byId(BOTAO_SIM);
+            let botaoSim = this.byId(BOTAO_SIM);
             if (botaoSim) {
                 botaoSim.setSelected(false);
                 botaoSim.setValueState(ESTADO_NONE);
             }
 
-            var botaoNao = this.byId(BOTAO_NAO);
+            let botaoNao = this.byId(BOTAO_NAO);
             if (botaoNao) {
                 botaoNao.setSelected(false);
                 botaoNao.setValueState(ESTADO_NONE);
@@ -244,11 +244,11 @@ sap.ui.define([
             await this._CriarOuEditarClube(hash, DadosDaCriação);
         },
 
-        _CriarOuEditarClube: async function(hash, DadosDaCriação){
+        _CriarOuEditarClube: async function(hash, dadosDaCriação){
             if(hash [INDICEUM_NO_ARAY] == NOME_ROTA_EDITAR){
                 try {        
-                    var idClube = this.getView().getModel(CLUBES).getData().id;   
-                    await ClubeServico.editarClube(DadosDaCriação, idClube)
+                    let idClube = this._modelo(CLUBES).getData().id;   
+                    await ClubeServico.editarClube(dadosDaCriação, idClube)
                     MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 } 
                 catch (erro) {
@@ -256,7 +256,7 @@ sap.ui.define([
                 }
             }else{
                 try {
-                    await ClubeServico.criarClube(DadosDaCriação);
+                    await ClubeServico.criarClube(dadosDaCriação);
                     MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                     this._resetarItems();
                 } 
