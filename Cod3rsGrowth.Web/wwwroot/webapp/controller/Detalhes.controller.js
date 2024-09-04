@@ -11,39 +11,39 @@ sap.ui.define([
 	"use strict";
 
     const BARRA = "/";
-    const CLUBE = "clube";
+    const CHAVE_CLUBE = "clube";
     const NOME_MODELO_CLUBE = "clube";
     const ROTA_DE_DETALHES = "detalhes";
-    const ARGUMENTS = "arguments";
+    const ARGUMENTOS_DA_ROTA = "arguments";
     const DESTINO_VOLTAR = 'clubes';
     const TITULO_ERRO = "Erro";
     const DESTINO_EDITAR = 'editar';
-    const PERGUNTA = "Deseja excluir este clube?";
+    const PERGUNTA_MESSAGE_BOX = "Deseja excluir este clube?";
     const TITULO_CONFIRMAR = "Confirme";
-    const JOGADORES = "jogadores";
-    const JOGADOR = "jogador";
-    const NOME = "nome";
-    const DATADENASCIMENTO = "dataDeNascimento";
-    const ALTURA = "altura";
-    const PESO = "peso";
-    const IDCLUBE = "idClube";
-    const INPUTNOME = "InputNomeJogador";
-    const CALENDARIOCRIAR = "CalendarioCriarJogador";
-    const INPUTALTURA = "InputAltura";
-    const CLUBECRIACAO = "ClubeCriacaoJogador";
-    const INPUTPESO = "InputPeso";
-    const VAZIO = "";
-    const ESTADO_NONE = "None";
-    const ESTADO_ERROR = "Error";
-    const MENSAGEM_SUCESSO_JOGADOR = "Jogador criado com sucesso!";
-    const MENSAGEM_SUCESSO_JOGADOR_EDITADO = "Jogador editado com sucesso!";
-    const INDICEUM = 1;
-    const EDITAR = "editar";
+    const NOME_MODELO_NOME_MODELO_JOGADORES = "jogadores";
+    const NOME_MODELO_JOGADOR = "jogador";
+    const CHAVE_NOME = "nome";
+    const CHAVE_DATADENASCIMENTO = "dataDeNascimento";
+    const CHAVE_ALTURA = "altura";
+    const CHAVE_PESO = "peso";
+    const CHAVE_IDCLUBE = "idClube";
+    const ID_INPUTNOME = "InputNomeJogador";
+    const ID_CALENDARIOCRIAR = "CalendarioCriarJogador";
+    const ID_INPUTALTURA = "InputAltura";
+    const ID_CLUBECRIACAO = "ClubeCriacaoJogador";
+    const ID_INPUTPESO = "InputPeso";
+    const STRING_VAZIA = "";
+    const ESTADO_ELEMENTO_NONE = "None";
+    const ESTADO_ELEMENTO_ERROR = "Error";
+    const MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR = "Jogador criado com sucesso!";
+    const MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO = "Jogador editado com sucesso!";
+    const INDICEUM_NO_ARRAY_DE_HASHs = 1;
+    const NOME_ROTA_EDITAR = "editar";
     const DURACAO_TOAST = 5000;
     const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
     const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
     const QUEBRADELINHA = "\r\n";
-    const IDADE = "idade";
+    const CHAVE_IDADE = "idade";
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter : Formatter,
@@ -62,7 +62,7 @@ sap.ui.define([
                 MessageBox.error(erro, {title : TITULO_ERRO});
             }
 
-            const argumentos = evento.getParameter(ARGUMENTS);
+            const argumentos = evento.getParameter(ARGUMENTOS_DA_ROTA);
 
             await ClubeServico.buscarClubePorId(argumentos.idClube)
             .then((clube) => {
@@ -77,7 +77,7 @@ sap.ui.define([
             await this._aoCarregarElenco(elenco)
             .then((jogador) =>{
                 let oModel = new JSONModel(jogador);
-                this._criarModelo(oModel, JOGADORES);
+                this._criarModelo(oModel, NOME_MODELO_NOME_MODELO_JOGADORES);
             })
             .catch((error) => {
                 MessageBox.error(error, {title : TITULO_ERRO});
@@ -96,7 +96,7 @@ sap.ui.define([
             return await Promise.all(jogadores);
         },
         aoClicarDeletar: function(){
-            MessageBox.confirm(PERGUNTA, {
+            MessageBox.confirm(PERGUNTA_MESSAGE_BOX, {
                 title: TITULO_CONFIRMAR,
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 onClose: async (oAction) => {
@@ -121,7 +121,7 @@ sap.ui.define([
                 "altura": null,
                 "peso": null
             });
-            this._criarModelo(JogadorModelo, JOGADOR);
+            this._criarModelo(JogadorModelo, NOME_MODELO_JOGADOR);
         },
 
         async aoAbrirModalDeCriacao() {           
@@ -138,62 +138,62 @@ sap.ui.define([
         },
 
         _validarCamposPreenchidos: function () {
-            const nomeValido = this._validarNome(this.byId(INPUTNOME).getValue());
-            const estadioValido = this._validarAltura(this.byId(INPUTALTURA).getValue());
-            const fundacaoValida = this._validarDataDeNascimento(this.byId(CALENDARIOCRIAR).getDateValue());
-            const estadoValido = this._validarClube(this.byId(CLUBECRIACAO).getSelectedKey());
-            const coberturaValida = this._validarPeso(this.byId(INPUTPESO).getValue());
+            const nomeValido = this._validarNome(this.byId(ID_INPUTNOME).getValue());
+            const estadioValido = this._validarAltura(this.byId(ID_INPUTALTURA).getValue());
+            const fundacaoValida = this._validarDataDeNascimento(this.byId(ID_CALENDARIOCRIAR).getDateValue());
+            const estadoValido = this._validarClube(this.byId(ID_CLUBECRIACAO).getSelectedKey());
+            const coberturaValida = this._validarPeso(this.byId(ID_INPUTPESO).getValue());
 
             return nomeValido && estadioValido && fundacaoValida && estadoValido && coberturaValida;
         },
 
         _validarNome: function(nome) {
-            let inputNome = this.byId(INPUTNOME);
+            let inputNome = this.byId(ID_INPUTNOME);
             if (!nome) {
-                inputNome.setValueState(ESTADO_ERROR);
+                inputNome.setValueState(ESTADO_ELEMENTO_ERROR);
                 return false;
             }
-            inputNome.setValueState(ESTADO_NONE);
+            inputNome.setValueState(ESTADO_ELEMENTO_NONE);
             return true;
         },
         
         _validarAltura: function(altura) {
-            let inputAltura = this.byId(INPUTALTURA);
+            let inputAltura = this.byId(ID_INPUTALTURA);
             if (!altura) {
-                inputAltura.setValueState(ESTADO_ERROR);
+                inputAltura.setValueState(ESTADO_ELEMENTO_ERROR);
                 return false;
             }
-            inputAltura.setValueState(ESTADO_NONE);
+            inputAltura.setValueState(ESTADO_ELEMENTO_NONE);
             return true;
         },
         
         _validarDataDeNascimento: function(data) {
-            let calendarioCriar = this.byId(CALENDARIOCRIAR);
+            let calendarioCriar = this.byId(ID_CALENDARIOCRIAR);
             if (!data) {
-                calendarioCriar.setValueState(ESTADO_ERROR);
+                calendarioCriar.setValueState(ESTADO_ELEMENTO_ERROR);
                 return false;
             }
-            calendarioCriar.setValueState(ESTADO_NONE);
+            calendarioCriar.setValueState(ESTADO_ELEMENTO_NONE);
             return true;
         },
         
         _validarClube: function(Clube) {
-            let clubeCriacao = this.byId(CLUBECRIACAO);
-            if (Clube == null || Clube === VAZIO) {
-                clubeCriacao.setValueState(ESTADO_ERROR);
+            let clubeCriacao = this.byId(ID_CLUBECRIACAO);
+            if (Clube == null || Clube === STRING_VAZIA) {
+                clubeCriacao.setValueState(ESTADO_ELEMENTO_ERROR);
                 return false;
             }
-            clubeCriacao.setValueState(ESTADO_NONE);
+            clubeCriacao.setValueState(ESTADO_ELEMENTO_NONE);
             return true;
         },
         
         _validarPeso: function(peso) {
-            let inputPeso = this.byId(INPUTPESO);
+            let inputPeso = this.byId(ID_INPUTPESO);
             if (!peso) {
-                inputPeso.setValueState(ESTADO_ERROR);
+                inputPeso.setValueState(ESTADO_ELEMENTO_ERROR);
                 return false;
             }
-            inputPeso.setValueState(ESTADO_NONE);
+            inputPeso.setValueState(ESTADO_ELEMENTO_NONE);
             return true;
         },
 
@@ -208,11 +208,11 @@ sap.ui.define([
         },
 
         _CriarOuEditarJogador: async function(hash, DadosDaCriação){
-            if(hash [INDICEUM] == EDITAR){
+            if(hash [INDICEUM_NO_ARRAY_DE_HASHs] == NOME_ROTA_EDITAR){
                 try {      
-                    let idClube = this._pegarModelo(JOGADOR).getData().id;   
+                    let idClube = this._pegarModelo(NOME_MODELO_JOGADOR).getData().id;   
                     await JogadorServico.editarJogador(DadosDaCriação, idClube)
-                    MessageToast.show(MENSAGEM_SUCESSO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                    MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 } 
                 catch (erro) {
                     this.exibirErroNaTela(erro);
@@ -221,7 +221,7 @@ sap.ui.define([
                 try {
                     console.log(DadosDaCriação)  
                     await JogadorServico.criarJogador(DadosDaCriação);
-                    MessageToast.show(MENSAGEM_SUCESSO_JOGADOR, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                    MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                     this.aoFecharModal();
                 } 
                 catch (erro) {
@@ -238,9 +238,9 @@ sap.ui.define([
         },
 
         aoSalvarDados:function(){
-            const modelo = this._pegarModelo(JOGADOR).getData();
-            let clube = this.byId(CLUBECRIACAO).getValue()
-            let data = this.formatter.formatDateReverse(this.byId(CALENDARIOCRIAR).getDateValue()); 
+            const modelo = this._pegarModelo(NOME_MODELO_JOGADOR).getData();
+            let clube = this.byId(ID_CLUBECRIACAO).getValue()
+            let data = this.formatter.formatDateReverse(this.byId(ID_CALENDARIOCRIAR).getDateValue()); 
             let hoje = new Date();
             let dataNascimento = new Date(data);
             let idade = hoje.getFullYear() - dataNascimento.getFullYear();
@@ -249,20 +249,20 @@ sap.ui.define([
                 idade--;
             }
 
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== NOME);
-            this.DadosCriacao.push({ key: NOME, value: modelo.nome});
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== IDCLUBE);
-            this.DadosCriacao.push({ key: IDCLUBE, value: modelo.idClube});
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CLUBE);
-            this.DadosCriacao.push({ key: CLUBE, value: clube});
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== IDADE);
-            this.DadosCriacao.push({ key: IDADE, value: idade});
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== DATADENASCIMENTO);
-            this.DadosCriacao.push({ key: DATADENASCIMENTO, value: data});
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== ALTURA);
-            this.DadosCriacao.push({ key: ALTURA, value: modelo.altura});
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== PESO);
-            this.DadosCriacao.push({ key: PESO, value: modelo.peso});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
+            this.DadosCriacao.push({ key: CHAVE_NOME, value: modelo.nome});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_IDCLUBE);
+            this.DadosCriacao.push({ key: CHAVE_IDCLUBE, value: modelo.idClube});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_CLUBE);
+            this.DadosCriacao.push({ key: CHAVE_CLUBE, value: clube});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_IDADE);
+            this.DadosCriacao.push({ key: CHAVE_IDADE, value: idade});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_DATADENASCIMENTO);
+            this.DadosCriacao.push({ key: CHAVE_DATADENASCIMENTO, value: data});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ALTURA);
+            this.DadosCriacao.push({ key: CHAVE_ALTURA, value: modelo.altura});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_PESO);
+            this.DadosCriacao.push({ key: CHAVE_PESO, value: modelo.peso});
         },
 
         exibirErroNaTela: function(erro) { 
@@ -287,34 +287,34 @@ sap.ui.define([
         },
 
         _resetarItems: function() {
-            let inputNome = this.byId(INPUTNOME);
+            let inputNome = this.byId(ID_INPUTNOME);
             if (inputNome) {
-                inputNome.setValue(VAZIO);
-                inputNome.setValueState(ESTADO_NONE);
+                inputNome.setValue(STRING_VAZIA);
+                inputNome.setValueState(ESTADO_ELEMENTO_NONE);
             }
 
-            let dataDeNascimento = this.byId(CALENDARIOCRIAR);
+            let dataDeNascimento = this.byId(ID_CALENDARIOCRIAR);
             if (dataDeNascimento) {
                 dataDeNascimento.setDateValue(null);
-                dataDeNascimento.setValueState(ESTADO_NONE);
+                dataDeNascimento.setValueState(ESTADO_ELEMENTO_NONE);
             }
 
-            let inputAltura = this.byId(INPUTALTURA);
+            let inputAltura = this.byId(ID_INPUTALTURA);
             if (inputAltura) {
-                inputAltura.setValue(VAZIO);
-                inputAltura.setValueState(ESTADO_NONE);
+                inputAltura.setValue(STRING_VAZIA);
+                inputAltura.setValueState(ESTADO_ELEMENTO_NONE);
             }
 
-            let inputPeso = this.byId(INPUTPESO);
+            let inputPeso = this.byId(ID_INPUTPESO);
             if (inputPeso) {
-                inputPeso.setValue(VAZIO);
-                inputPeso.setValueState(ESTADO_NONE);
+                inputPeso.setValue(STRING_VAZIA);
+                inputPeso.setValueState(ESTADO_ELEMENTO_NONE);
             }
 
-            let clubeCriacao = this.byId(CLUBECRIACAO);
+            let clubeCriacao = this.byId(ID_CLUBECRIACAO);
             if (clubeCriacao) {
                 clubeCriacao.setSelectedKey(null);
-                clubeCriacao.setValueState(ESTADO_NONE);
+                clubeCriacao.setValueState(ESTADO_ELEMENTO_NONE);
             }
         }
 	});
