@@ -39,10 +39,6 @@ sap.ui.define([
     const DURACAO_TOAST = 5000;
     const ESTADO_NONE = "None";
     const ESTADO_ERROR = "Error";
-    const TEXTO_ERRO_NOME = "Campo 'Nome' precisa ser preenchido.";
-    const TEXTO_ERRO_ESTADIO = "Campo 'Estádio' precisa ser preenchido.";
-    const TEXTO_ERRO_FUNDACAO = "Campo 'Data de Fundação' precisa ser preenchido.";
-    const TEXTO_ERRO_ESTADO = "Campo 'Estado' precisa ser preenchido.";
     const DESTINO_VOLTAR = 'clubes';
     const EDITAR = "editar";
     const LIMPAR = "Limpar";
@@ -50,25 +46,24 @@ sap.ui.define([
     const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado";
 
     return Base.extend("cod3rsgrowth.webapp.controller.TelaCriar", {
-        clubeServico: ClubeServico,
         formatter: Formatter,
 
         onInit: function () {
             this.DadosCriacao = [];
-            this._vincularRota(CRIAR, this.aoCoincidirRotaAdicionar);
+            this._vincularRota(CRIAR, this.aoCoincidirRota);
             this._vincularRota(EDITAR, this.aoCoincidirRotaEditar)
         },
 
         aoCoincidirRotaEditar: async function(evento){
-            await this.aoAdiquirirClube(evento);
-            this.salvarModelo();
+            await this._aoAdiquirirClube(evento);
+            this._salvarModelo();
         },
         
-        aoAdiquirirClube: async function(evento){
+        _aoAdiquirirClube: async function(evento){
             const argumento = evento.getParameter(ARGUMENTS);
             var oView = this.getView();
 
-            await this.clubeServico.aoBuscarClubePorId(argumento.idClube)
+            await ClubeServico.BuscarClubePorId(argumento.idClube)
                 .then((resposta) => {
                     oView.setModel(new JSONModel(resposta) , CLUBES);
                 })
@@ -77,7 +72,7 @@ sap.ui.define([
                 });  
         },
 
-        salvarModelo: function(){
+        _salvarModelo: function(){
             const modelo = this.getView().getModel(CLUBES).getData();
 
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== NOME);
@@ -93,13 +88,13 @@ sap.ui.define([
             this.DadosCriacao.push({ key: COBERTURA, value: modelo.coberturaAntiChuva});
         },
 
-        aoCoincidirRotaAdicionar: function(){
-            this.resetarItems();
+        aoCoincidirRota: function(){
+            this._resetarItems();
             this._CarregarEstados();
         },
 
         aoClicarEmVoltar: function(){
-            this.navegarPara(DESTINO_VOLTAR, {Acao : LIMPAR});
+            this._navegarPara(DESTINO_VOLTAR, {Acao : LIMPAR});
         },
 
         aoInserirNome: function(oEvent){
@@ -108,7 +103,7 @@ sap.ui.define([
             if (nome) {
                 this.DadosCriacao.push({ key: NOME, value: nome});
             }
-            this.validarNome(nome);
+            this._validarNome(nome);
         },
 
         aoInserirFundação: function(oEvent){
@@ -118,7 +113,7 @@ sap.ui.define([
                 var DataFormatada = this.formatter.formatDateReverse(fundacao);
                 this.DadosCriacao.push({key: FUNDACAO, value: DataFormatada});
             }
-            this.validarFundacao(fundacao);
+            this._validarFundacao(fundacao);
         },
 
         aoInserirEstadio: function(oEvent){
@@ -127,7 +122,7 @@ sap.ui.define([
             if (estadio) {
                 this.DadosCriacao.push({ key: ESTADIO, value: estadio});
             }
-            this.validarEstadio(estadio);
+            this._validarFundacao(estadio);
         },
 
         aoInserirEstadoDeCriação: function(oEvent){
@@ -136,7 +131,7 @@ sap.ui.define([
             if (estado >= NUMZERO) {
                 this.DadosCriacao.push({ key: ESTADO, value: parseInt(estado, 10)});
             }
-            this.validarEstado(estado);
+            this._validarFundacao(estado);
         },
 
         aoInserirCobertura: function(oEvent){
@@ -146,54 +141,50 @@ sap.ui.define([
             var TextoSelecionado = grupoDeBotoes.getButtons()[selectedIndex].getText();
             var cobertura = TextoSelecionado === SIM;
             this.DadosCriacao.push({ key: COBERTURA, value: cobertura});
-            this.validarCobertura(cobertura);
+            this._validarCobertura(cobertura);
         },
 
-        validarNome: function(nome) {
+        _validarNome: function(nome) {
             var inputNome = this.byId(INPUTNOME);
             if (!nome) {
                 inputNome.setValueState(ESTADO_ERROR);
-                inputNome.setValueStateText(TEXTO_ERRO_NOME);
                 return false;
             }
             inputNome.setValueState(ESTADO_NONE);
             return true;
         },
         
-        validarEstadio: function(estadio) {
+        _validarFundacao: function(estadio) {
             var inputEstadio = this.byId(INPUTESTADIO);
             if (!estadio) {
                 inputEstadio.setValueState(ESTADO_ERROR);
-                inputEstadio.setValueStateText(TEXTO_ERRO_ESTADIO);
                 return false;
             }
             inputEstadio.setValueState(ESTADO_NONE);
             return true;
         },
         
-        validarFundacao: function(data) {
+        _validarFundacao: function(data) {
             var calendarioCriar = this.byId(CALENDARIOCRIAR);
             if (!data) {
                 calendarioCriar.setValueState(ESTADO_ERROR);
-                calendarioCriar.setValueStateText(TEXTO_ERRO_FUNDACAO);
                 return false;
             }
             calendarioCriar.setValueState(ESTADO_NONE);
             return true;
         },
         
-        validarEstado: function(estado) {
+        _validarFundacao: function(estado) {
             var estadoCriacao = this.byId(ESTADIOCRIACAO);
             if (estado == null || estado === VAZIO) {
                 estadoCriacao.setValueState(ESTADO_ERROR);
-                estadoCriacao.setValueStateText(TEXTO_ERRO_ESTADO);
                 return false;
             }
             estadoCriacao.setValueState(ESTADO_NONE);
             return true;
         },
         
-        validarCobertura: function(cobertura) {
+        _validarCobertura: function(cobertura) {
             var botaoSim = this.byId(BOTAO_SIM);
             var botaoNao = this.byId(BOTAO_NAO);
             if (cobertura === undefined) {
@@ -206,7 +197,7 @@ sap.ui.define([
             return true;
         },
 
-        resetarItems: function() {
+        _resetarItems: function() {
             var inputNome = this.byId(INPUTNOME);
             if (inputNome) {
                 inputNome.setValue(VAZIO);
@@ -245,46 +236,55 @@ sap.ui.define([
         },
 
         aoSalvarClube: async function () {
-            if (!this.validarCamposPreenchidos()) {
+            if (!this._validarCamposPreenchidos()) {
                 return;
             }
-            var DadosDaCriação = this.DadosCriacao.reduce((newArray, atual) => {
-                newArray[atual.key] = atual.value;
-                return newArray;
-            }, {})
-            var hash = this._getRouter().getHashChanger().getHash().split(BARRA)
+            let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao)
+            let hash = this._getRouter().getHashChanger().getHash().split(BARRA)
+            await this._CriarOuEditarClube(hash, DadosDaCriação);
+        },
+
+        _CriarOuEditarClube: async function(hash, DadosDaCriação){
             if(hash [INDICEUM] == EDITAR){
                 try {        
                     var idClube = this.getView().getModel(CLUBES).getData().id;   
-                    await this.clubeServico.aoEditarClube(DadosDaCriação, idClube)
+                    await ClubeServico.EditarClube(DadosDaCriação, idClube)
                     MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 } 
                 catch (erro) {
-                    this.exibirErroNaTela(erro);
+                    this._exibirErroNaTela(erro);
                 }
             }else{
                 try {
-                    await this.clubeServico.aoCriarClube(DadosDaCriação);
+                    await ClubeServico.CriarClube(DadosDaCriação);
                     MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-                    this.resetarItems();
+                    this._resetarItems();
                 } 
                 catch (erro) {
-                    this.exibirErroNaTela(erro);
+                    this._exibirErroNaTela(erro);
                 }
             }
         },
 
-        validarCamposPreenchidos: function () {
-            const nomeValido = this.validarNome(this.byId(INPUTNOME).getValue());
-            const estadioValido = this.validarEstadio(this.byId(INPUTESTADIO).getValue());
-            const fundacaoValida = this.validarFundacao(this.byId(CALENDARIOCRIAR).getDateValue());
-            const estadoValido = this.validarEstado(this.byId(ESTADIOCRIACAO).getSelectedKey());
-            const coberturaValida = this.validarCobertura(this.byId(BOTAO_SIM).getSelected() || this.byId(BOTAO_NAO).getSelected());
+        _carregarArraydeDados: function(dados){
+            dados.reduce((newArray, atual) => {
+                newArray[atual.key] = atual.value;
+                return newArray;
+            }, {})
+        },
+
+
+        _validarCamposPreenchidos: function () {
+            const nomeValido = this._validarNome(this.byId(INPUTNOME).getValue());
+            const estadioValido = this._validarFundacao(this.byId(INPUTESTADIO).getValue());
+            const fundacaoValida = this._validarFundacao(this.byId(CALENDARIOCRIAR).getDateValue());
+            const estadoValido = this._validarFundacao(this.byId(ESTADIOCRIACAO).getSelectedKey());
+            const coberturaValida = this._validarCobertura(this.byId(BOTAO_SIM).getSelected() || this.byId(BOTAO_NAO).getSelected());
 
             return nomeValido && estadioValido && fundacaoValida && estadoValido && coberturaValida;
         },
 
-        exibirErroNaTela: function(erro) {  
+        _exibirErroNaTela: function(erro) {  
             console.log(erro);
 
             let mensagemErro = MENSAGEM_ERRO_DESCONHECIDO;

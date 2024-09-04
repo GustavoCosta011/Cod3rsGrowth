@@ -11,6 +11,7 @@
                 liveChange="true"
                 class="sapUiSmallMarginBottom"
                 value = "{jogador>/nome}"
+                valueStateText="{i18n>Criar.Jogador.Erro.NOME}"
             />
             <Label text="{i18n>Criar.Jogador.Clube}" required="true"/>
             <ComboBox
@@ -19,7 +20,8 @@
                 placeholder="{i18n>Criar.Jogador.Clube.Placeholder}"
                 class="sapUiSmallMarginBottom"
                 selectedKey ="{jogador>/idClube}"
-                items="{clubes>/}">
+                items="{clubes>/}" 
+                valueStateText="{i18n>Criar.Jogador.Erro.CLUBE}">
                 <core:Item key="{clubes>id}" text="{clubes>nome}" />
             </ComboBox>         
             <Label text="{i18n>Criar.Jogador.DataDeNascimento}" required="true"/>
@@ -31,6 +33,7 @@
                 displayFormat="dd/MM/yyyy"
                 class="sapUiSmallMarginBottom"
                 visible="true"
+                valueStateText="{i18n>Criar.Jogador.Erro.NASCIMENTO}"
                 value = "{path: 'jogador>/dataDeNascimento', formatter: '.formatter.formatDate'}"
             />
             <Label text="{i18n>Criar.Jogador.Altura}" required="true"/>
@@ -41,6 +44,7 @@
                 placeholder="{i18n>Criar.Jogador.Altura.Placeholder}"
                 liveChange="true"
                 class="sapUiSmallMarginBottom"
+                valueStateText="{i18n>Criar.Jogador.Erro.ALTURA}"
                 value = "{path: 'jogador>/altura', type:'sap.ui.model.type.Float'}"
             />
             <Label text="{i18n>Criar.Jogador.Peso}" required="true"/>
@@ -51,6 +55,7 @@
                 placeholder="{i18n>Criar.Jogador.Peso.Placeholder}"
                 liveChange="true"
                 class="sapUiSmallMarginBottom"
+                valueStateText="{i18n>Criar.Jogador.Erro.PESO}"
                 value = "{path: 'jogador>/peso', type:'sap.ui.model.type.Float'}"
             />
         </VBox>

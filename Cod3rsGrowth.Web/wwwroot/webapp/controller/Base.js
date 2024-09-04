@@ -19,7 +19,7 @@ sap.ui.define([
             return UIComponent.getRouterFor(this);
         },
 
-        navegarPara: function(rotaDestino, parametros = {}) {
+        _navegarPara: function(rotaDestino, parametros = {}) {
 			if (rotaDestino) {
                 this._getRouter().navTo(rotaDestino, parametros);
                 if(parametros.Acao == "Limpar"){
@@ -32,7 +32,7 @@ sap.ui.define([
         },
 
         _CarregarEstados: function() {
-            this.clubeServico.aoBuscarEstados()
+            ClubeServico.aoBuscarEstados()
                 .then((estados) => {
                     var oModel = new JSONModel(estados);
                     this.getView().setModel(oModel, ESTADOS);
@@ -45,5 +45,13 @@ sap.ui.define([
         _vincularRota: function(Rota, Metodo){
             this._getRouter().getRoute(Rota).attachMatched(Metodo, this); 
         },
+
+        _pegarModelo: function(NomeDoModelo){
+            return this.getView().getModel(NomeDoModelo)
+        },
+
+        _criarModelo: function(ModeloJson, NomeDoModelo){
+            this.getView().setModel(ModeloJson, NomeDoModelo)
+        }
     });
 });

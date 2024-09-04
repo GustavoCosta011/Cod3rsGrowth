@@ -28,7 +28,6 @@ sap.ui.define([
 
     return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
         formatter: Formatter,
-        clubeServico: ClubeServico,
 
         onInit: function() {
             this.filtros = [];
@@ -45,7 +44,7 @@ sap.ui.define([
         },
 
         aoSelecionarUmItem: function(oEvent){
-            this.navegarPara(DETALHES,{ idClube : oEvent.getSource().getBindingContext(CLUBES).getProperty(ID_DO_CLUBE)})
+            this._navegarPara(DETALHES,{ idClube : oEvent.getSource().getBindingContext(CLUBES).getProperty(ID_DO_CLUBE)})
         },
 
         aoBuscarFiltros: function() {
@@ -57,7 +56,7 @@ sap.ui.define([
             });
 
             var oView = this.getView();
-            this.clubeServico.aoBuscar(this.filtros)
+            ClubeServico.BuscarClubes(this.filtros)
                 .then((Clubes) => {
                     oView.setModel(new JSONModel(Clubes),CLUBES);
                 })
@@ -67,7 +66,7 @@ sap.ui.define([
         },
 
         aoClivarEmVoltar: function(){
-            this.navegarPara(DESTINO_VOLTAR,{Acao : LIMPAR})
+            this._navegarPara(DESTINO_VOLTAR,{Acao : LIMPAR})
         },
 
         aoBuscarPorNome: function(oEvent) {

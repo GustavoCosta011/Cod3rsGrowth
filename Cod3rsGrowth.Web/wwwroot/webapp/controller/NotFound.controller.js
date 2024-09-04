@@ -8,7 +8,7 @@ sap.ui.define([
          onInit: function () {
          },
          aoClivarEmVoltar: function(){
-            this.navegarPara(DESTINO_VOLTAR);
+            this._navegarPara(DESTINO_VOLTAR);
         }
     });
  });

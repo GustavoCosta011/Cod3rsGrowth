@@ -6,7 +6,7 @@ sap.ui.define([
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Home", {
 		IrParaClubes(){
-			this._getRouter().navTo(CLUBES);
+			this.getRouter().navTo(CLUBES);
 		}
 	});
 });
