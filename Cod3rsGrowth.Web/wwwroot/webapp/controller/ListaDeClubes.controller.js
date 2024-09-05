@@ -38,107 +38,71 @@ sap.ui.define([
         },
 
         aoCoincidirRota : function(){
-            try
-            {
+            this._exibirEspera(async () =>{
                 this.aoBuscarFiltros();
                 this._carregarEstados();
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
 
         aoClicarAdicionar: function(){
-            try
-            {
+            this._exibirEspera(() => {
                 this._getRouter().navTo(CRIAR, {});
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
 
         aoSelecionarUmItem: function(oEvent){
-            try
-            {
-                this._navegarPara(DETALHES,{ idClube : oEvent.getSource().getBindingContext(NOME_ROTA_CLUBES).getProperty(ID_DO_CLUBE)});
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }      
+            this._exibirEspera(() => {
+                this._navegarPara(DETALHES, { idClube: oEvent.getSource().getBindingContext(NOME_ROTA_CLUBES).getProperty(ID_DO_CLUBE) });
+            });
         },
 
         aoBuscarFiltros: function() {
-            try
-            {
+            this._exibirEspera(() => {
                 this._getRouter().navTo(NOME_ROTA_CLUBES, this.filtros.length === NUMERO_ZERO ? {} : {
                     query: this.filtros.reduce((newArray, atual) => {
                         newArray[atual.key] = atual.value;
                         return newArray;
                     }, {})
                 });
-    
+        
                 let oView = this.getView();
-                ClubeServico.buscarClubes(this.filtros)
-                .then((Clubes) => {
-                    oView.setModel(new JSONModel(Clubes), NOME_ROTA_CLUBES);
-                });
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }    
+                return ClubeServico.buscarClubes(this.filtros)
+                    .then((Clubes) => {
+                        oView.setModel(new JSONModel(Clubes), NOME_ROTA_CLUBES);
+                    });
+            });  
         },
 
-        aoClivarEmVoltar: function(){
-            try
-            {
-                this._navegarPara(DESTINO_VOLTAR,{Acao : LIMPAR})
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }     
+        aoClicarEmVoltar: function(){
+            this._exibirEspera(() => {
+                this._navegarPara(DESTINO_VOLTAR, { Acao: LIMPAR });
+            }); 
         },
 
         aoBuscarPorNome: function(oEvent) {
-            try
-            {
+            this._exibirEspera(() => {
                 let nome = oEvent.getParameter(VALOR_DO_INPUT);
                 this.filtros = this.filtros.filter(f => f.key !== CHAVE_NOME);
                 if (nome) {
                     this.filtros.push({ key: CHAVE_NOME, value: encodeURIComponent(nome) });
                 }
                 this.aoBuscarFiltros();
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }   
+            });
         },
-
+        
         aoMudarOEstadoNaComboBox: function(oEvent) {
-            try
-            {
+            this._exibirEspera(() => {
                 let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
                 this.filtros = this.filtros.filter(f => f.key !== CHAVE_ESTADO);
                 if (estado >= NUMERO_ZERO) {
                     this.filtros.push({ key: CHAVE_ESTADO, value: encodeURIComponent(estado) });
                 }
                 this.aoBuscarFiltros();
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }   
+            });
         },
-
+        
         aoAlterarData: function(oEvent) {
-            try
-            {
+            this._exibirEspera(() => {
                 let DataPiso = oEvent.getParameter(FROM);
                 let DataTeto = oEvent.getParameter(TO);
                 this.filtros = this.filtros.filter(f => f.key !== CHAVE_DATA_PISO && f.key !== CHAVE_DATA_TETO);
@@ -150,14 +114,10 @@ sap.ui.define([
                     let DataFormatada = this.formatter.formatDateReverse(DataTeto);
                     this.filtros.push({ key: CHAVE_DATA_TETO, value: encodeURIComponent(DataFormatada) });
                 }
-                this.aoBuscarFiltros()
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+                this.aoBuscarFiltros();
+            });
         },
-
+        
         resetarItems: function(oEvent) {
             let calendario = this.byId(CALENDARIO);
             if (calendario) {

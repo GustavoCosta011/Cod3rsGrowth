@@ -52,91 +52,51 @@ sap.ui.define([
             this.DadosCriacao = [];
             this.vincularRota(ROTA_DE_DETALHES, this.aoCoincidirRota);
         },
-        aoCoincidirRota : async function(evento){
-            try
-            {
+        aoCoincidirRota: function(evento) {
+            this._exibirEspera(async () => {
                 this._carregarModelo();
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
 
-            const argumentos = evento.getParameter(ARGUMENTOS_DA_ROTA);
-
-            await ClubeServico.buscarClubePorId(argumentos.idClube)
-            .then((clube) => {
+                const argumentos = evento.getParameter(ARGUMENTOS_DA_ROTA);
+                const clube = await ClubeServico.buscarClubePorId(argumentos.idClube);
                 let oModel = new JSONModel(clube);
                 this._modelo(NOME_MODELO_CLUBE, oModel);
-            })
-            .catch((error) => {
-                MessageBox.error(error, {title : TITULO_ERRO});
-            });
-            let elenco =  this._modelo(NOME_MODELO_CLUBE).getData().elenco
 
-            await this._aoCarregarElenco(elenco)
-            .then((jogador) =>{
-                let oModel = new JSONModel(jogador);
+                let elenco = this._modelo(NOME_MODELO_CLUBE).getData().elenco;
+                let jogadores = await this._aoCarregarElenco(elenco);
+                oModel = new JSONModel(jogadores);
                 this._modelo(oModel, NOME_MODELO_NOME_MODELO_JOGADORES);
-            })
-            .catch((error) => {
-                MessageBox.error(error, {title : TITULO_ERRO});
             });
         },
-        aoClicarEmVoltar: function(){          
-            try
-            {
-                this._navegarPara(DESTINO_VOLTAR);
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+
+        aoClicarEmVoltar: function() {          
+            this._exibirEspera(() => this._navegarPara(DESTINO_VOLTAR));
         },
-        aoClicarEditar: function(){
-            try
-            {
-                this._navegarPara(DESTINO_EDITAR,{ idClube : this._modelo(NOME_MODELO_CLUBE).getData().id})
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
-        },
-        _aoCarregarElenco: async function (elenco) {
-            const jogadores = elenco.map( id => { 
-                return JogadorServico.buscarJogadorPorId(id);
+
+        aoClicarEditar: function() {
+            this._exibirEspera(() => {
+                this._navegarPara(DESTINO_EDITAR, { idClube: this._modelo(NOME_MODELO_CLUBE).getData().id });
             });
+        },
+
+        _aoCarregarElenco: async function(elenco) {
+            const jogadores = elenco.map(id => JogadorServico.buscarJogadorPorId(id));
             return await Promise.all(jogadores);
         },
-        aoClicarDeletar: function(){
-            try
-            {
+
+        aoClicarDeletar: function() {
+            this._exibirEspera(() => {
                 MessageBox.confirm(PERGUNTA_MESSAGE_BOX, {
                     title: TITULO_CONFIRMAR,
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     onClose: async (oAction) => {
-                        try
-                        {
-                            if (oAction === MessageBox.Action.YES) {
-                                const idDoClube = this._modelo(NOME_MODELO_CLUBE).getData().id;
-                                await ClubeServico.deletarClube(idDoClube);
-                                this._navegarPara(DESTINO_VOLTAR)
-                            } else if (oAction === MessageBox.Action.NO) {
-                                MessageBox.close();
-                            }
-                        }
-                        catch(erro)
-                        {
-                            MessageBox.error(erro, {title : TITULO_ERRO});
+                        if (oAction === MessageBox.Action.YES) {
+                            const idDoClube = this._modelo(NOME_MODELO_CLUBE).getData().id;
+                            await ClubeServico.deletarClube(idDoClube);
+                            this._navegarPara(DESTINO_VOLTAR);
                         }
                     }
-                });    
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+                });
+            });
         },
 
         _carregarModelo: function() {
@@ -152,31 +112,18 @@ sap.ui.define([
             this._modelo(JogadorModelo, NOME_MODELO_JOGADOR);
         },
 
-        async aoAbrirModalDeCriacao() {           
-            try
-            {
-                this.oDialog ??= await this.loadFragment({
-                    name: "cod3rsgrowth.webapp.view.CriarJogador"
-                });
-            
+        aoAbrirModalDeCriacao: function() {
+            this._exibirEspera(async () => {
+                this.oDialog ??= await this.loadFragment({ name: "cod3rsgrowth.webapp.view.CriarJogador" });
                 this.oDialog.open();
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
 
-        aoFecharModal:function (){
-            try
-            {
+        aoFecharModal: function() {
+            this._exibirEspera(() => {
                 this._resetarItems();
                 this.oDialog.close();
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
 
         _validarCamposPreenchidos: function () {
@@ -239,21 +186,16 @@ sap.ui.define([
             return true;
         },
 
-       aoSalvarJogador: async function(){
-            try
-            {
-                if (!this._validarCamposPreenchidos()) {
-                    return;
-                }
+        aoSalvarJogador: function() {
+            this._exibirEspera(async () => {
+                if (!this._validarCamposPreenchidos()) return;
+                
                 this._SalvarDados();
-                let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao)
-                let hash = this._getRouter().getHashChanger().getHash().split(BARRA)
+                let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao);
+                let hash = this._getRouter().getHashChanger().getHash().split(BARRA);
+
                 await this._criarOuEditarJogador(hash, DadosDaCriação);
-            }
-            catch(erro)
-            {
-                this.exibirErroNaTela(erro);
-            }
+            });
         },
 
         _criarOuEditarJogador: async function(hash, DadosDaCriação){

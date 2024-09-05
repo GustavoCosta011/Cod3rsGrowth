@@ -11,6 +11,8 @@ sap.ui.define([
     const NOME_MODELO_ESTADOS = "estados";
     const TEXTO_ERRO_FETCH_ESTADO = 'Erro ao buscar estados:';
     const PARAMETRO_LIMPAR = "Limpar";
+    const TITULO_ERRO = "Erro";
+
 
     return Controller.extend("cod3rsgrowth.controller.Base", {
         Historico: [],
@@ -52,6 +54,11 @@ sap.ui.define([
                 return this.getView().setModel(modelo, nome)
             }
             return this.getView().getModel(nome);
+        },
+
+        _exibirEspera: async function (funcao) {
+            return Promise.resolve(funcao())
+            .catch(erro => MessageBox.error(erro, {title : TITULO_ERRO}))
         }
     });
 });

@@ -9,14 +9,9 @@ sap.ui.define([
 
     return Base.extend("cod3rsgrowth.webapp.controller.NotFound", {
          aoClivarEmVoltar: function(){
-            try
-            {
+            this._exibirEspera(async () =>{
                this._navegarPara(DESTINO_VOLTAR);
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
          }
     });
  });

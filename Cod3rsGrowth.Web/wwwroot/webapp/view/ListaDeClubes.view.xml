@@ -8,7 +8,7 @@
         id="PaginaDaListaClubes"
         title="{i18n>Page.Clubes.Titulo}"
         showNavButton="true"
-        navButtonPress="aoClivarEmVoltar"
+        navButtonPress="aoClicarEmVoltar"
         class="sapUiResponsiveContentPadding"
         >
         <VBox>

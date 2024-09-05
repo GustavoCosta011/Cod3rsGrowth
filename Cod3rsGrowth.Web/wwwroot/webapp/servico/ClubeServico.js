@@ -2,8 +2,8 @@ sap.ui.define([], () => {
     "use strict";
     const ERROR = 'Erro na requisição da API';
     const NUMZERO = 0;
-    const OBTERTODOS = "https://localhost:7178/api/Clubes";
-    const OBTERESTADOS = "https://localhost:7178/api/Clubes/estados";
+    const OBTERTODOS = "api/Clubes";
+    const OBTERESTADOS = "api/Clubes/estados";
 
     return {
         buscarClubes: function(filtros) {
@@ -46,9 +46,9 @@ sap.ui.define([], () => {
             })
         },
 
-        eriarClube: async function(DadosCriacao) {
+        criarClube: async function(DadosCriacao) {
             try {
-                const resposta = await fetch(new URL(OBTERTODOS), {
+                const resposta = await fetch(OBTERTODOS, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(DadosCriacao)
@@ -77,14 +77,11 @@ sap.ui.define([], () => {
                 } 
                 throw resposta;                
             })
-            .catch(error => {
-                console.error('Erro:', error);
-            });
         },
 
         buscarEstados: async function() {
             try {
-                const resposta = await fetch(new URL(OBTERESTADOS), {
+                const resposta = await fetch(OBTERESTADOS, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                 });

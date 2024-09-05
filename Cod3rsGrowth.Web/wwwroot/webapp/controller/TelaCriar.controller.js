@@ -55,20 +55,14 @@ sap.ui.define([
         },
 
         aoCoincidirRotaEditar: async function(evento){
-            try
-            {
+            this._exibirEspera(async () => {
                 await this._aoAdiquirirClube(evento);
                 this._salvarModelo();
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
         
         _aoAdiquirirClube: async function(evento){
-            try
-            {
+            this._exibirEspera(async () => {
                 const argumento = evento.getParameter(ARGUMENTOS_DA_ROTA);
                 let oView = this.getView();
     
@@ -79,11 +73,7 @@ sap.ui.define([
                 .catch(() => {
                     MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
                 });  
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
 
         _salvarModelo: function(){
@@ -102,109 +92,74 @@ sap.ui.define([
             this.DadosCriacao.push({ key: CHAVE_COBERTURA, value: modelo.coberturaAntiChuva});
         },
 
-        aoCoincidirRota: function(){
-            try
-            {
+        aoCoincidirRota: function() {
+            this._exibirEspera(async () => {
                 this._resetarItems();
-                this._carregarEstados();
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+                await this._carregarEstados();
+            });
         },
 
         aoClicarEmVoltar: function(){
-            try
-            {
-                this._navegarPara(DESTINO_VOLTAR, {Acao : LIMPAR});
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            this._exibirEspera(async () => {
+                this._navegarPara(DESTINO_VOLTAR, {Acao: LIMPAR});
+            });
         },
 
-        aoInserirNome: function(oEvent){
-            try
-            {
+        aoInserirNome: function(oEvent) {
+            this._exibirEspera(async () => {
                 let nome = oEvent.getParameter(VALOR_DO_INPUT);
                 this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
                 if (nome) {
-                    this.DadosCriacao.push({ key: CHAVE_NOME, value: nome});
+                    this.DadosCriacao.push({ key: CHAVE_NOME, value: nome });
                 }
                 this._validarNome(nome);
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
-
-        aoInserirFundação: function(oEvent){
-            try
-            {
+        
+        aoInserirFundacao: function(oEvent) {
+            this._exibirEspera(async () => {
                 let fundacao = oEvent.getParameter(VALOR_DO_INPUT);
                 this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_FUNDACAO);
-                if(fundacao){
+                if (fundacao) {
                     let DataFormatada = this.formatter.formatDateReverse(fundacao);
-                    this.DadosCriacao.push({key: CHAVE_FUNDACAO, value: DataFormatada});
+                    this.DadosCriacao.push({ key: CHAVE_FUNDACAO, value: DataFormatada });
                 }
                 this._validarFundacao(fundacao);
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
-
-        aoInserirEstadio: function(oEvent){
-            try
-            {
+        
+        aoInserirEstadio: function(oEvent) {
+            this._exibirEspera(async () => {
                 let estadio = oEvent.getParameter(VALOR_DO_INPUT);
                 this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADIO);
                 if (estadio) {
-                    this.DadosCriacao.push({ key: CHAVE_ESTADIO, value: estadio});
+                    this.DadosCriacao.push({ key: CHAVE_ESTADIO, value: estadio });
                 }
                 this._validarFundacao(estadio);
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
-
-        aoInserirEstadoDeCriação: function(oEvent){
-            try
-            {
+        
+        aoInserirEstadoDeCriacao: function(oEvent) {
+            this._exibirEspera(async () => {
                 let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
                 this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADO);
                 if (estado >= NUMERO_ZERO) {
-                    this.DadosCriacao.push({ key: CHAVE_ESTADO, value: parseInt(estado, 10)});
+                    this.DadosCriacao.push({ key: CHAVE_ESTADO, value: parseInt(estado, 10) });
                 }
                 this._validarFundacao(estado);
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
-
-        aoInserirCobertura: function(oEvent){
-            try
-            {
+        
+        aoInserirCobertura: function(oEvent) {
+            this._exibirEspera(async () => {
                 this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_COBERTURA);
                 let selectedIndex = oEvent.getParameter(PARAMETRO_SELECTEDINDEX);
                 let grupoDeBotoes = oEvent.getSource();
                 let TextoSelecionado = grupoDeBotoes.getButtons()[selectedIndex].getText();
                 let cobertura = TextoSelecionado === SIM;
-                this.DadosCriacao.push({ key: CHAVE_COBERTURA, value: cobertura});
+                this.DadosCriacao.push({ key: CHAVE_COBERTURA, value: cobertura });
                 this._validarCobertura(cobertura);
-            }
-            catch(erro)
-            {
-                MessageBox.error(erro, {title : TITULO_ERRO});
-            }
+            });
         },
 
         _validarNome: function(nome) {
@@ -299,38 +254,34 @@ sap.ui.define([
         },
 
         aoSalvarClube: async function () {
-            try
-            {
+            this._exibirEspera(async () => {
                 if (!this._validarCamposPreenchidos()) {
                     return;
                 }
-                let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao)
-                let hash = this._getRouter().getHashChanger().getHash().split(BARRA)
-                await this._criarOuEditarClube(hash, DadosDaCriação);
-            }
-            catch(erro)
-            {
-                this._exibirErroNaTela(erro);
-            }
+                var dadosDaCriacao = this._carregarArraydeDados(this.DadosCriacao);
+                console.log(dadosDaCriacao);
+                let hash = this._getRouter().getHashChanger().getHash().split(BARRA);
+                await this._criarOuEditarClube(hash, dadosDaCriacao);
+            });
         },
-
-        _criarOuEditarClube: async function(hash, dadosDaCriação){
-            if(hash [INDICEUM_NO_ARAY] == NOME_ROTA_EDITAR){ 
-                let idClube = this._modelo(CLUBES).getData().id;   
-                await ClubeServico.editarClube(dadosDaCriação, idClube)
+        
+        _criarOuEditarClube: async function(hash, dadosDaCriacao) {
+            if (hash[INDICEUM_NO_ARAY] == NOME_ROTA_EDITAR) {
+                let idClube = this._modelo(CLUBES).getData().id;
+                await ClubeServico.editarClube(dadosDaCriacao, idClube);
                 MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-            }else{
-                await ClubeServico.criarClube(dadosDaCriação);
+            } else {
+                await ClubeServico.criarClube(dadosDaCriacao);
                 MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 this._resetarItems();
             }
         },
 
         _carregarArraydeDados: function(dados){
-            dados.reduce((newArray, atual) => {
+            return dados.reduce((newArray, atual) => {
                 newArray[atual.key] = atual.value;
                 return newArray;
-            }, {})
+            }, {});
         },
 
 
@@ -345,8 +296,7 @@ sap.ui.define([
         },
 
         _exibirErroNaTela: function(erro) {  
-            console.log(erro);
-
+            console.log(erro)
             let mensagemErro = MENSAGEM_ERRO_DESCONHECIDO;
             let detalhesErro = DETALHES_ERRO_INDISPONIVEL;
         
