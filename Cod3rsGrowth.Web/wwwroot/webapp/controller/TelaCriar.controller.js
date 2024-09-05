@@ -259,7 +259,6 @@ sap.ui.define([
                     return;
                 }
                 var dadosDaCriacao = this._carregarArraydeDados(this.DadosCriacao);
-                console.log(dadosDaCriacao);
                 let hash = this._getRouter().getHashChanger().getHash().split(BARRA);
                 await this._criarOuEditarClube(hash, dadosDaCriacao);
             });
@@ -296,7 +295,6 @@ sap.ui.define([
         },
 
         _exibirErroNaTela: function(erro) {  
-            console.log(erro)
             let mensagemErro = MENSAGEM_ERRO_DESCONHECIDO;
             let detalhesErro = DETALHES_ERRO_INDISPONIVEL;
         
