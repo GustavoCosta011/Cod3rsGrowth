@@ -55,21 +55,35 @@ sap.ui.define([
         },
 
         aoCoincidirRotaEditar: async function(evento){
-            await this._aoAdiquirirClube(evento);
-            this._salvarModelo();
+            try
+            {
+                await this._aoAdiquirirClube(evento);
+                this._salvarModelo();
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
         
         _aoAdiquirirClube: async function(evento){
-            const argumento = evento.getParameter(ARGUMENTOS_DA_ROTA);
-            let oView = this.getView();
-
-            await ClubeServico.buscarClubePorId(argumento.idClube)
+            try
+            {
+                const argumento = evento.getParameter(ARGUMENTOS_DA_ROTA);
+                let oView = this.getView();
+    
+                await ClubeServico.buscarClubePorId(argumento.idClube)
                 .then((resposta) => {
                     oView.setModel(new JSONModel(resposta) , CLUBES);
                 })
                 .catch(() => {
                     MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
                 });  
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         _salvarModelo: function(){
@@ -89,59 +103,108 @@ sap.ui.define([
         },
 
         aoCoincidirRota: function(){
-            this._resetarItems();
-            this._carregarEstados();
+            try
+            {
+                this._resetarItems();
+                this._carregarEstados();
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoClicarEmVoltar: function(){
-            this._navegarPara(DESTINO_VOLTAR, {Acao : LIMPAR});
+            try
+            {
+                this._navegarPara(DESTINO_VOLTAR, {Acao : LIMPAR});
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoInserirNome: function(oEvent){
-            let nome = oEvent.getParameter(VALOR_DO_INPUT);
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
-            if (nome) {
-                this.DadosCriacao.push({ key: CHAVE_NOME, value: nome});
+            try
+            {
+                let nome = oEvent.getParameter(VALOR_DO_INPUT);
+                this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
+                if (nome) {
+                    this.DadosCriacao.push({ key: CHAVE_NOME, value: nome});
+                }
+                this._validarNome(nome);
             }
-            this._validarNome(nome);
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoInserirFundação: function(oEvent){
-            let fundacao = oEvent.getParameter(VALOR_DO_INPUT);
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_FUNDACAO);
-            if(fundacao){
-                let DataFormatada = this.formatter.formatDateReverse(fundacao);
-                this.DadosCriacao.push({key: CHAVE_FUNDACAO, value: DataFormatada});
+            try
+            {
+                let fundacao = oEvent.getParameter(VALOR_DO_INPUT);
+                this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_FUNDACAO);
+                if(fundacao){
+                    let DataFormatada = this.formatter.formatDateReverse(fundacao);
+                    this.DadosCriacao.push({key: CHAVE_FUNDACAO, value: DataFormatada});
+                }
+                this._validarFundacao(fundacao);
             }
-            this._validarFundacao(fundacao);
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoInserirEstadio: function(oEvent){
-            let estadio = oEvent.getParameter(VALOR_DO_INPUT);
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADIO);
-            if (estadio) {
-                this.DadosCriacao.push({ key: CHAVE_ESTADIO, value: estadio});
+            try
+            {
+                let estadio = oEvent.getParameter(VALOR_DO_INPUT);
+                this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADIO);
+                if (estadio) {
+                    this.DadosCriacao.push({ key: CHAVE_ESTADIO, value: estadio});
+                }
+                this._validarFundacao(estadio);
             }
-            this._validarFundacao(estadio);
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoInserirEstadoDeCriação: function(oEvent){
-            let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADO);
-            if (estado >= NUMERO_ZERO) {
-                this.DadosCriacao.push({ key: CHAVE_ESTADO, value: parseInt(estado, 10)});
+            try
+            {
+                let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
+                this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADO);
+                if (estado >= NUMERO_ZERO) {
+                    this.DadosCriacao.push({ key: CHAVE_ESTADO, value: parseInt(estado, 10)});
+                }
+                this._validarFundacao(estado);
             }
-            this._validarFundacao(estado);
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoInserirCobertura: function(oEvent){
-            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_COBERTURA);
-            let selectedIndex = oEvent.getParameter(PARAMETRO_SELECTEDINDEX);
-            let grupoDeBotoes = oEvent.getSource();
-            let TextoSelecionado = grupoDeBotoes.getButtons()[selectedIndex].getText();
-            let cobertura = TextoSelecionado === SIM;
-            this.DadosCriacao.push({ key: CHAVE_COBERTURA, value: cobertura});
-            this._validarCobertura(cobertura);
+            try
+            {
+                this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_COBERTURA);
+                let selectedIndex = oEvent.getParameter(PARAMETRO_SELECTEDINDEX);
+                let grupoDeBotoes = oEvent.getSource();
+                let TextoSelecionado = grupoDeBotoes.getButtons()[selectedIndex].getText();
+                let cobertura = TextoSelecionado === SIM;
+                this.DadosCriacao.push({ key: CHAVE_COBERTURA, value: cobertura});
+                this._validarCobertura(cobertura);
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         _validarNome: function(nome) {
@@ -236,33 +299,30 @@ sap.ui.define([
         },
 
         aoSalvarClube: async function () {
-            if (!this._validarCamposPreenchidos()) {
-                return;
+            try
+            {
+                if (!this._validarCamposPreenchidos()) {
+                    return;
+                }
+                let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao)
+                let hash = this._getRouter().getHashChanger().getHash().split(BARRA)
+                await this._criarOuEditarClube(hash, DadosDaCriação);
             }
-            let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao)
-            let hash = this._getRouter().getHashChanger().getHash().split(BARRA)
-            await this._CriarOuEditarClube(hash, DadosDaCriação);
+            catch(erro)
+            {
+                this._exibirErroNaTela(erro);
+            }
         },
 
-        _CriarOuEditarClube: async function(hash, dadosDaCriação){
-            if(hash [INDICEUM_NO_ARAY] == NOME_ROTA_EDITAR){
-                try {        
-                    let idClube = this._modelo(CLUBES).getData().id;   
-                    await ClubeServico.editarClube(dadosDaCriação, idClube)
-                    MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-                } 
-                catch (erro) {
-                    this._exibirErroNaTela(erro);
-                }
+        _criarOuEditarClube: async function(hash, dadosDaCriação){
+            if(hash [INDICEUM_NO_ARAY] == NOME_ROTA_EDITAR){ 
+                let idClube = this._modelo(CLUBES).getData().id;   
+                await ClubeServico.editarClube(dadosDaCriação, idClube)
+                MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
             }else{
-                try {
-                    await ClubeServico.criarClube(dadosDaCriação);
-                    MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-                    this._resetarItems();
-                } 
-                catch (erro) {
-                    this._exibirErroNaTela(erro);
-                }
+                await ClubeServico.criarClube(dadosDaCriação);
+                MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                this._resetarItems();
             }
         },
 

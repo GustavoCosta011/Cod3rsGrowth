@@ -110,19 +110,33 @@ sap.ui.define([
             return await Promise.all(jogadores);
         },
         aoClicarDeletar: function(){
-            MessageBox.confirm(PERGUNTA_MESSAGE_BOX, {
-                title: TITULO_CONFIRMAR,
-                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                onClose: async (oAction) => {
-                    if (oAction === MessageBox.Action.YES) {
-                        const idDoClube = this._modelo(NOME_MODELO_CLUBE).getData().id;
-                        await ClubeServico.deletarClube(idDoClube);
-                        this._navegarPara(DESTINO_VOLTAR)
-                    } else if (oAction === MessageBox.Action.NO) {
-                        MessageBox.close();
+            try
+            {
+                MessageBox.confirm(PERGUNTA_MESSAGE_BOX, {
+                    title: TITULO_CONFIRMAR,
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    onClose: async (oAction) => {
+                        try
+                        {
+                            if (oAction === MessageBox.Action.YES) {
+                                const idDoClube = this._modelo(NOME_MODELO_CLUBE).getData().id;
+                                await ClubeServico.deletarClube(idDoClube);
+                                this._navegarPara(DESTINO_VOLTAR)
+                            } else if (oAction === MessageBox.Action.NO) {
+                                MessageBox.close();
+                            }
+                        }
+                        catch(erro)
+                        {
+                            MessageBox.error(erro, {title : TITULO_ERRO});
+                        }
                     }
-                }
-            });
+                });    
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         _carregarModelo: function() {
@@ -154,8 +168,15 @@ sap.ui.define([
         },
 
         aoFecharModal:function (){
-            this._resetarItems();
-            this.oDialog.close();
+            try
+            {
+                this._resetarItems();
+                this.oDialog.close();
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         _validarCamposPreenchidos: function () {
@@ -219,35 +240,31 @@ sap.ui.define([
         },
 
        aoSalvarJogador: async function(){
-            if (!this._validarCamposPreenchidos()) {
-                return;
+            try
+            {
+                if (!this._validarCamposPreenchidos()) {
+                    return;
+                }
+                this._SalvarDados();
+                let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao)
+                let hash = this._getRouter().getHashChanger().getHash().split(BARRA)
+                await this._criarOuEditarJogador(hash, DadosDaCriação);
             }
-            this.aoSalvarDados();
-            let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao)
-            let hash = this._getRouter().getHashChanger().getHash().split(BARRA)
-            await this._CriarOuEditarJogador(hash, DadosDaCriação);
+            catch(erro)
+            {
+                this.exibirErroNaTela(erro);
+            }
         },
 
-        _CriarOuEditarJogador: async function(hash, DadosDaCriação){
+        _criarOuEditarJogador: async function(hash, DadosDaCriação){
             if(hash [INDICEUM_NO_ARRAY_DE_HASHs] == NOME_ROTA_EDITAR){
-                try {      
-                    let idClube = this._modelo(NOME_MODELO_JOGADOR).getData().id;   
-                    await JogadorServico.editarJogador(DadosDaCriação, idClube)
-                    MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-                } 
-                catch (erro) {
-                    this.exibirErroNaTela(erro);
-                }
+                let idClube = this._modelo(NOME_MODELO_JOGADOR).getData().id;   
+                await JogadorServico.editarJogador(DadosDaCriação, idClube)
+                MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
             }else{
-                try {
-                    console.log(DadosDaCriação)  
-                    await JogadorServico.criarJogador(DadosDaCriação);
-                    MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-                    this.aoFecharModal();
-                } 
-                catch (erro) {
-                    this.exibirErroNaTela(erro);
-                }
+                await JogadorServico.criarJogador(DadosDaCriação);
+                MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                this.aoFecharModal();
             }
         },
 
@@ -258,7 +275,7 @@ sap.ui.define([
             }, {})
         },
 
-        aoSalvarDados:function(){
+        _SalvarDados:function(){
             const modelo = this._modelo(NOME_MODELO_JOGADOR).getData();
             let clube = this.byId(ID_CLUBECRIACAO).getValue()
             let data = this.formatter.formatDateReverse(this.byId(ID_CALENDARIOCRIAR).getDateValue()); 

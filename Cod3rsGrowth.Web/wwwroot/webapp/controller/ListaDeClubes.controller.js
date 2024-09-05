@@ -2,8 +2,9 @@ sap.ui.define([
     "./Base",
     "../formatter",
     "../servico/ClubeServico",
-    "sap/ui/model/json/JSONModel"
-], function (Base, Formatter, ClubeServico, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox"
+], function (Base, Formatter, ClubeServico, JSONModel, MessageBox) {
     "use strict";
     const NUMERO_ZERO = 0;
     const NOME_ROTA_CLUBES = "clubes";
@@ -25,6 +26,7 @@ sap.ui.define([
     const DESTINO_VOLTAR = '';
     const LIMPAR = "Limpar";
     const ID_BOTAO_LIMPAR = "BotaoLimpar";
+    const TITULO_ERRO = "Erro";
 
 
     return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
@@ -36,71 +38,124 @@ sap.ui.define([
         },
 
         aoCoincidirRota : function(){
-            this.aoBuscarFiltros();
-            this._carregarEstados();
+            try
+            {
+                this.aoBuscarFiltros();
+                this._carregarEstados();
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoClicarAdicionar: function(){
-            this._getRouter().navTo(CRIAR, {});
+            try
+            {
+                this._getRouter().navTo(CRIAR, {});
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
         },
 
         aoSelecionarUmItem: function(oEvent){
-            this._navegarPara(DETALHES,{ idClube : oEvent.getSource().getBindingContext(NOME_ROTA_CLUBES).getProperty(ID_DO_CLUBE)})
+            try
+            {
+                this._navegarPara(DETALHES,{ idClube : oEvent.getSource().getBindingContext(NOME_ROTA_CLUBES).getProperty(ID_DO_CLUBE)});
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }      
         },
 
         aoBuscarFiltros: function() {
-            this._getRouter().navTo(NOME_ROTA_CLUBES, this.filtros.length === NUMERO_ZERO ? {} : {
-                query: this.filtros.reduce((newArray, atual) => {
-                    newArray[atual.key] = atual.value;
-                    return newArray;
-                }, {})
-            });
-
-            let oView = this.getView();
-            ClubeServico.buscarClubes(this.filtros)
+            try
+            {
+                this._getRouter().navTo(NOME_ROTA_CLUBES, this.filtros.length === NUMERO_ZERO ? {} : {
+                    query: this.filtros.reduce((newArray, atual) => {
+                        newArray[atual.key] = atual.value;
+                        return newArray;
+                    }, {})
+                });
+    
+                let oView = this.getView();
+                ClubeServico.buscarClubes(this.filtros)
                 .then((Clubes) => {
                     oView.setModel(new JSONModel(Clubes), NOME_ROTA_CLUBES);
-                })
-                .catch((error) => {
-                    console.error('Erro:', error);
                 });
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }    
         },
 
         aoClivarEmVoltar: function(){
-            this._navegarPara(DESTINO_VOLTAR,{Acao : LIMPAR})
+            try
+            {
+                this._navegarPara(DESTINO_VOLTAR,{Acao : LIMPAR})
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }     
         },
 
         aoBuscarPorNome: function(oEvent) {
-            let nome = oEvent.getParameter(VALOR_DO_INPUT);
-            this.filtros = this.filtros.filter(f => f.key !== CHAVE_NOME);
-            if (nome) {
-                this.filtros.push({ key: CHAVE_NOME, value: encodeURIComponent(nome) });
+            try
+            {
+                let nome = oEvent.getParameter(VALOR_DO_INPUT);
+                this.filtros = this.filtros.filter(f => f.key !== CHAVE_NOME);
+                if (nome) {
+                    this.filtros.push({ key: CHAVE_NOME, value: encodeURIComponent(nome) });
+                }
+                this.aoBuscarFiltros();
             }
-            this.aoBuscarFiltros();
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }   
         },
 
         aoMudarOEstadoNaComboBox: function(oEvent) {
-            let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
-            this.filtros = this.filtros.filter(f => f.key !== CHAVE_ESTADO);
-            if (estado >= NUMERO_ZERO) {
-                this.filtros.push({ key: CHAVE_ESTADO, value: encodeURIComponent(estado) });
+            try
+            {
+                let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
+                this.filtros = this.filtros.filter(f => f.key !== CHAVE_ESTADO);
+                if (estado >= NUMERO_ZERO) {
+                    this.filtros.push({ key: CHAVE_ESTADO, value: encodeURIComponent(estado) });
+                }
+                this.aoBuscarFiltros();
             }
-            this.aoBuscarFiltros();
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }   
         },
 
         aoAlterarData: function(oEvent) {
-            let DataPiso = oEvent.getParameter(FROM);
-            let DataTeto = oEvent.getParameter(TO);
-            this.filtros = this.filtros.filter(f => f.key !== CHAVE_DATA_PISO && f.key !== CHAVE_DATA_TETO);
-            if (DataPiso) {
-                let DataFormatada = this.formatter.formatDateReverse(DataPiso);
-                this.filtros.push({ key: CHAVE_DATA_PISO, value: encodeURIComponent(DataFormatada) });
+            try
+            {
+                let DataPiso = oEvent.getParameter(FROM);
+                let DataTeto = oEvent.getParameter(TO);
+                this.filtros = this.filtros.filter(f => f.key !== CHAVE_DATA_PISO && f.key !== CHAVE_DATA_TETO);
+                if (DataPiso) {
+                    let DataFormatada = this.formatter.formatDateReverse(DataPiso);
+                    this.filtros.push({ key: CHAVE_DATA_PISO, value: encodeURIComponent(DataFormatada) });
+                }
+                if (DataTeto) {
+                    let DataFormatada = this.formatter.formatDateReverse(DataTeto);
+                    this.filtros.push({ key: CHAVE_DATA_TETO, value: encodeURIComponent(DataFormatada) });
+                }
+                this.aoBuscarFiltros()
             }
-            if (DataTeto) {
-                let DataFormatada = this.formatter.formatDateReverse(DataTeto);
-                this.filtros.push({ key: CHAVE_DATA_TETO, value: encodeURIComponent(DataFormatada) });
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
             }
-            this.aoBuscarFiltros();
         },
 
         resetarItems: function(oEvent) {

@@ -1,14 +1,22 @@
 sap.ui.define([
-    "./Base"
- ], function (Base) {
+   "./Base",
+   "sap/m/MessageBox"
+
+ ], function (Base, MessageBox) {
     "use strict";
     const DESTINO_VOLTAR = '';
+    const TITULO_ERRO = "Erro";
 
     return Base.extend("cod3rsgrowth.webapp.controller.NotFound", {
-         onInit: function () {
-         },
          aoClivarEmVoltar: function(){
-            this._navegarPara(DESTINO_VOLTAR);
-        }
+            try
+            {
+               this._navegarPara(DESTINO_VOLTAR);
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
+         }
     });
  });

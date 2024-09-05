@@ -7,7 +7,7 @@ sap.ui.define([
 ], function(Controller, UIComponent, ClubeServico,JSONModel) {
     "use strict";
 
-    const HOME = "Home";
+    const NOME_DA_ROTA_HOME = "Home";
     const NOME_MODELO_ESTADOS = "estados";
     const TEXTO_ERRO_FETCH_ESTADO = 'Erro ao buscar estados:';
     const PARAMETRO_LIMPAR = "Limpar";
@@ -28,7 +28,7 @@ sap.ui.define([
                 }
             }
 			else { 
-                this._getRouter().navTo(HOME);
+                this._getRouter().navTo(NOME_DA_ROTA_HOME);
             }
         },
 
