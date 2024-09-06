@@ -2,9 +2,10 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/UIComponent",
     "../servico/ClubeServico",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox"
 
-], function(Controller, UIComponent, ClubeServico,JSONModel) {
+], function(Controller, UIComponent, ClubeServico, JSONModel, MessageBox) {
     "use strict";
 
     const NOME_DA_ROTA_HOME = "Home";
@@ -12,6 +13,9 @@ sap.ui.define([
     const TEXTO_ERRO_FETCH_ESTADO = 'Erro ao buscar estados:';
     const PARAMETRO_LIMPAR = "Limpar";
     const TITULO_ERRO = "Erro";
+    const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
+    const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
+    const QUEBRADELINHA = "\r\n";
 
 
     return Controller.extend("cod3rsgrowth.controller.Base", {
@@ -58,7 +62,29 @@ sap.ui.define([
 
         _exibirEspera: async function (funcao) {
             return Promise.resolve(funcao())
-            .catch(erro => MessageBox.error(erro, {title : TITULO_ERRO}))
+            .catch(erro => this._exibirErroNaTela(erro))
+        },
+
+        _exibirErroNaTela: function(erro) {  
+            console.log(erro)
+            let mensagemErro = MENSAGEM_ERRO_DESCONHECIDO;
+            let detalhesErro = DETALHES_ERRO_INDISPONIVEL;
+        
+            if (erro.extensions && erro.extensions.fluentValidation) {
+                mensagemErro = Object.values(erro.extensions.fluentValidation).join("\r\n");
+            } 
+            else if (erro.detail) {
+                mensagemErro = erro.detail.split(QUEBRADELINHA);
+            }
+            if (erro.title || erro.Title) {
+                detalhesErro = erro.detail;
+            }
+        
+            MessageBox.error(mensagemErro, {
+                title: TITULO_ERRO,
+                details: detalhesErro,
+                actions: [MessageBox.Action.CLOSE]
+            });
         }
     });
 });

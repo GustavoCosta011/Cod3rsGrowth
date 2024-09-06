@@ -32,8 +32,6 @@ sap.ui.define([
     const BARRA = "/";
     const QUEBRADELINHA = "\r\n";
     const TITULO_ERRO = "Erro";
-    const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
-    const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
     const MENSAGEM_SUCESSO_CLUBE = "Clube criado com sucesso!";
     const MENSAGEM_SUCESSO_CLUBE_EDITADO = "Clube editado com sucesso!";
     const DURACAO_TOAST = 5000;
@@ -294,26 +292,6 @@ sap.ui.define([
             return nomeValido && estadioValido && fundacaoValida && estadoValido && coberturaValida;
         },
 
-        _exibirErroNaTela: function(erro) {  
-            let mensagemErro = MENSAGEM_ERRO_DESCONHECIDO;
-            let detalhesErro = DETALHES_ERRO_INDISPONIVEL;
-        
-            if (erro.extensions && erro.extensions.fluentValidation) {
-                mensagemErro = Object.values(erro.extensions.fluentValidation).join("\r\n");
-            } 
-            else if (erro.detail) {
-                mensagemErro = erro.detail.split(QUEBRADELINHA)[0];
-            }
-            if (erro.title || erro.Title) {
-                detalhesErro = erro.detail;
-            }
-        
-            MessageBox.error(mensagemErro, {
-                title: TITULO_ERRO,
-                details: detalhesErro,
-                actions: [MessageBox.Action.CLOSE]
-            });
-        }
     });
 });
  

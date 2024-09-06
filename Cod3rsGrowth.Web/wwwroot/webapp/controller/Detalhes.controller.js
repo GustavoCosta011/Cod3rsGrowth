@@ -64,7 +64,7 @@ sap.ui.define([
                 let elenco = this._modelo(NOME_MODELO_CLUBE).getData().elenco;
                 let jogadores = await this._aoCarregarElenco(elenco);
                 oModel = new JSONModel(jogadores);
-                this._modelo(oModel, NOME_MODELO_NOME_MODELO_JOGADORES);
+                this._modelo(NOME_MODELO_NOME_MODELO_JOGADORES, oModel);
             });
         },
 
@@ -109,7 +109,7 @@ sap.ui.define([
                 "altura": null,
                 "peso": null
             });
-            this._modelo(JogadorModelo, NOME_MODELO_JOGADOR);
+            this._modelo(NOME_MODELO_JOGADOR, JogadorModelo);
         },
 
         aoAbrirModalDeCriacao: function() {
@@ -189,7 +189,6 @@ sap.ui.define([
         aoSalvarJogador: function() {
             this._exibirEspera(async () => {
                 if (!this._validarCamposPreenchidos()) return;
-                
                 this._SalvarDados();
                 let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao);
                 let hash = this._getRouter().getHashChanger().getHash().split(BARRA);
@@ -211,7 +210,7 @@ sap.ui.define([
         },
 
         _carregarArraydeDados: function(dados){
-            dados.reduce((newArray, atual) => {
+            return dados.reduce((newArray, atual) => {
                 newArray[atual.key] = atual.value;
                 return newArray;
             }, {})
@@ -243,27 +242,6 @@ sap.ui.define([
             this.DadosCriacao.push({ key: CHAVE_ALTURA, value: modelo.altura});
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_PESO);
             this.DadosCriacao.push({ key: CHAVE_PESO, value: modelo.peso});
-        },
-
-        exibirErroNaTela: function(erro) { 
-            let mensagemErro = MENSAGEM_ERRO_DESCONHECIDO;
-            let detalhesErro = DETALHES_ERRO_INDISPONIVEL;
-        
-            if (erro.extensions && erro.extensions.fluentValidation) {
-                mensagemErro = Object.values(erro.extensions.fluentValidation).join("\r\n");
-            } 
-            else if (erro.detail) {
-                mensagemErro = erro.detail.split(QUEBRADELINHA)[0];
-            }
-            if (erro.title || erro.Title) {
-                detalhesErro = erro.detail;
-            }
-        
-            MessageBox.error(mensagemErro, {
-                title: TITULO_ERRO,
-                details: detalhesErro,
-                actions: [MessageBox.Action.CLOSE]
-            });
         },
 
         _resetarItems: function() {
