@@ -18,17 +18,19 @@
                     liveChange="true"
                     class="sapUiSmallMarginBottom"
                     value = "{path: 'clube>/nome'}"
+                    valueStateText="{i18n>Page.Criar.Erro.NOME}"
                 />
                 <Label text="{i18n>Page.Criar.Fundacao}" required="true"/>
                 <DatePicker
                     id="CalendarioCriar"
                     width="100%"  
                     placeholder="{i18n>Page.Criar.Fundacao.Placeholder}"
-                    change="aoInserirFundação"
+                    change="aoInserirFundacao"
                     liveChange="true"
                     displayFormat="dd/MM/yyyy"
                     class="sapUiSmallMarginBottom"
                     visible="true"
+                    valueStateText="{i18n>Page.Criar.Erro.FUNDACAO}"
                     value = "{path: 'clube>/fundacao', formatter: '.formatter.formatDate'}"
                 />
                 <Label text="{i18n>Page.Criar.Estadio}" required="true"/>
@@ -40,6 +42,7 @@
                     change="aoInserirEstadio"
                     liveChange="true"
                     class="sapUiSmallMarginBottom"
+                    valueStateText="{i18n>Page.Criar.Erro.ESTADIO}"
                     value = "{path: 'clube>/estadio'}"
                 />
                 <Label text="{i18n>Page.Criar.Estado}" required="true"/>
@@ -47,9 +50,10 @@
                     id="EstadoCriacao"
                     width="100%"
                     placeholder="{i18n>Page.Criar.Estado.Placeholder}"
-                    selectionChange="aoInserirEstadoDeCriação"
+                    selectionChange="aoInserirEstadoDeCriacao"
                     class="sapUiSmallMarginBottom"
                     selectedKey ="{path: 'clube>/estadoInt'}"
+                    valueStateText="{i18n>Page.Criar.Erro.ESTADO}"
                     items="{estados>/}">
                     <core:Item key="{estados>key}" text="{estados>description}" />
                 </ComboBox>                

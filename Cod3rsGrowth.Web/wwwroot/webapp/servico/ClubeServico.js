@@ -2,11 +2,11 @@ sap.ui.define([], () => {
     "use strict";
     const ERROR = 'Erro na requisição da API';
     const NUMZERO = 0;
-    const OBTERTODOS = "https://localhost:7178/api/Clubes";
-    const OBTERESTADOS = "https://localhost:7178/api/Clubes/estados";
+    const OBTERTODOS = "api/Clubes";
+    const OBTERESTADOS = "api/Clubes/estados";
 
     return {
-        aoBuscar: function(filtros) {
+        buscarClubes: function(filtros) {
             this.urlClubes = OBTERTODOS;
             if (filtros.length > NUMZERO) {
                 this.urlClubes += "?" + filtros.map(filtro => `${filtro.key}=${filtro.value}`).join("&");
@@ -27,7 +27,7 @@ sap.ui.define([], () => {
             });
         },
 
-        aoEditarClube: async function(DadosEdição, idClube){
+        editarClube: async function(DadosEdição, idClube){
             this.urlClubes = OBTERTODOS + "/" + idClube;
             console.log(this.urlClubes)
 
@@ -46,9 +46,9 @@ sap.ui.define([], () => {
             })
         },
 
-        aoCriarClube: async function(DadosCriacao) {
+        criarClube: async function(DadosCriacao) {
             try {
-                const resposta = await fetch(new URL(OBTERTODOS), {
+                const resposta = await fetch(OBTERTODOS, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(DadosCriacao)
@@ -65,7 +65,7 @@ sap.ui.define([], () => {
             }
         },
 
-        aoBuscarClubePorId: async function (idClube){            
+        buscarClubePorId: async function (idClube){            
             this.urlClubes = OBTERTODOS + "/" + idClube;
             return fetch(this.urlClubes, {
                 method: "GET",
@@ -77,14 +77,11 @@ sap.ui.define([], () => {
                 } 
                 throw resposta;                
             })
-            .catch(error => {
-                console.error('Erro:', error);
-            });
         },
 
-        aoBuscarEstados: async function() {
+        buscarEstados: async function() {
             try {
-                const resposta = await fetch(new URL(OBTERESTADOS), {
+                const resposta = await fetch(OBTERESTADOS, {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
                 });
@@ -100,7 +97,7 @@ sap.ui.define([], () => {
             }
         },
 
-        aoDeletarClube: async function(idDoClube) {
+        deletarClube: async function(idDoClube) {
             this.urlClubes = OBTERTODOS + "/" + idDoClube;
 
             return await fetch(this.urlClubes, {

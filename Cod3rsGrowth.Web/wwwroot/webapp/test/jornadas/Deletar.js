@@ -19,7 +19,7 @@ sap.ui.define([
         Then.naPaginaDeDetalhes.DeveVerificarMessageBoxDeDeletar("Deseja excluir este clube?");
 
         //Act
-        When.naPaginaDeDetalhes.aoClicarNoBotaoDoMessageBox("Sim");       
+        When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Sim");       
     }); 
 
     opaQUnit("Deve verificar se o clube deixa de existir na tabela", function (Given, When, Then) {

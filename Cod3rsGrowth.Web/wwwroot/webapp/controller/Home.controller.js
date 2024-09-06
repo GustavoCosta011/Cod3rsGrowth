@@ -1,12 +1,21 @@
 sap.ui.define([
-	"./Base"
-], function (Base) {
+	"./Base",
+	"sap/m/MessageBox"
+], function (Base, MessageBox) {
 	"use strict";
 	const CLUBES = "clubes";
+	const TITULO_ERRO = "Erro";
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Home", {
-		IrParaClubes(){
-			this._getRouter().navTo(CLUBES);
+		aoIrParaClubes(){
+			try
+            {
+				this._getRouter().navTo(CLUBES);
+            }
+            catch(erro)
+            {
+                MessageBox.error(erro, {title : TITULO_ERRO});
+            }
 		}
 	});
 });

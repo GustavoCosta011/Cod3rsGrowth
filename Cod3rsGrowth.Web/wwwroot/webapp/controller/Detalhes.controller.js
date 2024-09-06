@@ -5,78 +5,275 @@ sap.ui.define([
     "../formatter",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageToast"
 
-], function (Base, ClubeServico, JogadorServico, Formatter, MessageBox,JSONModel) {
+], function (Base, ClubeServico, JogadorServico, Formatter, MessageBox, JSONModel, MessageToast) {
 	"use strict";
 
-    const CLUBES = "clubes";
-    const DETALHES = "detalhes";
-    const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado";
-    const ARGUMENTS = "arguments";
+    const BARRA = "/";
+    const CHAVE_CLUBE = "clube";
+    const NOME_MODELO_CLUBE = "clube";
+    const ROTA_DE_DETALHES = "detalhes";
+    const ARGUMENTOS_DA_ROTA = "arguments";
     const DESTINO_VOLTAR = 'clubes';
     const TITULO_ERRO = "Erro";
     const DESTINO_EDITAR = 'editar';
-    const PERGUNTA = "Deseja excluir este clube?";
+    const PERGUNTA_MESSAGE_BOX = "Deseja excluir este clube?";
     const TITULO_CONFIRMAR = "Confirme";
-    const JOGADORES = "jogadores"
+    const NOME_MODELO_NOME_MODELO_JOGADORES = "jogadores";
+    const NOME_MODELO_JOGADOR = "jogador";
+    const CHAVE_NOME = "nome";
+    const CHAVE_DATADENASCIMENTO = "dataDeNascimento";
+    const CHAVE_ALTURA = "altura";
+    const CHAVE_PESO = "peso";
+    const CHAVE_IDCLUBE = "idClube";
+    const ID_INPUTNOME = "InputNomeJogador";
+    const ID_CALENDARIOCRIAR = "CalendarioCriarJogador";
+    const ID_INPUTALTURA = "InputAltura";
+    const ID_CLUBECRIACAO = "ClubeCriacaoJogador";
+    const ID_INPUTPESO = "InputPeso";
+    const STRING_VAZIA = "";
+    const ESTADO_ELEMENTO_NONE = "None";
+    const ESTADO_ELEMENTO_ERROR = "Error";
+    const MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR = "Jogador criado com sucesso!";
+    const MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO = "Jogador editado com sucesso!";
+    const INDICEUM_NO_ARRAY_DE_HASHs = 1;
+    const NOME_ROTA_EDITAR = "editar";
+    const DURACAO_TOAST = 5000;
+    const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
+    const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
+    const QUEBRADELINHA = "\r\n";
+    const CHAVE_IDADE = "idade";
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
-        formatter: Formatter,
-        clubeServico : ClubeServico,
-        jogadorServico : JogadorServico,
+        formatter : Formatter,
 
         onInit: function () {
-            this._vincularRota(DETALHES, this.aoCoincidirRota);
+            this.DadosCriacao = [];
+            this.vincularRota(ROTA_DE_DETALHES, this.aoCoincidirRota);
         },
-        aoCoincidirRota : async function(evento){
-            const argumentos = evento.getParameter(ARGUMENTS);
+        aoCoincidirRota: function(evento) {
+            this._exibirEspera(async () => {
+                this._carregarModelo();
 
-            await this.clubeServico.aoBuscarClubePorId(argumentos.idClube)
-            .then((clube) => {
-                var oModel = new JSONModel(clube);
-                this.getView().setModel(oModel, CLUBES);
-            })
-            .catch((error) => {
-                MessageBox.error(error, {title : TITULO_ERRO});
-            });
+                const argumentos = evento.getParameter(ARGUMENTOS_DA_ROTA);
+                const clube = await ClubeServico.buscarClubePorId(argumentos.idClube);
+                let oModel = new JSONModel(clube);
+                this._modelo(NOME_MODELO_CLUBE, oModel);
 
-            var elenco =  this.getView().getModel(CLUBES).getData().elenco
-
-            await this.aoCarregarElenco(elenco)
-            .then((jogador) =>{
-                var oModel = new JSONModel(jogador);
-                this.getView().setModel(oModel, JOGADORES);
-            })
-            .catch((error) => {
-                MessageBox.error(error, {title : TITULO_ERRO});
+                let elenco = this._modelo(NOME_MODELO_CLUBE).getData().elenco;
+                let jogadores = await this._aoCarregarElenco(elenco);
+                oModel = new JSONModel(jogadores);
+                this._modelo(NOME_MODELO_NOME_MODELO_JOGADORES, oModel);
             });
         },
-        aoClicarEmVoltar: function(){
-            this.navegarPara(DESTINO_VOLTAR);
+
+        aoClicarEmVoltar: function() {          
+            this._exibirEspera(() => this._navegarPara(DESTINO_VOLTAR));
         },
-        aoClicarEditar: function(){
-            this.navegarPara(DESTINO_EDITAR,{ idClube : this.getView().getModel(CLUBES).getData().id})
-        },
-        aoCarregarElenco: async function (elenco) {
-            const jogadores = elenco.map( id => { 
-                return this.jogadorServico.aoBuscarJogadorPorId(id);
+
+        aoClicarEditar: function() {
+            this._exibirEspera(() => {
+                this._navegarPara(DESTINO_EDITAR, { idClube: this._modelo(NOME_MODELO_CLUBE).getData().id });
             });
+        },
+
+        _aoCarregarElenco: async function(elenco) {
+            const jogadores = elenco.map(id => JogadorServico.buscarJogadorPorId(id));
             return await Promise.all(jogadores);
         },
-        aoClicarDeletar: function(){
-            MessageBox.confirm(PERGUNTA, {
-                title: TITULO_CONFIRMAR,
-                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                onClose: async (oAction) => {
-                    if (oAction === MessageBox.Action.YES) {
-                        const idDoClube = this.getView().getModel(CLUBES).getData().id;
-                        await this.clubeServico.aoDeletarClube(idDoClube);
-                        this.aoClicarEmVoltar();
-                    } else if (oAction === MessageBox.Action.NO) {
-                        MessageBox.close();
+
+        aoClicarDeletar: function() {
+            this._exibirEspera(() => {
+                MessageBox.confirm(PERGUNTA_MESSAGE_BOX, {
+                    title: TITULO_CONFIRMAR,
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    onClose: async (oAction) => {
+                        if (oAction === MessageBox.Action.YES) {
+                            const idDoClube = this._modelo(NOME_MODELO_CLUBE).getData().id;
+                            await ClubeServico.deletarClube(idDoClube);
+                            this._navegarPara(DESTINO_VOLTAR);
+                        }
                     }
-                }
+                });
             });
-        }           
+        },
+
+        _carregarModelo: function() {
+            const JogadorModelo = new JSONModel({
+                "nome": "",
+                "idClube": null,
+                "clube": "",
+                "idade": null,
+                "dataDeNascimento": null,
+                "altura": null,
+                "peso": null
+            });
+            this._modelo(NOME_MODELO_JOGADOR, JogadorModelo);
+        },
+
+        aoAbrirModalDeCriacao: function() {
+            this._exibirEspera(async () => {
+                this.oDialog ??= await this.loadFragment({ name: "cod3rsgrowth.webapp.view.CriarJogador" });
+                this.oDialog.open();
+            });
+        },
+
+        aoFecharModal: function() {
+            this._exibirEspera(() => {
+                this._resetarItems();
+                this.oDialog.close();
+            });
+        },
+
+        _validarCamposPreenchidos: function () {
+            const nomeValido = this._validarNome(this.byId(ID_INPUTNOME).getValue());
+            const estadioValido = this._validarAltura(this.byId(ID_INPUTALTURA).getValue());
+            const fundacaoValida = this._validarDataDeNascimento(this.byId(ID_CALENDARIOCRIAR).getDateValue());
+            const estadoValido = this._validarClube(this.byId(ID_CLUBECRIACAO).getSelectedKey());
+            const coberturaValida = this._validarPeso(this.byId(ID_INPUTPESO).getValue());
+
+            return nomeValido && estadioValido && fundacaoValida && estadoValido && coberturaValida;
+        },
+
+        _validarNome: function(nome) {
+            let inputNome = this.byId(ID_INPUTNOME);
+            if (!nome) {
+                inputNome.setValueState(ESTADO_ELEMENTO_ERROR);
+                return false;
+            }
+            inputNome.setValueState(ESTADO_ELEMENTO_NONE);
+            return true;
+        },
+        
+        _validarAltura: function(altura) {
+            let inputAltura = this.byId(ID_INPUTALTURA);
+            if (!altura) {
+                inputAltura.setValueState(ESTADO_ELEMENTO_ERROR);
+                return false;
+            }
+            inputAltura.setValueState(ESTADO_ELEMENTO_NONE);
+            return true;
+        },
+        
+        _validarDataDeNascimento: function(data) {
+            let calendarioCriar = this.byId(ID_CALENDARIOCRIAR);
+            if (!data) {
+                calendarioCriar.setValueState(ESTADO_ELEMENTO_ERROR);
+                return false;
+            }
+            calendarioCriar.setValueState(ESTADO_ELEMENTO_NONE);
+            return true;
+        },
+        
+        _validarClube: function(clube) {
+            let clubeCriacao = this.byId(ID_CLUBECRIACAO);
+            if (clube == null || clube === STRING_VAZIA) {
+                clubeCriacao.setValueState(ESTADO_ELEMENTO_ERROR);
+                return false;
+            }
+            clubeCriacao.setValueState(ESTADO_ELEMENTO_NONE);
+            return true;
+        },
+        
+        _validarPeso: function(peso) {
+            let inputPeso = this.byId(ID_INPUTPESO);
+            if (!peso) {
+                inputPeso.setValueState(ESTADO_ELEMENTO_ERROR);
+                return false;
+            }
+            inputPeso.setValueState(ESTADO_ELEMENTO_NONE);
+            return true;
+        },
+
+        aoSalvarJogador: function() {
+            this._exibirEspera(async () => {
+                if (!this._validarCamposPreenchidos()) return;
+                this._SalvarDados();
+                let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao);
+                let hash = this._getRouter().getHashChanger().getHash().split(BARRA);
+
+                await this._criarOuEditarJogador(hash, DadosDaCriação);
+            });
+        },
+
+        _criarOuEditarJogador: async function(hash, DadosDaCriação){
+            if(hash [INDICEUM_NO_ARRAY_DE_HASHs] == NOME_ROTA_EDITAR){
+                let idClube = this._modelo(NOME_MODELO_JOGADOR).getData().id;   
+                await JogadorServico.editarJogador(DadosDaCriação, idClube)
+                MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+            }else{
+                await JogadorServico.criarJogador(DadosDaCriação);
+                MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                this.aoFecharModal();
+            }
+        },
+
+        _carregarArraydeDados: function(dados){
+            return dados.reduce((newArray, atual) => {
+                newArray[atual.key] = atual.value;
+                return newArray;
+            }, {})
+        },
+
+        _SalvarDados:function(){
+            const modelo = this._modelo(NOME_MODELO_JOGADOR).getData();
+            let clube = this.byId(ID_CLUBECRIACAO).getValue()
+            let data = this.formatter.formatDateReverse(this.byId(ID_CALENDARIOCRIAR).getDateValue()); 
+            let hoje = new Date();
+            let dataNascimento = new Date(data);
+            let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+            let mes = hoje.getMonth() - dataNascimento.getMonth();  
+            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
+            this.DadosCriacao.push({ key: CHAVE_NOME, value: modelo.nome});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_IDCLUBE);
+            this.DadosCriacao.push({ key: CHAVE_IDCLUBE, value: modelo.idClube});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_CLUBE);
+            this.DadosCriacao.push({ key: CHAVE_CLUBE, value: clube});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_IDADE);
+            this.DadosCriacao.push({ key: CHAVE_IDADE, value: idade});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_DATADENASCIMENTO);
+            this.DadosCriacao.push({ key: CHAVE_DATADENASCIMENTO, value: data});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ALTURA);
+            this.DadosCriacao.push({ key: CHAVE_ALTURA, value: modelo.altura});
+            this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_PESO);
+            this.DadosCriacao.push({ key: CHAVE_PESO, value: modelo.peso});
+        },
+
+        _resetarItems: function() {
+            let inputNome = this.byId(ID_INPUTNOME);
+            if (inputNome) {
+                inputNome.setValue(STRING_VAZIA);
+                inputNome.setValueState(ESTADO_ELEMENTO_NONE);
+            }
+
+            let dataDeNascimento = this.byId(ID_CALENDARIOCRIAR);
+            if (dataDeNascimento) {
+                dataDeNascimento.setDateValue(null);
+                dataDeNascimento.setValueState(ESTADO_ELEMENTO_NONE);
+            }
+
+            let inputAltura = this.byId(ID_INPUTALTURA);
+            if (inputAltura) {
+                inputAltura.setValue(STRING_VAZIA);
+                inputAltura.setValueState(ESTADO_ELEMENTO_NONE);
+            }
+
+            let inputPeso = this.byId(ID_INPUTPESO);
+            if (inputPeso) {
+                inputPeso.setValue(STRING_VAZIA);
+                inputPeso.setValueState(ESTADO_ELEMENTO_NONE);
+            }
+
+            let clubeCriacao = this.byId(ID_CLUBECRIACAO);
+            if (clubeCriacao) {
+                clubeCriacao.setSelectedKey(null);
+                clubeCriacao.setValueState(ESTADO_ELEMENTO_NONE);
+            }
+        }
 	});
 });

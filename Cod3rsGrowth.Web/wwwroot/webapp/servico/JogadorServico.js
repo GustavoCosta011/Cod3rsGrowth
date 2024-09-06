@@ -1,10 +1,10 @@
 sap.ui.define([], () => {
     "use strict";
-    const OBTERTODOS = "https://localhost:7178/api/Jogadores";
+    const OBTERTODOS = "api/Jogadores";
 
     return {
-        aoBuscarJogadorPorId: async function (IdDoJogador){            
-            this.urlJogadores = OBTERTODOS + "/" + IdDoJogador;
+        buscarJogadorPorId: async function (idDoJogador){            
+            this.urlJogadores = OBTERTODOS + "/" + idDoJogador;
             return fetch(this.urlJogadores, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
@@ -17,9 +17,9 @@ sap.ui.define([], () => {
             })
         },
 
-        aoCriarJogador: async function(DadosCriacao) {
+        criarJogador: async function(DadosCriacao) {
             try {
-                const resposta = await fetch(new URL(OBTERTODOS), {
+                const resposta = await fetch(OBTERTODOS, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(DadosCriacao)
@@ -36,8 +36,8 @@ sap.ui.define([], () => {
             }
         },
 
-        aoEditarJogador: async function(DadosEdição, IdDoJogador){
-            this.urlJogadores = OBTERTODOS + "/" + IdDoJogador;
+        editarJogador: async function(DadosEdição, idDoJogador){
+            this.urlJogadores = OBTERTODOS + "/" + idDoJogador;
             console.log(this.urlJogadores)
 
             return await fetch(this.urlJogadores, {
@@ -55,8 +55,8 @@ sap.ui.define([], () => {
             })
         },
 
-        aoDeletarJogador: async function(IdDoJogador) {
-            this.urlJogadores = OBTERTODOS + "/" + IdDoJogador;
+        deletarJogador: async function(idDoJogador) {
+            this.urlJogadores = OBTERTODOS + "/" + idDoJogador;
 
             return await fetch(this.urlJogadores, {
                 method: "DELETE",
