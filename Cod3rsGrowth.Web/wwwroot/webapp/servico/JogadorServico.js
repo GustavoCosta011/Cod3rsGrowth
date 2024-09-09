@@ -1,6 +1,6 @@
 sap.ui.define([], () => {
     "use strict";
-    const OBTERTODOS = "api/Jogadores";
+    const OBTERTODOS = "/api/Jogadores";
 
     return {
         buscarJogadorPorId: async function (idDoJogador){            
@@ -36,18 +36,15 @@ sap.ui.define([], () => {
             }
         },
 
-        editarJogador: async function(DadosEdição, idDoJogador){
+        editarJogador: async function(DadosEdicao, idDoJogador){
             this.urlJogadores = OBTERTODOS + "/" + idDoJogador;
-            console.log(this.urlJogadores)
-
             return await fetch(this.urlJogadores, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(DadosEdição)
+                body: JSON.stringify(DadosEdicao)
             }) 
             .then(async resposta => {
                 let response = await resposta.json(); 
-                console.log(response)
                 if(response.status == 400){
                     throw response   
                 }

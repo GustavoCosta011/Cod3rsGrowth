@@ -63,7 +63,6 @@ namespace Cod3rsGrowth.Web.Controllers
                                   Key = (int)e,
                                   Description = _servicoClube.PegarDescrição(e)
                               });
-
             return Ok(estados); 
         }
     }

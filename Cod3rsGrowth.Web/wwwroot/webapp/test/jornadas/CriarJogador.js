@@ -84,7 +84,7 @@ sap.ui.define([
       When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Salvar");
 
       // Assert
-      Then.naPaginaDeDetalhes.DeveVerificarMessageToast("Jogador criado com sucesso!");
+      Then.naPaginaDeDetalhes.deveVerificarMessageToast("Jogador criado com sucesso!");
 
       Then.iTeardownMyApp();
     });

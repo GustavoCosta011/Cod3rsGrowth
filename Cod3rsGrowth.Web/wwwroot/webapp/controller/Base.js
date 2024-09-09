@@ -30,7 +30,7 @@ sap.ui.define([
 			if (rotaDestino) {
                 this._getRouter().navTo(rotaDestino, parametros);
                 if(parametros.Acao == PARAMETRO_LIMPAR){
-                    this.resetarItems();
+                    this._resetarItems();
                 }
             }
 			else { 
@@ -57,7 +57,7 @@ sap.ui.define([
             if(modelo){
                 return this.getView().setModel(modelo, nome)
             }
-            return this.getView().getModel(nome);
+            return this.getView().getModel(nome); 
         },
 
         _exibirEspera: async function (funcao) {

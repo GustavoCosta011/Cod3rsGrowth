@@ -8,7 +8,7 @@ sap.ui.define([
 ], (Base, ClubeServico, Formatter, MessageBox, MessageToast, JSONModel) => {
     "use strict";
 
-    const CLUBES = "clube"
+    const NOME_MODELO_CLUBE = "clube"
     const NUMERO_ZERO = 0;
     const SIM = "Sim";
     const ID = "id";
@@ -66,7 +66,7 @@ sap.ui.define([
     
                 await ClubeServico.buscarClubePorId(argumento.idClube)
                 .then((resposta) => {
-                    oView.setModel(new JSONModel(resposta) , CLUBES);
+                    oView.setModel(new JSONModel(resposta) , NOME_MODELO_CLUBE);
                 })
                 .catch(() => {
                     MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
@@ -75,7 +75,7 @@ sap.ui.define([
         },
 
         _salvarModelo: function(){
-            const modelo = this._modelo(CLUBES).getData();
+            const modelo = this._modelo(NOME_MODELO_CLUBE).getData();
 
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
             this.DadosCriacao.push({ key: CHAVE_NOME, value: modelo.nome});
@@ -264,7 +264,7 @@ sap.ui.define([
         
         _criarOuEditarClube: async function(hash, dadosDaCriacao) {
             if (hash[INDICEUM_NO_ARAY] == NOME_ROTA_EDITAR) {
-                let idClube = this._modelo(CLUBES).getData().id;
+                let idClube = this._modelo(NOME_MODELO_CLUBE).getData().id;
                 await ClubeServico.editarClube(dadosDaCriacao, idClube);
                 MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
             } else {

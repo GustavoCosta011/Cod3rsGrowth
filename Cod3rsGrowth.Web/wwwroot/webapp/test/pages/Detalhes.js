@@ -10,7 +10,7 @@ sap.ui.define([
 ], (Opa5, Properties, PropertyStrictEquals, Press, Ancestor, AggregationLengthEquals, EnterText) => {
     "use strict";
 
-    const dataView = "Detalhes";
+    const nomeDaView = "Detalhes";
     const FUNDAÇÂO = "Fundação";
     const ESTADIO = "Estadio";
     const ESTADO = "Estado";
@@ -22,7 +22,7 @@ sap.ui.define([
                 DevePressionarOBotãoNavBack: function(){
                     return this.waitFor({
                         controlType: "sap.m.Button",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         actions: new Press(),
                         errorMessage: "Não foi possivel encontrar o botão de voltar"
                     });
@@ -30,7 +30,7 @@ sap.ui.define([
                 aoClicarNoBotaoDeletar: function(){
                     return this.waitFor({
                         controlType: "sap.m.Button",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new Properties({text : "Deletar"}),
                         actions: new Press(),
                         errorMessage: "Não foi possivel encontrar o botão de voltar"
@@ -39,7 +39,7 @@ sap.ui.define([
                 aoClicarEmCriar: function(){
                     return this.waitFor({
                         controlType: "sap.m.Button",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new Properties({text : "Criar"}),
                         actions: new Press(),
                         errorMessage: "Não foi possivel encontrar o botão de voltar"
@@ -63,7 +63,7 @@ sap.ui.define([
                 apertarMaisNaPaginação: function() {
                     return this.waitFor({
                         controlType: "sap.m.Table",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         actions: new Press(),
                         errorMessage: "Os dados não foram carregados ao clicar 'Mais'"
                     });
@@ -71,7 +71,7 @@ sap.ui.define([
                 aoInserirNome: function(Nome) {
                     return this.waitFor({
                         id: "InputNomeJogador",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new Ancestor(Opa5.getContext().dialog, false)
                         ],
@@ -82,7 +82,7 @@ sap.ui.define([
                 aoInserirData: function(Data) {
                     return this.waitFor({
                         id: "CalendarioCriarJogador",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new Ancestor(Opa5.getContext().dialog, false)
                         ],
@@ -93,7 +93,7 @@ sap.ui.define([
                 aoInserirAltura: function(altura) {
                     return this.waitFor({
                         id: "InputAltura",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new Ancestor(Opa5.getContext().dialog, false)
                         ],
@@ -104,7 +104,7 @@ sap.ui.define([
                 aoInserirPeso: function(peso) {
                     return this.waitFor({
                         id: "InputPeso",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new Ancestor(Opa5.getContext().dialog, false)
                         ],
@@ -115,14 +115,43 @@ sap.ui.define([
                 aoSelecionarClube: function(clube) {
                     return this.waitFor({
                         id: "ClubeCriacaoJogador",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new Ancestor(Opa5.getContext().dialog, false)
                         ],
                         actions: new EnterText({ text: clube }),
                         errorMessage: "Não foi possível selecionar o clube no ComboBox"
                     });
-                }
+                },
+                aoClicarNoBotaoDeEditar: function (indiceLista = 0) {
+                    return this.waitFor({
+                        id: "Elenco",
+                        viewName: nomeDaView,
+                        success: function (tabela) {
+                            this.waitFor({
+                                controlType: "sap.m.ColumnListItem",
+                                matchers: [
+                                    new Ancestor(Opa5.getContext().table, false)
+                                ],
+                                success: function (oColumnListItem) { 
+                                    console.log(oColumnListItem)
+                                    this.waitFor({
+                                        controlType: "sap.m.ColumnListItem",
+                                        viewName: nomeDaView,
+                                        matchers: new Properties({ title: oColumnListItem[indiceLista].getTitle() }),
+                                        actions: new Press({ idSuffix: "imgDet" }),
+                                        success: function () {
+                                            Opa5.assert.ok(true, "Habilidade editada com sucesso.");
+                                        },
+                                        errorMessage: "Não foi possível clicar para editar o Jogador."
+                                    });
+                                },
+                                errorMessage: "Item da lista de jogadores não encontrado."
+                            });
+                        },
+                        errorMessage: "Tabela de Jogadores não encontrada."
+                    });
+                }  
             },
 
             assertions: {
@@ -138,7 +167,7 @@ sap.ui.define([
                 buscarOTituloDaPaginaDeDetalhes: function() {
                     return this.waitFor({
                         controlType: "sap.m.Page",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new PropertyStrictEquals({ name: "title", value: "Detalhes" }),
                         success: function(page) {
                             Opa5.assert.ok(page, "O título da página está certo");
@@ -149,7 +178,7 @@ sap.ui.define([
                 DeveVerificarONomeDoClube: function (NomeDoClube) {
                     return this.waitFor({
                         controlType: "sap.m.Title",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new Properties({ text: NomeDoClube }),
                         success: function () {
                             Opa5.assert.ok(true, "O Nome esperado foi encontrado.");
@@ -160,7 +189,7 @@ sap.ui.define([
                 DeveVerificarAFundacaoDoClube: function (fundação) {
                     return this.waitFor({
                         controlType: "sap.m.ObjectStatus",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new Properties({ title: FUNDAÇÂO , text: fundação }),
                         success: function () {
                             Opa5.assert.ok(true, "A fundação esperada foi encontrada.");
@@ -171,7 +200,7 @@ sap.ui.define([
                 DeveVerificarOEstadioDoClube: function (Estadio) {
                     return this.waitFor({
                         controlType: "sap.m.ObjectStatus",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new Properties({ title: ESTADIO , text: Estadio }),
                         success: function () {
                             Opa5.assert.ok(true, "O estadio esperado foi encontrado.");
@@ -182,7 +211,7 @@ sap.ui.define([
                 DeveVerificarOEstadoDoClube: function (Estado) {
                     return this.waitFor({
                         controlType: "sap.m.ObjectStatus",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new Properties({ title: ESTADO , text: Estado }),
                         success: function () {
                             Opa5.assert.ok(true, "O estado esperado foi encontrado.");
@@ -193,7 +222,7 @@ sap.ui.define([
                 DeveVerificarOestadoDaCoberturaDaCoberturaAntiChuvaDoClube: function (ValorDoEstado) {
                     return this.waitFor({
                         controlType: "sap.m.ObjectStatus",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new Properties({ title: COBERTURAANTICHUVA , state: ValorDoEstado }),
                         success: function () {
                             Opa5.assert.ok(true, "O valor do estado do campo boleano esta correto.");
@@ -224,7 +253,7 @@ sap.ui.define([
                 buscarSeExisteUmaPaginação: function(){
                     return this.waitFor({
                         id: "Elenco",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new AggregationLengthEquals({
 							name: "items",
 							length: 10
@@ -239,7 +268,7 @@ sap.ui.define([
                 buscarOTamanhoDaLista: function(tamanho){
                     return this.waitFor({
                         controlType:"sap.m.Table",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: new AggregationLengthEquals({
 							name: "items",
 							length: tamanho
@@ -267,7 +296,7 @@ sap.ui.define([
                 DeveVerificarMensagemDeErroParaNome: function () {
                     return this.waitFor({
                         id: "InputNomeJogador",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers:[ 
                             new PropertyStrictEquals({
                                 name: "valueStateText",
@@ -284,7 +313,7 @@ sap.ui.define([
                 DeveVerificarMensagemDeErroParaData: function () {
                     return this.waitFor({
                         id: "CalendarioCriarJogador",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new PropertyStrictEquals({
                                 name: "valueStateText",
@@ -301,7 +330,7 @@ sap.ui.define([
                 DeveVerificarMensagemDeErroParaAltura: function () {
                     return this.waitFor({
                         id: "InputAltura",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new PropertyStrictEquals({
                                 name: "valueStateText",
@@ -318,7 +347,7 @@ sap.ui.define([
                 DeveVerificarMensagemDeErroParaPeso: function () {
                     return this.waitFor({
                         id: "InputPeso",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new PropertyStrictEquals({
                                 name: "valueStateText",
@@ -335,7 +364,7 @@ sap.ui.define([
                 DeveVerificarMensagemDeErroParaClube: function () {
                     return this.waitFor({
                         id: "ClubeCriacaoJogador",
-                        viewName: dataView,
+                        viewName: nomeDaView,
                         matchers: [
                             new PropertyStrictEquals({
                             name: "valueStateText",
@@ -372,7 +401,7 @@ sap.ui.define([
                         errorMessage: "Caixa de diálogo de erro não foi exibida corretamente."
                     });
                 },
-                DeveVerificarMessageToast: function (Mensagem) {
+                deveVerificarMessageToast: function (Mensagem) {
                     return this.waitFor({
                         pollingInterval: 100,
                         check: function () {
@@ -385,6 +414,79 @@ sap.ui.define([
                             Opa5.assert.ok(true, "MessageToast foi exibido com o texto: " + Mensagem);
                         },
                         errorMessage: "MessageToast com o texto '" + Mensagem + "' não foi encontrado."
+                    });
+                },
+                deveVerificarSeONomeFoiCarregado: function (Nome) {
+                    return this.waitFor({
+                        id : "InputNomeJogador",
+                        viewName: nomeDaView,
+                        matchers: [
+                            new Properties({ value: Nome }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo nome foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo não foi preenchido corretamente."
+                    });
+                },
+                deveVerificarSeADataFoiCarregada: function (Data) {
+                    return this.waitFor({
+                        controlType: "sap.m.DatePicker",
+                        viewName: nomeDaView,
+                        matchers: [
+                            new Properties({value: Data }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo data de nascimneto foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo foi não preenchido corretamente."
+                    });
+                },
+
+                deveVerificarSeAAlturaFoiCarregada: function (altura) {
+                    return this.waitFor({
+                        id : "InputAltura",
+                        viewName: nomeDaView,
+                        matchers: [
+                            new Properties({ value: altura }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo altura foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo não foi preenchido corretamente."
+                    });
+                },
+
+                deveVerificarSeOPesoFoiCarregada: function (peso) {
+                    return this.waitFor({
+                        id : "InputPeso",
+                        viewName: nomeDaView,
+                        matchers: [
+                            new Properties({ value: peso }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo peso foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo não foi preenchido corretamente."
+                    });
+                },
+
+                deveVerificarSeOClubeFoiCarregado: function (clube) {
+                    return this.waitFor({
+                        id : "ClubeCriacaoJogador",
+                        viewName: nomeDaView,
+                        matchers: [
+                            new Properties({ value : clube }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        success: function () {
+                            Opa5.assert.ok(true, "O campo clube foi preenchido corretamente.");
+                        },
+                        errorMessage: "O campo não foi preenchido corretamente."
                     });
                 }
             }
