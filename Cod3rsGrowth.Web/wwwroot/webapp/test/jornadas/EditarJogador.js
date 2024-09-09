@@ -32,7 +32,7 @@ sap.ui.define([
       Given.iStartMyApp({hash : "clubes/detalhes/1"});
 
       //Act 
-      When.naPaginaDeDetalhes.aoClicarNoBotaoDeEditar(0);
+      When.naPaginaDeDetalhes.aoClicarNoBotaoDeEditar();
       When.naPaginaDeDetalhes.aoInserirNome("E");
       When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Salvar");
       // Assert

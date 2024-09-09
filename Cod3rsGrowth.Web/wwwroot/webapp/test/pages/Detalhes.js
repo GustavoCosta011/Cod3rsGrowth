@@ -123,35 +123,17 @@ sap.ui.define([
                         errorMessage: "Não foi possível selecionar o clube no ComboBox"
                     });
                 },
-                aoClicarNoBotaoDeEditar: function (indiceLista = 0) {
+                
+                aoClicarNoBotaoDeEditar: function () {
                     return this.waitFor({
-                        id: "Elenco",
+                        controlType: "sap.m.ColumnListItem",
                         viewName: nomeDaView,
-                        success: function (tabela) {
-                            this.waitFor({
-                                controlType: "sap.m.ColumnListItem",
-                                matchers: [
-                                    new Ancestor(Opa5.getContext().table, false)
-                                ],
-                                success: function (oColumnListItem) { 
-                                    console.log(oColumnListItem)
-                                    this.waitFor({
-                                        controlType: "sap.m.ColumnListItem",
-                                        viewName: nomeDaView,
-                                        matchers: new Properties({ title: oColumnListItem[indiceLista].getTitle() }),
-                                        actions: new Press({ idSuffix: "imgDet" }),
-                                        success: function () {
-                                            Opa5.assert.ok(true, "Habilidade editada com sucesso.");
-                                        },
-                                        errorMessage: "Não foi possível clicar para editar o Jogador."
-                                    });
-                                },
-                                errorMessage: "Item da lista de jogadores não encontrado."
-                            });
-                        },
-                        errorMessage: "Tabela de Jogadores não encontrada."
+                        success: (a) => {
+                            a[0].fireDetailPress()
+                            Opa5.assert.ok(true, "Botao de editar encontrado")},
+                        errorMessage: "Item da lista de jogadores não encontrado."
                     });
-                }  
+                } 
             },
 
             assertions: {
