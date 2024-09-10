@@ -91,15 +91,15 @@ sap.ui.define([
         },
 
         _modeloClube: function (modelo) {
-            return this.modelo(NOME_MODELO_CLUBE, modelo);
+            return this._modelo(NOME_MODELO_CLUBE, modelo);
         },
 
         _modeloJogador: function (modelo) {
-            return this.modelo(NOME_MODELO_JOGADOR, modelo);
+            return this._modelo(NOME_MODELO_JOGADOR, modelo);
         },
 
         _modeloJogadores: function (modelo) {
-            return this.modelo(NOME_MODELO_JOGADORES, modelo);
+            return this._modelo(NOME_MODELO_JOGADORES, modelo);
         },
     });
 });

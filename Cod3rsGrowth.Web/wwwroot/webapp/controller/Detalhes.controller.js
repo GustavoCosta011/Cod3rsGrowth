@@ -225,6 +225,24 @@ sap.ui.define([
             });
         },
 
+        aoDeletarJogador: function(evento){
+            this._exibirEspera(async() => {
+                MessageBox.confirm(PERGUNTA_MESSAGE_BOX_JOGADOR, {
+                    title: TITULO_CONFIRMAR,
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    onClose: async (oAction) => {
+                        if (oAction === MessageBox.Action.YES) {
+                            const path = evento.getParameter("listItem").getBindingContext(NOME_MODELO_JOGADORES).getPath().split(BARRA)[1]
+                            const idDoJogador = evento.getParameter("listItem").getBindingContext(NOME_MODELO_JOGADORES).getModel().getData()[path].id
+                            console.log(idDoJogador)
+                            await JogadorServico.deletarJogador(idDoJogador);
+                            this._atualizarLista()
+                        }
+                    }
+                });
+            })
+        },
+
         _criarOuEditarJogador: async function(hash, DadosDaCriação){
             let id = this._modelo(NOME_MODELO_JOGADOR).getData().id;  
             if(id){

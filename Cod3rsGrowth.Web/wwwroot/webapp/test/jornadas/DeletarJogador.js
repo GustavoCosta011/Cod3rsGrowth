@@ -19,6 +19,13 @@ sap.ui.define([
 
         //Act
         When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Sim");       
-    }); 
+    });
+
+    opaQUnit("Deve verificar se a lista diminuiu", function (Given, When, Then) {
+      // Assert
+      Then.naPaginaDeDetalhes.buscarOTamanhoDaLista(10);     
+
+      Then.iTeardownMyApp();
+    });
 
 });
