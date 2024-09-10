@@ -15,6 +15,8 @@
             enableLazyLoading="true"
             useIconTabBar="true"
             showTitleInHeaderContent="true"
+            headerContentPinnable="false"
+            
             upperCaseAnchorBar="true">
             
             <headerTitle>
@@ -97,6 +99,8 @@
                                         growing="true"
                                         growingThreshold="10"
                                         growingTriggerText="{i18n>Page.Detalhes.Tabela.Growing}"
+                                        mode = "Delete"
+                                        delete="aoDeletarJogador"
                                         >
                                         <m:columns>
                                             <m:Column width="12em">
@@ -110,7 +114,7 @@
                                             </m:Column>
                                         </m:columns>
                                         <m:items>
-                                            <m:ColumnListItem vAlign="Middle" type="Detail" detailPress="aoAbrirModalDeCriacao"> 
+                                            <m:ColumnListItem vAlign="Middle" type="Detail" detailPress="aoAbrirModalDeCriacao">  
                                                 <m:cells>
                                                     <m:ObjectIdentifier text="{jogadores>nome}"/>
                                                     <m:Text text="{jogadores>idade}"/>

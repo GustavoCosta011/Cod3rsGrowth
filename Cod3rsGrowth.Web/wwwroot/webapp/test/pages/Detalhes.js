@@ -123,7 +123,6 @@ sap.ui.define([
                         errorMessage: "Não foi possível selecionar o clube no ComboBox"
                     });
                 },
-                
                 aoClicarNoBotaoDeEditar: function () {
                     return this.waitFor({
                         controlType: "sap.m.ColumnListItem",
@@ -133,7 +132,33 @@ sap.ui.define([
                             Opa5.assert.ok(true, "Botao de editar encontrado")},
                         errorMessage: "Item da lista de jogadores não encontrado."
                     });
-                } 
+                },
+                aoClicarNoBotaoDeletarJogador: function(){
+                    return this.waitFor({
+                        controlType: "sap.m.ColumnListItem",
+                        viewName: nomeDaView,
+                        success: (a) => {
+                            a[0].fireDelete()
+                            Opa5.assert.ok(true, "Botao de editar encontrado")},
+                        errorMessage: "Item da lista de jogadores não encontrado."
+                    });
+                }
+                
+                // aoClicarNoBotaoDeletarJogador: function(){
+                //     return this.waitFor({
+                //         controlType: "sap.ui.core.Icon",
+                //         viewName: nomeDaView,
+                //         matchers: new PropertyStrictEquals({
+                //             name: "src", 
+                //             value: "sap-icon://decline"
+                //         }),
+                //         success: (a) => {
+                //             debugger
+                //             a[0].firePress()
+                //             Opa5.assert.ok(true, "Botao de editar encontrado")},
+                //         errorMessage: "Item da lista de jogadores não encontrado."
+                //     });
+                // }
             },
 
             assertions: {
