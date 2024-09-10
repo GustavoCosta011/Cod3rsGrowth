@@ -16,6 +16,9 @@ sap.ui.define([
     const MENSAGEM_ERRO_DESCONHECIDO = "Erro desconhecido encontrado!";
     const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
     const QUEBRADELINHA = "\r\n";
+    const NOME_MODELO_CLUBE = "clube";
+    const NOME_MODELO_JOGADORES = "jogadores";
+    const NOME_MODELO_JOGADOR = "jogador";
 
 
     return Controller.extend("cod3rsgrowth.controller.Base", {
@@ -85,6 +88,18 @@ sap.ui.define([
                 details: detalhesErro,
                 actions: [MessageBox.Action.CLOSE]
             });
-        }
+        },
+
+        _modeloClube: function (modelo) {
+            return this.modelo(NOME_MODELO_CLUBE, modelo);
+        },
+
+        _modeloJogador: function (modelo) {
+            return this.modelo(NOME_MODELO_JOGADOR, modelo);
+        },
+
+        _modeloJogadores: function (modelo) {
+            return this.modelo(NOME_MODELO_JOGADORES, modelo);
+        },
     });
 });

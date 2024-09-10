@@ -18,7 +18,8 @@ sap.ui.define([
     const DESTINO_VOLTAR = 'clubes';
     const TITULO_ERRO = "Erro";
     const DESTINO_EDITAR = 'editar';
-    const PERGUNTA_MESSAGE_BOX = "Deseja excluir este clube?";
+    const PERGUNTA_MESSAGE_BOX_CLUBE = "Deseja excluir este clube?";
+    const PERGUNTA_MESSAGE_BOX_JOGADOR = "Deseja excluir este jogador?";
     const TITULO_CONFIRMAR = "Confirme";
     const NOME_MODELO_JOGADORES = "jogadores";
     const NOME_MODELO_JOGADOR = "jogador";
@@ -73,14 +74,14 @@ sap.ui.define([
         _carregarClube: async function(idClube){
             const clube = await ClubeServico.buscarClubePorId(idClube);
             let oModel = new JSONModel(clube);
-            this._modelo(NOME_MODELO_CLUBE, oModel);
+            this._modeloClube( oModel);
         },
 
         _carregarElencoLIsta: async function(){
             let elenco = this._modelo(NOME_MODELO_CLUBE).getData().elenco;
             let jogadores = await this._carregarElenco(elenco);
             let oModel = new JSONModel(jogadores);
-            this._modelo(NOME_MODELO_JOGADORES, oModel);
+            this._modeloJogadores( oModel);
         },
 
         aoClicarEmVoltar: function() {          
@@ -100,7 +101,7 @@ sap.ui.define([
 
         aoClicarDeletar: function() {
             this._exibirEspera(() => {
-                MessageBox.confirm(PERGUNTA_MESSAGE_BOX, {
+                MessageBox.confirm(PERGUNTA_MESSAGE_BOX_CLUBE, {
                     title: TITULO_CONFIRMAR,
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     onClose: async (oAction) => {
@@ -124,7 +125,7 @@ sap.ui.define([
                 "altura": null,
                 "peso": null
             });
-            this._modelo(NOME_MODELO_JOGADOR, JogadorModelo);
+            this._modeloJogador( JogadorModelo);
         },
 
         aoAbrirModalDeCriacao: function(oEvent) {
@@ -134,7 +135,7 @@ sap.ui.define([
                 if (modeloJogadores) {
                     if (!idDoBotao.includes(ID_DO_BOTAO_CRIAR)) {
                         const Modelo = new JSONModel(modeloJogadores.getObject());
-                        this._modelo(NOME_MODELO_JOGADOR, Modelo);
+                        this._modeloJogador( Modelo);
                     }
                 }
             
