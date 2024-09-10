@@ -18,9 +18,10 @@ sap.ui.define([
     const DESTINO_VOLTAR = 'clubes';
     const TITULO_ERRO = "Erro";
     const DESTINO_EDITAR = 'editar';
-    const PERGUNTA_MESSAGE_BOX = "Deseja excluir este clube?";
+    const PERGUNTA_MESSAGE_BOX_CLUBE = "Deseja excluir este clube?";
+    const PERGUNTA_MESSAGE_BOX_JOGADOR = "Deseja excluir este jogador?";
     const TITULO_CONFIRMAR = "Confirme";
-    const NOME_MODELO_NOME_MODELO_JOGADORES = "jogadores";
+    const NOME_MODELO_JOGADORES = "jogadores";
     const NOME_MODELO_JOGADOR = "jogador";
     const CHAVE_NOME = "nome";
     const CHAVE_DATADENASCIMENTO = "dataDeNascimento";
@@ -44,6 +45,7 @@ sap.ui.define([
     const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
     const QUEBRADELINHA = "\r\n";
     const CHAVE_IDADE = "idade";
+    const ID_DO_BOTAO_CRIAR = "BotaoCriarJogador"
 
 	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
         formatter : Formatter,
@@ -55,17 +57,31 @@ sap.ui.define([
         aoCoincidirRota: function(evento) {
             this._exibirEspera(async () => {
                 this._carregarModelo();
-
                 const argumentos = evento.getParameter(ARGUMENTOS_DA_ROTA);
-                const clube = await ClubeServico.buscarClubePorId(argumentos.idClube);
-                let oModel = new JSONModel(clube);
-                this._modelo(NOME_MODELO_CLUBE, oModel);
-
-                let elenco = this._modelo(NOME_MODELO_CLUBE).getData().elenco;
-                let jogadores = await this._aoCarregarElenco(elenco);
-                oModel = new JSONModel(jogadores);
-                this._modelo(NOME_MODELO_NOME_MODELO_JOGADORES, oModel);
+                await this._carregarClube(argumentos.idClube);
+                await this._carregarElencoLIsta();
             });
+        },
+
+        _atualizarLista: async function(){
+            this._exibirEspera(async () => {
+                const clube = this._modelo(NOME_MODELO_CLUBE).getData();
+                await this._carregarClube(clube.id);
+                await this._carregarElencoLIsta();
+            });
+        },
+
+        _carregarClube: async function(idClube){
+            const clube = await ClubeServico.buscarClubePorId(idClube);
+            let oModel = new JSONModel(clube);
+            this._modeloClube( oModel);
+        },
+
+        _carregarElencoLIsta: async function(){
+            let elenco = this._modelo(NOME_MODELO_CLUBE).getData().elenco;
+            let jogadores = await this._carregarElenco(elenco);
+            let oModel = new JSONModel(jogadores);
+            this._modeloJogadores( oModel);
         },
 
         aoClicarEmVoltar: function() {          
@@ -78,14 +94,14 @@ sap.ui.define([
             });
         },
 
-        _aoCarregarElenco: async function(elenco) {
+        _carregarElenco: async function(elenco) {
             const jogadores = elenco.map(id => JogadorServico.buscarJogadorPorId(id));
             return await Promise.all(jogadores);
         },
 
         aoClicarDeletar: function() {
             this._exibirEspera(() => {
-                MessageBox.confirm(PERGUNTA_MESSAGE_BOX, {
+                MessageBox.confirm(PERGUNTA_MESSAGE_BOX_CLUBE, {
                     title: TITULO_CONFIRMAR,
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     onClose: async (oAction) => {
@@ -109,19 +125,30 @@ sap.ui.define([
                 "altura": null,
                 "peso": null
             });
-            this._modelo(NOME_MODELO_JOGADOR, JogadorModelo);
+            this._modeloJogador( JogadorModelo);
         },
 
-        aoAbrirModalDeCriacao: function() {
+        aoAbrirModalDeCriacao: function(oEvent) {
             this._exibirEspera(async () => {
-                this.oDialog ??= await this.loadFragment({ name: "cod3rsgrowth.webapp.view.CriarJogador" });
+                let idDoBotao = oEvent.getSource().getId();
+                let modeloJogadores = oEvent.getSource().getBindingContext(NOME_MODELO_JOGADORES);
+                if (modeloJogadores) {
+                    if (!idDoBotao.includes(ID_DO_BOTAO_CRIAR)) {
+                        const Modelo = new JSONModel(modeloJogadores.getObject());
+                        this._modeloJogador( Modelo);
+                    }
+                }
+            
+                if (!this.oDialog) {
+                    this.oDialog = await this.loadFragment({ name: "cod3rsgrowth.webapp.view.CriarJogador" });
+                }             
                 this.oDialog.open();
-            });
+            });            
         },
 
         aoFecharModal: function() {
             this._exibirEspera(() => {
-                this._resetarItems();
+                this._carregarModelo();
                 this.oDialog.close();
             });
         },
@@ -189,7 +216,8 @@ sap.ui.define([
         aoSalvarJogador: function() {
             this._exibirEspera(async () => {
                 if (!this._validarCamposPreenchidos()) return;
-                this._SalvarDados();
+                let id = this._modelo(NOME_MODELO_JOGADOR).getData().id; 
+                this._SalvarDados(id);
                 let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao);
                 let hash = this._getRouter().getHashChanger().getHash().split(BARRA);
 
@@ -198,14 +226,17 @@ sap.ui.define([
         },
 
         _criarOuEditarJogador: async function(hash, DadosDaCriação){
-            if(hash [INDICEUM_NO_ARRAY_DE_HASHs] == NOME_ROTA_EDITAR){
-                let idClube = this._modelo(NOME_MODELO_JOGADOR).getData().id;   
-                await JogadorServico.editarJogador(DadosDaCriação, idClube)
+            let id = this._modelo(NOME_MODELO_JOGADOR).getData().id;  
+            if(id){
+                let idJogador = this._modelo(NOME_MODELO_JOGADOR).getData().id;   
+                await JogadorServico.editarJogador(DadosDaCriação, idJogador)
                 MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                await this._atualizarLista();
             }else{
                 await JogadorServico.criarJogador(DadosDaCriação);
                 MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 this.aoFecharModal();
+                await this._atualizarLista();
             }
         },
 
@@ -242,38 +273,6 @@ sap.ui.define([
             this.DadosCriacao.push({ key: CHAVE_ALTURA, value: modelo.altura});
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_PESO);
             this.DadosCriacao.push({ key: CHAVE_PESO, value: modelo.peso});
-        },
-
-        _resetarItems: function() {
-            let inputNome = this.byId(ID_INPUTNOME);
-            if (inputNome) {
-                inputNome.setValue(STRING_VAZIA);
-                inputNome.setValueState(ESTADO_ELEMENTO_NONE);
-            }
-
-            let dataDeNascimento = this.byId(ID_CALENDARIOCRIAR);
-            if (dataDeNascimento) {
-                dataDeNascimento.setDateValue(null);
-                dataDeNascimento.setValueState(ESTADO_ELEMENTO_NONE);
-            }
-
-            let inputAltura = this.byId(ID_INPUTALTURA);
-            if (inputAltura) {
-                inputAltura.setValue(STRING_VAZIA);
-                inputAltura.setValueState(ESTADO_ELEMENTO_NONE);
-            }
-
-            let inputPeso = this.byId(ID_INPUTPESO);
-            if (inputPeso) {
-                inputPeso.setValue(STRING_VAZIA);
-                inputPeso.setValueState(ESTADO_ELEMENTO_NONE);
-            }
-
-            let clubeCriacao = this.byId(ID_CLUBECRIACAO);
-            if (clubeCriacao) {
-                clubeCriacao.setSelectedKey(null);
-                clubeCriacao.setValueState(ESTADO_ELEMENTO_NONE);
-            }
         }
 	});
 });

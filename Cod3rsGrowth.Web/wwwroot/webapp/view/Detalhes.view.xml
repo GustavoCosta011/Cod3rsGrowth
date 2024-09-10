@@ -110,7 +110,7 @@
                                             </m:Column>
                                         </m:columns>
                                         <m:items>
-                                            <m:ColumnListItem vAlign="Middle" type="Navigation"> 
+                                            <m:ColumnListItem vAlign="Middle" type="Detail" detailPress="aoAbrirModalDeCriacao"> 
                                                 <m:cells>
                                                     <m:ObjectIdentifier text="{jogadores>nome}"/>
                                                     <m:Text text="{jogadores>idade}"/>

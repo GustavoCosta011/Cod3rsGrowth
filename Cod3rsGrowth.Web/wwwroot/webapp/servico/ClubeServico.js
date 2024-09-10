@@ -2,8 +2,8 @@ sap.ui.define([], () => {
     "use strict";
     const ERROR = 'Erro na requisição da API';
     const NUMZERO = 0;
-    const OBTERTODOS = "api/Clubes";
-    const OBTERESTADOS = "api/Clubes/estados";
+    const OBTERTODOS = "/api/Clubes";
+    const OBTERESTADOS = "/api/Clubes/estados";
 
     return {
         buscarClubes: function(filtros) {
@@ -38,7 +38,6 @@ sap.ui.define([], () => {
             }) 
             .then(async resposta => {
                 let response = await resposta.json(); 
-                console.log(response)
                 if(response.status == 400){
                     throw response   
                 }
