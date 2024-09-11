@@ -123,7 +123,6 @@ sap.ui.define([
                         errorMessage: "Não foi possível selecionar o clube no ComboBox"
                     });
                 },
-                
                 aoClicarNoBotaoDeEditar: function () {
                     return this.waitFor({
                         controlType: "sap.m.ColumnListItem",
@@ -133,7 +132,23 @@ sap.ui.define([
                             Opa5.assert.ok(true, "Botao de editar encontrado")},
                         errorMessage: "Item da lista de jogadores não encontrado."
                     });
-                } 
+                },
+
+                aoClicarNoBotaoDeletarJogador: function(){
+                    return this.waitFor({
+                        controlType: "sap.ui.core.Icon",
+                        viewName: nomeDaView,
+                        matchers: new PropertyStrictEquals({
+                            name: "src", 
+                            value: "sap-icon://decline"
+                        }),
+                        success: (a) => {
+                            const botao = a[0].getParent()
+                            botao.firePress()
+                            Opa5.assert.ok(true, "Botao de editar encontrado")},
+                        errorMessage: "Item da lista de jogadores não encontrado."
+                    });
+                }
             },
 
             assertions: {
@@ -156,6 +171,20 @@ sap.ui.define([
                         },
                         errorMessage: "Não foi possível navegar para detalhes ou o título não esta condisente"
                     });
+                },
+                buscarOTamanhoDaLista: function(tamanho){
+                    return this.waitFor({
+                        controlType:"sap.m.Table",
+                        viewName: nomeDaView,
+                        matchers: new AggregationLengthEquals({
+							name: "items",
+							length: tamanho
+						}),
+						success: function () {
+							Opa5.assert.ok(true, "A tabela diminuiu de tamanho");
+						},
+						errorMessage: "Os dados não foram carregados"
+					});                   
                 },
                 DeveVerificarONomeDoClube: function (NomeDoClube) {
                     return this.waitFor({

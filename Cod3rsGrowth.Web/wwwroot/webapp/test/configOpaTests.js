@@ -12,7 +12,8 @@ sap.ui.require([
     "cod3rsgrowth/webapp/test/jornadas/Editar",
     "cod3rsgrowth/webapp/test/jornadas/Deletar",
     "cod3rsgrowth/webapp/test/jornadas/Criarjogador",
-    "cod3rsgrowth/webapp/test/jornadas/EditarJogador"
+    "cod3rsgrowth/webapp/test/jornadas/EditarJogador",
+    "cod3rsgrowth/webapp/test/jornadas/DeletarJogador"
 ], async (Core, Opa5, Startup) => {
     "use strict";
 
