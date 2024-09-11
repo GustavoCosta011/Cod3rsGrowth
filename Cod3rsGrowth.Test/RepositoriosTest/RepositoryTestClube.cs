@@ -57,5 +57,10 @@ namespace Cod3rsGrowth.Test.RepositoriosTest
             var clubeARemover = ObterPorId(id);
             ListaDeClubes.Remove(clubeARemover);
         }
+
+        public List<Clube> ObterTodos(string serch)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

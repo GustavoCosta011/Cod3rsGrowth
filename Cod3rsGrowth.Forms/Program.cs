@@ -1,17 +1,29 @@
-namespace Cod3rsGrowth.Forms
+using FluentMigrator.Runner;
+using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Forms;
+using Microsoft.Extensions.Hosting;
+using Cod3rsGrowth.Servicos.Servicos;
+using Cod3rsGrowth.Test;
+using Cod3rsGrowth.Servicos;
+
+namespace Forms
 {
-    internal static class Program
+    class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        private static ServiceProvider? _serviceProvider;
+
+        static void Main(string connect)
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            var ServiceCollection = new ServiceCollection();
+            ModuloInjetorInfra.Servicos(ServiceCollection, connect);
+            ModuloInjetorServico.Servicos(ServiceCollection);
+            _serviceProvider = ServiceCollection.BuildServiceProvider();
+
+            ModuloInjetorInfra.IniciarBanco(_serviceProvider);
+
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new FormPrincipal(_serviceProvider.GetRequiredService<ServicoClube>(), _serviceProvider.GetRequiredService<ServicoJogador>()));
         }
     }
 }

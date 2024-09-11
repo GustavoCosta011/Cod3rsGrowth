@@ -1,0 +1,17 @@
+{
+    "name": "cod3rsgrowth",
+    "version": "1.0.0",
+    "main": "index.js",
+    "description": "O aplicativo UI5 Cod3rsgrowth",
+    "scripts": {
+      "start": "ui5 serve -o index.html",
+      "opaTest": "ui5 serve -o ./test/opaTests.html",
+      "build": "ui5 build --all --clean-dest",
+      "serve-dist": "ws --compress -d dist --open",
+      "serve": "i -D local-web-server"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+  

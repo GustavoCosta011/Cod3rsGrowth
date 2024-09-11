@@ -1,60 +1,82 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
-
-
+using Cod3rsGrowth.Infra;
+using System.Linq;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Test.Repositorios
 {
-    public class RepositoryClube : IRepositoryData<Clube> 
+    public class RepositoryClube : IRepositoryData<Clube>
     {
-        public List<Clube>? ListaDeClubes;
-        public Clube? clube;
+        private readonly Cod3rsGrowthConnect database;
 
-        public List<Clube> ObterTodos()
+        public RepositoryClube(Cod3rsGrowthConnect Database)
         {
-            return ListaDeClubes;
+            database = Database;
         }
 
-        public Clube ObterPorId(int id)
+        public List<Clube> ObterTodos(Filtro? filtro)
         {
-           return ListaDeClubes.Find(clube => clube.Id == id) ?? throw new Exception("Clube inexistente!");
-        }
-            
-        public int Criar(Clube clube)
-        {
-            int IncrementoCriar = 1;
-            clube.Id = ListaDeClubes.Any() ? ListaDeClubes.Max(clube => clube.Id) + IncrementoCriar : IncrementoCriar;
+            if (filtro == null) return database.Clubes.ToList();
+            var clubes = database.Clubes.AsQueryable();
 
-            ListaDeClubes.Add(clube);
+            if (!string.IsNullOrEmpty(filtro.Nome)) clubes = clubes.Where(clube => clube.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+            if (filtro.Estado.HasValue) clubes = clubes.Where(clube => clube.Estado == filtro.Estado);
+            if (filtro.DataPiso.HasValue) clubes = clubes.Where(clube => clube.Fundacao >= filtro.DataPiso);
+            if (filtro.DataTeto.HasValue) clubes = clubes.Where(clube => clube.Fundacao <= filtro.DataTeto);
 
-            return clube.Id;
-
+            return clubes.ToList();
         }
 
-        public void Editar(int idDoEdit, Clube clube)
+        public Clube? ObterPorId(int id)
         {
-            
-            var ClubeAEditar = ObterPorId(idDoEdit);
-
-            ClubeAEditar.Nome = clube.Nome;
-            
-            ClubeAEditar.Fundacao = clube.Fundacao;
-
-            ClubeAEditar.Estadio = clube.Estadio;
-
-            ClubeAEditar.Estado = clube.Estado;
-
-            ClubeAEditar.CoberturaAntiChuva = clube.CoberturaAntiChuva;
-
-            ClubeAEditar.Elenco = clube.Elenco;
-
+            var clube = database.Clubes.FirstOrDefault(clube => clube.Id == id);
+            if(clube != null) clube.Elenco = ObterElencDoClube(clube.Nome);
+            return clube;
         }
+
+        public int Criar(Clube objeto)
+        {
+            return database.InsertWithInt32Identity(objeto);
+        }
+
+        public void Editar(Clube objeto)
+        {
+            database.Update(objeto);
+            AlterarAtributoClubeNoJogador(objeto);
+        }
+
+        public void AlterarAtributoClubeNoJogador(Clube objeto)
+        {
+            database.Jogadores.Where(jogador => jogador.IdClube == objeto.Id)
+                .Set(jogador => jogador.Clube, objeto.Nome)
+                .Update();            
+        }
+
 
         public void Remover(int id)
+        {            
+            string nomeClube = ObterPorId(id).Nome;
 
-        {
-            var clubeARemover = ObterPorId(id);
-            ListaDeClubes.Remove(clubeARemover);
+            database.Clubes
+                .Where(clube => clube.Id == id)
+                .Delete();
+            LimparNomeDoClubeDoAtributoNoJogador(nomeClube);
         }
+        
+        public void LimparNomeDoClubeDoAtributoNoJogador(string nomeClube)
+        {
+            string Vazio = "";
+            database.Jogadores.Where(jogador => jogador.Clube == nomeClube).
+                Delete();
+        }
+
+        public List<int> ObterElencDoClube(string? Nome)
+        {
+            return database.Jogadores.Where(jogador => jogador.Clube == Nome)
+                        .Select(jogador => jogador.Id)
+                        .ToList();              
+        }
+
     }
 }

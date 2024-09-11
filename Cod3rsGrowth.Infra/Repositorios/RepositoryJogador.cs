@@ -1,59 +1,52 @@
 ﻿using Cod3rsGrowth.Dominio.Modelos;
 using Cod3rsGrowth.Dominio.Interfaces;
-
-
+using Cod3rsGrowth.Infra;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Test.Repositorios;
 
 public class RepositoryJogador : IRepositoryData<Jogador>
 {
+    private readonly Cod3rsGrowthConnect database;
 
-    public List<Jogador> ListaJogador;
-    public Jogador? jogador;
-
-
-    public List<Jogador>? ObterTodos()
+    public RepositoryJogador(Cod3rsGrowthConnect Database)
     {
-        return ListaJogador;
+       database = Database;
     }
 
-    public Jogador ObterPorId(int id)
+    public List<Jogador> ObterTodos(Filtro filtro)
     {
-        return ListaJogador.Find(jogador => jogador.Id == id) ?? throw new Exception("Jogador inexistente!");
+        if (filtro == null) return database.Jogadores.ToList();
+        var jogadores = database.Jogadores.AsQueryable();
+
+        if (!string.IsNullOrEmpty(filtro.Nome)) jogadores = jogadores.Where(jogador => jogador.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+        if (!string.IsNullOrEmpty(filtro.Clube)) jogadores = jogadores.Where(jogador => jogador.Clube.Contains(filtro.Clube, StringComparison.OrdinalIgnoreCase));
+        if (filtro.DataPiso.HasValue) jogadores = jogadores.Where(jogador => jogador.DataDeNascimento >= filtro.DataPiso);
+        if (filtro.DataTeto.HasValue) jogadores = jogadores.Where(jogador => jogador.DataDeNascimento <= filtro.DataTeto);
+
+        return jogadores.ToList();
     }
 
-    public int Criar(Jogador jogador)
+    public Jogador? ObterPorId(int id)
     {
-        int IncremntoCriar = 1;
-        jogador.Id = ListaJogador.Any() ? ListaJogador.Max(jogador => jogador.Id) + IncremntoCriar : IncremntoCriar;
-
-        ListaJogador.Add(jogador);
-
-        return jogador.Id;
-
+        return database.Jogadores.FirstOrDefault(jogador => jogador.Id == id);
     }
 
-    public void Editar(int idDoEdit, Jogador jogador)
+    public int Criar(Jogador objeto)
     {
-        var Editado = ObterPorId(idDoEdit);
-       
-            Editado.Nome = jogador.Nome;
+        return database.InsertWithInt32Identity(objeto);
+    }
 
-            Editado.Idade = jogador.Idade;
-        
-            Editado.DataDeNascimento = jogador.DataDeNascimento;
-
-            Editado.Altura = jogador.Altura;
-
-            Editado.Peso = jogador.Peso;
-
+    public void Editar(Jogador objeto)
+    {
+        database.Update(objeto);
     }
 
     public void Remover(int id)
-
     {
-        var jogadorARemover = ObterPorId(id);
-        ListaJogador.Remove(jogadorARemover);
+        database.Jogadores
+            .Where(jogador => jogador.Id == id)
+            .Delete();
     }
 }
 

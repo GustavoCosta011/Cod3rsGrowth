@@ -2,18 +2,19 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Enums;
-using Cod3rsGrowth.Test.Singletons.Singleton;
+using Cod3rsGrowth.Infra;
 
 namespace Cod3rsGrowth.Test.Testes
 {
     public class Test_servico_clube : Teste
     {
         private readonly ServicoClube clubeServico;
-        private readonly List<Clube> clubeList = ClasseSingleton.Instance.Clubes;
-       
+        private readonly Cod3rsGrowthConnect database;
+
         public Test_servico_clube() : base()
         {
-            clubeServico = ServiceProvider.GetRequiredService<ServicoClube>();
+            clubeServico = _serviceProvider.GetRequiredService<ServicoClube>();
+            database = _serviceProvider.GetRequiredService<Cod3rsGrowthConnect>();
         }
 
 //OBTER TODOS
@@ -25,7 +26,7 @@ namespace Cod3rsGrowth.Test.Testes
             List<Clube> ListaObterTodos;
 
             //Act
-            ListaObterTodos = clubeServico.ObterTodos();
+            ListaObterTodos = clubeServico.ObterTodos(null);
 
             //Assert
             Assert.NotNull(ListaObterTodos);
@@ -38,7 +39,7 @@ namespace Cod3rsGrowth.Test.Testes
             List<Clube> ListaObterTodos;
 
             //Act
-            ListaObterTodos = clubeServico.ObterTodos();
+            ListaObterTodos = clubeServico.ObterTodos(null);
 
             //Assert
             Assert.Equal(typeof(List<Clube>), ListaObterTodos.GetType());
@@ -54,7 +55,7 @@ namespace Cod3rsGrowth.Test.Testes
             };
 
             //Act
-            var ListaObterTodos = clubeServico.ObterTodos();
+            var ListaObterTodos = clubeServico.ObterTodos(null);
 
             //Assert
             Assert.Equivalent(Lista,ListaObterTodos);
@@ -130,7 +131,7 @@ namespace Cod3rsGrowth.Test.Testes
             int IdEsperado = 002;
             //Act
             clubeServico.CriarClube(clube);
-            var resultClube = clubeList.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Clube inexistente!");
+            var resultClube = database.Clubes.FirstOrDefault(clube => clube.Id == IdEsperado) ?? throw new Exception("Clube inexistente!");
 
             //Assert
             Assert.Equivalent(clubeesperado,resultClube);
@@ -148,7 +149,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             clubeServico.EditarClube(IdDoClubeASerEditado, mudancas);
-            var result = clubeList.Find(clube => clube.Id == IdDoClubeASerEditado) ?? throw new Exception("Clube inexistente!");
+            var result = database.Clubes.FirstOrDefault(clube => clube.Id == IdDoClubeASerEditado) ?? throw new Exception("Clube inexistente!");
 
             //Assert
             Assert.Equivalent(clubeEsperado, result);
@@ -184,7 +185,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             clubeServico.RemoverClube(idDoClubeAserRemovido);
-            var result = Assert.Throws<Exception>(() => clubeList.Find(clube => clube.Id == idDoClubeAserRemovido) ?? throw new Exception("Clube inexistente!"));
+            var result = Assert.Throws<Exception>(() => database.Clubes.FirstOrDefault(clube => clube.Id == idDoClubeAserRemovido) ?? throw new Exception("Clube inexistente!"));
 
             //Assert
             Assert.Equal(mensagemDeBusca, result.Message);
@@ -203,7 +204,6 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Assert
             Assert.Equal(mensagemDeBusca, result.Message);
-
         }
     }
 }

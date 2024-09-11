@@ -17,9 +17,9 @@ namespace Cod3rsGrowth.Servicos.Servicos
             repositoryJogador = repositoryMock;
             validadorJogador = validador;     
         }
-        public List<Jogador> ObterTodos()
+        public List<Jogador> ObterTodos(Filtro? filtro)
         {
-            return repositoryJogador.ObterTodos();
+            return repositoryJogador.ObterTodos(filtro);
         }
 
         public Jogador ObterPorId(int id)
@@ -30,48 +30,23 @@ namespace Cod3rsGrowth.Servicos.Servicos
         public int CriarJogador(Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador);
-
-
             if (!resultado.IsValid)
             {
-                string mensagem = null;
-
-                foreach (var erro in resultado.Errors)
-                {
-                    mensagem += erro.ErrorMessage;
-
-                }
-
-                throw new Exception(mensagem);
+                throw new ValidationException(resultado.Errors);
             }
-
             int IdNovoJogador = repositoryJogador.Criar(jogador);
 
-
-
-
             return IdNovoJogador;
-
         }
 
-        public void EditarJogador(int id, Jogador jogador)
+        public void EditarJogador(Jogador jogador)
         {
             ValidationResult resultado = validadorJogador.Validate(jogador, options => options.IncludeRuleSets("Editar"));
-
-
             if (!resultado.IsValid)
             {
-                string mensagem = null;
-
-                foreach (var erro in resultado.Errors)
-                {
-                    mensagem += erro.ErrorMessage;
-
-                }
-
-                throw new Exception(mensagem);
+                throw new ValidationException(resultado.Errors);
             }
-            repositoryJogador.Editar(id, jogador);
+            repositoryJogador.Editar(jogador);
         }
 
         public void RemoverJogador(int id )

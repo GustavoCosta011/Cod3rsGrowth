@@ -1,0 +1,131 @@
+{
+    "_version": "1.58.0",
+    "sap.app": {
+        "id": "cod3rsgrowth",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}"
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "rootView": {
+            "id": "app",
+            "type": "XML",
+            "viewName": "cod3rsgrowth.webapp.view.App"
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "cod3rsgrowth.i18n.i18n"
+                }
+            },
+            "clubes": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "https://localhost:7178/api/Clubes"
+            },
+            "jogadores": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "https://localhost:7178/api/Jogadores"
+            },
+            "estados": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "https://localhost:7178/api/Clubes/estados"
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "webapp/css/style.css"
+                }
+            ]
+        },
+        "dependencies": {
+            "minUI5Version": "1.108.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "type": "View",
+                "viewType": "XML",
+                "path": "cod3rsgrowth.webapp.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "transition": "slide",
+                "bypassed": {
+                    "target": "notFound"
+                },
+                "async": true
+            },
+            "routes": [{
+                "pattern": "",
+                "name": "Home",
+                "target": "home"
+            },
+            {
+                "pattern": "clubes:?query:",
+                "name": "clubes",
+                "target": "clubes"
+            },
+            {
+                "pattern": "clubes/criar",
+                "name": "criar",
+                "target": "criarClube"
+            },
+            {
+                "pattern": "clubes/detalhes/{idClube}",
+                "name":"detalhes",
+                "target":"detalhesClube"
+            },
+            {
+                "pattern": "clubes/editar/{idClube}",
+                "name":"editar",
+                "target":"editarClube"
+            }
+            ],
+            "targets": {
+                "home": {
+					"viewName": "Home",
+					"viewLevel": 1
+                },
+                "notFound": {
+					"viewName": "NotFound"
+                },
+                "clubes": {
+					"viewName": "ListaDeClubes",
+					"viewLevel": 2
+                },
+                "criarClube": {
+					"viewName": "TelaCriar",
+					"viewLevel": 3
+                },
+                "detalhesClube":{
+                    "viewName": "Detalhes",
+                    "viewLevel":3
+                },
+                "editarClube": {
+                    "viewName": "TelaCriar",
+                    "viewLevel": 4
+                }
+            }
+        }
+    }
+}

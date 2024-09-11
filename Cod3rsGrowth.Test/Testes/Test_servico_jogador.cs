@@ -2,6 +2,8 @@ using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Test.Singletons.Singleton;
+using Cod3rsGrowth.Infra;
+using static LinqToDB.Sql;
 
 
 namespace Cod3rsGrowth.Test.Testes
@@ -9,11 +11,12 @@ namespace Cod3rsGrowth.Test.Testes
     public class Test_servico_jogador : Teste
     {
         private readonly ServicoJogador jogadorServico;
-        private readonly List<Jogador> jogadorList = ClasseSingleton.Instance.Jogadores;
+        private readonly Cod3rsGrowthConnect database;
        
         public Test_servico_jogador() : base()
         {
-             jogadorServico = ServiceProvider.GetRequiredService<ServicoJogador>();
+            jogadorServico = _serviceProvider.GetRequiredService<ServicoJogador>();
+            database = _serviceProvider.GetRequiredService<Cod3rsGrowthConnect>();
         }
 
 //OBTER TODOS
@@ -25,7 +28,7 @@ namespace Cod3rsGrowth.Test.Testes
             List<Jogador> Lista;
 
             //Act
-            Lista = jogadorServico.ObterTodos();
+            Lista = jogadorServico.ObterTodos(null);
 
             //Assurt
             Assert.NotNull(Lista);
@@ -38,7 +41,7 @@ namespace Cod3rsGrowth.Test.Testes
             List<Jogador> ListaObterTodos;
 
             //Act
-            ListaObterTodos = jogadorServico.ObterTodos();
+            ListaObterTodos = jogadorServico.ObterTodos(null);
 
             //Assert
             Assert.Equal(typeof(List<Jogador>), ListaObterTodos.GetType());
@@ -50,14 +53,11 @@ namespace Cod3rsGrowth.Test.Testes
             //Arrage
             List<Jogador> Lista = new()
             {
-                     new(10, "Gabi", 27, DateTime.Parse("30-08-1996"), 1.78, 68.0),
-                     new(11, "PedroQuexada", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0),
-                     new(13, "Halandinho", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
-                     new(14, "Penaldo", 33, DateTime.Parse("30-09-1991"), 1.77, 89.0),
-                     new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0),
+                        new( 2, "Everson",1  , "Atlético Mineiro", 32, DateTime.Parse("22-07-1988"), 1.92, 82),
+                        new( 3, "Mariano", 1 , "Atlético Mineiro", 34,  DateTime.Parse("1986 - 06 - 23"), 1.79 , 73)
             };
             //Act
-            var ListaObterTodos = jogadorServico.ObterTodos();
+            var ListaObterTodos = jogadorServico.ObterTodos(null);
 
             //Assert
             Assert.Equivalent(Lista, ListaObterTodos);
@@ -96,8 +96,8 @@ namespace Cod3rsGrowth.Test.Testes
         [Fact]
         public void DeveRetornaJogadorCompletoAoObterPorId()
         {   //Arrange
-            Jogador jogador = new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0);
-            int IdEsperado = 015;
+            Jogador jogador = new(132, "Vinícius Lopes",  12,  "Goiás",   22,  DateTime.Parse("07-04-1999"), 1.8, 75);
+            int IdEsperado = 132;
 
             //Act
             var jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
@@ -112,13 +112,13 @@ namespace Cod3rsGrowth.Test.Testes
         public void DeveRtornarOIdDoNovoJogador()
         {   
             //Arrange
-            var jogador = new Jogador(0, "ChicoMoedas", 23, DateTime.Parse("22-12-2001"), 1.70, 70.0);
-            var jogadorEsperado = new Jogador(17, "ChicoMoedas", 23, DateTime.Parse("22-12-2001"), 1.70, 70.0);
+            var jogador = new Jogador(216, "Adilson Goiano",  20, "Grêmio Novorizontino", 33, DateTime.Parse("21-08-1987") , 1.78, 74);
+            var jogadorEsperado = new Jogador(216, "Adilson Goi", 20, "Grêmio Novorizontino", 33, DateTime.Parse("21-08-1987"), 1.78, 74);
             int IdEsperado = 017;
 
             //Act
             int result = jogadorServico.CriarJogador(jogador); 
-            var jogadorCriado = jogadorList.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
+            var jogadorCriado = database.Jogadores.FirstOrDefault(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equal(IdEsperado, result);
@@ -130,7 +130,7 @@ namespace Cod3rsGrowth.Test.Testes
         public void DeveRetornarErrorMessageAoCriarComExcecao()
         {
             //Arrange
-            var jogador = new Jogador(0, "Hk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
+            var jogador = new Jogador(157, "M",15, "Palmeiras",32,DateTime.Parse("11-12-1988"), 1.77, 70);
             
             //Act
             var result = Assert.Throws<Exception>(() => jogadorServico.CriarJogador(jogador));
@@ -144,13 +144,13 @@ namespace Cod3rsGrowth.Test.Testes
         {
 
             //Arrange
-            var jogadorEsperado = new Jogador(16, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
-            var jogador = new Jogador(0, "Hulk", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
+            var jogadorEsperado = database.Jogadores.
+            var jogador = new Jogador( "Chik", 1, "Atlético Mineiro", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
             int IdEsperado = 016;
 
             //Act
             jogadorServico.CriarJogador(jogador);
-            var result = jogadorList.Find(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
+            var result = database.Jogadores.FirstOrDefault(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);
@@ -168,7 +168,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas);
-            var result = jogadorList.Find(clube => clube.Id == IdDoJogadorASerEditado) ?? throw new Exception("Jogador inexistente!");
+            var result = database.Jogadores.FirstOrDefault(clube => clube.Id == IdDoJogadorASerEditado) ?? throw new Exception("Jogador inexistente!");
 
             //Assert
             Assert.Equivalent(jogadorEsperado, result);
@@ -205,7 +205,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
-            var result =  Assert.Throws<Exception>(() => jogadorList.Find(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
+            var result =  Assert.Throws<Exception>(() => database.Jogadores.FirstOrDefault(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
 
             //Assert
             Assert.Equal(menssagemErro,result.Message);
