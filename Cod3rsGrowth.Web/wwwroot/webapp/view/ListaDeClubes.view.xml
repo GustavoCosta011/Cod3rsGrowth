@@ -1,0 +1,108 @@
+<mvc:View
+    controllerName="cod3rsgrowth.webapp.controller.ListaDeClubes"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:tnt="sap.tnt">
+    <Page 
+        id="PaginaDaListaClubes"
+        title="{i18n>Page.Clubes.Titulo}"
+        showNavButton="true"
+        navButtonPress="aoClicarEmVoltar"
+        class="sapUiResponsiveContentPadding"
+        >
+        <VBox>
+            <VBox>
+                <Button
+                    text="{i18n>Botao.Adiconar}"
+                    press="aoClicarAdicionar"
+                    icon="sap-icon://add"
+                    type="{i18n>Botao.Adiconar.Tipo}"/>
+            </VBox>
+            <VBox height="0.5em"/>
+            <OverflowToolbar>
+                <Title text= "{i18n>Filtros.Titulo}" />
+                <ToolbarSpacer width="1.5em"/>
+                <content>
+                    <Toolbar>
+                        <Title text="{i18n>Filtro.Nome.Titulo}" />
+                        <ToolbarSpacer width="0.5em"/>
+                        <Input
+                            id="InputNome"
+                            width="60%"
+                            liveChange="aoBuscarPorNome"/>
+                    </Toolbar>
+                    <ToolbarSeparator/>
+                    <Toolbar>
+                        <Title text="{i18n>Filtro.Estado.Titulo}"/>
+                        <ToolbarSpacer width="0.5em"/>
+                        <ComboBox id="ComboBoxEstados" 
+                            width="60%"
+                            placeholder="{i18n>Filtro.Estado.Placeholder}"
+                            selectionChange="aoMudarOEstadoNaComboBox"
+                            items="{estados>/}">
+                            <core:Item key="{estados>key}" text="{estados>description}" />
+                        </ComboBox>
+                    </Toolbar>
+                    <ToolbarSeparator/>
+                    <Toolbar>
+                        <Title text="{i18n>Filtro.Data.Titulo}"/>
+                        <ToolbarSpacer width="0.5em"/>
+                        <DateRangeSelection
+                            id="calendario"
+                            width="60%"
+                            placeholder="{i18n>Filtro.Data.Placeholder}"
+                            change="aoAlterarData"
+                            liveChange="aoAlterarData"
+                            showFooter="true"/>
+                    </Toolbar>
+                    <ToolbarSpacer/>
+                    <Toolbar>
+                        <Button
+                            id="BotaoLimpar"
+                            text="{i18n>Botao.Limpar.Filtros.Nome}"
+                            press="resetarItems"
+                            type="{i18n>Botao.Limpar.Filtros.Tipo}"/>
+                    </Toolbar>
+                </content>
+            </OverflowToolbar>
+            <Table id="ListaDeClubes"
+                items="{clubes>/}"
+                backgroundDesign="{i18n>Table.Back.Design}"
+                alternateRowColors="true"
+                growing="true"
+                growingThreshold="10"
+                growingTriggerText="{i18n>Table.Growing}"
+                >
+                <columns>
+                    <Column width="12em">
+                        <Text text="{i18n>Table.Coluna.Nome}"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>Table.Coluna.Fundacao}"/>
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                        <Text text="{i18n>Table.Coluna.Estadio}"/>
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+                        <Text text="{i18n>Table.Coluna.Estado}"/>
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="{i18n>Table.Coluna.Cobertura}"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle" type="Navigation" press="aoSelecionarUmItem"> 
+                        <cells>
+                            <ObjectIdentifier text="{clubes>nome}"/>
+                            <Text text="{path: 'clubes>fundacao', formatter: '.formatter.formatDate'}"/>
+                            <Text text="{clubes>estadio}"/>
+                            <Text text="{clubes>estado}"/>  
+                            <CheckBox selected="{clubes>coberturaAntiChuva}" editable="false"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </VBox>
+    </Page>
+</mvc:View>

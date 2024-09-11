@@ -1,39 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cod3rsGrowth.Dominio.Enums
 {
     public enum EstadosEnum
     {
+        [Display(Name = "Acre")]
         AC,
-        AL,
-        AP,
-        AM,
-        BA,
-        CE,
-        ES,
-        GO,
-        MA,
-        MT,
-        MS,
-        MG,
-        PA,
-        PB,
-        PR,
-        PE,
-        PI,
-        RJ,
-        RN,
-        RS,
-        RO,
-        RR,
-        SC,
-        SP,
-        SE,
-        TO
-    }
 
+        [Display(Name = "Alagoas")]
+        AL,
+
+        [Display(Name = "Amapá")]
+        AP,
+
+        [Display(Name = "Amazonas")]
+        AM,
+
+        [Display(Name = "Bahia")]
+        BA,
+
+        [Display(Name = "Ceará")]
+        CE,
+
+        [Display(Name = "Espírito Santo")]
+        ES,
+
+        [Display(Name = "Goiás")]
+        GO,
+
+        [Display(Name = "Maranhão")]
+        MA,
+
+        [Display(Name = "Mato Grosso")]
+        MT,
+
+        [Display(Name = "Mato Grosso do Sul")]
+        MS,
+
+        [Display(Name = "Minas Gerais")]
+        MG,
+
+        [Display(Name = "Pará")]
+        PA,
+
+        [Display(Name = "Paraíba")]
+        PB,
+
+        [Display(Name = "Paraná")]
+        PR,
+
+        [Display(Name = "Pernambuco")]
+        PE,
+
+        [Display(Name = "Piauí")]
+        PI,
+
+        [Display(Name = "Rio de Janeiro")]
+        RJ,
+
+        [Display(Name = "Rio Grande do Norte")]
+        RN,
+
+        [Display(Name = "Rio Grande do Sul")]
+        RS,
+
+        [Display(Name = "Rondônia")]
+        RO,
+
+        [Display(Name = "Roraima")]
+        RR,
+
+        [Display(Name = "Santa Catarina")]
+        SC,
+
+        [Display(Name = "São Paulo")]
+        SP,
+
+        [Display(Name = "Sergipe")]
+        SE,
+
+        [Display(Name = "Tocantins")]
+        TO,
+
+        [Display(Name = "Distrito Federal")]
+        DF
+    }
 }
+

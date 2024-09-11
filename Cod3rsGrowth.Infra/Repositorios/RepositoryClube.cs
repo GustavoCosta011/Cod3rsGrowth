@@ -67,9 +67,8 @@ namespace Cod3rsGrowth.Test.Repositorios
         public void LimparNomeDoClubeDoAtributoNoJogador(string nomeClube)
         {
             string Vazio = "";
-            database.Jogadores.Where(jogador => jogador.Clube == nomeClube)
-                .Set(jogador => jogador.Clube, Vazio)
-                .Update();
+            database.Jogadores.Where(jogador => jogador.Clube == nomeClube).
+                Delete();
         }
 
         public List<int> ObterElencDoClube(string? Nome)

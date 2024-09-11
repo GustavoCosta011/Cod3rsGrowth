@@ -13,10 +13,10 @@ namespace Forms
     {
         private static ServiceProvider? _serviceProvider;
 
-        static void Main()
+        static void Main(string connect)
         {
             var ServiceCollection = new ServiceCollection();
-            ModuloInjetorInfra.Servicos(ServiceCollection);
+            ModuloInjetorInfra.Servicos(ServiceCollection, connect);
             ModuloInjetorServico.Servicos(ServiceCollection);
             _serviceProvider = ServiceCollection.BuildServiceProvider();
 
