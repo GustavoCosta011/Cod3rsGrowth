@@ -1,28 +1,24 @@
 sap.ui.define([], () => {
     "use strict";
     const OBTERTODOS = "/api/Jogadores";
-    const NUMZERO = 0;
+    const NUMERO_ZERO = 0;
 
     return {
-        buscarJogadores: function(filtros) {
-            this.urlClubes = OBTERTODOS;
-            if (filtros.length > NUMZERO) {
-                this.urlClubes += "?" + filtros.map(filtro => `${filtro.key}=${filtro.value}`).join("&");
+        buscarJogadores: async function(filtros) {
+            this.urlJogadores = OBTERTODOS;
+            if (filtros.length > NUMERO_ZERO) {
+                this.urlJogadores += "?" + filtros.map(filtro => `${filtro.key}=${filtro.value}`).join("&");
             }
-
-            return fetch(this.urlClubes, {
+            return fetch(this.urlJogadores, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             }) 
-            .then(resposta => {
+            .then(async resposta => {
                 if (resposta.ok) {
-                    return resposta.json();
+                    return await resposta.json();
                 } 
-                throw new Error(ERROR);                
+                throw resposta;                
             })
-            .catch(error => {
-                console.error('Erro:', error);
-            });
         },
 
         buscarJogadorPorId: async function (idDoJogador){            

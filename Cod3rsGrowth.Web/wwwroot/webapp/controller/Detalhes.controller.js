@@ -79,8 +79,8 @@ sap.ui.define([
         },
 
         _carregarElencoLista: async function(){
-            let elenco = this._modeloClube().getData().elenco;
-            let jogadores = await this._carregarElenco(elenco);
+            let jogadores = await this._carregarElenco();
+            console.log(jogadores)
             let oModel = new JSONModel(jogadores);
             this._modeloJogadores(oModel);
         },
@@ -95,15 +95,14 @@ sap.ui.define([
             });
         },
 
-        _carregarElenco: async function(elenco) {
+        _carregarElenco: async function() {
             let nomeDoClube = this._modeloClube().getData().nome;
             this.filtros = this.filtros.filter(f => f.key !== CHAVE_CLUBE);
             if (nomeDoClube) {
-                this.filtros.push({ key: CHAVE_CLUBE, value: encodeURIComponent(nomeDoClube)});
+                this.filtros.push({ key: CHAVE_CLUBE, value: nomeDoClube});
             }
-            let filtro = this._carregarArraydeDados(this.filtros) 
 
-            const jogadores = JogadorServico.buscarJogadores(filtro);
+            const jogadores = await JogadorServico.buscarJogadores(this.filtros);
             return jogadores
         },
 
