@@ -51,6 +51,7 @@ sap.ui.define([
         formatter : Formatter,
 
         onInit: function () {
+            this.filtros = [];
             this.DadosCriacao = [];
             this.vincularRota(ROTA_DE_DETALHES, this.aoCoincidirRota);
         },
@@ -59,7 +60,7 @@ sap.ui.define([
                 this._carregarModelo();
                 const argumentos = evento.getParameter(ARGUMENTOS_DA_ROTA);
                 await this._carregarClube(argumentos.idClube);
-                await this._carregarElencoLIsta();
+                await this._carregarElencoLista();
             });
         },
 
@@ -67,21 +68,21 @@ sap.ui.define([
             this._exibirEspera(async () => {
                 const clube = this._modelo(NOME_MODELO_CLUBE).getData();
                 await this._carregarClube(clube.id);
-                await this._carregarElencoLIsta();
+                await this._carregarElencoLista();
             });
         },
 
         _carregarClube: async function(idClube){
             const clube = await ClubeServico.buscarClubePorId(idClube);
             let oModel = new JSONModel(clube);
-            this._modeloClube( oModel);
+            this._modeloClube(oModel);
         },
 
-        _carregarElencoLIsta: async function(){
-            let elenco = this._modelo(NOME_MODELO_CLUBE).getData().elenco;
+        _carregarElencoLista: async function(){
+            let elenco = this._modeloClube().getData().elenco;
             let jogadores = await this._carregarElenco(elenco);
             let oModel = new JSONModel(jogadores);
-            this._modeloJogadores( oModel);
+            this._modeloJogadores(oModel);
         },
 
         aoClicarEmVoltar: function() {          
@@ -95,8 +96,15 @@ sap.ui.define([
         },
 
         _carregarElenco: async function(elenco) {
-            const jogadores = elenco.map(id => JogadorServico.buscarJogadorPorId(id));
-            return await Promise.all(jogadores);
+            let nomeDoClube = this._modeloClube().getData().nome;
+            this.filtros = this.filtros.filter(f => f.key !== CHAVE_CLUBE);
+            if (nomeDoClube) {
+                this.filtros.push({ key: CHAVE_CLUBE, value: encodeURIComponent(nomeDoClube)});
+            }
+            let filtro = this._carregarArraydeDados(this.filtros) 
+
+            const jogadores = JogadorServico.buscarJogadores(filtro);
+            return jogadores
         },
 
         aoClicarDeletar: function() {
