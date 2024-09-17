@@ -31,7 +31,7 @@
       "commandName": "Project",
       "commandLineArgs": "--teste",
       "launchBrowser": true,
-      "launchUrl": "webapp/test/opaTests.html",
+      "launchUrl": "test/opaTests.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Tests"
       },

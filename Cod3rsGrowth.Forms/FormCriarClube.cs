@@ -12,6 +12,7 @@ namespace Cod3rsGrowth.Forms
     {
         private readonly ServicoClube _servicoClube;
         private Clube clube = new();
+        private ClubeDto clubedto = new();
         private int? _id = 0;
         public FormCriarClube(int? id, ServicoClube servicoClube)
         {
@@ -121,12 +122,12 @@ namespace Cod3rsGrowth.Forms
             if (_id != null)
             {
                 this.Text = "Editar Clube";
-                clube = _servicoClube.ObterPorId((int)_id);
-                BoxNomeCriarClube.Text = clube.Nome;
-                FundacaoCriarClube.Value = clube.Fundacao;
-                BoxEstadioCriarClube.Text = clube.Estadio;
-                EstadoCriarClube.SelectedIndex = (int)clube.Estado;
-                if(clube.CoberturaAntiChuva == true)
+                clubedto = _servicoClube.ObterPorId((int)_id);
+                BoxNomeCriarClube.Text = clubedto.Nome;
+                FundacaoCriarClube.Value = clubedto.Fundacao;
+                BoxEstadioCriarClube.Text = clubedto.Estadio;
+                EstadoCriarClube.SelectedIndex = (int)clubedto.EstadoInt;
+                if(clubedto.CoberturaAntiChuva == true)
                 {
                     BotaoSimCriarClube.Checked = true;
                 }

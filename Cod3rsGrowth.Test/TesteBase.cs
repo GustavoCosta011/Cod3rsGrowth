@@ -1,6 +1,12 @@
 ﻿using System;
 using Cod3rsGrowth.Servicos;
 using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Test.Testes;
+using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Modelos;
+using Cod3rsGrowth.Test.Repositorios;
+using FluentMigrator.Runner;
 
 
 namespace Cod3rsGrowth.Test
@@ -9,14 +15,12 @@ namespace Cod3rsGrowth.Test
     {
         protected ServiceProvider _serviceProvider;
 
-
         public Teste()
         {
-            var ServiceCollection = new ServiceCollection();
-            ModuloInjetorInfra.Servicos(ServiceCollection);
-            ModuloInjetorServico.Servicos(ServiceCollection);
-            ModuloInjetorTest.Servicos(ServiceCollection);
-            _serviceProvider = ServiceCollection.BuildServiceProvider();
+            var serviceCollection = new ServiceCollection();
+            ModuloInjetorServico.Servicos(serviceCollection);
+            ModuloInjetorTest.Servicos(serviceCollection);
+            _serviceProvider = serviceCollection.BuildServiceProvider();
         }
         public void Dispose()
         {
