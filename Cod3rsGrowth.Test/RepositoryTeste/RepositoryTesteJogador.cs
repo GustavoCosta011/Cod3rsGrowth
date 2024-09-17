@@ -55,6 +55,10 @@ public class RepositoryTesteJogador : IRepositoryData<Jogador>
 
         Editado.Peso = jogador.Peso;
 
+        Editado.IdClube = jogador.IdClube;
+
+        Editado.Clube = jogador.Clube;
+
     }
 
     public void Remover(int id)

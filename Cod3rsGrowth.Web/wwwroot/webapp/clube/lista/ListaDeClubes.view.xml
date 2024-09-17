@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="cod3rsgrowth.webapp.controller.ListaDeClubes"
+    controllerName="cod3rsgrowth.webapp.clube.lista.ListaDeClubes"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"

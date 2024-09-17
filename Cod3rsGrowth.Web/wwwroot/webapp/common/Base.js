@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/UIComponent",
-    "../servico/ClubeServico",
+    "./servico/ClubeServico",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox"
 

@@ -1,7 +1,7 @@
 sap.ui.define([
-    "./Base",
-    "../formatter",
-    "../servico/ClubeServico",
+    "../../common/Base",
+    "../../models/formatter",
+    "../../common/servico/ClubeServico",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox"
 ], function (Base, Formatter, ClubeServico, JSONModel, MessageBox) {
@@ -29,7 +29,7 @@ sap.ui.define([
     const TITULO_ERRO = "Erro";
 
 
-    return Base.extend("cod3rsgrowth.webapp.controller.ListaDeClubes", {
+    return Base.extend("cod3rsgrowth.webapp.clube.lista.ListaDeClubes", {
         formatter: Formatter,
 
         onInit: function() {

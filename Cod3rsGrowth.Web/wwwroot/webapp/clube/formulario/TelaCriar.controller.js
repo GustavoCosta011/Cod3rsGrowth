@@ -1,7 +1,7 @@
 sap.ui.define([
-    "./Base",
-    "../servico/ClubeServico",
-    "../formatter",
+    "../../common/Base",
+    "../../common/servico/ClubeServico",
+    "../../models/formatter",
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel"
@@ -42,8 +42,9 @@ sap.ui.define([
     const LIMPAR = "Limpar";
     const ARGUMENTOS_DA_ROTA = "arguments";
     const TEXTO_ERRO_FETCH_CLUBE = "Clube não encontrado";
+    const DETALHES = "detalhes"
 
-    return Base.extend("cod3rsgrowth.webapp.controller.TelaCriar", {
+    return Base.extend("cod3rsgrowth.webapp.clube.formulario.TelaCriar", {
         formatter: Formatter,
 
         onInit: function () {
@@ -269,9 +270,9 @@ sap.ui.define([
                 await ClubeServico.editarClube(dadosDaCriacao, idClube);
                 MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
             } else {
-                await ClubeServico.criarClube(dadosDaCriacao);
+                let resposta = await ClubeServico.criarClube(dadosDaCriacao);
                 MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
-                this._resetarItems();
+                this._navegarPara(DETALHES, { idClube: resposta});
             }
         },
 

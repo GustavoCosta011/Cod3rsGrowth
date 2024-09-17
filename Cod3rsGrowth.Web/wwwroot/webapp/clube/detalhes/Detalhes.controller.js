@@ -1,8 +1,8 @@
 sap.ui.define([
-	"./Base",
-    "../servico/ClubeServico",
-    "../servico/JogadorServico",
-    "../formatter",
+	"../../common/Base",
+    "../../common/servico/ClubeServico",
+    "../../common/servico/JogadorServico",
+    "../../models/formatter",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageToast"
@@ -45,7 +45,7 @@ sap.ui.define([
     const CHAVE_IDADE = "idade";
     const ID_DO_BOTAO_CRIAR = "BotaoCriarJogador"
 
-	return Base.extend("cod3rsgrowth.webapp.controller.Detalhes", {
+	return Base.extend("cod3rsgrowth.webapp.clube.detalhes.Detalhes", {
         formatter : Formatter,
 
         onInit: function () {
@@ -146,7 +146,7 @@ sap.ui.define([
                 }
             
                 if (!this.oDialog) {
-                    this.oDialog = await this.loadFragment({ name: "cod3rsgrowth.webapp.view.CriarJogador" });
+                    this.oDialog = await this.loadFragment({ name: "cod3rsgrowth.webapp.jogador.CriarJogador" });
                 }             
                 this.oDialog.open();
             });            

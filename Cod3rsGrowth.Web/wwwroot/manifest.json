@@ -21,7 +21,7 @@
         "rootView": {
             "id": "app",
             "type": "XML",
-            "viewName": "cod3rsgrowth.webapp.view.App"
+            "viewName": "cod3rsgrowth.webapp.App"
         },
         "models": {
             "i18n": {
@@ -46,7 +46,7 @@
         "resources": {
             "css": [
                 {
-                    "uri": "webapp/css/style.css"
+                    "uri": "css/style.css"
                 }
             ]
         },
@@ -66,10 +66,10 @@
                 "routerClass": "sap.m.routing.Router",
                 "type": "View",
                 "viewType": "XML",
-                "path": "cod3rsgrowth.webapp.view",
+                "path": "cod3rsgrowth.webapp",
                 "controlId": "app",
                 "controlAggregation": "pages",
-                "transition": "slide",
+                "transition": "fade",
                 "bypassed": {
                     "target": "notFound"
                 },
@@ -103,26 +103,26 @@
             ],
             "targets": {
                 "home": {
-					"viewName": "Home",
+					"viewName": "home.Home",
 					"viewLevel": 1
                 },
                 "notFound": {
-					"viewName": "NotFound"
+					"viewName": "notFound.NotFound"
                 },
                 "clubes": {
-					"viewName": "ListaDeClubes",
+					"viewName": "clube.lista.ListaDeClubes",
 					"viewLevel": 2
                 },
                 "criarClube": {
-					"viewName": "TelaCriar",
+					"viewName": "clube.formulario.TelaCriar",
 					"viewLevel": 3
                 },
                 "detalhesClube":{
-                    "viewName": "Detalhes",
+                    "viewName": "clube.detalhes.Detalhes",
                     "viewLevel":3
                 },
                 "editarClube": {
-                    "viewName": "TelaCriar",
+                    "viewName": "clube.formulario.TelaCriar",
                     "viewLevel": 4
                 }
             }

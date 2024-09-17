@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="cod3rsgrowth.webapp.controller.Detalhes"
+    controllerName="cod3rsgrowth.webapp.clube.detalhes.Detalhes"
     xmlns:m="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.uxap"
@@ -27,7 +27,7 @@
 
                     <snappedHeading>
                         <m:FlexBox fitContainer="true" alignItems="Center">
-                            <m:Avatar class="sapUiSmallMarginEnd" src="./webapp/Imagens/EscudoClube.jpg" displaySize="L" />
+                            <m:Avatar class="sapUiSmallMarginEnd" src="../../../imagens/EscudoClube.jpg" displaySize="L" />
                             <m:Title title="{i18n>Page.Detalhes.Nome.Titulo}" text="{clube>/nome}" wrapping="true"/>
                         </m:FlexBox>
                     </snappedHeading>

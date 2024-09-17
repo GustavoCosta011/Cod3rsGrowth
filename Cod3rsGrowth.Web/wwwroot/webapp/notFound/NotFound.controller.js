@@ -1,5 +1,5 @@
 sap.ui.define([
-   "./Base",
+   "../common/Base",
    "sap/m/MessageBox"
 
  ], function (Base, MessageBox) {
@@ -7,7 +7,7 @@ sap.ui.define([
     const DESTINO_VOLTAR = '';
     const TITULO_ERRO = "Erro";
 
-    return Base.extend("cod3rsgrowth.webapp.controller.NotFound", {
+    return Base.extend("cod3rsgrowth.webapp.notFound.NotFound", {
          aoClivarEmVoltar: function(){
             this._exibirEspera(async () =>{
                this._navegarPara(DESTINO_VOLTAR);
