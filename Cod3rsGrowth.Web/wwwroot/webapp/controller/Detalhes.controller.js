@@ -12,7 +12,6 @@ sap.ui.define([
 
     const BARRA = "/";
     const CHAVE_CLUBE = "clube";
-    const NOME_MODELO_CLUBE = "clube";
     const ROTA_DE_DETALHES = "detalhes";
     const ARGUMENTOS_DA_ROTA = "arguments";
     const DESTINO_VOLTAR = 'clubes';
@@ -22,7 +21,6 @@ sap.ui.define([
     const PERGUNTA_MESSAGE_BOX_JOGADOR = "Deseja excluir este jogador?";
     const TITULO_CONFIRMAR = "Confirme";
     const NOME_MODELO_JOGADORES = "jogadores";
-    const NOME_MODELO_JOGADOR = "jogador";
     const CHAVE_NOME = "nome";
     const CHAVE_DATADENASCIMENTO = "dataDeNascimento";
     const CHAVE_ALTURA = "altura";
@@ -57,16 +55,18 @@ sap.ui.define([
         },
         aoCoincidirRota: function(evento) {
             this._exibirEspera(async () => {
-                this._carregarModelo();
+                this._carregarModeloJogador();
                 const argumentos = evento.getParameter(ARGUMENTOS_DA_ROTA);
                 await this._carregarClube(argumentos.idClube);
                 await this._carregarElencoLista();
+
+                console.log(this._modeloClube())
             });
         },
 
         _atualizarLista: async function(){
             this._exibirEspera(async () => {
-                const clube = this._modelo(NOME_MODELO_CLUBE).getData();
+                const clube = this._modeloClube().getData();
                 await this._carregarClube(clube.id);
                 await this._carregarElencoLista();
             });
@@ -80,7 +80,6 @@ sap.ui.define([
 
         _carregarElencoLista: async function(){
             let jogadores = await this._carregarElenco();
-            console.log(jogadores)
             let oModel = new JSONModel(jogadores);
             this._modeloJogadores(oModel);
         },
@@ -91,7 +90,7 @@ sap.ui.define([
 
         aoClicarEditar: function() {
             this._exibirEspera(() => {
-                this._navegarPara(DESTINO_EDITAR, { idClube: this._modelo(NOME_MODELO_CLUBE).getData().id });
+                this._navegarPara(DESTINO_EDITAR, { idClube: this._modeloClube().getData().id });
             });
         },
 
@@ -113,7 +112,7 @@ sap.ui.define([
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     onClose: async (oAction) => {
                         if (oAction === MessageBox.Action.YES) {
-                            const idDoClube = this._modelo(NOME_MODELO_CLUBE).getData().id;
+                            const idDoClube = this._modeloClube().getData().id;
                             await ClubeServico.deletarClube(idDoClube);
                             this._navegarPara(DESTINO_VOLTAR);
                         }
@@ -122,7 +121,7 @@ sap.ui.define([
             });
         },
 
-        _carregarModelo: function() {
+        _carregarModeloJogador: function() {
             const JogadorModelo = new JSONModel({
                 "nome": "",
                 "idClube": null,
@@ -155,7 +154,7 @@ sap.ui.define([
 
         aoFecharModal: function() {
             this._exibirEspera(() => {
-                this._carregarModelo();
+                this._carregarModeloJogador();
                 this.oDialog.close();
             });
         },
@@ -223,10 +222,11 @@ sap.ui.define([
         aoSalvarJogador: function() {
             this._exibirEspera(async () => {
                 if (!this._validarCamposPreenchidos()) return;
-                let id = this._modelo(NOME_MODELO_JOGADOR).getData().id; 
+                let id = this._modeloJogador().getData().id; 
                 this._SalvarDados(id);
                 let DadosDaCriação = this._carregarArraydeDados(this.DadosCriacao);
                 let hash = this._getRouter().getHashChanger().getHash().split(BARRA);
+                console.log(DadosDaCriação)
 
                 await this._criarOuEditarJogador(hash, DadosDaCriação);
             });
@@ -251,9 +251,9 @@ sap.ui.define([
         },
 
         _criarOuEditarJogador: async function(hash, DadosDaCriação){
-            let id = this._modelo(NOME_MODELO_JOGADOR).getData().id;  
+            let id = this._modeloJogador().getData().id;  
             if(id){
-                let idJogador = this._modelo(NOME_MODELO_JOGADOR).getData().id;   
+                let idJogador = this._modeloJogador().getData().id;   
                 await JogadorServico.editarJogador(DadosDaCriação, idJogador)
                 MessageToast.show(MENSAGEM_SUCESSO_NOME_MODELO_JOGADOR_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
                 await this._atualizarLista();
@@ -273,7 +273,7 @@ sap.ui.define([
         },
 
         _SalvarDados:function(){
-            const modelo = this._modelo(NOME_MODELO_JOGADOR).getData();
+            const modelo = this._modeloJogador().getData();
             let clube = this.byId(ID_CLUBECRIACAO).getValue()
             let data = this.formatter.formatDateReverse(this.byId(ID_CALENDARIOCRIAR).getDateValue()); 
             let hoje = new Date();

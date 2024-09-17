@@ -47,6 +47,7 @@ sap.ui.define([
 
       // Assert
       Then.naPaginaDeDetalhes.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("O nome deve ter entre 3 e 60 caracteres!");
+      When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Fechar"); 
 
       Then.iTeardownMyApp();
     });
@@ -66,6 +67,7 @@ sap.ui.define([
 
       // Assert
       Then.naPaginaDeDetalhes.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("A data deve ser anterior ou igual à data atual!");
+      When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Fechar"); 
 
       Then.iTeardownMyApp();
     });

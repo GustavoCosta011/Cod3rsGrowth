@@ -19,12 +19,18 @@ sap.ui.define([
     Opa5.createPageObjects({
         naPaginaDeDetalhes: {
             actions: {
-                DevePressionarOBotãoNavBack: function(){
+                DevePressionarOBotãoNavBack: function() {
                     return this.waitFor({
                         controlType: "sap.m.Button",
                         viewName: nomeDaView,
+                        matchers: function(botao) {
+                            return botao.getId().includes("navButton");
+                        },
                         actions: new Press(),
-                        errorMessage: "Não foi possivel encontrar o botão de voltar"
+                        success: function() {
+                            Opa5.assert.ok(true, "O botão de voltar foi pressionado.");
+                        },
+                        errorMessage: "Não foi possível encontrar o botão de voltar"
                     });
                 },  
                 aoClicarNoBotaoDeletar: function(){

@@ -18,20 +18,20 @@ sap.ui.define([
     });
 
     opaQUnit("Deve Verificar  se as mensagens de erro aparecem nos inputs", function (Given, When, Then) {
-      // Arrange
-      Given.iStartMyApp({hash : "clubes/criar"});
-      //Act 
-      When.naPaginaDeCriacao.aoClicarEmSalvarClube();
+        // Arrange
+        Given.iStartMyApp({hash : "clubes/criar"});
+        //Act 
+        When.naPaginaDeCriacao.aoClicarEmSalvarClube();
 
-      // Assert
-      Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaNome();
-      Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaFundacao();
-      Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaEstadio();
-      Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaEstado();
-      Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaCobertura();
+        // Assert
+        Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaNome();
+        Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaFundacao();
+        Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaEstadio();
+        Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaEstado();
+        Then.naPaginaDeCriacao.DeveVerificarMensagemDeErroParaCobertura();
 
 
-      Then.iTeardownMyApp();
+        Then.iTeardownMyApp();
     });
 
     opaQUnit("Deve verificar se o Erro do nome aparece na Caixa de Dialogo", function (Given, When, Then) {
@@ -48,6 +48,7 @@ sap.ui.define([
 
       // Assert
       Then.naPaginaDeCriacao.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("O nome deve ter entre 3 e 60 caracteres!");
+      When.naPaginaDeCriacao.aoClicarNoBotaoDoDialogo("Fechar"); 
 
       Then.iTeardownMyApp();
     });
@@ -66,6 +67,7 @@ sap.ui.define([
 
       // Assert
       Then.naPaginaDeCriacao.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("A data deve ser anterior ou igual à data atual!");
+      When.naPaginaDeCriacao.aoClicarNoBotaoDoDialogo("Fechar"); 
 
       Then.iTeardownMyApp();
     });
@@ -84,6 +86,7 @@ sap.ui.define([
 
       // Assert
       Then.naPaginaDeCriacao.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("O nome do estádio deve ter entre 3 e 60 caracteres!");
+      When.naPaginaDeCriacao.aoClicarNoBotaoDoDialogo("Fechar"); 
 
       Then.iTeardownMyApp();
     });
@@ -101,6 +104,7 @@ sap.ui.define([
 
       // Assert
       Then.naPaginaDeCriacao.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("Campo 'Cobertura Antichuva' deve ser preenchido!");
+      When.naPaginaDeCriacao.aoClicarNoBotaoDoDialogo("Fechar"); 
 
       Then.iTeardownMyApp();
     });

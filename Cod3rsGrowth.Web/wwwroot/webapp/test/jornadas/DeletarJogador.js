@@ -9,7 +9,7 @@ sap.ui.define([
   
     opaQUnit("Deve deletar o jogador", function (Given, When, Then) {
         // Arrange
-        Given.iStartMyApp({hash : "clubes/detalhes/1"});
+        Given.iStartMyApp({hash : "clubes/detalhes/9"});
 
         //Act
         When.naPaginaDeDetalhes.aoClicarNoBotaoDeletarJogador();

@@ -28,17 +28,18 @@ sap.ui.define([
     });
 
     opaQUnit("Deve verificar se o Erro do nome aparece na Caixa de Dialogo", function (Given, When, Then) {
-      // Arrange
-      Given.iStartMyApp({hash : "clubes/detalhes/1"});
+        // Arrange
+        Given.iStartMyApp({hash : "clubes/detalhes/1"});
 
-      //Act 
-      When.naPaginaDeDetalhes.aoClicarNoBotaoDeEditar();
-      When.naPaginaDeDetalhes.aoInserirNome("E");
-      When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Salvar");
-      // Assert
-      Then.naPaginaDeDetalhes.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("O nome deve ter entre 3 e 60 caracteres!");
+        //Act 
+        When.naPaginaDeDetalhes.aoClicarNoBotaoDeEditar();
+        When.naPaginaDeDetalhes.aoInserirNome("E");
+        When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Salvar");
+        // Assert
+        Then.naPaginaDeDetalhes.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("O nome deve ter entre 3 e 60 caracteres!");
+        When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Fechar"); 
 
-      Then.iTeardownMyApp();
+        Then.iTeardownMyApp();
     });
 
     opaQUnit("Deve verificar se o Erro da Data de Nascimento aparece na Caixa de Dialogo", function (Given, When, Then) {
@@ -52,6 +53,7 @@ sap.ui.define([
 
       // Assert
       Then.naPaginaDeDetalhes.DeveVerificarSeOErroEstaExibidoNaCaixaDeDialogo("A data deve ser anterior ou igual à data atual!");
+      When.naPaginaDeDetalhes.aoClicarNoBotaoDoDialogo("Fechar"); 
 
       Then.iTeardownMyApp();
     });

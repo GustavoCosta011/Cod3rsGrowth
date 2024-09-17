@@ -11,7 +11,7 @@
                 </VBox>
                 <Label text="{i18n>Page.Criar.Nome}" required="true"/>
                 <Input
-                    id= "InputNome"
+                    id= "InputNomeCriar"
                     width="100%"
                     placeholder="{i18n>Page.Criar.Nome.Placeholder}"
                     change="aoInserirNome"

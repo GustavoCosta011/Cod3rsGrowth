@@ -68,6 +68,22 @@ namespace Cod3rsGrowth.Dominio.Modelos
             public bool? CoberturaAntiChuva { get; set; }
 
             public List<int>? Elenco { get; set; }
+        
+            public ClubeDto(int id, string nome, DateTime fundacao, string? estadio, string estado,EstadosEnum estadoInt,bool coberturaAntiChuva, List<int>? elenco)
+            {
+                Id = id;
+                Nome = nome;
+                Fundacao = fundacao;
+                Estadio = estadio;
+                Estado = estado;
+                EstadoInt = estadoInt;
+                CoberturaAntiChuva = coberturaAntiChuva;
+                Elenco = elenco;
+            }
+            
+            public ClubeDto() { }
     }
+
+    
 }
 

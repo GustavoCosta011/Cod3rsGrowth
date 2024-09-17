@@ -36,7 +36,7 @@ sap.ui.define([
                     this._resetarItems();
                 }
             }
-			else { 
+			else {
                 this._getRouter().navTo(NOME_DA_ROTA_HOME);
             }
         },
@@ -90,16 +90,25 @@ sap.ui.define([
             });
         },
 
-        _modeloClube: function (modelo) {
-            return this._modelo(NOME_MODELO_CLUBE, modelo);
+        _modeloClube: function (modelo = null) {
+            if(modelo){
+                return this._modelo(NOME_MODELO_CLUBE, modelo);
+            }
+            return this._modelo(NOME_MODELO_CLUBE);
         },
 
-        _modeloJogador: function (modelo) {
-            return this._modelo(NOME_MODELO_JOGADOR, modelo);
+        _modeloJogador: function (modelo = null) {
+            if(modelo){
+                return this._modelo(NOME_MODELO_JOGADOR, modelo);
+            }
+            return this._modelo(NOME_MODELO_JOGADOR);
         },
 
-        _modeloJogadores: function (modelo) {
-            return this._modelo(NOME_MODELO_JOGADORES, modelo);
+        _modeloJogadores: function (modelo = null) {
+            if(modelo){
+                return this._modelo(NOME_MODELO_JOGADORES, modelo);
+            }
+            return this._modelo(NOME_MODELO_JOGADORES);
         },
     });
 });

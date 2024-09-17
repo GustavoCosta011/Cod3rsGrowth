@@ -20,7 +20,7 @@ sap.ui.define([
     const CHAVE_ESTADO = "estado";
     const CHAVE_COBERTURA = "coberturaAntiChuva";
     const PARAMETRO_SELECTEDINDEX = "selectedIndex";
-    const INPUTNOME = "InputNome";
+    const INPUTNOME = "InputNomeCriar";
     const CALENDARIOCRIAR = "CalendarioCriar";
     const INPUTESTADIO = "InputEstadio";
     const ESTADIOCRIACAO = "EstadoCriacao";
@@ -55,26 +55,28 @@ sap.ui.define([
         aoCoincidirRotaEditar: async function(evento){
             this._exibirEspera(async () => {
                 await this._aoAdiquirirClube(evento);
-                this._salvarModelo();
             });
         },
         
         _aoAdiquirirClube: async function(evento){
             this._exibirEspera(async () => {
+
                 const argumento = evento.getParameter(ARGUMENTOS_DA_ROTA);
     
                 await ClubeServico.buscarClubePorId(argumento.idClube)
                 .then((resposta) => {
-                    this._modeloClube(resposta);
+                    const modelo = new JSONModel(resposta)
+                    this._modeloClube(modelo);
                 })
                 .catch(() => {
                     MessageBox.error(TEXTO_ERRO_FETCH_CLUBE, {title : TITULO_ERRO});
                 });  
+                this._salvarModelo();
             });
         },
 
         _salvarModelo: function(){
-            const modelo = this._modeloCLube().getData();
+            const modelo = this._modeloClube().getData();
 
             this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_NOME);
             this.DadosCriacao.push({ key: CHAVE_NOME, value: modelo.nome});

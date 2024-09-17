@@ -3,24 +3,31 @@ using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Test.Singletons.Singleton;
 
 
-
-namespace Cod3rsGrowth.Test.RepositoriosTest
+namespace Cod3rsGrowth.Test.RepositoriosTeste
 {
-    public class RepositoryTestClube : IRepositoryData<Clube> 
+    public class RepositoryTesteClube : IRepositoryData<Clube>
     {
         public List<Clube>? ListaDeClubes = ClasseSingleton.Instance.Clubes;
         public Clube? clube;
 
-        public List<Clube> ObterTodos()
+        public List<Clube> ObterTodos(Filtro? filtro)
         {
-            return ListaDeClubes;
+            if (filtro == null) return ListaDeClubes;
+            var clubes = ListaDeClubes.AsQueryable();
+
+            if (!string.IsNullOrEmpty(filtro.Nome)) clubes = clubes.Where(clube => clube.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+            if (filtro.Estado.HasValue) clubes = clubes.Where(clube => clube.Estado == filtro.Estado);
+            if (filtro.DataPiso.HasValue) clubes = clubes.Where(clube => clube.Fundacao >= filtro.DataPiso);
+            if (filtro.DataTeto.HasValue) clubes = clubes.Where(clube => clube.Fundacao <= filtro.DataTeto);
+
+            return clubes.ToList();
         }
 
         public Clube ObterPorId(int id)
         {
-           return ListaDeClubes.Find(clube => clube.Id == id) ?? throw new Exception("Clube inexistente!");
+            return ListaDeClubes.Find(clube => clube.Id == id) ?? throw new Exception("Clube inexistente!");
         }
-            
+
         public int Criar(Clube clube)
         {
             int IncrementoCriar = 1;
@@ -32,13 +39,13 @@ namespace Cod3rsGrowth.Test.RepositoriosTest
 
         }
 
-        public void Editar(int idDoEdit, Clube clube)
+        public void Editar(Clube clube)
         {
-            
-            var ClubeAEditar = ObterPorId(idDoEdit);
+
+            var ClubeAEditar = ObterPorId(clube.Id);
 
             ClubeAEditar.Nome = clube.Nome;
-            
+
             ClubeAEditar.Fundacao = clube.Fundacao;
 
             ClubeAEditar.Estadio = clube.Estadio;
@@ -58,9 +65,5 @@ namespace Cod3rsGrowth.Test.RepositoriosTest
             ListaDeClubes.Remove(clubeARemover);
         }
 
-        public List<Clube> ObterTodos(string serch)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

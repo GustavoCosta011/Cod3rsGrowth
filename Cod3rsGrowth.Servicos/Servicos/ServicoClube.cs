@@ -30,6 +30,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
                     Id = clube.Id,
                     Nome = clube.Nome,
                     Fundacao = clube.Fundacao.Date,
+                    EstadoInt = clube.Estado,
                     Estadio = clube.Estadio,
                     Estado = PegarODisplayName(clube.Estado),
                     CoberturaAntiChuva = clube.CoberturaAntiChuva,
@@ -59,7 +60,7 @@ namespace Cod3rsGrowth.Servicos.Servicos
             ValidationResult resultado = validadorClube.Validate(clube);
             if (!resultado.IsValid)
             {
-                throw new FluentValidation.ValidationException(resultado.Errors);
+                throw new ValidationException(resultado.Errors);
             }
 
             int IdNovoClube = repositoryClube.Criar(clube);

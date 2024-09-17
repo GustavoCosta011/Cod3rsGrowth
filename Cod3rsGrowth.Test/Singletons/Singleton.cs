@@ -14,12 +14,12 @@ using Cod3rsGrowth.Dominio.Modelos;
             {
                 Jogadores = new List<Jogador>()
                 {
-                     new(10, "Gabi", 27, DateTime.Parse("30-08-1996"), 1.78, 68.0),
-                     new(11, "PedroQuexada", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0),
-                     new(12, "Souza", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
-                     new(13, "Halandinho", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
-                     new(14, "Penaldo", 33, DateTime.Parse("30-09-1991"), 1.77, 89.0),
-                     new(15, "Pepssi", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0),
+                     new(10, "Gabi",001, "Flamengp", 27, DateTime.Parse("30-08-1996"), 1.78, 68.0),
+                     new(11, "PedroQuexada",001, "Flamengo", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0),
+                     new(12, "Souza",001, "Flamengo", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
+                     new(13, "Halandinho",002, "FC Rondonia", 17, DateTime.Parse("30-08-2007"), 1.75, 76.0),
+                     new(14, "Penaldo",002, "FC Rondonia", 33, DateTime.Parse("30-09-1991"), 1.77, 89.0),
+                     new(15, "Pepssi",002, "FC Rondonia", 30, DateTime.Parse("17-10-1994"), 1.90, 77.0),
                 };
                 Clubes = new List<Clube>()
                 {

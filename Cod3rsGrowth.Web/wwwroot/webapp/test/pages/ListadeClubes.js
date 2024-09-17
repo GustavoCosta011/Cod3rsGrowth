@@ -103,14 +103,13 @@ sap.ui.define([
                         success: function(oList) {
                             var aItems = oList.getItems();
                             var bFound = aItems.some(function(oItem) {
-                                var oContext = oItem.getBindingContext();
+                                var oContext = oItem.getBindingContext("clubes");
                                 if (oContext) {
                                     var sNome = oContext.getProperty("nome");
                                     return sNome.includes(filtroNome);
                                 }
                                 return false;
                             });
-
                             Opa5.assert.ok(bFound, "A lista contém o nome: " + filtroNome);
                         },
                         errorMessage: "A lista não contém o nome: " + filtroNome
@@ -123,7 +122,7 @@ sap.ui.define([
                         success: function(oList) {
                             var aItems = oList.getItems();
                             var bFound = aItems.some(function(oItem) {
-                                var oContext = oItem.getBindingContext();
+                                var oContext = oItem.getBindingContext("clubes");
                                 if (oContext) {
                                     var sEstado = oContext.getProperty("estado");
                                     return sEstado.includes(estado);
@@ -143,7 +142,7 @@ sap.ui.define([
                         success: function(oList) {
                             var aItems = oList.getItems();
                             var bFound = aItems.some(function(oItem) {
-                                var oContext = oItem.getBindingContext();
+                                var oContext = oItem.getBindingContext("clubes");
                                 if (oContext) {
                                     var sData = oContext.getProperty("fundacao");
                                     if (sData) {

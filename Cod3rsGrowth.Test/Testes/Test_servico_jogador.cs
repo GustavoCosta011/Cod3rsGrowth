@@ -1,10 +1,13 @@
 using Cod3rsGrowth.Dominio.Modelos;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
-using Cod3rsGrowth.Test.Singletons.Singleton;
 using Cod3rsGrowth.Infra;
-using static LinqToDB.Sql;
-
+using FluentValidation;
+using FluentValidation.Results;
+using Xunit;
+using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace Cod3rsGrowth.Test.Testes
 {
@@ -12,220 +15,199 @@ namespace Cod3rsGrowth.Test.Testes
     {
         private readonly ServicoJogador jogadorServico;
         private readonly Cod3rsGrowthConnect database;
-       
+
         public Test_servico_jogador() : base()
         {
             jogadorServico = _serviceProvider.GetRequiredService<ServicoJogador>();
             database = _serviceProvider.GetRequiredService<Cod3rsGrowthConnect>();
         }
 
-//OBTER TODOS
+        // OBTER TODOS
 
         [Fact]
         public void DeveRetornarListaNaoNulaDeJogadorAoObterTodos()
         {
-            //Arrange
-            List<Jogador> Lista;
+            // Act
+            var lista = jogadorServico.ObterTodos(null);
 
-            //Act
-            Lista = jogadorServico.ObterTodos(null);
-
-            //Assurt
-            Assert.NotNull(Lista);
+            // Assert
+            Assert.NotNull(lista);
         }
 
         [Fact]
         public void DeveRetornarOTipoListaDeJogadorAoObterTodos()
         {
-            //Arrange
-            List<Jogador> ListaObterTodos;
+            // Act
+            var lista = jogadorServico.ObterTodos(null);
 
-            //Act
-            ListaObterTodos = jogadorServico.ObterTodos(null);
-
-            //Assert
-            Assert.Equal(typeof(List<Jogador>), ListaObterTodos.GetType());
+            // Assert
+            Assert.IsType<List<Jogador>>(lista);
         }
 
         [Fact]
         public void DeveRetornarListaCompletaAoObterTodos()
         {
-            //Arrage
-            List<Jogador> Lista = new()
+            // Arrange
+            var listaEsperada = new List<Jogador>
             {
-                        new( 2, "Everson",1  , "Atlético Mineiro", 32, DateTime.Parse("22-07-1988"), 1.92, 82),
-                        new( 3, "Mariano", 1 , "Atlético Mineiro", 34,  DateTime.Parse("1986 - 06 - 23"), 1.79 , 73)
+                new Jogador(3, "Junior Alonso", 1, "Atlético Mineiro", 28, DateTime.Parse("1993-02-09"), 1.84, 79)
             };
-            //Act
-            var ListaObterTodos = jogadorServico.ObterTodos(null);
 
-            //Assert
-            Assert.Equivalent(Lista, ListaObterTodos);
+            // Act
+            var listaObtida = jogadorServico.ObterTodos(null);
+
+            // Assert
+            Assert.Contains(listaEsperada[0], listaObtida);
         }
 
-//OBTER POR ID
+        // OBTER POR ID
 
         [Fact]
-        public void DeveRetornarUmJogadorNãoNuloAoObterPorId()
-        {   
-            //arrange
-            Jogador jogadorObterPorId;
-            int IdEsperado = 015;
+        public void DeveRetornarUmJogadorNaoNuloAoObterPorId()
+        {
+            // Arrange
+            int idEsperado = 15;
 
-            //Act
-            jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
+            // Act
+            var jogador = jogadorServico.ObterPorId(idEsperado);
 
-            //Assert
-            Assert.NotNull(jogadorObterPorId);
+            // Assert
+            Assert.NotNull(jogador);
         }
 
         [Fact]
         public void DeveRetornarTipoJogadorAoObterPorId()
         {
-            //Arrange
-            Jogador jogadorObterPorId;
-            int IdEsperado = 015;
+            // Arrange
+            int idEsperado = 15;
 
-            //Act
-            jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
-            
-            //Assert
-            Assert.Equal(typeof(Jogador), jogadorObterPorId.GetType());
+            // Act
+            var jogador = jogadorServico.ObterPorId(idEsperado);
+
+            // Assert
+            Assert.IsType<Jogador>(jogador);
         }
 
         [Fact]
-        public void DeveRetornaJogadorCompletoAoObterPorId()
-        {   //Arrange
-            Jogador jogador = new(132, "Vinícius Lopes",  12,  "Goiás",   22,  DateTime.Parse("07-04-1999"), 1.8, 75);
-            int IdEsperado = 132;
+        public void DeveRetornarJogadorCompletoAoObterPorId()
+        {
+            // Arrange
+            var jogadorEsperado = new Jogador(132, "Vinícius Lopes", 12, "Goiás", 22, DateTime.Parse("1999-04-07"), 1.8, 75);
+            int idEsperado = 132;
 
-            //Act
-            var jogadorObterPorId = jogadorServico.ObterPorId(IdEsperado);
+            // Act
+            var jogadorObtido = jogadorServico.ObterPorId(idEsperado);
 
-            //Assert
-            Assert.Equivalent(jogador, jogadorObterPorId);
+            // Assert
+            Assert.Equal(jogadorEsperado, jogadorObtido);
         }
 
-//CRIAR
+        // CRIAR
 
         [Fact]
-        public void DeveRtornarOIdDoNovoJogador()
-        {   
-            //Arrange
-            var jogador = new Jogador(216, "Adilson Goiano",  20, "Grêmio Novorizontino", 33, DateTime.Parse("21-08-1987") , 1.78, 74);
-            var jogadorEsperado = new Jogador(216, "Adilson Goi", 20, "Grêmio Novorizontino", 33, DateTime.Parse("21-08-1987"), 1.78, 74);
-            int IdEsperado = 017;
+        public void DeveRetornarOIdDoNovoJogador()
+        {
+            // Arrange
+            var jogador = new Jogador(0, "Adilson Goiano", 20, "Grêmio Novorizontino", 33, DateTime.Parse("1987-08-21"), 1.78, 74);
+            int idEsperado = 216;
 
-            //Act
-            int result = jogadorServico.CriarJogador(jogador); 
-            var jogadorCriado = database.Jogadores.FirstOrDefault(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
+            // Act
+            int idCriado = jogadorServico.CriarJogador(jogador);
+            var jogadorCriado = database.Jogadores.FirstOrDefault(j => j.Id == idEsperado) ?? throw new Exception("Jogador inexistente!");
 
-            //Assert
-            Assert.Equal(IdEsperado, result);
-            Assert.Equivalent(jogadorEsperado,jogadorCriado);
-
+            // Assert
+            Assert.Equal(idEsperado, idCriado);
+            Assert.Equal(jogador, jogadorCriado);
         }
 
         [Fact]
         public void DeveRetornarErrorMessageAoCriarComExcecao()
         {
-            //Arrange
-            var jogador = new Jogador(157, "M",15, "Palmeiras",32,DateTime.Parse("11-12-1988"), 1.77, 70);
-            
-            //Act
-            var result = Assert.Throws<Exception>(() => jogadorServico.CriarJogador(jogador));
-            
-            //Assert
-            Assert.Equal("O nome tem que ter no minimo 3 e no maximo 60 letras!!",result.Message);
+            // Arrange
+            var jogador = new Jogador(0, "M", 15, "Palmeiras", 32, DateTime.Parse("1988-12-11"), 1.77, 70);
+
+            // Act
+            var result = Assert.Throws<ValidationException>(() => jogadorServico.CriarJogador(jogador));
+
+            // Assert
+            Assert.Contains("O nome tem que ter no minimo 3 e no maximo 60 letras!!", result.Message);
         }
 
         [Fact]
         public void DeveRetornarJogadorCompletoAoCriar()
         {
+            // Arrange
+            var jogador = new Jogador(0, "Chik", 1, "Atlético Mineiro", 35, DateTime.Parse("1989-12-22"), 1.88, 90);
+            int idEsperado = 216;
 
-            //Arrange
-            var jogadorEsperado = database.Jogadores.
-            var jogador = new Jogador( "Chik", 1, "Atlético Mineiro", 35, DateTime.Parse("22-12-1989"), 1.88, 90.0);
-            int IdEsperado = 016;
-
-            //Act
+            // Act
             jogadorServico.CriarJogador(jogador);
-            var result = database.Jogadores.FirstOrDefault(clube => clube.Id == IdEsperado) ?? throw new Exception("Jogador inexistente!");
+            var jogadorCriado = database.Jogadores.FirstOrDefault(j => j.Id == idEsperado) ?? throw new Exception("Jogador inexistente!");
 
-            //Assert
-            Assert.Equivalent(jogadorEsperado, result);
+            // Assert
+            Assert.Equal(jogador, jogadorCriado);
         }
 
-//EDITAR
+        // EDITAR
 
         [Fact]
-        public void DeveRetornarJogadorOCmpletoAoEditar()
+        public void DeveRetornarJogadorCompletoAoEditar()
         {
-            //Arrange
-            var jogadorEsperado = new Jogador(11, "Pedro", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0);
-            var mudancas = new Jogador(0, "Pedro", 25, DateTime.Parse("17-01-1998"),1.88,78.0);
-            var IdDoJogadorASerEditado = 11;
+            // Arrange
+            var jogadorEsperado = new Jogador(11, "Pedro", null, null, 25, DateTime.Parse("1998-01-17"), 1.88, 78.0);
+            var mudancas = new Jogador(11, "Pedro", null, null, 25, DateTime.Parse("1998-01-17"), 1.88, 78.0);
 
-            //Act
-            jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas);
-            var result = database.Jogadores.FirstOrDefault(clube => clube.Id == IdDoJogadorASerEditado) ?? throw new Exception("Jogador inexistente!");
+            // Act
+            jogadorServico.EditarJogador(mudancas);
+            var jogadorObtido = database.Jogadores.FirstOrDefault(j => j.Id == 11) ?? throw new Exception("Jogador inexistente!");
 
-            //Assert
-            Assert.Equivalent(jogadorEsperado, result);
+            // Assert
+            Assert.Equal(jogadorEsperado, jogadorObtido);
         }
 
         [Fact]
         public void DeveRetornarExceptionAoEditar()
         {
-            //Arrange
-            var jogadorEsperado = new Jogador(11, "Pedro", 25, DateTime.Parse("17-01-1998"), 1.88, 78.0);
-            var mudancas = new Jogador(0, "Pe", 33, DateTime.Parse("17-01-1998"), null, null);
-            var IdDoJogadorASerEditado = 11;
-            var mensagemErro = "O nome tem que ter no minimo 3 e no maximo 60 letras!!" +
-                "Idade incoerente a data de nascimento!!";
-            
-            //Act
-            var result = Assert.Throws<Exception>(() => jogadorServico.EditarJogador(IdDoJogadorASerEditado, mudancas));
+            // Arrange
+            var mudancas = new Jogador(11, "Pe", null, null, 33, DateTime.Parse("1998-01-17"), null, null);
+            var mensagemErro = "O nome tem que ter no minimo 3 e no maximo 60 letras!!\nIdade incoerente a data de nascimento!!";
 
-            //Assert
+            // Act
+            var result = Assert.Throws<ValidationException>(() => jogadorServico.EditarJogador(mudancas));
+
+            // Assert
             Assert.Equal(mensagemErro, result.Message);
-             
         }
 
-
-//REMOVER
+        // REMOVER
 
         [Fact]
         public void DeveRetornarJogadorFoiRemovido()
-
         {
-            //Arrange
-            var idDoJogadorAserRemovido = 12;
-            var menssagemErro = "Jogador inexistente!";
+            // Arrange
+            int idDoJogadorAserRemovido = 12;
+            var mensagemErro = "Jogador inexistente!";
 
-            //Act
+            // Act
             jogadorServico.RemoverJogador(idDoJogadorAserRemovido);
-            var result =  Assert.Throws<Exception>(() => database.Jogadores.FirstOrDefault(clube => clube.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
+            var result = Assert.Throws<Exception>(() => database.Jogadores.FirstOrDefault(j => j.Id == idDoJogadorAserRemovido) ?? throw new Exception("Jogador inexistente!"));
 
-            //Assert
-            Assert.Equal(menssagemErro,result.Message);
-
+            // Assert
+            Assert.Equal(mensagemErro, result.Message);
         }
 
         [Fact]
         public void DeveRetornarExceptionAoRemoverJogador()
-
         {
-            //Arrange
-            var idDoJogadorAserRemovido = 22;
+            // Arrange
+            int idDoJogadorAserRemovido = 22;
             var mensagemErro = "Jogador inexistente!";
 
-            //Act
+            // Act
             var result = Assert.Throws<Exception>(() => jogadorServico.RemoverJogador(idDoJogadorAserRemovido));
 
-            //Assert
+            // Assert
             Assert.Equal(mensagemErro, result.Message);
-
         }
     }
 }

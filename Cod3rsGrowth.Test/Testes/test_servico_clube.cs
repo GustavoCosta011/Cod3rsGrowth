@@ -3,27 +3,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Servicos.Servicos;
 using Cod3rsGrowth.Dominio.Enums;
 using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Test.Singletons.Singleton;
+using FluentValidation;
 
 namespace Cod3rsGrowth.Test.Testes
 {
     public class Test_servico_clube : Teste
     {
         private readonly ServicoClube clubeServico;
-        private readonly Cod3rsGrowthConnect database;
+        private readonly List<Clube> database;
 
         public Test_servico_clube() : base()
         {
             clubeServico = _serviceProvider.GetRequiredService<ServicoClube>();
-            database = _serviceProvider.GetRequiredService<Cod3rsGrowthConnect>();
+            database = ClasseSingleton.Instance.Clubes;
         }
 
-//OBTER TODOS
+        //OBTER TODOS
 
         [Fact]
         public void DeveRetornarListaNaoNulaDeClubesAoObterTodos()
         {
             //Arrange
-            List<Clube> ListaObterTodos;
+            List<ClubeDto> ListaObterTodos;
 
             //Act
             ListaObterTodos = clubeServico.ObterTodos(null);
@@ -36,38 +38,38 @@ namespace Cod3rsGrowth.Test.Testes
         public void DeveRetornarOTipoListaDeClubesAoObterTodos()
         {
             //Arrange
-            List<Clube> ListaObterTodos;
+            List<ClubeDto> ListaObterTodos;
 
             //Act
             ListaObterTodos = clubeServico.ObterTodos(null);
 
             //Assert
-            Assert.Equal(typeof(List<Clube>), ListaObterTodos.GetType());
+            Assert.Equal(typeof(List<ClubeDto>), ListaObterTodos.GetType());
         }
 
         [Fact]
         public void DeveRetornarListaCompletaAoObterTodos()
         {
-            ////Arrange
-            List<Clube> Lista = new()
+            //Arrange
+            List<ClubeDto> Lista = new()
             {
-                new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã",EstadosEnum.RJ, false,null)
+                new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã", "Rio de Janeiro",EstadosEnum.RJ, false,null)
             };
 
             //Act
             var ListaObterTodos = clubeServico.ObterTodos(null);
 
             //Assert
-            Assert.Equivalent(Lista,ListaObterTodos);
+            Assert.Equivalent(Lista, ListaObterTodos);
         }
 
-//OBTER POR ID
+        //OBTER POR ID
 
         [Fact]
         public void DeveRetornarUmClubeNãoNuloAoObterPorId()
         {
             //Arrange
-            Clube clubeObterPorId;
+            ClubeDto clubeObterPorId;
             int IdEsperado = 001;
 
             //Act
@@ -81,44 +83,44 @@ namespace Cod3rsGrowth.Test.Testes
         public void DeveRetornarTipoClubeAoObterPorId()
         {
             //Arrange
-            Clube clubeObterPorId;
+            ClubeDto clubeObterPorId;
             int IdEsperado = 001;
 
             //Act
             clubeObterPorId = clubeServico.ObterPorId(IdEsperado);
 
             //Assert
-            Assert.Equal(typeof(Clube), clubeObterPorId.GetType());
+            Assert.Equal(typeof(ClubeDto), clubeObterPorId.GetType());
         }
 
         [Fact]
         public void DeveRetornarClubeCompletoAoObterPorId()
         {
             //Arrange
-            Clube clube  = new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã", EstadosEnum.RJ, false, null);
+            ClubeDto clube = new(001, "Flamengo", DateTime.Parse("15-11-1895"), "Maracanã", "Rio de Janeiro", EstadosEnum.RJ, false, null);
             int IdEsperado = 001;
 
             //Act
             var clubeObterPorId = clubeServico.ObterPorId(IdEsperado);
 
             //Assert
-            Assert.Equivalent(clube,clubeObterPorId);
+            Assert.Equivalent(clube, clubeObterPorId);
         }
 
-//CRIAR
+        //CRIAR
 
         [Fact]
         public void DeveRetornarErrorMessageAoCriarComExcecao()
         {
             //Arrange
-            List<int> elenco = new(){12,13,14};
-            var clube = new Clube(0, "FC", DateTime.Parse("22-12-1950"), "Pimba Arena", EstadosEnum.TO, true, elenco );
+            List<int> elenco = new() { 12, 13, 14 };
+            var clube = new Clube(0, "FC", DateTime.Parse("22-12-1950"), "Pimba Arena", EstadosEnum.TO, true, elenco);
 
             //Act
-            var result = Assert.Throws<Exception>(() => clubeServico.CriarClube(clube));
+            var result = Assert.Throws<ValidationException>(() => clubeServico.CriarClube(clube));
 
             //Assert
-            Assert.Equal("O nome tem que ter no minimo 3 e no maximo 60 letras!!", result.Message);
+            Assert.Contains("O nome deve ter entre 3 e 60 caracteres!", result.Message);
         }
 
         [Fact]
@@ -131,27 +133,27 @@ namespace Cod3rsGrowth.Test.Testes
             int IdEsperado = 002;
             //Act
             clubeServico.CriarClube(clube);
-            var resultClube = database.Clubes.FirstOrDefault(clube => clube.Id == IdEsperado) ?? throw new Exception("Clube inexistente!");
+            var resultClube = database.FirstOrDefault(clube => clube.Id == IdEsperado) ?? throw new Exception("Clube inexistente!");
 
             //Assert
-            Assert.Equivalent(clubeesperado,resultClube);
+            Assert.Equivalent(clubeesperado, resultClube);
         }
 
-//EDITAR
+        //EDITAR
 
         [Fact]
         public void DeveRetornarClubeCompletoAoEditar()
         {
             //Arrange
             var clubeEsperado = new Clube(001, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO, true, null);
-            var mudancas = new Clube(0, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO,true,null);
+            var mudancas = new Clube(001, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO, true, null);
             var IdDoClubeASerEditado = 1;
 
             //Act
-            clubeServico.EditarClube(IdDoClubeASerEditado, mudancas);
-            var result = database.Clubes.FirstOrDefault(clube => clube.Id == IdDoClubeASerEditado) ?? throw new Exception("Clube inexistente!");
+            clubeServico.EditarClube(mudancas);
+            var result = database.FirstOrDefault(clube => clube.Id == IdDoClubeASerEditado) ?? throw new Exception("Clube inexistente!");
 
-            //Assert
+           // Assert
             Assert.Equivalent(clubeEsperado, result);
         }
 
@@ -161,19 +163,18 @@ namespace Cod3rsGrowth.Test.Testes
             //Arrange
             var clubeEsperado = new Clube(001, "Mengao", DateTime.Parse("17-01-2004"), "Maracanã", EstadosEnum.GO, true, null);
             var mudancas = new Clube(001, "Fl", DateTime.Parse("17-01-2025"), "Maracanã", EstadosEnum.GO, true, null);
-            var IdDoClubeASerEditado = 1;
-            var mensagemErro = "O nome tem que ter no minimo 3 e no maximo 60 letras!!" +
-                "A data deve ser anterior a atual!!";
+            var mensagemErro = "O nome deve ter entre 3 e 60 caracteres!";
+            var mensagemErro2 = "A data deve ser anterior ou igual à data atual!";
 
             //Act
-            var result = Assert.Throws<Exception>(() => clubeServico.EditarClube(IdDoClubeASerEditado, mudancas));
+            var result = Assert.Throws<ValidationException>(() => clubeServico.EditarClube(mudancas));
 
             //Assert
-            Assert.Equal(mensagemErro, result.Message);
-
+            Assert.Contains(mensagemErro, result.Message);
+            Assert.Contains(mensagemErro2, result.Message);
         }
 
-//REMOVER
+        //REMOVER
 
         [Fact]
         public void DeveRetornarQueOClubeFoiRemovido()
@@ -185,7 +186,7 @@ namespace Cod3rsGrowth.Test.Testes
 
             //Act
             clubeServico.RemoverClube(idDoClubeAserRemovido);
-            var result = Assert.Throws<Exception>(() => database.Clubes.FirstOrDefault(clube => clube.Id == idDoClubeAserRemovido) ?? throw new Exception("Clube inexistente!"));
+            var result = Assert.Throws<Exception>(() => database.FirstOrDefault(clube => clube.Id == idDoClubeAserRemovido) ?? throw new Exception("Clube inexistente!"));
 
             //Assert
             Assert.Equal(mensagemDeBusca, result.Message);

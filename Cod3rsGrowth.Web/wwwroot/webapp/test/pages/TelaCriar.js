@@ -3,8 +3,9 @@ sap.ui.define([
     "sap/ui/test/actions/Press",
     "sap/ui/test/matchers/PropertyStrictEquals",
     "sap/ui/test/matchers/Properties",
+    "sap/ui/test/matchers/Ancestor",
     "sap/ui/test/actions/EnterText"
-], function (Opa5, Press, PropertyStrictEquals, Properties, EnterText) {
+], function (Opa5, Press, PropertyStrictEquals, Properties, Ancestor, EnterText) {
     "use strict";
 
     const dataView = "TelaCriar"
@@ -20,6 +21,20 @@ sap.ui.define([
                         errorMessage: "Não foi possivel encontrar o botão de voltar"
                     });
                 },
+                aoClicarNoBotaoDoDialogo: function (textoButao) {
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        matchers: [
+                            new Properties({ text: textoButao }),
+                            new Ancestor(Opa5.getContext().dialog, false)
+                        ],
+                        actions: new Press(),
+                        success: function () {
+                            Opa5.assert.ok(true, `Sucesso ao fechar dialogo ao clicar no botao '${textoButao}'.`);
+                        },
+                        errorMessage: "Falha ao fechar dialogo ao clicar no botao Ok."
+                    });
+                },
                 aoClicarEmSalvarClube: function() {
                     return this.waitFor({
                         id: "BotaoSalvar",
@@ -30,7 +45,7 @@ sap.ui.define([
                 },
                 aoInserirNome: function(Nome) {
                     return this.waitFor({
-                        id: "InputNome",
+                        id: "InputNomeCriar",
                         viewName: dataView,
                         actions: new EnterText({ text: Nome }),
                         errorMessage: "Não foi possível encontrar o campo 'Nome'"
@@ -93,7 +108,7 @@ sap.ui.define([
                 },
                 DeveVerificarMensagemDeErroParaNome: function () {
                     return this.waitFor({
-                        id: "InputNome",
+                        id: "InputNomeCriar",
                         viewName: dataView,
                         matchers: new PropertyStrictEquals({
                             name: "valueStateText",
@@ -199,7 +214,7 @@ sap.ui.define([
 
                 deVerificarSeONomeFoiCarregado: function (Nome) {
                     return this.waitFor({
-                        id : "InputNome",
+                        id : "InputNomeCriar",
                         viewName: dataView,
                         matchers: new Properties({ value: Nome }),
                         success: function () {
