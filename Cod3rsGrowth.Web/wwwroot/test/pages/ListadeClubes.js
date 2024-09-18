@@ -9,7 +9,7 @@ sap.ui.define([
 ], (Opa5,Press, EnterText, PropertyStrictEquals, AggregationLengthEquals, AggregationContainsPropertyEqual) => {
     "use strict"; 
 
-    const dataView = "ListaDeClubes";
+    const dataView = "clube.lista.ListaDeClubes";
 
     Opa5.createPageObjects({
         naPaginaListaDeClubes: {

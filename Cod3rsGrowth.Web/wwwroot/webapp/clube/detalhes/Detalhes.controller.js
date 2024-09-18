@@ -43,24 +43,34 @@ sap.ui.define([
     const DETALHES_ERRO_INDISPONIVEL = "Stacktrace está indisponível!";
     const QUEBRADELINHA = "\r\n";
     const CHAVE_IDADE = "idade";
-    const ID_DO_BOTAO_CRIAR = "BotaoCriarJogador"
+    const ID_DO_BOTAO_CRIAR = "BotaoCriarJogador";
+    const NOME_ROTA_CLUBES = "clubes";
 
 	return Base.extend("cod3rsgrowth.webapp.clube.detalhes.Detalhes", {
         formatter : Formatter,
 
         onInit: function () {
             this.filtros = [];
+            this.clubes = [];
             this.DadosCriacao = [];
             this.vincularRota(ROTA_DE_DETALHES, this.aoCoincidirRota);
         },
         aoCoincidirRota: function(evento) {
             this._exibirEspera(async () => {
                 this._carregarModeloJogador();
+                this._caregarModeloClube();
                 const argumentos = evento.getParameter(ARGUMENTOS_DA_ROTA);
                 await this._carregarClube(argumentos.idClube);
                 await this._carregarElencoLista();
 
                 console.log(this._modeloClube())
+            });
+        },
+        _caregarModeloClube: function(){
+            let oView = this.getView()
+            return ClubeServico.buscarClubes(this.clubes)
+            .then((Clubes) => {
+                oView.setModel(new JSONModel(Clubes), NOME_ROTA_CLUBES);
             });
         },
 
@@ -159,14 +169,30 @@ sap.ui.define([
             });
         },
 
+        aoInserirNomeJogador: function(){
+            this._validarNome(this.byId(ID_INPUTNOME).getValue());
+        },
+        aoInserirNascimentoJogador: function(){
+            this._validarDataDeNascimento(this.byId(ID_CALENDARIOCRIAR).getDateValue());
+        },
+        aoInserirClubeJogador: function(){
+            this._validarClube(this.byId(ID_CLUBECRIACAO).getSelectedKey());
+        },
+        aoInserirAlturaJogador: function(){
+            this._validarAltura(this.byId(ID_INPUTALTURA).getValue());
+        },
+        aoInserirPesoJogador: function(){
+            this._validarPeso(this.byId(ID_INPUTPESO).getValue());
+        },
+
         _validarCamposPreenchidos: function () {
             const nomeValido = this._validarNome(this.byId(ID_INPUTNOME).getValue());
-            const estadioValido = this._validarAltura(this.byId(ID_INPUTALTURA).getValue());
-            const fundacaoValida = this._validarDataDeNascimento(this.byId(ID_CALENDARIOCRIAR).getDateValue());
-            const estadoValido = this._validarClube(this.byId(ID_CLUBECRIACAO).getSelectedKey());
-            const coberturaValida = this._validarPeso(this.byId(ID_INPUTPESO).getValue());
+            const alturaValido = this._validarAltura(this.byId(ID_INPUTALTURA).getValue());
+            const dataValida = this._validarDataDeNascimento(this.byId(ID_CALENDARIOCRIAR).getDateValue());
+            const clubeValido = this._validarClube(this.byId(ID_CLUBECRIACAO).getSelectedKey());
+            const pesoValida = this._validarPeso(this.byId(ID_INPUTPESO).getValue());
 
-            return nomeValido && estadioValido && fundacaoValida && estadoValido && coberturaValida;
+            return nomeValido && alturaValido && dataValida && clubeValido && pesoValida;
         },
 
         _validarNome: function(nome) {
@@ -221,6 +247,7 @@ sap.ui.define([
 
         aoSalvarJogador: function() {
             this._exibirEspera(async () => {
+                debugger
                 if (!this._validarCamposPreenchidos()) return;
                 let id = this._modeloJogador().getData().id; 
                 this._SalvarDados(id);

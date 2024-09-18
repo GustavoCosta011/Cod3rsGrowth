@@ -3,9 +3,10 @@ sap.ui.define([
     "sap/ui/core/UIComponent",
     "./servico/ClubeServico",
     "sap/ui/model/json/JSONModel",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/core/BusyIndicator"
 
-], function(Controller, UIComponent, ClubeServico, JSONModel, MessageBox) {
+], function(Controller, UIComponent, ClubeServico, JSONModel, MessageBox, BusyIndicator) {
     "use strict";
 
     const NOME_DA_ROTA_HOME = "Home";
@@ -64,8 +65,10 @@ sap.ui.define([
         },
 
         _exibirEspera: async function (funcao) {
+            BusyIndicator.show(0);
             return Promise.resolve(funcao())
             .catch(erro => this._exibirErroNaTela(erro))
+            .finally(() => BusyIndicator.hide())
         },
 
         _exibirErroNaTela: function(erro) {  
@@ -77,7 +80,7 @@ sap.ui.define([
                 mensagemErro = Object.values(erro.extensions.fluentValidation).join("\r\n");
             } 
             else if (erro.detail) {
-                mensagemErro = erro.detail.split(QUEBRADELINHA);
+                mensagemErro = erro.title
             }
             if (erro.title || erro.Title) {
                 detalhesErro = erro.detail;

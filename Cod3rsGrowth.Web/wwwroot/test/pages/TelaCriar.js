@@ -8,7 +8,7 @@ sap.ui.define([
 ], function (Opa5, Press, PropertyStrictEquals, Properties, Ancestor, EnterText) {
     "use strict";
 
-    const dataView = "TelaCriar"
+    const dataView = "clube.formulario.TelaCriar"
 
     Opa5.createPageObjects({
         naPaginaDeCriacao: {

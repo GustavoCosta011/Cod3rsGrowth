@@ -70,6 +70,7 @@ sap.ui.define([
                     .then((Clubes) => {
                         oView.setModel(new JSONModel(Clubes), NOME_ROTA_CLUBES);
                     });
+                    
             });  
         },
 

@@ -16,7 +16,7 @@ sap.ui.define([
     const CHAVE_ESTADIO = "estadio";
     const CHAVE_NOME = "nome";
     const VALOR_DO_INPUT = "value";
-    const ITEMSELECIONADO = "selectedItem";
+    const KEYSELECIONADA = "selectedKey";
     const CHAVE_ESTADO = "estado";
     const CHAVE_COBERTURA = "coberturaAntiChuva";
     const PARAMETRO_SELECTEDINDEX = "selectedIndex";
@@ -135,18 +135,22 @@ sap.ui.define([
                 if (estadio) {
                     this.DadosCriacao.push({ key: CHAVE_ESTADIO, value: estadio });
                 }
-                this._validarFundacao(estadio);
+                this._validarEstadio(estadio);
             });
         },
         
         aoInserirEstadoDeCriacao: function(oEvent) {
             this._exibirEspera(async () => {
-                let estado = oEvent.getParameter(ITEMSELECIONADO).getKey();
-                this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADO);
-                if (estado >= NUMERO_ZERO) {
-                    this.DadosCriacao.push({ key: CHAVE_ESTADO, value: parseInt(estado, 10) });
+                let calendario = oEvent.getSource()
+                let estado = calendario.getProperty(KEYSELECIONADA)
+                if(estado){
+                    this._validarEstado(estado);
+                    this.DadosCriacao = this.DadosCriacao.filter(f => f.key !== CHAVE_ESTADO);
+                    if (estado >= NUMERO_ZERO) {
+                        this.DadosCriacao.push({ key: CHAVE_ESTADO, value: parseInt(estado, 10) });
+                    }
                 }
-                this._validarFundacao(estado);
+                this._validarEstado(estado);
             });
         },
         
@@ -172,7 +176,7 @@ sap.ui.define([
             return true;
         },
         
-        _validarFundacao: function(estadio) {
+        _validarEstadio: function(estadio) {
             let inputEstadio = this.byId(INPUTESTADIO);
             if (!estadio) {
                 inputEstadio.setValueState(ESTADO_ERROR);
@@ -192,7 +196,7 @@ sap.ui.define([
             return true;
         },
         
-        _validarFundacao: function(estado) {
+        _validarEstado: function(estado) {
             let estadoCriacao = this.byId(ESTADIOCRIACAO);
             if (estado == null || estado === STRING_VAZIA) {
                 estadoCriacao.setValueState(ESTADO_ERROR);
@@ -255,6 +259,7 @@ sap.ui.define([
 
         aoSalvarClube: async function () {
             this._exibirEspera(async () => {
+                
                 if (!this._validarCamposPreenchidos()) {
                     return;
                 }
@@ -267,8 +272,9 @@ sap.ui.define([
         _criarOuEditarClube: async function(hash, dadosDaCriacao) {
             if (hash[INDICEUM_NO_ARAY] == NOME_ROTA_EDITAR) {
                 let idClube = this._modeloClube().getData().id;
-                await ClubeServico.editarClube(dadosDaCriacao, idClube);
+                let resposta = await ClubeServico.editarClube(dadosDaCriacao, idClube);
                 MessageToast.show(MENSAGEM_SUCESSO_CLUBE_EDITADO, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
+                this._navegarPara(DETALHES, { idClube: resposta});
             } else {
                 let resposta = await ClubeServico.criarClube(dadosDaCriacao);
                 MessageToast.show(MENSAGEM_SUCESSO_CLUBE, { duration: DURACAO_TOAST, closeOnBrowserNavigation: false });
@@ -286,14 +292,13 @@ sap.ui.define([
 
         _validarCamposPreenchidos: function () {
             const nomeValido = this._validarNome(this.byId(INPUTNOME).getValue());
-            const estadioValido = this._validarFundacao(this.byId(INPUTESTADIO).getValue());
+            const estadioValido = this._validarEstadio(this.byId(INPUTESTADIO).getValue());
             const fundacaoValida = this._validarFundacao(this.byId(CALENDARIOCRIAR).getDateValue());
-            const estadoValido = this._validarFundacao(this.byId(ESTADIOCRIACAO).getSelectedKey());
+            const estadoValido = this._validarEstado(this.byId(ESTADIOCRIACAO).getSelectedKey());
             const coberturaValida = this._validarCobertura(this.byId(BOTAO_SIM).getSelected() || this.byId(BOTAO_NAO).getSelected());
 
             return nomeValido && estadioValido && fundacaoValida && estadoValido && coberturaValida;
         },
-
     });
 });
  

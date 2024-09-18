@@ -50,7 +50,7 @@
                     id="EstadoCriacao"
                     width="100%"
                     placeholder="{i18n>Page.Criar.Estado.Placeholder}"
-                    selectionChange="aoInserirEstadoDeCriacao"
+                    change = "aoInserirEstadoDeCriacao"
                     class="sapUiSmallMarginBottom"
                     selectedKey ="{path: 'clube>/estadoInt'}"
                     valueStateText="{i18n>Page.Criar.Erro.ESTADO}"

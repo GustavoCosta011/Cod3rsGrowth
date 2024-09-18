@@ -10,7 +10,7 @@ sap.ui.define([
 ], (Opa5, Properties, PropertyStrictEquals, Press, Ancestor, AggregationLengthEquals, EnterText) => {
     "use strict";
 
-    const nomeDaView = "Detalhes";
+    const nomeDaView = "clube.detalhes.Detalhes";
     const FUNDAÇÂO = "Fundação";
     const ESTADIO = "Estadio";
     const ESTADO = "Estado";
